@@ -11,7 +11,9 @@ var version = "0.1.1";
 function update()
 {
     stop();
-    $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js");
+    setTimeout(function(){
+        $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js");
+    }, 1000);
 }
 
 function stop()
