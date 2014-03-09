@@ -278,7 +278,7 @@ function waitListUpdated (users) {
     var len = users.length;
 
     if (len) {// >= 7
-        log("@" + users[1].username + ", your set begins in ~$x minutes", log.visible);
+        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.visible);
     }
 }
 
