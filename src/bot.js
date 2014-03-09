@@ -332,9 +332,10 @@ function getYtVidSeconds(videoId, callBack)
 
 function analyzeSongHistory()
 {
-    for(var song in API.getHistory())
+    var history = API.getHistory();
+    for(var i = 0; i < history.length; i++)
     {
-        getSourceLength(song.id, function(seconds){
+        getSourceLength(history[i].media.id, function(seconds){
             totalSongs++;
             totalSongTime += seconds;
         });
