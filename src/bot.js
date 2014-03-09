@@ -6,7 +6,7 @@
 
 var lastMsg = "";
 var skipFixEnabled = false;
-var version = "0.1.4";
+var version = "0.1.5";
 
 log.info = 3;
 log.visible = 2;
@@ -269,9 +269,9 @@ function waitListUpdated (users) {
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 
+var totalSongTime, totalSongs;
 function getAverageTime() {
-    // total songs / total minutes
-    return 3;
+    return totalSongTime / totalSongs;
 }
 
 // Check to see if the user is repeatedly playing the same song
@@ -319,7 +319,7 @@ function getScLengthSeconds(soundId, callBack)
 {
     $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
         function(e){
-            callBack(e.duration);
+            callBack(e.duration / 1000);
         });
 }
 
@@ -328,6 +328,18 @@ function getYtVidSeconds(videoId, callBack)
     callBack($(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + videoId).getElementsByTagName("duration")).attr("seconds"));
 }
 
+function analyzeSongHistory()
+{
+    for(var song in API.getHistory())
+    {
+        getSourceLength(song.id, function(seconds){
+            totalSongs++;
+            totalSongTime += seconds;
+        })
+    }
+}
+
+analyzeSongHistory();
 log("Loaded EDMPbot v" + version, log.visible);
 window.edmpBot = window.setInterval(function(){
     var message = $(".message:last");
