@@ -6,7 +6,7 @@
 
 var lastMsg = "";
 var skipFixEnabled = false;
-var version = "0.1.3";
+var version = "0.1.4";
 
 log.info = 3;
 log.visible = 2;
