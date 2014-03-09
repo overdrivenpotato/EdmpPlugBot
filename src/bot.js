@@ -256,6 +256,19 @@ function getPosition(username) {
     return API.getWaitListPosition(getId(username));
 }
 
+// Alert upcoming users that their set is about to start
+function waitListUpdated (users) {
+    //When total users > 7, warn the #2 DJ his set is coming up if he hasn't said anything in chat in x minutes
+    var len = users.length;
+
+    if (len) {// >= 7
+        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.visible);
+    }
+}
+
+API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+
+
 function getAverageTime() {
     // total songs / total minutes
     return 3;
@@ -271,18 +284,6 @@ function checkRepeatSong() {
         // if same 2x, send an @author chat warning & skip
         // if same 3x, send an @author chat warning and remove from DJ list
 }
-
-// Alert upcoming users that their set is about to start
-function waitListUpdated (users) {
-    //When total users > 7, warn the #2 DJ his set is coming up if he hasn't said anything in chat in x minutes
-    var len = users.length;
-
-    if (len) {// >= 7
-        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.visible);
-    }
-}
-
-API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
 function loadXMLDoc(filename)
