@@ -147,7 +147,7 @@ function commandDispatch(args, author)
                 var minutesToDJ = getETA(author);
                 log("@" + author + ", it will be your turn to DJ in ~" + minutesToDJ + " minutes.", log.visible);
             } else {
-                log("@" + author + " you're already the DJ, get your ears cleaned out!");
+                log("@" + author + " you're already the DJ, get your ears cleaned out!", log.visible);
             }
             break;
         case "mal":
