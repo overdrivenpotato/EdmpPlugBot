@@ -98,6 +98,9 @@ function commandDispatch(command, author)
                 }, 10);
             }
             break;
+        case "mal":
+            chat("ware!");
+            break;
         default:
             console.log(author + " has entered an invalid command.");
             break;
