@@ -160,8 +160,12 @@ function commandDispatch(args, author)
             }
             break;
         case "eta":
-            var minutesToDJ = getETA(author);
-            log("@" + author + ", it will be your turn to DJ in ~" + minutesToDJ + " minutes.", log.visible);
+            if(!isPlaying(author)) {
+                var minutesToDJ = getETA(author);
+                log("@" + author + ", it will be your turn to DJ in ~" + minutesToDJ + " minutes.", log.visible);
+            } else {
+                log("@" + author + " you're already the DJ, get your ears cleaned out!");
+            }
             break;
         case "mal":
             chat("ware!");
