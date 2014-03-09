@@ -249,7 +249,7 @@ function getId(username) {
 }
 
 function getETA(username) {
-    return Math.round(getPosition(username) * getAverageTime());
+    return Math.round((getPosition(username) + 1) * getAverageTime());
 }
 
 function getPosition(username) {
