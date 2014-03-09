@@ -6,7 +6,7 @@
 
 var lastMsg = "";
 var skipFixEnabled = false;
-var version = "0.1.2";
+var version = "0.1.3";
 
 log.info = 3;
 log.visible = 2;
@@ -24,9 +24,10 @@ function log(message, level)
 function update()
 {
     stop(true);
+    log("Restarting in 5 seconds...", log.visible);
     setTimeout(function(){
         $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js");
-    }, 1000);
+    }, 5000);
 }
 
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
@@ -184,23 +185,22 @@ function commandDispatch(args, author)
             break;
         case "commands":
             var chatoutput = "@" + author + ", you have access to the following commands: ";
-            chatoutput += "!eta";
-
+            //noinspection FallthroughInSwitchStatementJS
             switch (getPermLevel(author)) {
                 case API.ROLE.ADMIN:
                     chatoutput += "";
-                    break;
-                case API.ROLE.MANAGER:
+                case API.ROLE.HOST:
                     chatoutput += "";
-                    break;
+                case API.ROLE.COHOST:
+                    chatoutput += "";
+                case API.ROLE.MANAGER:
+                    chatoutput += ", !update, !stop, ";
                 case API.ROLE.BOUNCER:
                     chatoutput += "";
-                    break;
                 case API.ROLE.RESIDENTDJ:
                     chatoutput += "";
-                    break;
                 case API.ROLE.NONE:
-                    chatoutput += ", !privateskip";
+                    chatoutput += ", !privateskip, !eta";
                     break;
             }
             log(chatoutput, log.visible);
