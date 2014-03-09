@@ -37,7 +37,7 @@ function skipFix()
         if(timeN - lastSkipTime > 5000)
         {
             log("Skipping due to lag", 1);
-            commandDispatch("!skip", API.getUser().username);
+            commandDispatch("!skip", API.getUser().username.trim());
         }
     }
 }
@@ -47,11 +47,11 @@ function dispatch(message, author)
     message = message.replace(/&nbsp;/g, '');
     if(message.match(/(^!)(!?)/))
     {
+        message = message.substr(message.indexOf("!"));
         try
         {
-            var end = message.indexOf(' ');
-
-            commandDispatch(message.substr(1, end == -1 ? message.length : end), author);
+            var args = message.split(" ");
+            commandDispatch(args , author);
         }
         catch(exp)
         {
@@ -60,9 +60,11 @@ function dispatch(message, author)
     }
 }
 
-function commandDispatch(command, author)
+var meetupUrl = "";
+function commandDispatch(args, author)
 {
-    console.log(author + " has dispatched: \'" + command + "\'");
+    var command = args[0];
+    console.log(author + " has dispatched: \'" + command + "\'" + " with args: " + args);
     switch(command.toLowerCase().trim())
     {
         case "goosesux":
@@ -100,6 +102,18 @@ function commandDispatch(command, author)
             break;
         case "mal":
             chat("ware!");
+            break;
+        case "reminder":
+            if(getPermLevel(author) < 3)
+            {
+                break;
+            }
+            if(args.length < 2)
+            {
+                chat("@" + author + " please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere");
+                break;
+            }
+            meetupUrl = args[1];
             break;
         default:
             console.log(author + " has entered an invalid command.");
