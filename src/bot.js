@@ -189,11 +189,7 @@ function getId(username) {
 }
 
 function getETA(username) {
-    var position = getPosition(username);
-    var averageTime = getAverageTime();
-    var ETA = position * averageTime;
-
-    return Math.round(ETA);
+    return Math.round(getPosition(username) * getAverageTime());
 }
 
 function getPosition(username) {
