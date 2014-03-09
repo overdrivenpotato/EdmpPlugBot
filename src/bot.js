@@ -154,4 +154,5 @@ function getId(username) {
             return users[i].id;
         }
     }
+    return null;
 }
