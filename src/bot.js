@@ -18,7 +18,6 @@ function update()
 
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
-window.setInterval(function(){
 function stop()
 {
     clearInterval(window.edmpBot);
@@ -283,12 +282,12 @@ function checkRepeatSong() {
 }
 
 // Alert upcoming users that their set is about to start
-function upcomingSetAlert () {
+function waitListUpdated (users) {
     //When total users > 7, warn the #2 DJ his set is coming up if he hasn't said anything in chat in x minutes
     var len = users.length;
 
     if (len) {// >= 7
-           chat("@" + users[1].username + ", your set begins in ~$x minutes");
+        log("@" + users[1].username + ", your set begins in ~$x minutes", log.visible);
     }
 }
 
