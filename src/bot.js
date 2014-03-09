@@ -60,19 +60,6 @@ function dispatch(message, author)
     }
 }
 
-function isPlaying(username)
-{
-    if(typeof API.getDJ() !== "undefined" && API.getDJ().username == username.trim())
-    {
-        return true;
-    }
-    return false;
-}
-
-function moveToFirst(username) {
-    API.moderateMoveDJ(getId(username), 1);
-}
-
 function commandDispatch(command, author)
 {
     console.log(author + " has dispatched: \'" + command + "\'");
@@ -115,6 +102,19 @@ function commandDispatch(command, author)
             console.log(author + " has entered an invalid command.");
             break;
     }
+}
+
+function isPlaying(username)
+{
+    if(typeof API.getDJ() !== "undefined" && API.getDJ().username == username.trim())
+    {
+        return true;
+    }
+    return false;
+}
+
+function moveToFirst(username) {
+    API.moderateMoveDJ(getId(username), 1);
 }
 
 function skipDj()
