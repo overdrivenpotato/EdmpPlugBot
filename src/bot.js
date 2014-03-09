@@ -111,6 +111,10 @@ function commandDispatch(args, author)
                 }, 10);
             }
             break;
+        case "eta":
+            var minutesToDJ = getETA(author);
+            log("@" + author, ", it will be your turn to DJ in ~" + minutesToDJ + " minutes.");
+        break;
         case "mal":
             chat("ware!");
             break;
