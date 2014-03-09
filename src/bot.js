@@ -10,7 +10,7 @@ var version = "0.1.1";
 
 function update()
 {
-    stop();
+    stop(true);
     setTimeout(function(){
         $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js");
     }, 1000);
@@ -18,13 +18,16 @@ function update()
 
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
-function stop()
+function stop(update)
 {
     clearInterval(window.edmpBot);
     log("Shutting down the bot. Bye!", log.visible);
-    setTimeout(function(){
-        log("p.s. ptero is fat", log.visible);
-    }, 15000);
+    if(!update)
+    {
+        setTimeout(function(){
+            log("p.s. ptero is fat", log.visible);
+        }, 15000);
+    }
 }
 
 log("Loaded EDMPbot v" + version, log.visible);
