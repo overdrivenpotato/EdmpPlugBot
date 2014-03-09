@@ -7,7 +7,6 @@
 var lastMsg = "";
 var skipFixEnabled = false;
 
-
 window.setInterval(function(){
     var message = $(".message:last");
     if(message.attr("class") != lastMsg)
@@ -79,7 +78,7 @@ function commandDispatch(args, author)
     switch(command.toLowerCase().trim())
     {
         case "goosesux":
-            log("Yes he does.", 2);
+            log("Yes he does.", log.visible);
             break;
         case "skip":
             if(isPlaying(author))
@@ -89,7 +88,7 @@ function commandDispatch(args, author)
             }
             if(getPermLevel(author) > 1 && typeof API.getDJ() !== "undefined")
             {
-                log(author + " has skipped " + API.getDJ().username, 2);
+                log(author + " has skipped " + API.getDJ().username, log.visible);
                 skipDj();
             }
             break;
@@ -100,7 +99,7 @@ function commandDispatch(args, author)
             if(isPlaying(author) || getPermLevel(author) >= 2)
             {
                 var current = API.getDJ().username;
-                log("Skipping " + current + " and repositioning due to private track.", 2);
+                log("Skipping " + current + " and repositioning due to private track.", log.visible);
                 skipDj();
                 var processor = setInterval(function(){
                     if(current != API.getDJ().username)
@@ -113,13 +112,13 @@ function commandDispatch(args, author)
             break;
         case "eta":
             var minutesToDJ = getETA(author);
-            log("@" + author, ", it will be your turn to DJ in ~" + minutesToDJ + " minutes.");
+            log("@" + author + ", it will be your turn to DJ in ~" + minutesToDJ + " minutes.", log.visible);
             break;
         case "mal":
             chat("ware!");
             break;
         case "reminder":
-            if(getPermLevel(author) < 3)
+            if(getPermLevel(author) < API.ROLE.MANAGER)
             {
                 break;
             }
@@ -158,8 +157,10 @@ function skipDj()
 
 function log(log, level)
 {
-    level = (typeof level === "undefined") ? 3 : level;
-    if(level < 3)
+    this.visible = 2;
+    this.info = 3;
+    level = (typeof level === "undefined") ? log.info : level;
+    if(level < log.info)
     {
         console.log("Chatting: ");
         chat(log);
