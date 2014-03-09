@@ -156,3 +156,20 @@ function getId(username) {
     }
     return null;
 }
+
+function getETA(username) {
+    var position = getPosition(username);
+    var averageTime = getAverageTime();
+    var ETA = position * averageTime;
+
+    return Math.round(ETA);
+}
+
+function getPosition(username) {
+    var userID   = getId(username);
+    var position = API.getWaitListPosition(userID);
+}
+
+function getAverageTime() {
+    // total songs / total minutes
+}
