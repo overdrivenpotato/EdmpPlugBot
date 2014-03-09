@@ -54,6 +54,16 @@ function meetupReminder()
 
 function dispatch(message, author)
 {
+    while(true)
+    {
+        if(message.indexOf("<a") == -1)
+            break;
+        var start = message.indexOf("<a");
+        var end = message.indexOf("a>");
+        var link = $(message.substr(start, end)).attr("href");
+        message = message.split(message.substr(start, end));
+        message = message[0] + link + message[1];
+    }
     message = message.replace(/&nbsp;/g, '');
     if(message.match(/(^!)(!?)/))
     {
@@ -73,7 +83,7 @@ function dispatch(message, author)
 var meetupUrl = "";
 function commandDispatch(args, author)
 {
-    var command = args[0];
+    var command = args[0].substring(1);
     console.log(author + " has dispatched: \'" + command + "\'" + " with args: " + args);
     switch(command.toLowerCase().trim())
     {
@@ -124,7 +134,7 @@ function commandDispatch(args, author)
             }
             if(args.length < 2)
             {
-                chat("@" + author + " please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere");
+                log("@" + author + " please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere", log.visible);
                 break;
             }
             meetupUrl = args[1];
@@ -136,7 +146,7 @@ function commandDispatch(args, author)
             }
             break;
         case "commands":
-            chat("list out available commands depending on permission level");
+            //chat("list out available commands depending on permission level");
             break;
         default:
             console.log(author + " has entered an invalid command.");
@@ -158,17 +168,17 @@ function skipDj()
     API.moderateForceSkip();
 }
 
-function log(log, level)
+log.info = 3;
+log.visible = 2;
+function log(message, level)
 {
-    this.visible = 2;
-    this.info = 3;
     level = (typeof level === "undefined") ? log.info : level;
     if(level < log.info)
     {
         console.log("Chatting: ");
-        chat(log);
+        chat(message);
     }
-    console.log(log);
+    console.log(message);
 }
 
 function chat(text)
