@@ -219,10 +219,22 @@ function loadXMLDoc(filename)
     return xhttp.responseXML;
 }
 
+function getSourceLength(id, callBack)
+{
+    id = id.split(":");
+    if(id[0] == 1)
+    {
+        getYtVidSeconds(id[1], callBack);
+    }
+    else if(id[0] == 2)
+    {
+        getScLengthSeconds(id[1], callBack);
+    }
+}
+
 var scClientId = "ff550ffd042d54afc90a43b7151130a1";
 function getScLengthSeconds(soundId, callBack)
 {
-    //http://api.soundcloud.com/tracks/13158665.json?client_id=ff550ffd042d54afc90a43b7151130a1
     $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
         function(e){
             callBack(e.duration);
