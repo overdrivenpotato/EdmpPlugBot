@@ -138,7 +138,8 @@ function commandDispatch(args, author)
             }
             break;
         case "commands":
-            chat("list out available commands depending on permission level");
+            var chat = "@" + author = ", ";
+            chat("you have access to the following commands: ");
             break;
         default:
             console.log(author + " has entered an invalid command.");
@@ -220,6 +221,11 @@ function checkRepeatSong() {
 // Alert upcoming users that their set is about to start
 function upcomingSetAlert () {
     //When total users > 7, warn the #2 DJ his set is coming up if he hasn't said anything in chat in x minutes
+    var len = users.length;
+
+    if (len) {// >= 7
+           chat("@" + users[1].username + ", your set begins in ~$x minutes");
+    }
 }
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
