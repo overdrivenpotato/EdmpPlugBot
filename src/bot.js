@@ -109,11 +109,7 @@ function commandDispatch(command, author)
 
 function isPlaying(username)
 {
-    if(typeof API.getDJ() !== "undefined" && API.getDJ().username == username.trim())
-    {
-        return true;
-    }
-    return false;
+    return typeof API.getDJ() !== "undefined" && API.getDJ().username == username.trim();
 }
 
 function moveToFirst(username) {
