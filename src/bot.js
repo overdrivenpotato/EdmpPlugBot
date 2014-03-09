@@ -218,3 +218,8 @@ function loadXMLDoc(filename)
     xhttp.send();
     return xhttp.responseXML;
 }
+
+function getYtVidSeconds(videoId)
+{
+    return $(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + id).getElementsByTagName("duration")).attr("seconds");
+}
