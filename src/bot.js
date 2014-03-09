@@ -219,7 +219,17 @@ function loadXMLDoc(filename)
     return xhttp.responseXML;
 }
 
-function getYtVidSeconds(videoId)
+var scClientId = "ff550ffd042d54afc90a43b7151130a1";
+function getScLengthSeconds(soundId, callBack)
 {
-    return $(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + id).getElementsByTagName("duration")).attr("seconds");
+    //http://api.soundcloud.com/tracks/13158665.json?client_id=ff550ffd042d54afc90a43b7151130a1
+    $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
+        function(e){
+            callBack(e.duration);
+        });
+}
+
+function getYtVidSeconds(videoId, callBack)
+{
+    callBack($(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + videoId).getElementsByTagName("duration")).attr("seconds"));
 }
