@@ -16,6 +16,9 @@ function update()
     }, 1000);
 }
 
+API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+
+window.setInterval(function(){
 function stop()
 {
     clearInterval(window.edmpBot);
@@ -125,7 +128,7 @@ function commandDispatch(args, author)
             skipFixEnabled = !skipFixEnabled;
             break;
         case "privateskip":
-            if(isPlaying(author) || getPermLevel(author) >= 2)
+            if(isPlaying(author) || getPermLevel(author) >= API.ROLE.BOUNCER)
             {
                 var current = API.getDJ().username;
                 log("Skipping " + current + " and repositioning due to private track.", log.visible);
@@ -165,7 +168,27 @@ function commandDispatch(args, author)
             }
             break;
         case "commands":
-            //chat("list out available commands depending on permission level");
+            var chatoutput = "@" + author + ", you have access to the following commands: ";
+            chatouput =+ "!eta";
+
+            switch (getPermLevel(author)) {
+                case API.ROLE.ADMIN:
+                    chatoutput += "";
+                    break;
+                case API.ROLE.MANAGER:
+                    chatoutput += "";
+                    break;
+                case API.ROLE.BOUNCER:
+                    chatoutput += "";
+                    break;
+                case API.ROLE.RESIDENTDJ:
+                    chatoutput += "";
+                    break;
+                case API.ROLE.NONE:
+                    chatoutput += ", !privateskip";
+                    break;
+            }
+            chat(chatoutput);
             break;
         case "stop":
             if(getPermLevel(author) >= API.ROLE.MANAGER)
@@ -246,6 +269,7 @@ function getPosition(username) {
 
 function getAverageTime() {
     // total songs / total minutes
+    return 3;
 }
 
 // Check to see if the user is repeatedly playing the same song
@@ -261,6 +285,11 @@ function checkRepeatSong() {
 // Alert upcoming users that their set is about to start
 function upcomingSetAlert () {
     //When total users > 7, warn the #2 DJ his set is coming up if he hasn't said anything in chat in x minutes
+    var len = users.length;
+
+    if (len) {// >= 7
+           chat("@" + users[1].username + ", your set begins in ~$x minutes");
+    }
 }
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
