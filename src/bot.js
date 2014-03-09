@@ -135,6 +135,9 @@ function commandDispatch(args, author)
                 meetupUrl = "";
             }
             break;
+        case "commands":
+            chat("list out available commands depending on permission level");
+            break;
         default:
             console.log(author + " has entered an invalid command.");
             break;
@@ -202,6 +205,21 @@ function getPosition(username) {
 
 function getAverageTime() {
     // total songs / total minutes
+}
+
+// Check to see if the user is repeatedly playing the same song
+function checkRepeatSong() {
+    // get dj history
+    // find played songs by same user in history, insert into an array
+    // check if upcoming song & previously played song is the same
+        //if same, send an @author chat warning
+        // if same 2x, send an @author chat warning & skip
+        // if same 3x, send an @author chat warning and remove from DJ list
+}
+
+// Alert upcoming users that their set is about to start
+function upcomingSetAlert () {
+    //When total users > 7, warn the #2 DJ his set is coming up if he hasn't said anything in chat in x minutes
 }
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
