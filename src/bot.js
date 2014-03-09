@@ -13,7 +13,7 @@ function stop()
     log("Shutting down the bot. Bye!", log.visible);
     setTimeout(function(){
         log("p.s. ptero is fat", log.visible);
-    }, 2000);
+    }, 15000);
 }
 
 window.edmpBot = window.setInterval(function(){
