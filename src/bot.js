@@ -6,6 +6,13 @@
 
 var lastMsg = "";
 var skipFixEnabled = false;
+var version = "0.1.1";
+
+function update()
+{
+    stop();
+    $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js");
+}
 
 function stop()
 {
@@ -16,6 +23,7 @@ function stop()
     }, 15000);
 }
 
+log("Loaded EDMPbot v" + version, log.visible);
 window.edmpBot = window.setInterval(function(){
     var message = $(".message:last");
     if(message.attr("class") != lastMsg)
@@ -161,6 +169,12 @@ function commandDispatch(args, author)
             if(getPermLevel(author) >= API.ROLE.MANAGER)
             {
                 stop();
+            }
+            break;
+        case "update":
+            if(getPermLevel(author) >= API.ROLE.MANAGER)
+            {
+                update();
             }
             break;
         default:
