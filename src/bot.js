@@ -346,7 +346,8 @@ window.edmpBot = window.setInterval(function(){
     if(message.attr("class") != lastMsg)
     {
         lastMsg = message.attr("class");
-        dispatch(message.children(":last").html(), message.children(".from").html().trim());
+        if(typeof lastMsg !== "undefined")
+            dispatch(message.children(":last").html(), message.children(".from").html().trim());
     }
     if(skipFixEnabled)
     {
