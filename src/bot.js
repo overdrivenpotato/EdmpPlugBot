@@ -21,10 +21,11 @@ function log(message, level)
     console.log(message);
 }
 
-function update()
+function updateBot()
 {
-    stop(true);
     log("Restarting in 5 seconds...", log.visible);
+    stop(true);
+    log("Starting timeout... ", log.info);
     setTimeout(function(){
         $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js");
     }, 5000);
@@ -214,7 +215,7 @@ function commandDispatch(args, author)
         case "update":
             if(getPermLevel(author) >= API.ROLE.MANAGER)
             {
-                update();
+                updateBot();
             }
             break;
         default:
