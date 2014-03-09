@@ -31,8 +31,6 @@ function updateBot()
     }, 5000);
 }
 
-API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
-
 function stop(update)
 {
     clearInterval(window.edmpBot);
@@ -284,6 +282,8 @@ function waitListUpdated (users) {
         log("@" + users[1].username + ", your set begins in ~$x minutes", log.info);
     }
 }
+
+API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
 function loadXMLDoc(filename)
