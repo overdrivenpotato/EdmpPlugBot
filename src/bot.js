@@ -144,8 +144,7 @@ function commandDispatch(args, author)
             break;
         case "eta":
             if(!isPlaying(author)) {
-                var minutesToDJ = getETA(author);
-                log("@" + author + ", it will be your turn to DJ in ~" + minutesToDJ + " minutes.", log.visible);
+                log("@" + author + ", it will be your turn to DJ in ~" + getETA(author) + " minutes.", log.visible);
             } else {
                 log("@" + author + " you're already the DJ, get your ears cleaned out!", log.visible);
             }
@@ -279,7 +278,7 @@ function waitListUpdated (users) {
     var len = users.length;
 
     if (len) {// >= 7
-        log("@" + users[1].username + ", your set begins in ~$x minutes", log.info);
+        log("@" + users[1].username + ", your set begins in ~$x minutes", log.visible);
     }
 }
 
