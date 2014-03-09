@@ -45,21 +45,6 @@ function stop(update)
     }
 }
 
-log("Loaded EDMPbot v" + version, log.visible);
-window.edmpBot = window.setInterval(function(){
-    var message = $(".message:last");
-    if(message.attr("class") != lastMsg)
-    {
-        lastMsg = message.attr("class");
-        dispatch(message.children(":last").html(), message.children(".from").html().trim());
-    }
-    if(skipFixEnabled)
-    {
-        skipFix();
-    }
-    meetupReminder();
-}, 10);
-
 var lastSkipTime = 0;
 function skipFix()
 {
@@ -342,3 +327,18 @@ function getYtVidSeconds(videoId, callBack)
 {
     callBack($(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + videoId).getElementsByTagName("duration")).attr("seconds"));
 }
+
+log("Loaded EDMPbot v" + version, log.visible);
+window.edmpBot = window.setInterval(function(){
+    var message = $(".message:last");
+    if(message.attr("class") != lastMsg)
+    {
+        lastMsg = message.attr("class");
+        dispatch(message.children(":last").html(), message.children(".from").html().trim());
+    }
+    if(skipFixEnabled)
+    {
+        skipFix();
+    }
+    meetupReminder();
+}, 10);
