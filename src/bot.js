@@ -8,6 +8,19 @@ var lastMsg = "";
 var skipFixEnabled = false;
 var version = "0.1.1";
 
+log.info = 3;
+log.visible = 2;
+function log(message, level)
+{
+    level = (typeof level === "undefined") ? log.info : level;
+    if(level < log.info)
+    {
+        console.log("Chatting: ");
+        chat(message);
+    }
+    console.log(message);
+}
+
 function update()
 {
     stop(true);
@@ -222,19 +235,6 @@ function moveToFirst(username) {
 function skipDj()
 {
     API.moderateForceSkip();
-}
-
-log.info = 3;
-log.visible = 2;
-function log(message, level)
-{
-    level = (typeof level === "undefined") ? log.info : level;
-    if(level < log.info)
-    {
-        console.log("Chatting: ");
-        chat(message);
-    }
-    console.log(message);
 }
 
 function chat(text)
