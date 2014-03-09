@@ -197,8 +197,7 @@ function getETA(username) {
 }
 
 function getPosition(username) {
-    var userID   = getId(username);
-    var position = API.getWaitListPosition(userID);
+    return API.getWaitListPosition(getId(username));
 }
 
 function getAverageTime() {
