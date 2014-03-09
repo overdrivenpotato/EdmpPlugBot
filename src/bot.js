@@ -181,7 +181,7 @@ function commandDispatch(args, author)
                 case API.ROLE.COHOST:
                     chatoutput += "";
                 case API.ROLE.MANAGER:
-                    chatoutput += ", !update, !stop, ";
+                    chatoutput += ", !update, !stop, !skipfix, !reminder *url*, !stopreminder";
                 case API.ROLE.BOUNCER:
                     chatoutput += "";
                 case API.ROLE.RESIDENTDJ:
