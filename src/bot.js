@@ -272,7 +272,8 @@ API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 var totalSongTime, totalSongs;
 function getAverageTime() {
-    return totalSongTime / totalSongs;
+    return 3;
+//    return totalSongTime / totalSongs;
 }
 
 // Check to see if the user is repeatedly playing the same song
@@ -347,7 +348,7 @@ window.edmpBot = window.setInterval(function(){
     if(message.attr("class") != lastMsg)
     {
         lastMsg = message.attr("class");
-        if(typeof lastMsg !== "undefined")
+//        if(typeof lastMsg !== "undefined")
             dispatch(message.children(":last").html(), message.children(".from").html().trim());
     }
     if(skipFixEnabled)
