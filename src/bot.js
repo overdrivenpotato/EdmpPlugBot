@@ -7,7 +7,16 @@
 var lastMsg = "";
 var skipFixEnabled = false;
 
-window.setInterval(function(){
+function stop()
+{
+    clearInterval(window.edmpBot);
+    log("Shutting down the bot. Bye!", log.visible);
+    setTimeout(function(){
+        log("p.s. ptero is fat", log.visible);
+    }, 2000);
+}
+
+window.edmpBot = window.setInterval(function(){
     var message = $(".message:last");
     if(message.attr("class") != lastMsg)
     {
@@ -147,6 +156,12 @@ function commandDispatch(args, author)
             break;
         case "commands":
             //chat("list out available commands depending on permission level");
+            break;
+        case "stop":
+            if(getPermLevel(author) >= API.ROLE.MANAGER)
+            {
+                stop();
+            }
             break;
         default:
             console.log(author + " has entered an invalid command.");
