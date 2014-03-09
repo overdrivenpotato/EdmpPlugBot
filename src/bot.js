@@ -10,6 +10,16 @@ var skipFixEnabled = false;
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 window.setInterval(function(){
+function stop()
+{
+    clearInterval(window.edmpBot);
+    log("Shutting down the bot. Bye!", log.visible);
+    setTimeout(function(){
+        log("p.s. ptero is fat", log.visible);
+    }, 2000);
+}
+
+window.edmpBot = window.setInterval(function(){
     var message = $(".message:last");
     if(message.attr("class") != lastMsg)
     {
@@ -56,6 +66,16 @@ function meetupReminder()
 
 function dispatch(message, author)
 {
+    while(true)
+    {
+        if(message.indexOf("<a") == -1)
+            break;
+        var start = message.indexOf("<a");
+        var end = message.indexOf("a>");
+        var link = $(message.substr(start, end)).attr("href");
+        message = message.split(message.substr(start, end));
+        message = message[0] + link + message[1];
+    }
     message = message.replace(/&nbsp;/g, '');
     if(message.match(/(^!)(!?)/))
     {
@@ -75,12 +95,12 @@ function dispatch(message, author)
 var meetupUrl = "";
 function commandDispatch(args, author)
 {
-    var command = args[0];
+    var command = args[0].substring(1);
     console.log(author + " has dispatched: \'" + command + "\'" + " with args: " + args);
     switch(command.toLowerCase().trim())
     {
         case "goosesux":
-            log("Yes he does.", 2);
+            log("Yes he does.", log.visible);
             break;
         case "skip":
             if(isPlaying(author))
@@ -90,7 +110,7 @@ function commandDispatch(args, author)
             }
             if(getPermLevel(author) > 1 && typeof API.getDJ() !== "undefined")
             {
-                log(author + " has skipped " + API.getDJ().username, 2);
+                log(author + " has skipped " + API.getDJ().username, log.visible);
                 skipDj();
             }
             break;
@@ -101,7 +121,7 @@ function commandDispatch(args, author)
             if(isPlaying(author) || getPermLevel(author) >= 2)
             {
                 var current = API.getDJ().username;
-                log("Skipping " + current + " and repositioning due to private track.", 2);
+                log("Skipping " + current + " and repositioning due to private track.", log.visible);
                 skipDj();
                 var processor = setInterval(function(){
                     if(current != API.getDJ().username)
@@ -114,19 +134,19 @@ function commandDispatch(args, author)
             break;
         case "eta":
             var minutesToDJ = getETA(author);
-            log("@" + author, ", it will be your turn to DJ in ~" + minutesToDJ + " minutes.");
+            log("@" + author + ", it will be your turn to DJ in ~" + minutesToDJ + " minutes.", log.visible);
             break;
         case "mal":
             chat("ware!");
             break;
         case "reminder":
-            if(getPermLevel(author) < 3)
+            if(getPermLevel(author) < API.ROLE.MANAGER)
             {
                 break;
             }
             if(args.length < 2)
             {
-                chat("@" + author + " please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere");
+                log("@" + author + " please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere", log.visible);
                 break;
             }
             meetupUrl = args[1];
@@ -140,6 +160,12 @@ function commandDispatch(args, author)
         case "commands":
             var chat = "@" + author = ", ";
             chat("you have access to the following commands: ");
+            break;
+        case "stop":
+            if(getPermLevel(author) >= API.ROLE.MANAGER)
+            {
+                stop();
+            }
             break;
         default:
             console.log(author + " has entered an invalid command.");
@@ -161,15 +187,17 @@ function skipDj()
     API.moderateForceSkip();
 }
 
-function log(log, level)
+log.info = 3;
+log.visible = 2;
+function log(message, level)
 {
-    level = (typeof level === "undefined") ? 3 : level;
-    if(level < 3)
+    level = (typeof level === "undefined") ? log.info : level;
+    if(level < log.info)
     {
         console.log("Chatting: ");
-        chat(log);
+        chat(message);
     }
-    console.log(log);
+    console.log(message);
 }
 
 function chat(text)
