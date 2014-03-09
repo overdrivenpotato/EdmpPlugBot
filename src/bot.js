@@ -184,7 +184,7 @@ function commandDispatch(args, author)
             break;
         case "commands":
             var chatoutput = "@" + author + ", you have access to the following commands: ";
-            chatouput =+ "!eta";
+            chatoutput += "!eta";
 
             switch (getPermLevel(author)) {
                 case API.ROLE.ADMIN:
@@ -203,7 +203,7 @@ function commandDispatch(args, author)
                     chatoutput += ", !privateskip";
                     break;
             }
-            chat(chatoutput);
+            log(chatoutput, log.visible);
             break;
         case "stop":
             if(getPermLevel(author) >= API.ROLE.MANAGER)
@@ -276,6 +276,7 @@ function getAverageTime() {
 
 // Check to see if the user is repeatedly playing the same song
 function checkRepeatSong() {
+
     // get dj history
     // find played songs by same user in history, insert into an array
     // check if upcoming song & previously played song is the same
@@ -290,7 +291,7 @@ function waitListUpdated (users) {
     var len = users.length;
 
     if (len) {// >= 7
-        log("@" + users[1].username + ", your set begins in ~$x minutes", log.visible);
+        log("@" + users[1].username + ", your set begins in ~$x minutes", log.info);
     }
 }
 
