@@ -76,6 +76,7 @@ function meetupReminder()
 
 function dispatch(message, author)
 {
+    log("Dispatching message: " + message);
     while(true)
     {
         if(message.indexOf("<a") == -1)
@@ -335,7 +336,7 @@ function analyzeSongHistory()
         getSourceLength(song.id, function(seconds){
             totalSongs++;
             totalSongTime += seconds;
-        })
+        });
     }
 }
 
