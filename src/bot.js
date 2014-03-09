@@ -7,6 +7,7 @@
 var lastMsg = "";
 var skipFixEnabled = false;
 
+API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 window.setInterval(function(){
     var message = $(".message:last");
@@ -200,6 +201,14 @@ function getETA(username) {
 
 function getPosition(username) {
     return API.getWaitListPosition(getId(username));
+}
+
+function waitListUpdated(users) {
+    var len = users.length;//count users waiting
+
+    if (len >= 7) {//we have 7+ users, provide a courtesy alert to the 2nd waiting DJ that their set is coming up
+        chat("@" + users[1].username + " your set will start in ~$x minutes.");//get current time remaining plus length of next track and return to waiting dj #2
+    }
 }
 
 function getAverageTime() {
