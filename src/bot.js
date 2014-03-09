@@ -118,7 +118,7 @@ function commandDispatch(args, author)
             skipFixEnabled = !skipFixEnabled;
             break;
         case "privateskip":
-            if(isPlaying(author) || getPermLevel(author) >= 2)
+            if(isPlaying(author) || getPermLevel(author) >= API.ROLE.BOUNCER)
             {
                 var current = API.getDJ().username;
                 log("Skipping " + current + " and repositioning due to private track.", log.visible);
@@ -158,8 +158,27 @@ function commandDispatch(args, author)
             }
             break;
         case "commands":
-            var chat = "@" + author = ", ";
-            chat("you have access to the following commands: ");
+            var chatoutput = "@" + author + ", you have access to the following commands: ";
+            chatouput =+ "!eta";
+
+            switch (getPermLevel(author)) {
+                case API.ROLE.ADMIN:
+                    chatoutput += "";
+                    break;
+                case API.ROLE.MANAGER:
+                    chatoutput += "";
+                    break;
+                case API.ROLE.BOUNCER:
+                    chatoutput += "";
+                    break;
+                case API.ROLE.RESIDENTDJ:
+                    chatoutput += "";
+                    break;
+                case API.ROLE.NONE:
+                    chatoutput += ", !privateskip";
+                    break;
+            }
+            chat(chatoutput);
             break;
         case "stop":
             if(getPermLevel(author) >= API.ROLE.MANAGER)
@@ -234,6 +253,7 @@ function getPosition(username) {
 
 function getAverageTime() {
     // total songs / total minutes
+    return 3;
 }
 
 // Check to see if the user is repeatedly playing the same song
