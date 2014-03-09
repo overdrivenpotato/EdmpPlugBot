@@ -19,6 +19,7 @@ window.setInterval(function(){
     {
         skipFix();
     }
+    meetupReminder();
 }, 10);
 
 var lastSkipTime = 0;
@@ -39,6 +40,16 @@ function skipFix()
             log("Skipping due to lag", 1);
             commandDispatch("!skip", API.getUser().username.trim());
         }
+    }
+}
+
+var lastMeetupMessageTime = 0;
+function meetupReminder()
+{
+    if(meetupUrl.length > 0 && Date.now() - lastMeetupMessageTime > 600000)
+    {
+        lastMeetupMessageTime = Date.now();
+        chat("Make sure to upvote the r/edmp thread at " + meetupUrl + "!");
     }
 }
 
@@ -114,6 +125,12 @@ function commandDispatch(args, author)
                 break;
             }
             meetupUrl = args[1];
+            break;
+        case "stopreminder":
+            if(getPermLevel(author) >= API.ROLE.MANAGER)
+            {
+                meetupUrl = "";
+            }
             break;
         default:
             console.log(author + " has entered an invalid command.");
