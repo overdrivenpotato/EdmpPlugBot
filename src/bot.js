@@ -6,7 +6,7 @@
 
 var lastMsg = "";
 var skipFixEnabled = false;
-var version = "0.1.5";
+var version = "0.1.6";
 
 log.info = 3;
 log.visible = 2;
@@ -188,7 +188,7 @@ function commandDispatch(args, author)
                 case API.ROLE.RESIDENTDJ:
                     chatoutput += "";
                 case API.ROLE.NONE:
-                    chatoutput += ", !privateskip, !eta";
+                    chatoutput += ", !mal, !goosesux, !privateskip, !eta";
                     break;
             }
             log(chatoutput, log.visible);
@@ -345,6 +345,7 @@ function analyzeSongHistory()
     }
 }
 
+log("Loading bot...");
 analyzeSongHistory();
 log("Loaded EDMPbot v" + version, log.visible);
 window.edmpBot = window.setInterval(function(){
