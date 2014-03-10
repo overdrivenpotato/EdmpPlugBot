@@ -29,12 +29,12 @@ function log(message, level)
 
 function updateBot()
 {
-    log("Restarting in 5 seconds...", log.visible);
+    log("Restarting in 3 seconds...", log.visible);
     stop(true);
     log("Starting timeout... ", log.info);
     setTimeout(function(){
         $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js");
-    }, 5000);
+    }, 3000);
 }
 
 function stop(update)
@@ -223,6 +223,7 @@ function commandDispatch(args, author)
         case "afktest":
             log("trackAFKs.join=" + trackAFKs.join(','), log.visible);
             log("trackAFKs=" + trackAFKs, log.visible);
+
             break;
         case "8ball":
             eightball(author);
@@ -439,14 +440,20 @@ function eightball(author)
 function onChat(data)
 {
     if(data.type == "message" || data.type == "emote") {
-//       trackAFKs[Date.now()] = data.fromID;
+        trackAFKs.push(new Array(data.fromID, Date.now()));
     }
-    //trackAFKs.push(new Array(data.fromID, Date.now()));
-    var dateN = Date.now();
-    trackAFKs[dateN] = data.fromID;
 }
 
 function checkAFK(userID)
 {
-
+    var i = trackAFKs.length;
+    while (trackAFKs.length < i) {
+        if (trackAFKs[i].toLowerCase().search(userID)) {
+            //do time calculations, now-stored time < 60 minutes
+            var times = trackAFKs[0].split(",");
+            var difference = Date.now() - times[1];
+            log(userID + "spoke " + difference + " miliseconds ago", log.visible);
+        }
+        i--;
+    }
 }
