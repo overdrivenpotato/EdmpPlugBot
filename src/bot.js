@@ -9,7 +9,8 @@ var skipFixEnabled = false;
 var version = "0.1.8";
 var diceRollers = new Array();
 var trackAFKs = new Array();
-trackAFKs.push('val');
+trackAFKs.push('value');
+trackAFKs.push('value2');
 
 
 //API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
