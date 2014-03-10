@@ -223,12 +223,13 @@ function commandDispatch(args, author)
         case "afktest":
             log("trackAFKs.join=" + trackAFKs.join(','), log.visible);
             log("trackAFKs=" + trackAFKs, log.visible);
+            checkAFK(getID(author));
             break;
         case "8ball":
             eightball(author);
             break;
         case "credits":
-            log("EDMPbot was developped by @overdrivenpotato and @Invincibear.", log.visible);
+            log("EDMPbot was developped by @overdrivenpotato and @Invincibear", log.visible);
             break;
         default:
             console.log(author + " has entered an invalid command.");
@@ -453,8 +454,8 @@ function checkAFK(userID)
         if (trackAFKs[i].toLowerCase().search(userID)) {
             //do time calculations, now-stored time < 60 minutes
             var times = trackAFKs[0].split(",");
-            var difference = Date.now() - times[1];
-            log(userID + "spoke " + difference + " miliseconds ago", log.visible);
+            var difference = (Date.now() - times[1]) / 1000 / 60 / 60;
+            log(userID + "spoke " + difference + " hours ago", log.visible);
         }
         i--;
     }
