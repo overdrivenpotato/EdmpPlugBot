@@ -272,8 +272,7 @@ API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 var totalSongTime = 0, totalSongs = 0;
 function getAverageTime() {
-    return 3;
-//    return totalSongTime / totalSongs;
+    return totalSongTime / totalSongs;
 }
 
 // Check to see if the user is repeatedly playing the same song
