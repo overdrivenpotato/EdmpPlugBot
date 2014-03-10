@@ -239,11 +239,12 @@ function getPermLevel(username)
 }
 
 function getId(username) {
-    for(var user in API.getUsers())
+    var users = API.getUsers();
+    for(var i = 0; i < users.length; i++)
     {
-        if(user.username == username.trim())
+        if(users[i].username == username.trim())
         {
-            return user.id;
+            return users[i].id;
         }
     }
     return null;
