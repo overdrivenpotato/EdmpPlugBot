@@ -452,7 +452,7 @@ function checkAFK(username)
     var start = trackAFKs.length - 1;
 
     for (i = start; i >= 0; i--) {
-        log("i=" + i, log.visible);
+        //log("i=" + i, log.visible);
         log("trackAFKs:" + trackAFKs[i].search("52fff97b3b7903273314e678"), log.visible);
         if (trackAFKs[i].search(userID) != -1) {
             //do time calculations, now-stored time < 60 minutes
