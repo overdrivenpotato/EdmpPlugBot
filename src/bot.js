@@ -6,7 +6,7 @@
 
 var lastMsg = "";
 var skipFixEnabled = false;
-var version = "0.1.6";
+var version = "0.1.7";
 
 log.info = 3;
 log.visible = 2;
@@ -65,12 +65,13 @@ function skipFix()
 }
 
 var lastMeetupMessageTime = 0;
+var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 function meetupReminder()
 {
     if(meetupUrl.length > 0 && Date.now() - lastMeetupMessageTime > 600000)
     {
         lastMeetupMessageTime = Date.now();
-        chat("Make sure to upvote the r/edmp thread at " + meetupUrl + "!");
+        chat("Make sure to " + upvotes[Math.round(Math.random() * upvotes.length)] + "the r/edmp thread at " + meetupUrl + "!");
     }
 }
 
