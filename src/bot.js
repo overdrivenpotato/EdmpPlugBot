@@ -451,7 +451,7 @@ function checkAFK(userID)
 {
     var i = trackAFKs.length;
     while (trackAFKs.length > i) {
-        if (trackAFKs[i].toLowerCase().search(userID)) {
+        if (trackAFKs[i].search(userID) != -1) {
             //do time calculations, now-stored time < 60 minutes
             var times = trackAFKs[0].split(",");
             var difference = (Date.now() - times[1]) / 1000 / 60 / 60;
