@@ -227,7 +227,7 @@ function commandDispatch(args, author)
             eightball(author);
             break;
         case "credits":
-            log("EDMPbot was developped by @overdrivenpotato and @Invincibear", log.visible);
+            log("EDMPbot was developed by @overdrivenpotato and @Invincibear", log.visible);
             break;
         default:
             console.log(author + " has entered an invalid command.");
