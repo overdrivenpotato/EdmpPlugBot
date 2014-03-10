@@ -4,7 +4,6 @@
  * Time: 9:20 PM
  */
 
-//var lastMsg = "";
 var skipFixEnabled = false;
 var version = "0.1.8";
 var trackAFKs = new Array();
@@ -409,13 +408,6 @@ API.on(API.CHAT, function(data){
     {
         dispatch(data.message, data.from);
     }
-//    var text = $(".message:last");
-//    if(text.attr("class") != lastMsg)
-//    {
-//        lastMsg = text.attr("class");
-//        if(typeof lastMsg !== "undefined")
-//            dispatch(text.children(":last").html(), text.children(".from").html().trim());
-//    }
 });
 
 function rolldice(dbl)
