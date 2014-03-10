@@ -289,7 +289,15 @@ function getAverageTime()
 // Check to see if the user is repeatedly playing the same song
 function checkRepeatSong(obj)
 {
-    log("test", log.visible);
+    var songshistory = API.getHistory();
+    var songs = new Array();
+
+    for(var i = 0; i < songshistory.length; i++) {
+        if (songshistory[i].user.id == API.getDJ().id) {
+            songs.push = songshistory[i].media.id;
+        }
+    }
+    log(songs.join(','), log.visible);
 }
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
