@@ -430,13 +430,22 @@ function rollTheDice ()
 
 }
 
-function eightball(author) {
+function eightball(author)
+{
     log("@" + author +  ", you shouldn't gamble on chance", log.visible);
 }
 
-function onChat(data) {
+function onChat(data)
+{
     if(data.type == "message" || data.type == "emote") {
 //       trackAFKs[Date.now()] = data.fromID;
     }
-    trackAFKs.push(new Array(data.fromID, Date.now()));
+    //trackAFKs.push(new Array(data.fromID, Date.now()));
+    var dateN = Date.now();
+    trackAFKs[dateN] = data.fromID;
+}
+
+function checkAFK(userID)
+{
+
 }
