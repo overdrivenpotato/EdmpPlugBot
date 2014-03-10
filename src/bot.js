@@ -8,8 +8,9 @@ var lastMsg = "";
 var skipFixEnabled = false;
 var version = "0.1.8";
 var diceRollers = new Array();
-var trackAFKs = new Array();
-trackAFKs['test']=Date.now();
+//var trackAFKs = new Array();
+//trackAFKs['test']=Date.now();
+var trackAFKs=1;
 
 //API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, checkRepeatSong);
@@ -430,6 +431,6 @@ function rollTheDice ()
 
 function onChat(data) {
     if(1){//data.type == "message" || data.type == "emote") {
-        trackAFKs[data.fromID] = Date.now();
+        trackAFKs++;
     }
 }
