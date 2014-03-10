@@ -311,14 +311,14 @@ function checkRepeatSong(obj)
     if (songs.length >= 4 && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid && songs[3] == API.getMedia().cid) {
         API.moderateRemoveDJ(getId(API.getDJ()));
         skipDj();
-        log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.");
+        log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.", log.visible);
     } else {
         if (songs.length >= 3 && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid) {
             skipDj();
-            log("@" + API.getDJ() + ", you've already played that song twice before. Please play a different song or you will be removed from the DJ wait list.");
+            log("@" + API.getDJ() + ", you've already played that song twice before. Please play a different song or you will be removed from the DJ wait list.", log.visible);
         } else {
             if (songs.length >= 2 && songs[1] == API.getMedia().cid) {
-                log("@" + API.getDJ() + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.");
+                log("@" + API.getDJ() + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
             }
         }
     }
