@@ -6,7 +6,13 @@
 
 var lastMsg = "";
 var skipFixEnabled = false;
-var version = "0.1.7";
+var version = "0.1.8";
+var diceRollers = new Array();
+var trackAFKs = new Array();
+
+//API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+API.on(API.DJ_ADVANCE, checkRepeatSong);
+API.on(API.CHAT, onChat);
 
 log.info = 3;
 log.visible = 2;
@@ -214,6 +220,9 @@ function commandDispatch(args, author)
         case "rollthedice":
                 rollTheDice();
             break;
+        case "afktest":
+            log(trackAFKs.join(','), log.visible)
+            break;
         default:
             console.log(author + " has entered an invalid command.");
             break;
@@ -267,19 +276,12 @@ function getPosition(username) {
     return API.getWaitListPosition(getId(username));
 }
 
-// Alert upcoming users that their set is about to start
+// Alert upcoming users that their set is about to start when total users > if they're AFK
 function waitListUpdated (users) {
-    //When total users > 7, warn the #2 DJ his set is coming up if he hasn't said anything in chat in x minutes
-    var len = users.length;
-
-    if (len) {// >= 7
+    if (users.length >= 7) {
         log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.visible);
     }
 }
-
-//API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
-API.on(API.DJ_ADVANCE, checkRepeatSong);
-
 
 var totalSongTime = 0, totalSongs = 0;
 function getAverageTime()
@@ -290,8 +292,6 @@ function getAverageTime()
 // Check to see if the user is repeatedly playing the same song
 function checkRepeatSong(obj)
 {
-
-
 // check if upcoming song & previously played song is the same
 //if same, send an @author chat warning
 // if same 2x, send an @author chat warning & skip
@@ -404,7 +404,31 @@ window.edmpBot = window.setInterval(function(){
     meetupReminder();
 }, 10);
 
+function rolldice(dbl)
+{
+    var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
+    var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
+    var dicetotal = x + y;
+    $('.dice1').attr('id', "dice" + x);
+    $('.dice2').attr('id', "dice" + y);
+    if (x == y) {//check for doubles
+        dbl++;
+        if(dbl%3==0) {
+        //Now reroll the dice, but if you hit 3 doubles in a row, you get message go to jail.
+            rolldice(dbl);
+        }
+    }
+}
+
 function rollTheDice ()
 {
     log("coming soon!", log.visible);
+//    getId(author);
+
+}
+
+function onChat(data) {
+    if(data.type == "message" || data.type == "emote") {
+        AFKtracker[data.fromID] = Date.now();
+    }
 }
