@@ -200,7 +200,7 @@ function commandDispatch(args, author)
                 case API.ROLE.RESIDENTDJ:
                     chatoutput += "";
                 case API.ROLE.NONE:
-                    chatoutput += ", !mal, !goosesux, !privateskip, !eta";
+                    chatoutput += "!mal, !goosesux, !privateskip, !eta, !credits";
                     break;
             }
             log(chatoutput, log.visible);
@@ -223,10 +223,12 @@ function commandDispatch(args, author)
         case "afktest":
             log("trackAFKs.join=" + trackAFKs.join(','), log.visible);
             log("trackAFKs=" + trackAFKs, log.visible);
-
             break;
         case "8ball":
             eightball(author);
+            break;
+        case "credits":
+            log("EDMPbot was developped by @overdrivenpotato and @Invincibear.", log.visible);
             break;
         default:
             console.log(author + " has entered an invalid command.");
