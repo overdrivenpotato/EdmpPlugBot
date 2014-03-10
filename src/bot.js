@@ -290,6 +290,13 @@ function getAverageTime()
 // Check to see if the user is repeatedly playing the same song
 function checkRepeatSong(obj)
 {
+
+// get dj history
+// find played songs by same user in history, insert into an array
+// check if upcoming song & previously played song is the same
+//if same, send an @author chat warning
+// if same 2x, send an @author chat warning & skip
+// if same 3x, send an @author chat warning and remove from DJ list
     var songshistory = API.getHistory();
     var songs = new Array();
 
@@ -298,7 +305,21 @@ function checkRepeatSong(obj)
             songs.push = songshistory[i].media.id;
         }
     }
-    log(songs.join(','), log.visible);
+
+    if (songs.length == 4 && songs[1] == API.getMedia().cid. && songs[2]. == API.getMedia().cid. && songs[3]. == API.getMedia().cid.) {
+        API.moderateRemoveDJ(getId(API.getDJ()));
+        skipDj();
+        log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.");
+    } else {
+        if (songs.length == 3 && songs[1]. == API.getMedia().cid. && songs[2]. == API.getMedia().cid.) {
+            skipDj();
+            log("@" + API.getDJ() + ", you've already played that song twice before. Please play a different song.");
+        } else {
+            if (songs.length == 2 && songs[1]. == API.getMedia().cid.) {
+                log("@" + API.getDJ() + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.");
+            }
+        }
+    }
 }
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
