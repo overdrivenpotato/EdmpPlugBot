@@ -223,7 +223,7 @@ function commandDispatch(args, author)
                 rollTheDice();
             break;
         case "afktest":
-            log(trackAFKs.join(','), log.visible)
+            log(trackAFKs, log.visible);
             break;
         default:
             console.log(author + " has entered an invalid command.");
