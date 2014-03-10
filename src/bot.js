@@ -9,8 +9,6 @@ var skipFixEnabled = false;
 var version = "0.1.8";
 var diceRollers = new Array();
 var trackAFKs = new Array();
-trackAFKs.push(new Array('one', 'two'));
-trackAFKs.push('value2');
 
 
 //API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
@@ -438,7 +436,7 @@ function eightball(author) {
 }
 
 function onChat(data) {
-    if(1){//data.type == "message" || data.type == "emote") {
-//        trackAFKs++;
+    if(data.type == "message" || data.type == "emote") {
+       trackAFKs[Date.now()] = data.fromID;
     }
 }
