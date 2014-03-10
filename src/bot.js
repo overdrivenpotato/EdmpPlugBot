@@ -272,13 +272,28 @@ function waitListUpdated (users) {
 
 
 var totalSongTime = 0, totalSongs = 0;
-function getAverageTime() {
+function getAverageTime()
+{
     return Math.floor(totalSongTime / totalSongs / 60);
 }
 
 // Check to see if the user is repeatedly playing the same song
-function checkRepeatSong() {
+function checkRepeatSong()
+{
+    var songshistory = API.getHistory();
+    var i = 0;
+    var songs = new Array();
 
+    while (songshistory.length > i) {
+        if (songshistory[i].user.id == getId(API.getDJ())) {
+            songs.push = songshistory[i].media.id;
+        }
+        i++;
+    }
+
+    if (songs[1].trim == API.getMedia().cid.trim) {
+        log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.")
+    }
     // get dj history
     // find played songs by same user in history, insert into an array
     // check if upcoming song & previously played song is the same
