@@ -205,10 +205,11 @@ function commandDispatch(args, author)
             log(chatoutput, log.visible);
             break;
         case "stop":
-            if(getPermLevel(author) >= API.ROLE.MANAGER)
-            {
-                stop();
-            }
+//            if(getPermLevel(author) >= API.ROLE.MANAGER)
+//            {
+//                stop();
+//            }
+            log("Stop has been disabled.", log.visible);
             break;
         case "update":
             if(getPermLevel(author) >= API.ROLE.MANAGER || getId(author) == "52fff97b3b7903273314e678")
