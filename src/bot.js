@@ -377,9 +377,15 @@ function analyzeSongHistory()
     for(var i = 0; i < history.length; i++)
     {
         getSourceLength(history[i].media.id, function(seconds){
-            totalSongs++;
-            totalSongTime += parseFloat(seconds);
-            log("Time changed to " + totalSongTime);
+            try
+            {
+                totalSongs++;
+                totalSongTime += parseFloat(seconds);
+                log("Time changed to " + totalSongTime);
+            } catch(err)
+            {
+                console.error(err);
+            }
         });
     }
 }
