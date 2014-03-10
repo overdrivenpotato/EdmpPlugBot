@@ -305,7 +305,7 @@ function checkRepeatSong(obj)
         }
     }
 
-    if (0){//songs.length >= 4 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid)) {
+    if (songs.length >= 4 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid)) {
         API.moderateRemoveDJ(API.getDJ().id);//remove from dj wait list
         API.moderateForceSkip();//skip their turn
         log("@" + API.getDJ().username + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
