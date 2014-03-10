@@ -385,5 +385,5 @@ window.edmpBot = window.setInterval(function(){
 
 function rollTheDice ()
 {
-    log("coming soon!");
+    log("coming soon!", log.visible);
 }
