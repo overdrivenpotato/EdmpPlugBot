@@ -268,7 +268,7 @@ function waitListUpdated (users) {
     }
 }
 
-API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+//API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 
 var totalSongTime = 0, totalSongs = 0;
