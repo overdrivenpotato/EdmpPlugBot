@@ -8,7 +8,9 @@ var lastMsg = "";
 var skipFixEnabled = false;
 var version = "0.1.8";
 var diceRollers = new Array();
-var trackAFKs = new Array('key' => 'value');
+var trackAFKs = new Array();
+trackAFKs['key'] = 'val';
+
 
 //API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, checkRepeatSong);
