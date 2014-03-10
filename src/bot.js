@@ -305,6 +305,7 @@ function checkRepeatSong(obj)
             songs.push = songshistory[i].media.id;
         }
     }
+    log("songs list:: " + songs.join(","), log.visible);
 
     if (songs.length == 4 && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid && songs[3] == API.getMedia().cid) {
         API.moderateRemoveDJ(getId(API.getDJ()));
