@@ -291,27 +291,23 @@ function getAverageTime()
 function checkRepeatSong(obj)
 {
 
-// get dj history
-// find played songs by same user in history, insert into an array
+
 // check if upcoming song & previously played song is the same
 //if same, send an @author chat warning
 // if same 2x, send an @author chat warning & skip
 // if same 3x, send an @author chat warning and remove from DJ list
-    var songshistory = API.getHistory();
+    var songshistory = API.getHistory(); // get dj history
     var songs = new Array();
 
     for(var i = 0; i < songshistory.length; i++) {
         if (songshistory[i].user.id == API.getDJ().id) {
-            songs.push(songshistory[i].media.id.substr(2));
+            songs.push(songshistory[i].media.id.substr(2));// find played songs by same user in history, insert into an array
         }
     }
-    log("songs length: " + songs.length + "; list:: " + songs.join(","), log.visible);
-    log("current cid: " + API.getMedia().cid + "; previous cid: " + songs[1], log.visible);
-    log("songs[0]=" + songs[0], log.visible);
 
-    if (0){//songs.length >= 4 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid)) {
-        API.moderateRemoveDJ(API.getDJ().id);
-        API.moderateForceSkip();
+    if (songs.length >= 4 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid)) {
+        API.moderateRemoveDJ(API.getDJ().id);//remove from dj wait list
+        API.moderateForceSkip();//skip their turn
         log("@" + API.getDJ().username + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
     } else {
         if (songs.length >= 3 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid)) {
