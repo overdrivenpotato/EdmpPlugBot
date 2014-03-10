@@ -8,7 +8,7 @@ var lastMsg = "";
 var skipFixEnabled = false;
 var version = "0.1.8";
 var diceRollers = new Array();
-var trackAFKs = new Array();
+var trackAFKs = new Array;
 
 
 //API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
@@ -439,4 +439,5 @@ function onChat(data) {
     if(data.type == "message" || data.type == "emote") {
        trackAFKs[Date.now()] = data.fromID;
     }
+    alert(Date.now());
 }
