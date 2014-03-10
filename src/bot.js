@@ -146,7 +146,7 @@ function commandDispatch(args, author)
         case "eta":
             if(!isPlaying(author)) {
                 log("@" + author + ", it will be your turn to DJ in ~" + getETA(author) + " minutes.", log.visible);
-            } else if(!isPlaying(author) && API.getWaitListPosition(getId(author)) == -1) {
+            } else if(!isPlaying(author) && API.getWaitListPosition(getId(author)) == "-1") {
                 log("@" + author + ", you are not on the DJ wait list!", log.visible);
             } else {
                 log("@" + author + " you're already the DJ, get your ears cleaned out!", log.visible);
@@ -203,7 +203,7 @@ function commandDispatch(args, author)
             break;
         case "update":
             if(getPermLevel(author) >= API.ROLE.MANAGER || getId(author) == "52fff97b3b7903273314e678")
-            {
+            {//exception for Invincibear
                 updateBot();
             }
             break;
