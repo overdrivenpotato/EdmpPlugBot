@@ -452,6 +452,7 @@ function checkAFK(username)
 
     for (i = trackAFKs.length; i >= 0; i--) {
         log("i=" + i, log.visible);
+        log(trackAFKs[i].search(userID), log.visible);
         if (trackAFKs[i].search(userID) != -1) {
             //do time calculations, now-stored time < 60 minutes
             var times = trackAFKs[0].split(",");
