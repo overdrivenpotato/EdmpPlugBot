@@ -309,7 +309,7 @@ function checkRepeatSong(obj)
     log("current cid: " + API.getMedia().cid + "; previous cid: " + songs[1], log.visible);
     log("songs[0]=" + songs[0], log.visible);
 
-    if (songs.length >= 4 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid)) {
+    if (0){//songs.length >= 4 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid)) {
         API.moderateRemoveDJ(API.getDJ().id);
         API.moderateForceSkip();
         log("@" + API.getDJ().username + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
