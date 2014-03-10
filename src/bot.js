@@ -35,6 +35,7 @@ function stop(update)
 {
     clearInterval(window.edmpBot);
     log("Shutting down the bot. Bye!", log.visible);
+    API.off();
     if(!update)
     {
         setTimeout(function(){
