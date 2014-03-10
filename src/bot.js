@@ -439,5 +439,5 @@ function onChat(data) {
     if(data.type == "message" || data.type == "emote") {
 //       trackAFKs[Date.now()] = data.fromID;
     }
-    log(data.fromID, log.visible);
+    trackAFKs.push(new Array(data.fromID, Date.now());
 }
