@@ -270,7 +270,7 @@ function waitListUpdated (users) {
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 
-var totalSongTime, totalSongs;
+var totalSongTime = 0, totalSongs = 0;
 function getAverageTime() {
     return 3;
 //    return totalSongTime / totalSongs;
@@ -308,10 +308,12 @@ function getSourceLength(id, callBack)
     id = id.split(":");
     if(id[0] == 1)
     {
+        log("checking yt");
         getYtVidSeconds(id[1], callBack);
     }
     else if(id[0] == 2)
     {
+        log("checking sc");
         getScLengthSeconds(id[1], callBack);
     }
 }
@@ -337,7 +339,8 @@ function analyzeSongHistory()
     {
         getSourceLength(history[i].media.id, function(seconds){
             totalSongs++;
-            totalSongTime += seconds;
+            totalSongTime += parseInt(seconds);
+            log("Time changed to " + totalSongTime);
         });
     }
 }
@@ -345,12 +348,12 @@ function analyzeSongHistory()
 analyzeSongHistory();
 log("Loaded EDMPbot v" + version, log.visible);
 window.edmpBot = window.setInterval(function(){
-    var message = $(".message:last");
-    if(message.attr("class") != lastMsg)
+    var text = $(".message:last");
+    if(text.attr("class") != lastMsg)
     {
-        lastMsg = message.attr("class");
-//        if(typeof lastMsg !== "undefined")
-            dispatch(message.children(":last").html(), message.children(".from").html().trim());
+        lastMsg = text.attr("class");
+        if(typeof lastMsg !== "undefined")
+            dispatch(text.children(":last").html(), text.children(".from").html().trim());
     }
     if(skipFixEnabled)
     {
