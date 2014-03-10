@@ -230,6 +230,9 @@ function commandDispatch(args, author)
         case "credits":
             log("EDMPbot was developed by @overdrivenpotato and @Invincibear", log.visible);
             break;
+        case "smoke":
+            log("WEED ERRYDAY", log.visible);
+            break;
         default:
             console.log(author + " has entered an invalid command.");
             break;
