@@ -9,7 +9,7 @@ var skipFixEnabled = false;
 var version = "0.1.8";
 var diceRollers = new Array();
 var trackAFKs = new Array();
-trackAFKs.push('value');
+trackAFKs.push(new Array('one', 'two'));
 trackAFKs.push('value2');
 
 
@@ -224,7 +224,7 @@ function commandDispatch(args, author)
                 rollTheDice();
             break;
         case "afktest":
-            log("trackAFKs[0]=" + trackAFKs[0], log.visible);
+            log("trackAFKs[0]=" + trackAFKs[0].join(','), log.visible);
             break;
         case "8ball":
             eightball(author);
