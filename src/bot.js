@@ -318,7 +318,7 @@ function checkRepeatSong(obj)
             skipDj();
             log("@" + API.getDJ().username + ", you've already played that song twice before. Please play a different song or you will be removed from the DJ wait list.", log.visible);
         } else {
-            if (1){//songs.length >= 2 && songs[0] == API.getMedia().cid) {
+            if (songs.length >= 2 && songs[0] == API.getMedia().cid) {
                 log("@" + API.getDJ().username + ", you've already played that song before. Please play a different song.", log.visible);
             }
         }
