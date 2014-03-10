@@ -289,7 +289,7 @@ function getAverageTime()
 // Check to see if the user is repeatedly playing the same song
 function checkRepeatSong(obj)
 {
-    alert('test');
+    log("test", log.visible);
 }
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
