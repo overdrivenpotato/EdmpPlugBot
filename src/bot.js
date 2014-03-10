@@ -226,7 +226,7 @@ function commandDispatch(args, author)
             log(trackAFKs.join(','), log.visible);
             break;
         case "8ball":
-            8ball(author);
+            eightball(author);
             break;
         default:
             console.log(author + " has entered an invalid command.");
@@ -432,8 +432,8 @@ function rollTheDice ()
 
 }
 
-function 8ball(gambler) {
-    log("@" + gambler +  ", you shouldn't gamble on chance", log.visible);
+function eightball(author) {
+    log("@" + author +  ", you shouldn't gamble on chance", log.visible);
 }
 
 function onChat(data) {
