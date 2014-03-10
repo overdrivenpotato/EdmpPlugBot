@@ -165,6 +165,7 @@ function commandDispatch(args, author)
                 log("@" + author + " please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere", log.visible);
                 break;
             }
+            lastMeetupMessageTime = 0;
             meetupUrl = args[1];
             break;
         case "stopreminder":
