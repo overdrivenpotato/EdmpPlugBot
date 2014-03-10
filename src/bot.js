@@ -450,7 +450,7 @@ function onChat(data)
 function checkAFK(userID)
 {
     var i = trackAFKs.length;
-    while (trackAFKs.length < i) {
+    while (trackAFKs.length > i) {
         if (trackAFKs[i].toLowerCase().search(userID)) {
             //do time calculations, now-stored time < 60 minutes
             var times = trackAFKs[0].split(",");
