@@ -289,37 +289,35 @@ function getAverageTime()
 // Check to see if the user is repeatedly playing the same song
 function checkRepeatSong(obj)
 {
+// get dj history
+// find played songs by same user in history, insert into an array
+// check if upcoming song & previously played song is the same
+//if same, send an @author chat warning
+// if same 2x, send an @author chat warning & skip
+// if same 3x, send an @author chat warning and remove from DJ list
     var songshistory = API.getHistory();
-    var i = 0;
     var songs = new Array();
 
-    while (songshistory.length > i) {
-        if (songshistory[i].user.id == getId(API.getDJ())) {
+    for(var i = 0; i < songshistory.length; i++) {
+        if (songshistory[i].user.id == API.getDJ().id) {
             songs.push = songshistory[i].media.id;
         }
-        i++;
     }
 
-    if (songs[1].trim() == API.getMedia().cid.trim() && songs[2].trim() == API.getMedia().cid.trim() && songs[3].trim() == API.getMedia().cid.trim()) {
+    if (songs.length == 4 && songs[1].trim() == API.getMedia().cid.trim() && songs[2].trim() == API.getMedia().cid.trim() && songs[3].trim() == API.getMedia().cid.trim()) {
         API.moderateRemoveDJ(getId(API.getDJ()));
         skipDj();
         log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.");
     } else {
-        if (songs[1].trim() == API.getMedia().cid.trim() && songs[2].trim() == API.getMedia().cid.trim()) {
+        if (songs.length == 3 && songs[1].trim() == API.getMedia().cid.trim() && songs[2].trim() == API.getMedia().cid.trim()) {
             skipDj();
             log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.");
         } else {
-            if (songs[1].trim() == API.getMedia().cid.trim()) {
+            if (songs.length == 2 && songs[1].trim() == API.getMedia().cid.trim()) {
                 log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.");
             }
         }
     }
-    // get dj history
-    // find played songs by same user in history, insert into an array
-    // check if upcoming song & previously played song is the same
-        //if same, send an @author chat warning
-        // if same 2x, send an @author chat warning & skip
-        // if same 3x, send an @author chat warning and remove from DJ list
 }
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
