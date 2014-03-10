@@ -432,8 +432,8 @@ function rollTheDice ()
 
 }
 
-function 8ball(author) {
-    log("@" + author +  ", you shouldn't gamble on chance", log.visible);
+function 8ball(gambler) {
+    log("@" + gambler +  ", you shouldn't gamble on chance", log.visible);
 }
 
 function onChat(data) {
