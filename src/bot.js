@@ -321,6 +321,8 @@ function checkRepeatSong(obj)
             }
         }
     }
+
+    log("current cid: " + API.getMedia().cid + "; previous cid: " + songs[1]);
 }
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
