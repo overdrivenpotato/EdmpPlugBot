@@ -449,8 +449,9 @@ function onChat(data)
 function checkAFK(username)
 {
     var userID = getId(username);
+    var start = trackAFKs.length - 1;
 
-    for (i = trackAFKs.length - 1; i >= 0; i--) {
+    for (i = start; i >= 0; i--) {
         log("i=" + i, log.visible);
         log("trackAFKs[i].search(userID):" + trackAFKs[i].search(userID), log.visible);
         if (trackAFKs[i].search(userID) != -1) {
