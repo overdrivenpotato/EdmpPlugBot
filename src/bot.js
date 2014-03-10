@@ -221,9 +221,8 @@ function commandDispatch(args, author)
                 rollTheDice();
             break;
         case "afktest":
-            log("trackAFKs.join=" + trackAFKs.join(','), log.visible);
             log("trackAFKs=" + trackAFKs, log.visible);
-            checkAFK(getID(author));
+            checkAFK(author);
             break;
         case "8ball":
             eightball(author);
