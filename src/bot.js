@@ -372,17 +372,17 @@ function analyzeSongHistory()
     var history = API.getHistory();
     for(var i = 0; i < history.length; i++)
     {
-        getSourceLength(history[i].media.id, function(seconds){
-            try
-            {
+        try
+        {
+            getSourceLength(history[i].media.id, function(seconds){
                 totalSongs++;
                 totalSongTime += parseFloat(seconds);
                 log("Time changed to " + totalSongTime);
-            } catch(err)
-            {
-                console.error(err);
-            }
-        });
+            });
+        } catch(err)
+        {
+            console.error(err);
+        }
     }
 }
 
