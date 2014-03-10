@@ -8,9 +8,7 @@ var lastMsg = "";
 var skipFixEnabled = false;
 var version = "0.1.8";
 var diceRollers = new Array();
-//var trackAFKs = new Array();
-//trackAFKs['test']=Date.now();
-var trackAFKs=1;
+var trackAFKs = new Array('key' => 'value');
 
 //API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, checkRepeatSong);
@@ -223,7 +221,10 @@ function commandDispatch(args, author)
                 rollTheDice();
             break;
         case "afktest":
-            log(trackAFKs, log.visible);
+            log(trackAFKs.join(','), log.visible);
+            break;
+        case "8ball":
+            8ball(author);
             break;
         default:
             console.log(author + " has entered an invalid command.");
@@ -429,8 +430,12 @@ function rollTheDice ()
 
 }
 
+function 8ball(author) {
+    log("@" + author + , "you shouldn't gamble on chance", log.visible);
+}
+
 function onChat(data) {
     if(1){//data.type == "message" || data.type == "emote") {
-        trackAFKs++;
+//        trackAFKs++;
     }
 }
