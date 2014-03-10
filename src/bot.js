@@ -207,6 +207,9 @@ function commandDispatch(args, author)
                 updateBot();
             }
             break;
+        case "rollthedice":
+                rollTheDice();
+            break;
         default:
             console.log(author + " has entered an invalid command.");
             break;
@@ -379,3 +382,8 @@ window.edmpBot = window.setInterval(function(){
     }
     meetupReminder();
 }, 10);
+
+function rollTheDice ()
+{
+    log("coming soon!");
+}
