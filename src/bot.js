@@ -272,7 +272,7 @@ API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 
 var totalSongTime = 0, totalSongs = 0;
 function getAverageTime() {
-    return totalSongTime / totalSongs;
+    return Math.floor(totalSongTime / totalSongs / 60);
 }
 
 // Check to see if the user is repeatedly playing the same song
@@ -338,7 +338,7 @@ function analyzeSongHistory()
     {
         getSourceLength(history[i].media.id, function(seconds){
             totalSongs++;
-            totalSongTime += parseInt(seconds);
+            totalSongTime += parseFloat(seconds);
             log("Time changed to " + totalSongTime);
         });
     }
