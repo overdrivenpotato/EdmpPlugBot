@@ -298,8 +298,19 @@ function checkRepeatSong()
         i++;
     }
 
-    if (songs[1].trim == API.getMedia().cid.trim) {
-        log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.")
+    if (songs[1].trim() == API.getMedia().cid.trim() && songs[2].trim() == API.getMedia().cid.trim() && songs[3].trim() == API.getMedia().cid.trim()) {
+        API.moderateRemoveDJ(getId(API.getDJ()));
+        skipDj();
+        log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.");
+    } else {
+        if (songs[1].trim() == API.getMedia().cid.trim() && songs[2].trim() == API.getMedia().cid.trim()) {
+            skipDj();
+            log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.");
+        } else {
+            if (songs[1].trim() == API.getMedia().cid.trim()) {
+                log("@" + API.getDJ() + ", you've already played that song before. Please play a different song.");
+            }
+        }
     }
     // get dj history
     // find played songs by same user in history, insert into an array
