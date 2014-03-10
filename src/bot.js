@@ -276,6 +276,7 @@ function waitListUpdated (users) {
 }
 
 //API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+API.on(API.DJ_ADVANCE, checkRepeatSong);
 
 
 var totalSongTime = 0, totalSongs = 0;
@@ -285,7 +286,7 @@ function getAverageTime()
 }
 
 // Check to see if the user is repeatedly playing the same song
-function checkRepeatSong()
+function checkRepeatSong(obj)
 {
     var songshistory = API.getHistory();
     var i = 0;
