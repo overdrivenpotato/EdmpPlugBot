@@ -302,7 +302,7 @@ function checkRepeatSong(obj)
 
     for(var i = 0; i < songshistory.length; i++) {
         if (songshistory[i].user.id == API.getDJ().id) {
-            songs.push(songshistory[i].media.id);
+            songs.push(songshistory[i].media.id.substr(2));
         }
     }
     log("songs length: " + songs.length + "; list:: " + songs.join(","), log.visible);
