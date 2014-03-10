@@ -306,6 +306,7 @@ function checkRepeatSong(obj)
         }
     }
     log("songs length: " + songs.length + "; list:: " + songs.join(","), log.visible);
+    log("current cid: " + API.getMedia().cid + "; previous cid: " + songs[1], log.visible);
 
     if (songs.length >= 4 && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid && songs[3] == API.getMedia().cid) {
         API.moderateRemoveDJ(getId(API.getDJ()));
@@ -322,7 +323,6 @@ function checkRepeatSong(obj)
         }
     }
 
-    log("current cid: " + API.getMedia().cid + "; previous cid: " + songs[1], log.visible);
 }
 
 //From http://www.w3schools.com/dom/dom_loadxmldoc.asp
