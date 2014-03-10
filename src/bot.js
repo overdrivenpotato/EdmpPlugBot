@@ -4,7 +4,7 @@
  * Time: 9:20 PM
  */
 
-var lastMsg = "";
+//var lastMsg = "";
 var skipFixEnabled = false;
 var version = "0.1.8";
 var trackAFKs = new Array();
@@ -397,19 +397,26 @@ log("Loading bot...");
 analyzeSongHistory();
 log("Loaded EDMPbot v" + version, log.visible);
 window.edmpBot = window.setInterval(function(){
-    var text = $(".message:last");
-    if(text.attr("class") != lastMsg)
-    {
-        lastMsg = text.attr("class");
-        if(typeof lastMsg !== "undefined")
-            dispatch(text.children(":last").html(), text.children(".from").html().trim());
-    }
     if(skipFixEnabled)
     {
         skipFix();
     }
     meetupReminder();
 }, 10);
+
+API.on(API.CHAT, function(data){
+    if(data.type == "message")
+    {
+        dispatch(data.message, data.from);
+    }
+//    var text = $(".message:last");
+//    if(text.attr("class") != lastMsg)
+//    {
+//        lastMsg = text.attr("class");
+//        if(typeof lastMsg !== "undefined")
+//            dispatch(text.children(":last").html(), text.children(".from").html().trim());
+//    }
+});
 
 function rolldice(dbl)
 {
