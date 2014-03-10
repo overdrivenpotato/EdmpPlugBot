@@ -429,6 +429,6 @@ function rollTheDice ()
 
 function onChat(data) {
     if(1){//data.type == "message" || data.type == "emote") {
-        AFKtracker[data.fromID] = Date.now();
+        trackAFKs[data.fromID] = Date.now();
     }
 }
