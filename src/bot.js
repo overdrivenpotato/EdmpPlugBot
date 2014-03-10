@@ -176,6 +176,7 @@ function commandDispatch(args, author)
             }
             break;
         case "commands":
+        case "help":
             var chatoutput = "@" + author + ", you have access to the following commands: ";
             //noinspection FallthroughInSwitchStatementJS
             switch (getPermLevel(author)) {
