@@ -144,7 +144,7 @@ function commandDispatch(args, author)
             }
             break;
         case "eta":
-            if(!isPlaying(author)) {
+            if(!isPlaying(author) && API.getWaitListPosition(getId(author)) != -1) {
                 log("@" + author + ", it will be your turn to DJ in ~" + getETA(author) + " minutes.", log.visible);
             } else if(!isPlaying(author) && API.getWaitListPosition(getId(author)) == -1) {
                 log("@" + author + ", you are not on the DJ wait list!", log.visible);
