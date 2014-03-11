@@ -147,7 +147,8 @@ var commands = [
 
 
     new Command("stop", function(){
-        stop();
+//        stop();
+        log("Stop has been disabled.", log.visible);
     }, API.ROLE.MANAGER),
 
 
