@@ -5,7 +5,7 @@
  */
 
 var skipFixEnabled = false;
-var version = "0.1.8";
+var version = "0.2.0";
 var trackAFKs = new Array();
 
 
