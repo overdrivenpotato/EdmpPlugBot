@@ -184,7 +184,15 @@ var commands = [
 
 
     new Command("lottery", function(author){
-        lottery(author);
+        if(lotteryEntries.indexOf(author) > -1)
+        {
+            log("@" + author + " you are already in the lottery! " +
+                "The winner will be picked from " + lotteryEntries.length + " entries in " + lastLotteryTime, log.visible);
+            return;
+        }
+
+        lotteryEntries.push(author);
+        log("@" + author + " has entered the lottery! There are now " + lotteryEntries.length + " entries!", log.visible);
     })
 
 ];
