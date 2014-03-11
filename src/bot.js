@@ -348,7 +348,7 @@ function checkAFK(username)
 }
 
 var lotteryEntries = [];
-var lotteryUpdated = false;
+var lotteryUpdated = true;
 function lotteryUpdate()
 {
     if(new Date().getMinutes() >= 10){
