@@ -105,7 +105,7 @@ function dispatch(message, author)
         }
         catch(exp)
         {
-            console.log("Error: " + exp);
+            console.log("Error: " + exp.stack);
         }
     }
 }
