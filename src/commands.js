@@ -21,6 +21,7 @@ function getAvailable(author)
 
 function execCommand(author, args)
 {
+    log("l is " + commands.length);
     for(var i = 0; i < commands.length; i++)
     {
         for(var j = 0; j < commands[i].cmd.length; j++)
