@@ -29,6 +29,7 @@ function execCommand(author, args)
             if(commands[i].cmd[j] == args[0].toLowerCase())
             {
                 commands[i].exec(author, args);
+                log(author + " has excecuted command " + args[0]);
                 return;
             }
         }
