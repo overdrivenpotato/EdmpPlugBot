@@ -21,7 +21,6 @@ function getAvailable(author)
 
 function execCommand(author, args)
 {
-    log("l is " + commands.length);
     for(var i = 0; i < commands.length; i++)
     {
         for(var j = 0; j < commands[i].cmd.length; j++)
@@ -29,7 +28,6 @@ function execCommand(author, args)
             if(commands[i].cmd[j] == args[0].toLowerCase())
             {
                 commands[i].exec(author, args);
-                log(author + " has excecuted command " + args[0]);
                 return;
             }
         }
