@@ -359,6 +359,11 @@ function lotteryUpdate()
         if(lotteryEntries.length > 1)
         {
             var winner = lotteryEntries[Math.round(Math.random() * lotteryEntries.length)];
+            if(API.getWaitListPosition(getId(winner)) < 0)
+            {
+                lotteryUpdated = false;
+                return;
+            }
             log("@" + winner + " has won the hourly lottery! " +
                 "The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
             moveToFirst(winner);
