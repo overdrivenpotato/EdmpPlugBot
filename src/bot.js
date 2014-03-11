@@ -348,9 +348,14 @@ function checkAFK(username)
 }
 
 var lotteryEntries = [];
+var lotteryUpdated = false;
 function lotteryUpdate()
 {
     if(new Date().getMinutes() >= 10){
+        if(lotteryUpdated)
+            return;
+        lotteryUpdated = true;
+
         if(lotteryEntries.length > 1)
         {
             var winner = lotteryEntries[Math.round(Math.random() * lotteryEntries.length)];
@@ -364,5 +369,10 @@ function lotteryUpdate()
                 "The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
         }
         lotteryEntries = [];
+    }
+    else
+    {
+        lotteryUpdated = false;
+        return;
     }
 }
