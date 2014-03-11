@@ -187,7 +187,7 @@ var commands = [
         if(new Date().getMinutes() >= 10)
         {
             log("@" + author + ", the lottery occurs at the start of each hour." +
-                "Type !lottery within 10 minutes for a chance to win!");
+                "Type !lottery within 10 minutes for a chance to win!", log.visible);
             return;
         }
         if(lotteryEntries.indexOf(author) > -1)
