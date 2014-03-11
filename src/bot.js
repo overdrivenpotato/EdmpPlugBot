@@ -291,6 +291,7 @@ API.on(API.CHAT, function(data){
     {
         dispatch(data.message, data.from);
     }
+    lotteryUpdate();
 });
 
 function rolldice(dbl)
@@ -346,9 +347,22 @@ function checkAFK(username)
     }
 }
 
-var lastLotteryTime = 0;
-var lotteryEntries = new Array();
-function lottery(username)
+var lotteryEntries = [];
+function lotteryUpdate()
 {
-
+    if(new Date().getMinutes() >= 10){
+        if(lotteryEntries.length > 1)
+        {
+            var winner = lotteryEntries[Math.round(Math.random() * lotteryEntries.length)];
+            log("@" + winner + " has won the hourly lottery! " +
+                "The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
+            moveToFirst(winner);
+        }
+        else
+        {
+            log("Resetting lottery. Not enough contestants. " +
+                "The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
+        }
+        lotteryEntries = [];
+    }
 }

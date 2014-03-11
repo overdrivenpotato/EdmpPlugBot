@@ -184,6 +184,12 @@ var commands = [
 
 
     new Command("lottery", function(author){
+        if(new Date().getMinutes() >= 10)
+        {
+            log("@" + author + ", the lottery occurs at the start of each hour." +
+                "Type !lottery within 10 minutes for a chance to win!");
+            return;
+        }
         if(lotteryEntries.indexOf(author) > -1)
         {
             log("@" + author + " you are already in the lottery! " +
