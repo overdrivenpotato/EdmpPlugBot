@@ -43,7 +43,7 @@ function Command(cmd, callback, permission, customPerm)
     this.callback = callback;
     this.permission = typeof permission === "undefined" ? 0 : permission;
 
-    this.prototype.exec = function(author, args){
+    this.exec = function(author, args){
         if(this.hasPermission(author))
         {
             this.callback(author, args);
@@ -54,12 +54,12 @@ function Command(cmd, callback, permission, customPerm)
         }
     }
 
-    this.prototype.hasPermission = function(author){
+    this.hasPermission = function(author){
         return getPermLevel(author >= this.permission) ||
             (typeof customPerm !== "undefined" ? customPerm(author) : false);
     };
 
-    this.prototype.toString = function(){
+    this.toString = function(){
         return this.cmd.toString();
     }
 }
