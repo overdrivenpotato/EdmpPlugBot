@@ -56,7 +56,7 @@ function Command(cmd, callback, permission, customPerm)
     }
 
     this.hasPermission = function(author){
-        return getPermLevel(author >= this.permission) ||
+        return getPermLevel(author) >= this.permission ||
             (typeof customPerm !== "undefined" ? customPerm(author) : false);
     };
 
