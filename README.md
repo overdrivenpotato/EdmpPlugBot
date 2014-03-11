@@ -35,3 +35,5 @@ javascript:(function(){document.body.appendChild(document.createElement('script'
     * wheateryday
 * !lottery
     * Enters the lottery. At the beginning of every hour, a lottery is held for 10 minutes. After 10 minutes, one contestant is picked and placed at the top of the waitlist
+* !remove
+    * Removes the currently playing DJ

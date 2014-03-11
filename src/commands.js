@@ -197,6 +197,18 @@ var commands = [
 
         lotteryEntries.push(author);
         log("@" + author + " has entered the lottery! There are now " + lotteryEntries.length + " entries!", log.visible);
-    })
+    }),
+
+
+    new Command("remove", function(author){
+        var dj = API.getDJ();
+        if(typeof dj === "undefined")
+        {
+            log("No dj to remove.", log.visible);
+            return;
+        }
+        log(author + " has removed " + dj.username + " from the stage.", log.info);
+        API.moderateRemoveDJ(dj.id);
+    }, API.ROLE.MANAGER)
 
 ];
