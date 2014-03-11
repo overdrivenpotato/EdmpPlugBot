@@ -154,6 +154,32 @@ var commands = [
 
     new Command("update", function(){
         updateBot();
-    }, API.ROLE.MANAGER)
+    }, API.ROLE.MANAGER),
+
+
+    new Command("rollthedice", function(){
+        rollTheDice();
+    }),
+
+
+    new Command("afktest", function(author){
+        log("trackAFKs=" + trackAFKs, log.visible);
+        checkAFK(author);
+    }),
+
+
+    new Command("8ball", function(author){
+        eightball(author);
+    }),
+
+
+    new Command("credits", function(){
+        log("EDMPbot was developed by @overdrivenpotato and @Invincibear", log.visible);
+    }),
+
+
+    new Command("smoke", function(){
+        log("WEED ERRYDAY", log.visible);
+    })
 
 ];
