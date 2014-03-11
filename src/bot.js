@@ -6,7 +6,7 @@
 
 var skipFixEnabled = false;
 var version = "0.2.0";
-var trackAFKs = new Array();
+var trackAFKs = [];
 
 
 //API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
@@ -186,7 +186,7 @@ function checkRepeatSong(obj)
 // if same 2x, send an @author chat warning & skip
 // if same 3x, send an @author chat warning and remove from DJ list
     var songshistory = API.getHistory(); // get dj history
-    var songs = new Array();
+    var songs = [];
 
     for(var i = 0; i < songshistory.length; i++) {
         if (songshistory[i].user.id == API.getDJ().id) {
@@ -334,7 +334,7 @@ function checkAFK(username)
     var userID = getId(username);
     var start = trackAFKs.length - 1;
 
-    for (i = start; i >= 0; i--) {
+    for (var i = start; i >= 0; i--) {
         log("i=" + i, log.visible);
         log("trackAFKs:" + trackAFKs[i].search(getID), log.visible);
         if (trackAFKs[i].search(userID) != -1) {
@@ -378,6 +378,5 @@ function lotteryUpdate()
     else
     {
         lotteryUpdated = false;
-        return;
     }
 }
