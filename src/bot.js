@@ -350,12 +350,12 @@ var lastLotteryTime = 0;
 var lotteryEntries = new Array();
 function lottery(username)
 {
-    if(lotteryEntries.indexOf(username) < 0)
+    if(lotteryEntries.indexOf(username) > -1)
     {
-        log("@" + username + " you are already in the lottery!");
+        log("@" + username + " you are already in the lottery!", log.visible);
         return;
     }
 
     lotteryEntries.push(username);
-    log("@" + username + " has entered the lottery! There are now " + lotteryEntries.length + " entries!");
+    log("@" + username + " has entered the lottery! There are now " + lotteryEntries.length + " entries!", log.visible);
 }
