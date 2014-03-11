@@ -345,3 +345,17 @@ function checkAFK(username)
         }
     }
 }
+
+var lastLotteryTime = 0;
+var lotteryEntries = new Array();
+function lottery(username)
+{
+    if(lotteryEntries.indexOf(username) < 0)
+    {
+        log("@" + username + " you are already in the lottery!");
+        return;
+    }
+
+    lotteryEntries.push(username);
+    log("@" + username + " has entered the lottery! There are now " + lotteryEntries.length + " entries!");
+}

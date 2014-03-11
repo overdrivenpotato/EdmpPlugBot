@@ -8,7 +8,7 @@
 
 function getAvailable(author)
 {
-    var avail = new Array();
+    var avail = [];
     for(var i = 0; i < commands.length; i++)
     {
         if(commands[i].hasPermission(author))
@@ -53,7 +53,7 @@ function Command(cmd, callback, permission, customPerm)
         {
             console.log("No permission");
         }
-    }
+    };
 
     this.hasPermission = function(author){
         return getPermLevel(author) >= this.permission ||
@@ -180,6 +180,11 @@ var commands = [
 
     new Command("smoke", function(){
         log("WEED ERRYDAY", log.visible);
+    }),
+
+
+    new Command("lottery", function(author){
+        lottery(author);
     })
 
 ];
