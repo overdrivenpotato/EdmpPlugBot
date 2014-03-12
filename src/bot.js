@@ -86,8 +86,9 @@ function dispatch(message, author)
     log("Dispatching message: " + message);
     while(true)
     {
-        if(message.indexOf("<a") == -1)
+        if(message.indexOf("<a") == -1) {
             break;
+        }
         var start = message.indexOf("<a");
         var end = message.indexOf("a>");
         var link = $(message.substr(start, end)).attr("href");
