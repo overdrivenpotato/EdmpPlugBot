@@ -63,7 +63,7 @@ function Command(cmd, callback, permission, customPerm)
     };
 
     this.customPerm(author, challenger) = function(){
-        if (au
+
     };
 }
 
