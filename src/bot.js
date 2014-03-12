@@ -90,8 +90,11 @@ function dispatch(message, author)
             break;
         }
         var start = message.indexOf("<a");
+console.log("start:" + start);
         var end = message.indexOf("a>");
+console.log("end:" + end);
         var link = $(message.substr(start, end)).attr("href");
+console.log("link:" + link);
         message = message.split(message.substr(start, end));
         message = message[0] + link + message[1];
     }
@@ -102,6 +105,7 @@ function dispatch(message, author)
         try
         {
             var args = message.split(" ");
+console.log("args:" + args);
             commandDispatch(args , author);
         }
         catch(exp)
