@@ -318,7 +318,7 @@ function eightball(author)
 {
     //log("@" + author +  ", you shouldn't gamble on chance", log.visible);
     var outcomes = new Array(
-        "It is certain that",
+        "It is certain",
         "It is decidedly so that",
         "Without a doubt",
         "Yes definitely",
