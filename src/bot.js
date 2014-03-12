@@ -9,7 +9,7 @@ var version = "0.2.0";
 var trackAFKs = [];
 
 
-API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+//API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, checkRepeatSong);
 API.on(API.CHAT, onChat);
 
