@@ -291,14 +291,6 @@ window.edmpBot = window.setInterval(function(){
     meetupReminder();
 }, 10);
 
-API.on(API.CHAT, function(data){
-    if(data.type == "message")
-    {
-        dispatch(data.message, data.from);
-    }
-    lotteryUpdate();
-});
-
 function rolldice(dbl)
 {
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
@@ -329,6 +321,12 @@ function eightball(author)
 
 function onChat(data)
 {
+    if(data.type == "message")
+    {
+        dispatch(data.message, data.from);
+    }
+    lotteryUpdate();
+
     if(data.type == "message" || data.type == "emote") {
         trackAFKs.push(new Array(data.fromID, Date.now()));
     }
