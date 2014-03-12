@@ -319,11 +319,11 @@ function eightball(author)
     //log("@" + author +  ", you shouldn't gamble on chance", log.visible);
     var outcomes = new Array(
         "It is certain",
-        "It is decidedly so that",
+        "You need to spend $99 on a 9ball upgrade to answer that",
         "Without a doubt",
         "Yes definitely",
         "You may rely on it",
-        "As I see it, yes",
+        "Why don't you hire a therapist instead",
         "Most likely",
         "Outlook good",
         "Yes",
@@ -337,8 +337,12 @@ function eightball(author)
         "My reply is no",
         "My sources say no",
         "Outlook not so good",
-        "Very doubtful");
-    log("@" + author + ", " outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
+        "Not a f*cking chance",
+        "Who do you think I am, Ms Cleo?",
+        "Does Invincibear do it in the park?",
+        "I'm not sure, @Ptero's mom knows best",
+        "");
+    log("@" + author + ", " + outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
 }
 
 function onChat(data)
