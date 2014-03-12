@@ -55,15 +55,11 @@ function Command(cmd, callback, permission, customPerm)
 
     this.hasPermission = function(author){
         return getPermLevel(author) >= this.permission ||
-            (typeof customPerm !== "undefined" ? checkCustomPerm(customPerm) : false);
+            (typeof customPerm !== "undefined" ? customPerm(author) : false);
     };
 
     this.toString = function(){
         return this.cmd.toString();
-    };
-
-    this.customPerm(author, challenger) = function(){
-        if (au
     };
 }
 
@@ -156,7 +152,9 @@ var commands = [
 
     new Command("update", function(){
         updateBot();
-    }, API.ROLE.MANAGER, "Invincibear"),
+    }, API.ROLE.MANAGER, function(author){
+        return author.trim().toLocaleLowerCase() == "invincibear";
+    }),
 
 
     new Command("rollthedice", function(){
