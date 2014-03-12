@@ -146,6 +146,10 @@ function getPermLevel(username)
     return API.getUser(getId(username)).permission;
 }
 
+function checkCustomPerm(username) {
+    return (author == username) ? true : false;
+}
+
 function getId(username) {
     var users = API.getUsers();
     for(var i = 0; i < users.length; i++)

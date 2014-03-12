@@ -55,12 +55,16 @@ function Command(cmd, callback, permission, customPerm)
 
     this.hasPermission = function(author){
         return getPermLevel(author) >= this.permission ||
-            (typeof customPerm !== "undefined" ? customPerm(author) : false);
+            (typeof customPerm !== "undefined" ? checkCustomPerm(customPerm) : false);
     };
 
     this.toString = function(){
         return this.cmd.toString();
-    }
+    };
+
+    this.customPerm(author, challenger) = function(){
+        if (au
+    };
 }
 
 function LinkCommand(cmd, url)
@@ -152,7 +156,7 @@ var commands = [
 
     new Command("update", function(){
         updateBot();
-    }, API.ROLE.MANAGER),
+    }, API.ROLE.MANAGER, "Invincibear"),
 
 
     new Command("rollthedice", function(){
