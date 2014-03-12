@@ -338,7 +338,7 @@ function eightball(author)
         "My sources say no",
         "Outlook not so good",
         "Very doubtful");
-    log(outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
+    log("@" + author + ", " outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
 }
 
 function onChat(data)
