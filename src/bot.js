@@ -338,7 +338,7 @@ function eightball(author)
         "My sources say no",
         "Outlook not so good",
         "Very doubtful");
-    log(outcomes[Math.round(Math.random() * lotteryEntries.length)], log.visible);
+    log(outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
 }
 
 function onChat(data)
