@@ -9,7 +9,7 @@ var version = "0.2.0";
 var trackAFKs = [];
 
 
-//API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, checkRepeatSong);
 API.on(API.CHAT, onChat);
 
@@ -172,8 +172,8 @@ function getPosition(username) {
 
 // Alert upcoming users that their set is about to start when total users > if they're AFK
 function waitListUpdated (users) {
-    if (users.length >= 2) {
-        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
+    if (users.length >= 7) {
+        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.visible);
     }
 }
 
@@ -291,14 +291,6 @@ window.edmpBot = window.setInterval(function(){
     meetupReminder();
 }, 10);
 
-API.on(API.CHAT, function(data){
-    if(data.type == "message")
-    {
-        dispatch(data.message, data.from);
-    }
-    lotteryUpdate();
-});
-
 function rolldice(dbl)
 {
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
@@ -324,11 +316,43 @@ function rollTheDice ()
 
 function eightball(author)
 {
-    log("@" + author +  ", you shouldn't gamble on chance", log.visible);
+    //log("@" + author +  ", you shouldn't gamble on chance", log.visible);
+    var outcomes = new Array(
+        "It is certain",
+        "You need to spend $99 on a 9ball upgrade to answer that",
+        "Without a doubt",
+        "Yes definitely",
+        "You may rely on it",
+        "Why don't you hire a therapist instead",
+        "Most likely",
+        "Outlook good",
+        "Yes",
+        "Signs point to yes",
+        "Reply hazy try again",
+        "Ask again later",
+        "Better not tell you now",
+        "Cannot predict now",
+        "Concentrate and ask again",
+        "Don't count on it",
+        "My reply is no",
+        "My sources say no",
+        "Outlook not so good",
+        "Not a f*cking chance",
+        "Who do you think I am, Ms Cleo?",
+        "Does Invincibear do it in the park?",
+        "I'm not sure, @Ptero's mom knows best",
+        "");
+    log("@" + author + ", " + outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
 }
 
 function onChat(data)
 {
+    if(data.type == "message")
+    {
+        dispatch(data.message, data.from);
+    }
+    lotteryUpdate();
+
     if(data.type == "message" || data.type == "emote") {
         trackAFKs.push(new Array(data.fromID, Date.now()));
     }
