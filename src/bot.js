@@ -9,7 +9,7 @@ var version = "0.2.0";
 var trackAFKs = [];
 
 
-//API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, checkRepeatSong);
 API.on(API.CHAT, onChat);
 
@@ -147,7 +147,7 @@ function getPermLevel(username)
 }
 
 function checkCustomPerm(username) {
-    return (author == username) ? true : false;
+    return (author == username);
 }
 
 function getId(username) {
@@ -172,7 +172,7 @@ function getPosition(username) {
 
 // Alert upcoming users that their set is about to start when total users > if they're AFK
 function waitListUpdated (users) {
-    if (users.length >= 7) {
+    if (users.length >= 2) {
         log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.visible);
     }
 }
