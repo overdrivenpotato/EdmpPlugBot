@@ -153,7 +153,7 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("help,commands", function(author){
+    new Command("help,commands,", function(author){
         var avail = getAvailable(author);
         var chatoutput = "@" + author + ", you have access to the following commands: ";
         for(var i = 0; i < avail.length; i++)
@@ -177,8 +177,8 @@ var commands = [
     }),
 
 
-    new Command("rollthedice", function(){
-        rollTheDice();
+    new Command("rollthedice", function(author){
+        rollTheDice(author);
     }),
 
 
@@ -188,13 +188,13 @@ var commands = [
     }),
 
 
-    new Command("8ball", function(author){
-        eightball(author);
+    new Command("8ball", function(author, args){
+        eightball(author, args);
     }),
 
 
-    new Command("credits", function(){
-        log("EDMPbot was developed by @overdrivenpotato and @Invincibear", log.visible);
+    new Command("credits,info", function(){
+        log("EDMPbot was developed by @overdrivenpotato and @Invincibear. Type !help for available commands.", log.visible);
     }),
 
 

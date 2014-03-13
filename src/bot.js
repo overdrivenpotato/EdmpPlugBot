@@ -294,14 +294,14 @@ window.edmpBot = window.setInterval(function(){
     meetupReminder();
 }, 10);
 
-function rollTheDice (){
+function rollTheDice (author){
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
 
     if (dicetotal == 2 || dicetotal == 12) {
         if ((getPosition(author) - 3) < 1) {
-            API.moderateMoveDJ(getId(username), getPosition(author) - 3);
+            API.moderateMoveDJ(getId(author), getPosition(author) - 3);
             log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump closer to the front!", log.visible);
         } else {
             API.moderateMoveDJ(getId(username), 1);
@@ -310,12 +310,12 @@ function rollTheDice (){
     } else if (x == y) {
         log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
-        API.moderateMoveDJ(getId(username), getPosition(author) + 1);
+        API.moderateMoveDJ(getId(author), getPosition(author) + 1);
         log ("Sucks to be you right now @" + author + ", you rolled a " + x + " and a " + y + ", you didn't roll doubles nor a 1 nor a 12, you lose a position!", log.visible);
     }
 }
 
-function eightball(author) {
+function eightball(author, args) {
     var outcomes = new Array(
         "It is certain",
         "You need to spend $99 on a 9ball upgrade to answer that",
@@ -340,7 +340,11 @@ function eightball(author) {
         "Who do you think I am, Ms Cleo?",
         "Does Invincibear do it in the park?",
         "I'm not sure, @Ptero's mom knows best");
-    log("@" + author + ", " + outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
+    if(args.length < 2) {
+        log("@" + author + ", you never asked a question!? Usage: !8ball Is Invincibear dope?", log.visible);
+    } else {
+        log("@" + author + ", " + outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
+    }
 }
 
 function onChat(data)
