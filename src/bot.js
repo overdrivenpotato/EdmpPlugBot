@@ -70,7 +70,7 @@ function skipFix()
     }
 }
 
-var lastMeetupMessageTime = 0;
+var lastMeetupMessageTime = typeof lastMeetupMessageTime === "undefined" ? 0 : lastMeetupMessageTime;
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 function meetupReminder()
 {
