@@ -4,6 +4,8 @@
  * Time: 9:20 PM
  */
 
+log("Loading bot...");
+
 var skipFixEnabled = false;
 var version = "0.3.0";
 var trackAFKs = [];
@@ -18,6 +20,8 @@ var lastDJAdvanceTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : las
 var lotteryEntries = typeof lotteryEntries === "undefined" ? [] : lotteryEntries;
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 
+var scClientId = "ff550ffd042d54afc90a43b7151130a1";
+
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, onDJAdvance);
 API.on(API.CHAT, onChat);
@@ -25,19 +29,16 @@ API.on(API.CHAT, onChat);
 log.info = 3;
 log.visible = 2;
 
-function log(message, level)
-{
+function log(message, level) {
     level = (typeof level === "undefined") ? log.info : level;
-    if(level < log.info)
-    {
+    if(level < log.info) {
         console.log("Chatting: ");
         chat(message);
     }
     console.log(message);
 }
 
-function updateBot()
-{
+function updateBot() {
     log("Restarting in 3 seconds...", log.visible);
     stop(true);
     log("Starting timeout... ", log.info);
@@ -46,93 +47,80 @@ function updateBot()
     }, 3000);
 }
 
-function stop(update)
-{
+function stop(update) {
     clearInterval(window.edmpBot);
     log("Shutting down the bot. Bye!", log.visible);
     API.off();
-    if(!update)
-    {
+    if(!update) {
         setTimeout(function(){
             log("p.s. ptero is fat", log.visible);
         }, 15000);
     }
 }
 
-function skipFix()
-{
-    if(lastSkipTime < 1)
-    {
+function skipFix() {
+    if(lastSkipTime < 1) {
         lastSkipTime = Date.now();
         return;
     }
 
     var times = $("#now-playing-time").children(":last").html().split(":");
-    if(times[0] < 1 && times[1] < 1)
-    {
+    if(times[0] < 1 && times[1] < 1) {
         var timeN = Date.now();
-        if(timeN - lastSkipTime > 5000)
-        {
+        if(timeN - lastSkipTime > 5000) {
             log("Skipping due to lag", 1);
             commandDispatch("!skip", API.getUser().username.trim());
         }
     }
 }
 
-function meetupReminder()
-{
-    if(meetupUrl.length > 0 && Date.now() - lastMeetupMessageTime > 600000)
-    {
+function meetupReminder() {
+    if(meetupUrl.length > 0 && Date.now() - lastMeetupMessageTime > 600000) {
         lastMeetupMessageTime = Date.now();
         chat("Make sure to " + upvotes[Math.round(Math.random() * (upvotes.length - 1))] + " the /r/edmp thread at " + meetupUrl + "!");
     }
 }
 
-function dispatch(message, author)
-{
+function dispatch(message, author) {
     log("Dispatching message: " + message);
-    while(true)
-    {
+    while(true)     {
         if(message.indexOf("<a") == -1) {
             break;
         }
+
         var start = message.indexOf("<a");
 console.log("start:" + start);
         var end = message.indexOf("a>");
 console.log("end:" + end);
         var link = $(message.substr(start, end)).attr("href");
 console.log("link:" + link);
+
         message = message.split(message.substr(start, end));
         message = message[0] + link + message[1];
     }
     message = message.replace(/&nbsp;/g, '');
-    if(message.match(/(^!)(!?)/))
-    {
+
+    if(message.match(/(^!)(!?)/)) {
         message = message.substr(message.indexOf("!"));
-        try
-        {
+        try {
             var args = message.split(" ");
 console.log("args:" + args);
             commandDispatch(args , author);
-        }
-        catch(exp)
-        {
+        } catch(exp) {
             console.log("Error: " + exp.stack);
         }
     }
 }
 
 
-function commandDispatch(args, author)
-{
+function commandDispatch(args, author) {
     args[0] = args[0].substring(1);
     console.log(author + " has dispatched: \'" + args[0] + "\'" + " with args: " + args);
     execCommand(author, args);
 }
 
 
-function isPlaying(username)
-{
+function isPlaying(username) {
     return typeof API.getDJ() !== "undefined" && API.getDJ().username == username.trim();
 }
 
@@ -142,14 +130,12 @@ function moveToFirst(username) {
 }
 
 
-function skipDj()
-{
+function skipDj() {
     API.moderateForceSkip();
 }
 
 
-function chat(text)
-{
+function chat(text) {
     $("#chat-input-field").val("/me " + text);
     var e = $.Event('keydown');
     e.which = 13;
@@ -157,8 +143,7 @@ function chat(text)
 }
 
 
-function getPermLevel(username)
-{
+function getPermLevel(username) {
     return API.getUser(getId(username)).permission;
 }
 
@@ -186,6 +171,18 @@ function getPosition(username) {
 }
 
 
+function onChat(data) {
+    if(data.type == "message") {
+        dispatch(data.message, data.from);
+    }
+    lotteryUpdate();
+
+    if(data.type == "message" || data.type == "emote") {
+        trackAFKs.push(new Array(data.fromID, Date.now()));
+    }
+}
+
+
 // Alert upcoming users that their set is about to start when total users > if they're AFK
 function waitListUpdated (users) {
     lastDJAdvanceTime = Date.now();
@@ -204,8 +201,7 @@ function getAverageTime()
 
 
 // Check to see if the user is repeatedly playing the same song
-function onDJAdvance(obj)
-{
+function onDJAdvance(obj) {
     lastPrivateSkip = Date.now();
 // check if upcoming song & previously played song is the same
 //if same, send an @author chat warning
@@ -237,83 +233,70 @@ function onDJAdvance(obj)
     }
 }
 
-//From http://www.w3schools.com/dom/dom_loadxmldoc.asp
-function loadXMLDoc(filename)
-{
-    if (window.XMLHttpRequest)
-    {
+
+function loadXMLDoc(filename) {//From http://www.w3schools.com/dom/dom_loadxmldoc.asp
+    if (window.XMLHttpRequest) {
         xhttp=new XMLHttpRequest();
-    }
-    else // code for IE5 and IE6
-    {
+    } else {// code for IE5 and IE6
         xhttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
+
     xhttp.open("GET",filename,false);
     xhttp.send();
     return xhttp.responseXML;
 }
 
-function getSourceUrl(id, callBack)
-{
-    if(isSc(id))
-    {
+
+function getSourceUrl(id, callBack) {
+    if(isSc(id)) {
         getScUrl(id.split(":")[1], callBack);
-    }
-    else
-    {
+    } else {
         getYtUrl(id.split(":")[1], callBack);
     }
 }
 
-function getScUrl(soundId, callBack)
-{
+function getScUrl(soundId, callBack) {
     $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
         function(e){
             callBack(e.permalink_url);
         });
 }
 
-function getYtUrl(videoId, callBack)
-{
+function getYtUrl(videoId, callBack) {
     callBack($(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + videoId).getElementsByTagName("player")).attr("url"));
 }
 
-function isSc(id)
-{
+function isSc(id) {
     id = id.split(":");
-    return id[0] == 2;
+    return (id[0] == 2 || id[0] == "2");
 }
 
-function getSourceLength(id, callBack)
-{
-    if(isSc(id) == 2) {
+function getSourceLength(id, callBack) {
+    if(isSc(id)) {
         getScLengthSeconds(id.split(":")[1], callBack);
     } else {
         getYtVidSeconds(id.split(":")[1], callBack);
     }
 }
 
-var scClientId = "ff550ffd042d54afc90a43b7151130a1";
-function getScLengthSeconds(soundId, callBack)
-{
+
+function getScLengthSeconds(soundId, callBack) {
     $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
         function(e){
             callBack(e.duration / 1000);
         });
 }
 
-function getYtVidSeconds(videoId, callBack)
-{
+
+function getYtVidSeconds(videoId, callBack) {
     callBack($(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + videoId).getElementsByTagName("duration")).attr("seconds"));
 }
 
-function analyzeSongHistory()
-{
+
+function analyzeSongHistory() {
     var history = API.getHistory();
-    for(var i = 0; i < history.length; i++)
-    {
-        try
-        {
+    for (var i = 0; i < history.length; i++) {
+        try {
             getSourceLength(history[i].media.id, function(seconds){
                 totalSongs++;
                 var Sseconds = (isNaN(parseFloat(seconds))) ? 240 : parseFloat(seconds);// Assume 4 minute song if checking fails
@@ -321,27 +304,15 @@ function analyzeSongHistory()
                 totalSongTime += Sseconds;
                 log("Time changed to " + totalSongTime);
             });
-        } catch(err)
-        {
+        } catch(err) {
             console.error(err);
             log("Getting song length failed. history[i].media.id=" + history[i].media.id, log.info);
         }
     }
 }
 
-log("Loading bot...");
-analyzeSongHistory();
-log("Loaded EDMPbot v" + version, log.visible);
-window.edmpBot = window.setInterval(function(){
-    if(skipFixEnabled)
-    {
-        skipFix();
-    }
-    meetupReminder();
-}, 10);
 
-function rollTheDice (author){
-// flood protection needed
+function rollTheDice (author) {
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
@@ -387,22 +358,11 @@ function eightball(author, args) {
         "Does Invincibear do it in the park?",
         "I'm not sure, @Ptero's mom knows best",
         "Of all the questions you could've asked, you asked THAT one?!?!");
+
     if(args.length < 2) {
         log("@" + author + ", you never asked a question!? Usage: !8ball Is Invincibear dope?", log.visible);
     } else {
         log("@" + author + ", " + outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
-    }
-}
-
-function onChat(data) {
-    if(data.type == "message")
-    {
-        dispatch(data.message, data.from);
-    }
-    lotteryUpdate();
-
-    if(data.type == "message" || data.type == "emote") {
-        trackAFKs.push(new Array(data.fromID, Date.now()));
     }
 }
 
@@ -423,34 +383,37 @@ function checkAFK(username) {
     }
 }
 
-function lotteryUpdate()
-{
+function lotteryUpdate() {
     if(new Date().getMinutes() >= 10){
         if(lotteryUpdated)
             return;
         lotteryUpdated = true;
 
-        if(lotteryEntries.length > 1)
-        {
+        if(lotteryEntries.length > 1) {
             var winner = lotteryEntries[Math.round(Math.random() * lotteryEntries.length)];
-            if(API.getWaitListPosition(getId(winner)) < 0)
-            {
+
+            if(API.getWaitListPosition(getId(winner)) < 0) {
                 lotteryUpdated = false;
                 return;
             }
-            log("@" + winner + " has won the hourly lottery! " +
-                "The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
+
+            log("@" + winner + " has won the hourly lottery! The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
             moveToFirst(winner);
-        }
-        else
-        {
-            log("Resetting lottery. Not enough contestants. " +
-                "The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
+        } else {
+            log("Resetting lottery. Not enough contestants. The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
         }
         lotteryEntries = [];
-    }
-    else
-    {
+    } else {
         lotteryUpdated = false;
     }
 }
+
+
+analyzeSongHistory();
+log("Loaded EDMPbot v" + version, log.visible);
+window.edmpBot = window.setInterval(function(){
+    if(skipFixEnabled) {
+        skipFix();
+    }
+    meetupReminder();
+}, 10);
