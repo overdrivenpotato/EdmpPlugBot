@@ -250,5 +250,10 @@ var commands = [
 
     new Command("herp", function() {
         log("derp", log.visible);
+    }),
+
+
+    new Command("damn", function() {
+        log("SON, WHERE'D YOU FIND THIS??", log.visible);
     })
 ];

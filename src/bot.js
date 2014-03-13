@@ -163,10 +163,34 @@ function getId(username) {
 }
 
 
-function getETA(username) {
+function getAFKTime(username) {
+    var userID = getId(username);
+    var start = trackAFKs.length - 1;
+
+    for (var i = start; i >= 0; i--) {// Start high, most recent users
+        log("i=" + i, log.info);
+        log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
+        if (trackAFKs[i].search(userID) != -1) {
+            //do time calculations, now-stored time < 60 minutes
+            var times = trackAFKs[0].split(",");
+            var difference = (Date.now() - times[1]) / 1000 / 60 / 60;
+            log(username + "spoke " + difference + " hours ago", log.info);
+            break;
+        }
+    }
+}
+
+
+function checkAFK(username) {
+
+}
+
+
+function getETA(username) {// use the countdown at the top of the page if you're the next up to play, otherwise do average song length calculations
     var current = $("#now-playing-time").children(":last").html().split(":");
-    var totalSeconds = (current[0] * 60) + current;// round to prevent unforeseeable errors
-    return (getPosition(username) == 0) ? Math.round(totalSeconds) : Math.round((getPosition(username) + 1) * getAverageTime());
+    current[0] = (current[0].substring(0, 1) == "0") ? current[0].substring(1) : current[0];
+    var totalSeconds = (current[0] * 60) + current;
+    return (getPosition(username) == 0) ? Math.round(totalSeconds) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
 }
 
 
@@ -226,13 +250,12 @@ function onJoin(user) {
 }
 
 
-// Alert upcoming users that their set is about to start when total users > if they're AFK
-function waitListUpdated (users) {
-    lastDJAdvanceTime = Date.now();
-
-    if (users.length >= 7 && ((Date.now() - lastDJAdvanceTime) < 2000)) {
+function waitListUpdated (users) {// Alert upcoming users that their set is about to start when total users > 7 if they're AFK
+    if (users.length >= 1 && ((Date.now() - lastDJAdvanceTime) > 2000)) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
         log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
     }
+
+    lastDJAdvanceTime = Date.now();
 }
 
 
@@ -263,6 +286,7 @@ function getSourceUrl(id, callBack) {
     }
 }
 
+
 function getScUrl(soundId, callBack) {
     $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
         function(e){
@@ -270,14 +294,17 @@ function getScUrl(soundId, callBack) {
         });
 }
 
+
 function getYtUrl(videoId, callBack) {
     callBack($(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + videoId).getElementsByTagName("player")).attr("url"));
 }
+
 
 function isSc(id) {
     id = id.split(":");
     return (id[0] == 2 || id[0] == "2");
 }
+
 
 function getSourceLength(id, callBack) {
     if(isSc(id)) {
@@ -376,23 +403,6 @@ function eightball(author, args) {
         log("@" + author + ", you never asked a question!? Usage: !8ball Is Invincibear dope?", log.visible);
     } else {
         log("@" + author + ", " + outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
-    }
-}
-
-function checkAFK(username) {
-    var userID = getId(username);
-    var start = trackAFKs.length - 1;
-
-    for (var i = start; i >= 0; i--) {
-        log("i=" + i, log.info);
-        log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
-        if (trackAFKs[i].search(userID) != -1) {
-            //do time calculations, now-stored time < 60 minutes
-            var times = trackAFKs[0].split(",");
-            var difference = (Date.now() - times[1]) / 1000 / 60 / 60;
-            log(username + "spoke " + difference + " hours ago", log.info);
-            break;
-        }
     }
 }
 
