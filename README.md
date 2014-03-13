@@ -23,6 +23,8 @@ javascript:(function(){document.body.appendChild(document.createElement('script'
     * Gives an eta for when your turn will be based on previous plays and your position in the waitlist.
 * !url
     * Returns the URL of the playing song.
+* !listadmins
+    * Returns a list of Admins currently in the room.
 * !mal
     * ples no
 * !reminder
