@@ -331,10 +331,10 @@ function rollTheDice (author){
     if (dicetotal == 7) {
         if ((getPosition(author) - 4) < 1) {
             API.moderateMoveDJ(getId(author), getPosition(author) - 4);
-            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump closer to the front!", log.visible);
+            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations, you've earned a 3 slot bump closer to the front!", log.visible);
         } else {
             API.moderateMoveDJ(getId(username), 1);
-            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump to the front of the line!", log.visible);
+            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations, you've earned a 5 slot bump to the front of the line!", log.visible);
         }
     } else if (x == y) {
         log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
@@ -376,8 +376,7 @@ function eightball(author, args) {
     }
 }
 
-function onChat(data)
-{
+function onChat(data) {
     if(data.type == "message")
     {
         dispatch(data.message, data.from);
@@ -389,8 +388,7 @@ function onChat(data)
     }
 }
 
-function checkAFK(username)
-{
+function checkAFK(username) {
     var userID = getId(username);
     var start = trackAFKs.length - 1;
 

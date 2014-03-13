@@ -71,14 +71,32 @@ function LinkCommand(cmd, url)
 }
 
 var commands = [
+    new Command("help,", function(author){
+        var avail = getAvailable(author);
+        var chatoutput = "@" + author + ", you have access to the following commands: ";
+        for(var i = 0; i < avail.length; i++)
+        {
+            chatoutput += "!" + avail[i].cmd + (i != avail.length - 1 ? ", " : "");
+        }
+        log(chatoutput, log.visible);
+    }),
+
+
+    new Command("info", function(){
+        log("EDMPbot was developed by @overdrivenpotato and @Invincibear, minor changes by @NVP. Type !help for available commands.", log.visible);
+    }),
+
+
     new Command("goosesux", function(){
         log("Yes he does.", log.visible);
     }),
 
+
     new Command("turndown", function(){
         log("FOR WHAT?", log.visible);
     }),
-    
+
+
     new Command("skip", function(author){
         skipDj();
         log(author + " has skipped " + API.getDJ().username, log.visible);
@@ -138,7 +156,8 @@ var commands = [
             log("@" + author + ", you are not on the DJ wait list!", log.visible);
     }),
 
-    new Command("listadmins,admins,staff", function(author){
+
+    new Command("admins", function(author){
         var admins = API.getStaff();
         if(admins.length <= 0){
             log("No admins are in the room.", log.visible);
@@ -153,9 +172,9 @@ var commands = [
         }
     }),
 
-    new Command("mal", function(){
-        log("ware!", log.visible);
-    }),
+//    new Command("mal", function(){
+//        log("ware!", log.visible);
+//    }),
 
 
     new Command("reminder", function(author, args){
@@ -174,17 +193,6 @@ var commands = [
         meetupUrl = "";
         log("@" + author + " reminder stopped.", log.visible);
     }, API.ROLE.MANAGER),
-
-
-    new Command("help,commands,", function(author){
-        var avail = getAvailable(author);
-        var chatoutput = "@" + author + ", you have access to the following commands: ";
-        for(var i = 0; i < avail.length; i++)
-        {
-            chatoutput += "!" + avail[i].cmd + (i != avail.length - 1 ? ", " : "");
-        }
-        log(chatoutput, log.visible);
-    }),
 
 
     new Command("stop", function(){
@@ -213,11 +221,6 @@ var commands = [
 
     new Command("8ball", function(author, args){
         eightball(author, args);
-    }),
-
-
-    new Command("credits,info", function(){
-        log("EDMPbot was developed by @overdrivenpotato and @Invincibear, minor changes by @NVP. Type !help for available commands.", log.visible);
     }),
 
 
