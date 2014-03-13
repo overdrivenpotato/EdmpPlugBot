@@ -77,7 +77,7 @@ function meetupReminder()
     if(meetupUrl.length > 0 && Date.now() - lastMeetupMessageTime > 600000)
     {
         lastMeetupMessageTime = Date.now();
-        chat("Make sure to " + upvotes[Math.round(Math.random() * upvotes.length)] + " the /r/edmp thread at " + meetupUrl + "!");
+        chat("Make sure to " + upvotes[Math.round(Math.random() * (upvotes.length - 1))] + " the /r/edmp thread at " + meetupUrl + "!");
     }
 }
 
