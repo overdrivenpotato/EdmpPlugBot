@@ -291,29 +291,11 @@ window.edmpBot = window.setInterval(function(){
     meetupReminder();
 }, 10);
 
-function rolldice(dbl)
-{
+function rollTheDice (){
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
-    $('.dice1').attr('id', "dice" + x);
-    $('.dice2').attr('id', "dice" + y);
-    if (x == y) {//check for doubles
-        dbl++;
-        if(dbl%3==0) {
-        //Now reroll the dice, but if you hit 3 doubles in a row, you get message go to jail.
-            rolldice(dbl);
-        }
-    }
-}
 
-function rollTheDice ()
-{
-    log("coming soon!", log.visible);
-//roll a 2 or a 12 and move up 3 slots, anything else will cost you one slot
-    var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
-    var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
-    var dicetotal = x + y;
     if (dicetotal == 2 || dicetotal == 12) {
         if ((getPosition(author) - 3) < 1) {
             API.moderateMoveDJ(getId(username), getPosition(author) - 3);
