@@ -7,6 +7,7 @@
 var skipFixEnabled = true;
 var version = "0.3.0";
 var trackAFKs = [];
+var lastPrivateSkip = 0;
 
 
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
@@ -437,5 +438,3 @@ function lotteryUpdate()
         lotteryUpdated = false;
     }
 }
-
-var lastPrivateSkip = 0;
