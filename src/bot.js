@@ -295,11 +295,12 @@ window.edmpBot = window.setInterval(function(){
 }, 10);
 
 function rollTheDice (author){
+// flood protection needed
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
 
-    if (dicetotal == 2 || dicetotal == 12) {
+    if (dicetotal == 4 || dicetotal == 10) {
         if ((getPosition(author) - 4) < 1) {
             API.moderateMoveDJ(getId(author), getPosition(author) - 4);
             log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump closer to the front!", log.visible);
@@ -311,7 +312,7 @@ function rollTheDice (author){
         log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
         API.moderateMoveDJ(getId(author), getPosition(author) + 2);
-        log ("Sucks to be you right now @" + author + ", you rolled a " + x + " and a " + y + ", you didn't roll doubles, nor a total of 2 or 12, you lose a position!", log.visible);
+        log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles or a total of 4 or 10 to not lose position!", log.visible);
     }
 }
 
@@ -324,7 +325,6 @@ function eightball(author, args) {
         "You may rely on it",
         "Why don't you hire a therapist instead",
         "Most likely",
-        "Outlook good",
         "Yes",
         "Signs point to yes",
         "Reply hazy try again",
@@ -335,7 +335,7 @@ function eightball(author, args) {
         "Don't count on it",
         "My reply is no",
         "My sources say no",
-        "Outlook not so good",
+        "Dude, I'm way too stoned of an 8ball to answer that",
         "Not a f*cking chance",
         "Who do you think I am, Ms Cleo?",
         "Does Invincibear do it in the park?",
@@ -366,13 +366,13 @@ function checkAFK(username)
     var start = trackAFKs.length - 1;
 
     for (var i = start; i >= 0; i--) {
-        log("i=" + i, log.visible);
-        log("trackAFKs:" + trackAFKs[i].search(getID), log.visible);
+        log("i=" + i, log.info);
+        log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
         if (trackAFKs[i].search(userID) != -1) {
             //do time calculations, now-stored time < 60 minutes
             var times = trackAFKs[0].split(",");
             var difference = (Date.now() - times[1]) / 1000 / 60 / 60;
-            log(username + "spoke " + difference + " hours ago", log.visible);
+            log(username + "spoke " + difference + " hours ago", log.info);
             break;
         }
     }
