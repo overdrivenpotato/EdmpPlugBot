@@ -28,7 +28,6 @@ var lastPrivateSkip = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastP
 var lastSkipTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastSkipTime;
 var lastDJAdvanceTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastDJAdvanceTime;
 
-var LotteryHour = (typeof lastMeetupMessageTime === "undefined") ? Date.now() : LotteryHour;
 var lotteryEntries = typeof lotteryEntries === "undefined" ? [] : lotteryEntries;
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 
@@ -60,23 +59,14 @@ function updateBot() {
     }, 2000);
 }
 
-function lotteryHourly() {// enable or disable the lottery
-    var day = new Date();
-    lotteryEnabled = (API.getWaitList().length >= 7);// disable lottery unless 7+ DJs queued
-
-    if (lotteryEnabled) {
-        log("The lottery is now open, type !lottery for a chance to be bumped to #1 in the DJ wait list!", log.visible);
-    }
-    setTimeout(cronHourly, 1500);// make sure we set the next hourly check, add a 1.5s delay to prevent spam
-}
-
 function cronHourly() {
     var d = new Date();
     var min = d.getMinutes();
     var sec = d.getSeconds();
 
     if((min == "00") && (sec == "00")) {
-        to_be_executed();
+        lotteryHourly();
+        setTimeout(cronHourly, 1500);// make sure we set the next hourly check, add a 1.5s delay to prevent spam
     } else {
         setTimeout(to_be_executed,(60 * (60 - min) + (60 - sec)) * 1000);
     }
@@ -459,6 +449,16 @@ function eightball(author, args) {
     }
 }
 
+
+function lotteryHourly() {// enable or disable the lottery
+    lotteryEnabled = (API.getWaitList().length >= 7);// disable lottery unless 7+ DJs queued
+
+    if (lotteryEnabled) {
+        log("The lottery is now open, type !lottery for a chance to be bumped to #1 in the DJ wait list!", log.visible);
+    }
+}
+
+
 function lotteryUpdate() {
     if(new Date().getMinutes() >= 10){
         if(lotteryUpdated)
@@ -476,7 +476,9 @@ function lotteryUpdate() {
             log("@" + winner + " has won the hourly lottery! The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
             moveToFirst(winner);
         } else {
-            log("Resetting lottery. Not enough contestants. The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
+            if (lotteryEnabled) {
+                log("Resetting lottery. Not enough contestants. The lottery occurs hourly. Type !lottery within 10 minutes of the next hour for a chance to win!", log.visible);
+            }
         }
         lotteryEntries = [];
     } else {
