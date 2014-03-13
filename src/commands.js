@@ -63,13 +63,6 @@ function Command(cmd, callback, permission, customPerm)
     };
 }
 
-function LinkCommand(cmd, url)
-{
-    this.prototype = new Command(cmd, function(){
-        log(url, log.visible);
-    }).prototype;
-}
-
 var commands = [
     new Command("help,", function(author){
         var avail = getAvailable(author);
@@ -83,7 +76,7 @@ var commands = [
 
 
     new Command("info", function(){
-        log("EDMPbot was developed by @overdrivenpotato and @Invincibear, minor changes by @NVP. Type !help for available commands.", log.visible);
+        log("EDMPbot was developed by @overdrivenpotato and @Invincibear, minor contribution by @NVP. Type !help for available commands.", log.visible);
     }),
 
 
@@ -139,17 +132,13 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("privateskip", function(){
+    new Command("privateskip", function() {
         var current = API.getDJ().username;
-        if(lastPrivateSkip < 5)
-        {
+        if(lastPrivateSkip < 5) {
             lastPrivateSkip = Date.now();
-        }
-        else
-        {
+        } else {
             var time = Date.now();
-            if(time - lastPrivateSkip > 30000)
-            {
+            if(time - lastPrivateSkip > 30000) {
                 log("Couldn't skip " + current + " due to timeout.");
                 return;
             }
@@ -195,10 +184,10 @@ var commands = [
 //    }),
 
 
-    new Command("stop", function(){
+//    new Command("stop", function(){
 //        stop();
-        log("Stop has been disabled.", log.visible);
-    }, API.ROLE.MANAGER),
+//        log("Stop has been disabled.", log.visible);
+//    }, API.ROLE.MANAGER),
 
 
     new Command("rollthedice", function(author){
@@ -234,7 +223,6 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-
     new Command("lottery", function(author){
         if(new Date().getMinutes() >= 10)
         {
@@ -252,6 +240,7 @@ var commands = [
         lotteryEntries.push(author);
         log("@" + author + " has entered the lottery! There are now " + lotteryEntries.length + " entries!", log.visible);
     }),
+
 
     new Command("addiction", function(author){
         log("The first step @" + author + ", is admitting you have a gambling problem. Get your life together and quit gambling on !rollthedice and !lottery.", log.visible);
@@ -275,5 +264,4 @@ var commands = [
     new Command("herp", function(){
         log("derp", log.visible);
     })
-
 ];

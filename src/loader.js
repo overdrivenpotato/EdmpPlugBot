@@ -4,9 +4,10 @@
  * Date: 3/9/14
  * Time: 10:34 PM
  */
-var scripts =
-    ["https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/commands.js",
-        "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js"];
+var scripts = [
+    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/commands.js",
+    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/afk.js",
+    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js"];
 
 function load(script)
 {

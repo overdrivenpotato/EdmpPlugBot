@@ -7,7 +7,7 @@
 log("Loading bot...");
 
 var skipFixEnabled = false;
-var version = "0.3.0";
+var version = "0.4.0";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 var trackAFKs = [];
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
@@ -194,10 +194,9 @@ function waitListUpdated (users) {
 }
 
 
-function getAverageTime()
-{
+function getAverageTime() {
     var averageTime = Math.floor(totalSongTime / totalSongs / 60);
-    return averageTime;//(isNaN(averageTime)) ? 4 : averageTime;
+    return (isNaN(averageTime)) ? 4 : averageTime;
 }
 
 
@@ -275,10 +274,10 @@ function isSc(id) {
 function getSourceLength(id, callBack) {
     if(isSc(id)) {
         getScLengthSeconds(id.split(":")[1], callBack);
-        log("getScLengthSeconds, here's the id=" + id + ", id.split(':')[1]=" + id.split(":")[1]);
+        log("getScLengthSeconds, here's the id=" + id + ", id.split(':')[1]=" + id.split(":")[1], log.info);
     } else {
         getYtVidSeconds(id.split(":")[1], callBack);
-        log("getYtVidSeconds, here's the id=" + id + ", id.split(':')[1]=" + id.split(":")[1]);
+        log("getYtVidSeconds, here's the id=" + id + ", id.split(':')[1]=" + id.split(":")[1], log.info);
     }
 }
 
@@ -337,7 +336,7 @@ function rollTheDice (author) {
 }
 
 function eightball(author, args) {
-    var outcomes = new Array(
+    var outcomes = [
         "It is certain",
         "You need to spend $99 on a 9ball upgrade to answer that",
         "Without a doubt",
@@ -360,7 +359,8 @@ function eightball(author, args) {
         "Who do you think I am, Ms Cleo?",
         "Does Invincibear do it in the park?",
         "I'm not sure, @Ptero's mom knows best",
-        "Of all the questions you could've asked, you asked THAT one?!?!");
+        "Of all the questions you could've asked, you asked THAT one?!?!"
+    ];
 
     if(args.length < 2) {
         log("@" + author + ", you never asked a question!? Usage: !8ball Is Invincibear dope?", log.visible);
