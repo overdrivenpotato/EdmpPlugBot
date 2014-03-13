@@ -9,7 +9,7 @@ var version = "0.2.0";
 var trackAFKs = [];
 
 
-API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+//API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, checkRepeatSong);
 API.on(API.CHAT, onChat);
 
@@ -310,13 +310,21 @@ function rolldice(dbl)
 function rollTheDice ()
 {
     log("coming soon!", log.visible);
-//    getId(author);
-
+//roll a 2 or a 12 and move up 3 slots, anything else will cost you one slot
+    var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
+    var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
+    var dicetotal = x + y;
+    if (dicetotal == 2 || dicetotal == 12) {
+//        API.moderateMoveDJ(getId(username), getPosition(author) - 3);
+//        log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump closer to the front!", log.visible);
+    } else if (x == y) {
+//        log ("@" + author + ", you rolled a " + x + " and a " + y + ",")
+    } else {
+//        API.moderateMoveDJ(getId(username), getPosition(author) + 1);
+    }
 }
 
-function eightball(author)
-{
-    //log("@" + author +  ", you shouldn't gamble on chance", log.visible);
+function eightball(author) {
     var outcomes = new Array(
         "It is certain",
         "You need to spend $99 on a 9ball upgrade to answer that",
@@ -340,8 +348,7 @@ function eightball(author)
         "Not a f*cking chance",
         "Who do you think I am, Ms Cleo?",
         "Does Invincibear do it in the park?",
-        "I'm not sure, @Ptero's mom knows best",
-        "");
+        "I'm not sure, @Ptero's mom knows best");
     log("@" + author + ", " + outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
 }
 
