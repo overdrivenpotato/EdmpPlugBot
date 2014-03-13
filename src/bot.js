@@ -187,7 +187,7 @@ function getPosition(username) {
 function waitListUpdated (users) {
     lastDJAdvanceTime = Date.now();
 
-    if (users.length >= 7 && ((Date.now() - lastDJAdvanceTime) > 2000)) {
+    if (users.length >= 7 && ((Date.now() - lastDJAdvanceTime) < 2000)) {
         log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
     }
 }
