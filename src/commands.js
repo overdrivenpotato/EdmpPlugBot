@@ -244,7 +244,7 @@ var commands = [
 
     new Command("url", function(author){
         getSourceUrl(API.getMedia().id, function(link){
-            log("@" + author + " " + link);
+            log("@" + author + " " + link, log.visible);
         })
     })
 
