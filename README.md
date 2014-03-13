@@ -12,9 +12,9 @@ javascript:(function(){document.body.appendChild(document.createElement('script'
 
 ##Commands
 * !goosesux
-   * Self explanatory.
+    * Self explanatory.
 * !turndown
-  *Why should you?
+    *Why should you?
 * !skip
     * Skips the current dj playing. Requires mod level >= 2 (At least bouncer)
 * !privateskip
