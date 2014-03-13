@@ -301,7 +301,8 @@ function analyzeSongHistory()
         {
             getSourceLength(history[i].media.id, function(seconds){
                 totalSongs++;
-                totalSongTime += parseFloat(seconds);
+                var Sseconds = (isNaN(parseFloat(seconds))) ? 240 : parseFloat(seconds);// Assume 4 minute song if checking fails
+                totalSongTime += seconds;
                 log("Time changed to " + totalSongTime);
             });
         } catch(err)
