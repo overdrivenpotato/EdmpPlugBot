@@ -86,7 +86,16 @@ var commands = [
         return isPlaying(author);
     }),
 
-
+    new Command("listadmins", function(author){
+        var admins = API.getStaff();
+        if(admins="")
+        {
+            log("No admins are currently in the room.")
+        }
+        else{
+        log("Admins Online:" + admins +, log.visible);
+        }
+    }),
     new Command("skipfix", function(){
         skipFixEnabled = !skipFixEnabled;
         log("skipfix is set to " + skipFixEnabled);
@@ -197,7 +206,7 @@ var commands = [
 
 
     new Command("credits,info", function(){
-        log("EDMPbot was developed by @overdrivenpotato and @Invincibear. Type !help for available commands.", log.visible);
+        log("EDMPbot was developed by @overdrivenpotato and @Invincibear with minor changes by @NVP. Type !help for available commands.", log.visible);
     }),
 
 
@@ -239,13 +248,6 @@ var commands = [
 
     new Command("addiction", function(author){
         log("The first step @" + author + ", is admitting you have a gambling problem. Get your life together and quit gambling on !rollthedice and !lottery.", log.visible);
-    }),
-
-
-    new Command("url", function(author){
-        getSourceUrl(API.getMedia().id, function(link){
-            log("@" + author + " " + link);
-        })
     })
 
 ];
