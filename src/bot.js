@@ -275,8 +275,10 @@ function isSc(id) {
 function getSourceLength(id, callBack) {
     if(isSc(id)) {
         getScLengthSeconds(id.split(":")[1], callBack);
+        log("getScLengthSeconds, here's the id=" + id + ", id.split(':')[1]=" + id.split(":")[1]);
     } else {
         getYtVidSeconds(id.split(":")[1], callBack);
+        log("getYtVidSeconds, here's the id=" + id + ", id.split(':')[1]=" + id.split(":")[1]);
     }
 }
 
