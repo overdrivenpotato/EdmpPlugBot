@@ -71,6 +71,10 @@ function LinkCommand(cmd, url)
 }
 
 var commands = [
+    new Command("pterosux", function(){
+        log("DOWN WITH PTERO!", log.visible);
+    }),
+    
     new Command("goosesux", function(){
         log("Yes he does.", log.visible);
     }),
