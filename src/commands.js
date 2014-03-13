@@ -10,7 +10,7 @@ function getAvailable(author) {
     var avail = [];
 
     for(var i = 0; i < commands.length; i++) {
-        if(commands[i].hasPermission(author)) {
+        if(commands[i].hasPermission(author) && commands[i].listed) {
             avail.push(commands[i]);
         }
     }
@@ -32,10 +32,11 @@ function execCommand(author, args) {
 }
 
 
-function Command(cmd, callback, permission, customPerm) {
+function Command(cmd, callback, permission, customPerm, listed) {
     this.cmd = cmd.split(",");
     this.callback = callback;
     this.permission = typeof permission === "undefined" ? 0 : permission;
+    this.listed = typeof listed === "undefined" ? true : listed;
 
     this.exec = function(author, args) {
         if(this.hasPermission(author)) {
@@ -255,5 +256,15 @@ var commands = [
 
     new Command("damn", function() {
         log("SON, WHERE'D YOU FIND THIS??", log.visible);
-    })
+    }),
+
+
+    new Command("PushMe", function() {
+        log("And then just touch me", log.visible);
+    }),
+
+
+    new Command("SoICanGetMy", function() {
+        log("Satisfaction", log.visible);
+    }, null, null, false)
 ];
