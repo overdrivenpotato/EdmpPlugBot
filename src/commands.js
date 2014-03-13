@@ -261,7 +261,7 @@ var commands = [
 
     new Command("PushMe", function() {
         log("And then just touch me", log.visible);
-    }),
+    }, null, null, false),
 
 
     new Command("SoICanGetMy", function() {
