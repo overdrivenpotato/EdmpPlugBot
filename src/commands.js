@@ -165,6 +165,12 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
+    new Command("stopreminder", function(author){
+        meetupUrl = "";
+        log("@" + author + " reminder stopped.", log.visible);
+    }, API.ROLE.MANAGER),
+
+
     new Command("help,commands,", function(author){
         var avail = getAvailable(author);
         var chatoutput = "@" + author + ", you have access to the following commands: ";
