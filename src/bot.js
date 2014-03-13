@@ -304,7 +304,6 @@ function rollTheDice (){
             API.moderateMoveDJ(getId(username), 1);
             log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump to the front of the line!", log.visible);
         }
-
     } else if (x == y) {
         log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
