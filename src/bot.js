@@ -300,7 +300,7 @@ function rollTheDice (author){
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
 
-    if (dicetotal == 4 || dicetotal == 10) {
+    if (dicetotal == 7) {
         if ((getPosition(author) - 4) < 1) {
             API.moderateMoveDJ(getId(author), getPosition(author) - 4);
             log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump closer to the front!", log.visible);
@@ -312,7 +312,7 @@ function rollTheDice (author){
         log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
         API.moderateMoveDJ(getId(author), getPosition(author) + 2);
-        log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles or a total of 4 or 10 to not lose position!", log.visible);
+        log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles or a 7 to not lose position!", log.visible);
     }
 }
 
