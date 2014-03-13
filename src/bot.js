@@ -204,8 +204,20 @@ function getETA(username) {// use the countdown at the top of the page if you're
 
 
 function updateAFKs(data) {
+    var userID = getId(username);
+    var start = trackAFKs.length - 1;
 
-    trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
+    for (var i = start; i >= 0; i--) {// Start high, most recent users
+//log("i=" + i, log.info);
+//log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
+        for (var j = 0; j < trackAFKs[i].length; j++) {
+            if (trackAFKs[i].indexOf(userID) != -1) {// Update existing entry
+                trackAFKs[i][2] = Date.now();
+            } else {
+                trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);// Hasn't yet chatted, add an entry
+            }
+        }
+    }
 }
 
 
