@@ -283,13 +283,10 @@ function isSc(id)
 
 function getSourceLength(id, callBack)
 {
-    if(isSc(id))
-    {
-        getYtVidSeconds(id.split(":")[1], callBack);
-    }
-    else
-    {
+    if(isSc(id) == 2) {
         getScLengthSeconds(id.split(":")[1], callBack);
+    } else {
+        getYtVidSeconds(id.split(":")[1], callBack);
     }
 }
 
