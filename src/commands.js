@@ -139,7 +139,7 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("help,commands,info,", function(author){
+    new Command("help,commands,", function(author){
         var avail = getAvailable(author);
         var chatoutput = "@" + author + ", you have access to the following commands: ";
         for(var i = 0; i < avail.length; i++)
@@ -179,8 +179,8 @@ var commands = [
     }),
 
 
-    new Command("credits", function(){
-        log("EDMPbot was developed by @overdrivenpotato and @Invincibear", log.visible);
+    new Command("credits,info", function(){
+        log("EDMPbot was developed by @overdrivenpotato and @Invincibear. Type !help for available commands.", log.visible);
     }),
 
 
