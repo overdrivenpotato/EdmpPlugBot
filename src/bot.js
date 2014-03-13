@@ -315,12 +315,19 @@ function rollTheDice ()
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
     if (dicetotal == 2 || dicetotal == 12) {
-//        API.moderateMoveDJ(getId(username), getPosition(author) - 3);
-//        log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump closer to the front!", log.visible);
+        if ((getPosition(author) - 3) < 1) {
+            API.moderateMoveDJ(getId(username), getPosition(author) - 3);
+            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump closer to the front!", log.visible);
+        } else {
+            API.moderateMoveDJ(getId(username), 1);
+            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump to the front of the line!", log.visible);
+        }
+
     } else if (x == y) {
-//        log ("@" + author + ", you rolled a " + x + " and a " + y + ",")
+        log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
-//        API.moderateMoveDJ(getId(username), getPosition(author) + 1);
+        API.moderateMoveDJ(getId(username), getPosition(author) + 1);
+        log ("Sucks to be you right now @" + author + ", you rolled a " + x + " and a " + y + ", you didn't roll doubles nor a 1 nor a 12, you lose a position!", log.visible);
     }
 }
 
