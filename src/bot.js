@@ -4,16 +4,13 @@
  * Time: 9:20 PM
  */
 
-var skipFixEnabled = false;
+var skipFixEnabled = true;
 var version = "0.3.0";
 var trackAFKs = [];
 
 
-//API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
-API.on(API.DJ_ADVANCE, checkRepeatSong);
-API.on(API.DJ_ADVANCE, function(){
-    lastPrivateSkip = Date.now();
-});
+API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+API.on(API.DJ_ADVANCE, onDJAdvance);
 API.on(API.CHAT, onChat);
 
 log.info = 3;
@@ -187,8 +184,9 @@ function getAverageTime()
 }
 
 // Check to see if the user is repeatedly playing the same song
-function checkRepeatSong(obj)
+function onDJAdvance(obj)
 {
+    lastPrivateSkip = Date.now();
 // check if upcoming song & previously played song is the same
 //if same, send an @author chat warning
 // if same 2x, send an @author chat warning & skip
