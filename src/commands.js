@@ -138,16 +138,16 @@ var commands = [
             log("@" + author + ", you are not on the DJ wait list!", log.visible);
     }),
 
-    new Command("listadmins,admins,staff,", function(author){
+    new Command("listadmins,admins,staff", function(author){
         var admins = API.getStaff();
         if(admins.length <= 0){
             log("No admins are in the room.", log.visible);
         }
-        else{
-            var log = "Admins Online: ";
+        else {
+            var logtext = "Admins Online: ";
             for(var i = 0; i < admins.length; i++)
             {
-                log += admins[i].username + (i == admins.length - 1 ? "" : ", ");
+                logtext += admins[i].username + (i == admins.length - 1 ? "" : ", ");
             }
             log(log, log.visible);
         }
