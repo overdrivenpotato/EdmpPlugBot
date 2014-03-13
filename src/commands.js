@@ -149,7 +149,7 @@ var commands = [
             {
                 logtext += admins[i].username + (i == admins.length - 1 ? "" : ", ");
             }
-            log(log, log.visible);
+            log(logtext, log.visible);
         }
     }),
 
