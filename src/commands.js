@@ -87,6 +87,34 @@ var commands = [
     }),
 
 
+    new Command("eta", function(author){
+        if(isPlaying(author))
+            log("@" + author + " you're already the DJ, get your ears cleaned out!", log.visible);
+        else if(API.getWaitListPosition(getId(author)) != -1)
+            log("@" + author + ", it will be your turn to DJ in ~" + getETA(author) + " minutes.", log.visible);
+        else
+            log("@" + author + ", you are not on the DJ wait list!", log.visible);
+    }),
+
+
+    new Command("reminder", function(author, args){
+        if(args.length < 2)
+        {
+            log("@" + author + " please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere", log.visible);
+        }
+        else {
+            lastMeetupMessageTime = 0;
+            meetupUrl = args[1];
+        }
+    }, API.ROLE.MANAGER),
+
+
+    new Command("stopreminder", function(author){
+        meetupUrl = "";
+        log("@" + author + " reminder stopped.", log.visible);
+    }, API.ROLE.MANAGER),
+
+
     new Command("goosesux", function(){
         log("Yes he does.", log.visible);
     }),
@@ -147,16 +175,6 @@ var commands = [
     }),
 
 
-    new Command("eta", function(author){
-        if(isPlaying(author))
-            log("@" + author + " you're already the DJ, get your ears cleaned out!", log.visible);
-        else if(API.getWaitListPosition(getId(author)) != -1)
-            log("@" + author + ", it will be your turn to DJ in ~" + getETA(author) + " minutes.", log.visible);
-        else
-            log("@" + author + ", you are not on the DJ wait list!", log.visible);
-    }),
-
-
     new Command("admins", function(author){
         var admins = API.getStaff();
         if(admins.length <= 0){
@@ -177,35 +195,10 @@ var commands = [
 //    }),
 
 
-    new Command("reminder", function(author, args){
-        if(args.length < 2)
-        {
-            log("@" + author + " please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere", log.visible);
-        }
-        else {
-            lastMeetupMessageTime = 0;
-            meetupUrl = args[1];
-        }
-    }, API.ROLE.MANAGER),
-
-
-    new Command("stopreminder", function(author){
-        meetupUrl = "";
-        log("@" + author + " reminder stopped.", log.visible);
-    }, API.ROLE.MANAGER),
-
-
     new Command("stop", function(){
 //        stop();
         log("Stop has been disabled.", log.visible);
     }, API.ROLE.MANAGER),
-
-
-    new Command("update", function(){
-        updateBot();
-    }, API.ROLE.MANAGER, function(author){
-        return author.trim().toLocaleLowerCase() == "invincibear";
-    }),
 
 
     new Command("rollthedice", function(author){
@@ -229,6 +222,19 @@ var commands = [
     }),
 
 
+    new Command("remove", function(author){
+        var dj = API.getDJ();
+        if(typeof dj === "undefined")
+        {
+            log("No dj to remove.", log.visible);
+            return;
+        }
+        log(author + " has removed " + dj.username + " from the stage.", log.info);
+        API.moderateRemoveDJ(dj.id);
+    }, API.ROLE.MANAGER),
+
+
+
     new Command("lottery", function(author){
         if(new Date().getMinutes() >= 10)
         {
@@ -247,19 +253,6 @@ var commands = [
         log("@" + author + " has entered the lottery! There are now " + lotteryEntries.length + " entries!", log.visible);
     }),
 
-
-    new Command("remove", function(author){
-        var dj = API.getDJ();
-        if(typeof dj === "undefined")
-        {
-            log("No dj to remove.", log.visible);
-            return;
-        }
-        log(author + " has removed " + dj.username + " from the stage.", log.info);
-        API.moderateRemoveDJ(dj.id);
-    }, API.ROLE.MANAGER),
-
-
     new Command("addiction", function(author){
         log("The first step @" + author + ", is admitting you have a gambling problem. Get your life together and quit gambling on !rollthedice and !lottery.", log.visible);
     }),
@@ -267,8 +260,15 @@ var commands = [
 
     new Command("url", function(author){
         getSourceUrl(API.getMedia().id, function(link){
-            log("@" + author + " " + link, log.visible);
+            log("@" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);
         })
-    })
+    }),
+
+
+    new Command("update", function(){
+        updateBot();
+    }, API.ROLE.MANAGER, function(author){
+        return author.trim().toLocaleLowerCase() == "invincibear";
+    }),
 
 ];
