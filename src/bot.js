@@ -11,6 +11,9 @@ var trackAFKs = [];
 
 //API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, checkRepeatSong);
+API.on(API.DJ_ADVANCE, function(){
+    lastPrivateSkip = Date.now();
+});
 API.on(API.CHAT, onChat);
 
 log.info = 3;
@@ -404,3 +407,5 @@ function lotteryUpdate()
         lotteryUpdated = false;
     }
 }
+
+var lastPrivateSkip = 0;
