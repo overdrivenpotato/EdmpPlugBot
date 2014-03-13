@@ -234,6 +234,11 @@ var commands = [
         }
         log(author + " has removed " + dj.username + " from the stage.", log.info);
         API.moderateRemoveDJ(dj.id);
-    }, API.ROLE.MANAGER)
+    }, API.ROLE.MANAGER),
+
+
+    new Command("addiction", function(author){
+        log("The first step @" + author + ", is admitting you have a gambling problem. Get your life together and quit gambling on !rollthedice and !lottery.");
+    })
 
 ];
