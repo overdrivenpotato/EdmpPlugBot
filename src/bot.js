@@ -25,6 +25,7 @@ var trackAFKs = [];
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 
 var totalSongTime = 0, totalSongs = 0;
+var defaultSongLength = 4;// minutes
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
 var lastPrivateSkip = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastPrivateSkip;
@@ -308,7 +309,7 @@ function waitListUpdated (users) {// Alert upcoming users that their set is abou
 
 function getAverageTime() {
     var averageTime = Math.floor(totalSongTime / totalSongs / 60);
-    return (isNaN(averageTime)) ? 4 : averageTime;
+    return (isNaN(averageTime)) ? defaultSongLength : averageTime;
 }
 
 
@@ -367,7 +368,7 @@ function getSourceLength(id, callBack) {
 function getScLengthSeconds(soundId, callBack) {
     $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
         function(e){
-            callBack(e.duration / 1000);
+            (e.indexOf("error") != -1) ? callBack(e.duration / 1000) : (defaultSongLength * 60);
         });
 }
 
@@ -383,7 +384,7 @@ function analyzeSongHistory() {
     for (var i = 0; i < history.length; i++) {
         try {
             getSourceLength(history[i].media.id, function(seconds){
-                var Sseconds = (isNaN(parseFloat(seconds))) ? 240 : parseFloat(seconds);// Assume 4 minute song if checking fails
+                var Sseconds = (isNaN(parseFloat(seconds))) ? (defaultSongLength * 60) : parseFloat(seconds);// failsafe
                 totalSongs++;
 
                 log("media.id=" + history[i].media.id + ", Sseconds=" + Sseconds, log.info);
