@@ -115,7 +115,7 @@ console.log("args:" + args);
     }
 }
 
-var meetupUrl = "";
+var meetupUrl = typeof meetupUrl === "undefined" ? "" : meetupUrl;
 function commandDispatch(args, author)
 {
     args[0] = args[0].substring(1);
