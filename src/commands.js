@@ -139,7 +139,7 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("help,commands", function(author){
+    new Command("help,commands,info,", function(author){
         var avail = getAvailable(author);
         var chatoutput = "@" + author + ", you have access to the following commands: ";
         for(var i = 0; i < avail.length; i++)
@@ -163,8 +163,8 @@ var commands = [
     }),
 
 
-    new Command("rollthedice", function(){
-        rollTheDice();
+    new Command("rollthedice", function(author){
+        rollTheDice(author);
     }),
 
 
@@ -174,8 +174,8 @@ var commands = [
     }),
 
 
-    new Command("8ball", function(author){
-        eightball(author);
+    new Command("8ball", function(author, args){
+        eightball(author, args);
     }),
 
 
