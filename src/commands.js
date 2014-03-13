@@ -188,7 +188,7 @@ var commands = [
     new Command("afktest", function(author){
         log("trackAFKs=" + trackAFKs, log.visible);
         checkAFK(author);
-    }),
+    }, API.ROLE.MANAGER),
 
 
     new Command("8ball", function(author, args){
