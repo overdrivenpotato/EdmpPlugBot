@@ -7,13 +7,16 @@
 var skipFixEnabled = false;
 var version = "0.3.0";
 var trackAFKs = [];
-var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
-var lastPrivateSkip = 0;
-var lastSkipTime = 0;
-var lastDJAdvanceTime = 0;
 var totalSongTime = 0, totalSongs = 0;
 
+var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
+var lastPrivateSkip = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastPrivateSkip;
+var lastSkipTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastSkipTime;
+var lastDJAdvanceTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastDJAdvanceTime;
+
+var lotteryEntries = typeof lotteryEntries === "undefined" ? [] : lotteryEntries;
+var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, onDJAdvance);
@@ -174,7 +177,7 @@ function getId(username) {
 
 
 function getETA(username) {
-    return Math.round((getPosition(username) + 1) * getAverageTime());
+    return (getPosition(username) == 0) ? $("#now-playing-time").children(":last").html().split(":") : Math.round((getPosition(username) + 1) * getAverageTime());
 }
 
 
@@ -368,14 +371,14 @@ function eightball(author, args) {
         "Why don't you hire a therapist instead",
         "Most likely",
         "Yes",
-        "Signs point to yes",
+        "Alien signs point to yes",
         "Reply hazy try again",
         "Ask again later",
         "Better not tell you now",
-        "Cannot predict now",
+        "Cannot predict now, forgot how to psyche",
         "Concentrate and ask again",
         "Don't count on it",
-        "My reply is no",
+        "Eurgh, lemme sleep, hungover as balls",
         "My sources say no",
         "Dude, I'm way too stoned of an 8ball to answer that",
         "Not a f*cking chance",
@@ -419,8 +422,6 @@ function checkAFK(username) {
     }
 }
 
-var lotteryEntries = typeof lotteryEntries === "undefined" ? [] : lotteryEntries;
-var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 function lotteryUpdate()
 {
     if(new Date().getMinutes() >= 10){
