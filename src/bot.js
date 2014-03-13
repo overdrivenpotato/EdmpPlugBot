@@ -204,7 +204,7 @@ function getETA(username) {// use the countdown at the top of the page if you're
 
 
 function updateAFKs(data) {
-    var userID = getId(username);
+    var userID = getId(data.username);
     var start = trackAFKs.length - 1;
 
     for (var i = start; i >= 0; i--) {// Start high, most recent users
