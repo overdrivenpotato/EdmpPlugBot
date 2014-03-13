@@ -138,6 +138,15 @@ var commands = [
             log("@" + author + ", you are not on the DJ wait list!", log.visible);
     }),
 
+    new Command("listadmins,admins,staff,", function(author){
+        var admins = API.getStaff()
+        if(admins=""){
+            log("No admins are in the room.", log.visible);
+        }
+        else{
+            log("Admins Online: " + admins, log.visible);
+        }
+    }),
 
     new Command("mal", function(){
         log("ware!", log.visible);
@@ -197,7 +206,7 @@ var commands = [
 
 
     new Command("credits,info", function(){
-        log("EDMPbot was developed by @overdrivenpotato and @Invincibear. Type !help for available commands.", log.visible);
+        log("EDMPbot was developed by @overdrivenpotato and @Invincibear, minor changes by @NVP. Type !help for available commands.", log.visible);
     }),
 
 
