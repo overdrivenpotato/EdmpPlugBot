@@ -4,17 +4,23 @@
  * Time: 9:20 PM
  */
 
-//add an on the hour timer, prune chat list to 180 minutes and remind about !lottery
+// add an on the hour timer, prune chat list to 180 minutes and remind about !lottery
 // fix dice position moving stuff
+//dont list the bot in admins command
+//say no song playing if there's no dj when !url is called
 
 
 log("Loading bot...");
 
 var skipFixEnabled = false;
+var lotteryEnabled = false;
+
 var version = "0.4.5";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
+
 var trackAFKs = [];
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
+
 var totalSongTime = 0, totalSongs = 0;
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
@@ -52,6 +58,27 @@ function updateBot() {
     setTimeout(function(){
         $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/loader.js");
     }, 2000);
+}
+
+function lotteryHourly() {// enable or disable the lottery
+// lottery should be disabled unless at least 7 people are in the DJ queue, OR is it wednesday/sat
+    lotteryEnabled = (API.getWaitList().length >= 7);
+    if (lotteryEnabled) {
+        log("The lottery is now open, type !lottery for a chance to be bumped to #1 in the DJ wait list!", log.visible);
+    }
+    setTimeout(cronHourly, 1000);// make sure we set the next hourly check
+}
+
+function cronHourly() {
+    var d = new Date();
+    var min = d.getMinutes();
+    var sec = d.getSeconds();
+
+    if((min == "00") && (sec == "00")) {
+        to_be_executed();
+    } else {
+        setTimeout(to_be_executed,(60 * (60 - min) + (60 - sec)) * 1000);
+    }
 }
 
 function stop(update) {
