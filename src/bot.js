@@ -339,7 +339,8 @@ function eightball(author, args) {
         "Not a f*cking chance",
         "Who do you think I am, Ms Cleo?",
         "Does Invincibear do it in the park?",
-        "I'm not sure, @Ptero's mom knows best");
+        "I'm not sure, @Ptero's mom knows best",
+        "Of all the questions you could've asked, you asked THAT one?!?!");
     if(args.length < 2) {
         log("@" + author + ", you never asked a question!? Usage: !8ball Is Invincibear dope?", log.visible);
     } else {
