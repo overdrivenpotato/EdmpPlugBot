@@ -324,6 +324,7 @@ function analyzeSongHistory()
         } catch(err)
         {
             console.error(err);
+            log("Getting song length failed. history[i].media.id=" + history[i].media.id, log.info);
         }
     }
 }
