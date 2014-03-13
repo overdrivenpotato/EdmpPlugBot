@@ -164,7 +164,9 @@ function getId(username) {
 
 
 function getETA(username) {
-    return (getPosition(username) == 0) ? $("#now-playing-time").children(":last").html().split(":") : Math.round((getPosition(username) + 1) * getAverageTime());
+    var current = $("#now-playing-time").children(":last").html().split(":");
+    var totalSeconds = round((current[0] * 60) + current);// round to prevent unforeseeable errors
+    return (getPosition(username) == 0) ? totalSeconds : Math.round((getPosition(username) + 1) * getAverageTime());
 }
 
 
@@ -303,14 +305,16 @@ function getYtVidSeconds(videoId, callBack) {
 
 function analyzeSongHistory() {
     var history = API.getHistory();
+
     for (var i = 0; i < history.length; i++) {
         try {
             getSourceLength(history[i].media.id, function(seconds){
-                totalSongs++;
                 var Sseconds = (isNaN(parseFloat(seconds))) ? 240 : parseFloat(seconds);// Assume 4 minute song if checking fails
+                totalSongs++;
+
                 log("media.id=" + history[i].media.id + ", Sseconds=" + Sseconds, log.info);
                 totalSongTime += Sseconds;
-                log("Time changed to " + totalSongTime);
+                log("Time changed to " + totalSongTime, log.info);
             });
         } catch(err) {
             console.error(err);
