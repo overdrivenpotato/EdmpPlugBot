@@ -4,6 +4,9 @@
  * Time: 9:20 PM
  */
 
+//add an on the hour timer, prune chat list to 180 minutes and remind about !lottery
+
+
 log("Loading bot...");
 
 var skipFixEnabled = false;
@@ -18,6 +21,7 @@ var lastPrivateSkip = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastP
 var lastSkipTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastSkipTime;
 var lastDJAdvanceTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastDJAdvanceTime;
 
+var LotteryHour = (typeof lastMeetupMessageTime === "undefined") ? Date.now() : LotteryHour;
 var lotteryEntries = typeof lotteryEntries === "undefined" ? [] : lotteryEntries;
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 
@@ -168,14 +172,14 @@ function getAFKTime(username) {
     var start = trackAFKs.length - 1;
 
     for (var i = start; i >= 0; i--) {// Start high, most recent users
-        log("i=" + i, log.info);
-        log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
+//log("i=" + i, log.info);
+//log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
         if (trackAFKs[i].search(userID) != -1) {
-            //do time calculations, now-stored time < 60 minutes
-            var times = trackAFKs[0].split(",");
-            var difference = (Date.now() - times[1]) / 1000 / 60 / 60;
-            log(username + "spoke " + difference + " hours ago", log.info);
+            var difference = (Date.now() - trackAFKs[i][2]) / 1000 / 60 / 60;
+            log(username + " spoke " + difference + " hours ago", log.visible);
             break;
+        } else {
+            log("no afk time thingy", log.visible)
         }
     }
 }
@@ -194,6 +198,12 @@ function getETA(username) {// use the countdown at the top of the page if you're
 }
 
 
+function updateAFKs(data) {
+
+    trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
+}
+
+
 function getPosition(username) {
     return API.getWaitListPosition(getId(username));
 }
@@ -206,7 +216,7 @@ function onChat(data) {
     lotteryUpdate();
 
     if(data.type == "message" || data.type == "emote") {
-        trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
+        updateAFKs(data);
     }
 }
 
