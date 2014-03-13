@@ -235,18 +235,46 @@ function loadXMLDoc(filename)
     return xhttp.responseXML;
 }
 
-function getSourceLength(id, callBack)
+function getSourceUrl(id, callBack)
+{
+    if(isSc(id))
+    {
+        getScUrl(id.split(":")[1], callBack);
+    }
+    else
+    {
+        getYtUrl(id.split(":")[1], callBack);
+    }
+}
+
+function getScUrl(soundId, callBack)
+{
+    $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
+        function(e){
+            callBack(e.permalink_url);
+        });
+}
+
+function getYtUrl(videoId, callBack)
+{
+    callBack($(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + videoId).getElementsByTagName("player")).attr("url"));
+}
+
+function isSc(id)
 {
     id = id.split(":");
-    if(id[0] == 1)
+    return id[0] == 2;
+}
+
+function getSourceLength(id, callBack)
+{
+    if(isSc(id))
     {
-        log("checking yt");
-        getYtVidSeconds(id[1], callBack);
+        getYtVidSeconds(id.split(":")[1], callBack);
     }
-    else if(id[0] == 2)
+    else
     {
-        log("checking sc");
-        getScLengthSeconds(id[1], callBack);
+        getScLengthSeconds(id.split(":")[1], callBack);
     }
 }
 
