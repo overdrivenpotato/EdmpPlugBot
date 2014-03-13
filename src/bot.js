@@ -12,8 +12,11 @@
 
 log("Loading bot...");
 
+var curdate = new Date();
+
 var skipFixEnabled = false;
 var lotteryEnabled = false;
+var ReminderEnabled = (curdate.getDay() == 4 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
 var version = "0.4.5";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
@@ -60,6 +63,8 @@ function updateBot() {
 }
 
 function cronHourly() {
+    log("cronHourly() has been summoned!", log.info);
+
     var d = new Date();
     var min = d.getMinutes();
     var sec = d.getSeconds();
@@ -488,6 +493,7 @@ function lotteryUpdate() {
 
 
 analyzeSongHistory();
+cronHourly();
 log("Loaded EDMPbot v" + version, log.visible);
 window.edmpBot = window.setInterval(function(){
     if(skipFixEnabled) {
