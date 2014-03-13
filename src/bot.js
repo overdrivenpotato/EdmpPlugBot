@@ -311,7 +311,7 @@ function rollTheDice (author){
         log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
         API.moderateMoveDJ(getId(author), getPosition(author) + 2);
-        log ("Sucks to be you right now @" + author + ", you rolled a " + x + " and a " + y + ", you didn't roll doubles nor a 1 nor a 12, you lose a position!", log.visible);
+        log ("Sucks to be you right now @" + author + ", you rolled a " + x + " and a " + y + ", you didn't roll doubles, nor a total of 2 or 12, you lose a position!", log.visible);
     }
 }
 
