@@ -75,7 +75,10 @@ var commands = [
         log("Yes he does.", log.visible);
     }),
 
-
+    new Command("turndown", function(){
+        log("FOR WHAT?", log.visible);
+    }),
+    
     new Command("skip", function(author){
         skipDj();
         log(author + " has skipped " + API.getDJ().username, log.visible);
