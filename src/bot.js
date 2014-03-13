@@ -41,12 +41,12 @@ function log(message, level) {
 }
 
 function updateBot() {
-    log("Restarting in 3 seconds...", log.visible);
+    log("Restarting in 2 seconds...", log.info);
     stop(true);
     log("Starting timeout... ", log.info);
     setTimeout(function(){
         $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/loader.js");
-    }, 3000);
+    }, 2000);
 }
 
 function stop(update) {
@@ -165,8 +165,8 @@ function getId(username) {
 
 function getETA(username) {
     var current = $("#now-playing-time").children(":last").html().split(":");
-    var totalSeconds = round((current[0] * 60) + current);// round to prevent unforeseeable errors
-    return (getPosition(username) == 0) ? totalSeconds : Math.round((getPosition(username) + 1) * getAverageTime());
+    var totalSeconds = (current[0] * 60) + current;// round to prevent unforeseeable errors
+    return (getPosition(username) == 0) ? Math.round(totalSeconds) : Math.round((getPosition(username) + 1) * getAverageTime());
 }
 
 
