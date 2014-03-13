@@ -195,7 +195,8 @@ function waitListUpdated (users) {
 
 function getAverageTime()
 {
-    return Math.floor(totalSongTime / totalSongs / 60);
+    var averageTime = Math.floor(totalSongTime / totalSongs / 60);
+    return averageTime;//(isNaN(averageTime)) ? 4 : averageTime;
 }
 
 
