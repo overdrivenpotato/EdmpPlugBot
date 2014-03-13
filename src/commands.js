@@ -139,12 +139,17 @@ var commands = [
     }),
 
     new Command("listadmins,admins,staff,", function(author){
-        var admins = API.getStaff()
-        if(admins=""){
+        var admins = API.getStaff();
+        if(admins.length <= 0){
             log("No admins are in the room.", log.visible);
         }
         else{
-            log("Admins Online: " + admins, log.visible);
+            var log = "Admins Online: ";
+            for(var i = 0; i < admins.length; i++)
+            {
+                log += admins[i].username + (i == admins.length - 1 ? "" : ", ");
+            }
+            log(log, log.visible);
         }
     }),
 
