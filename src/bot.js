@@ -7,7 +7,7 @@
 log("Loading bot...");
 
 var skipFixEnabled = false;
-var version = "0.4.0";
+var version = "0.4.5";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 var trackAFKs = [];
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
@@ -26,6 +26,7 @@ var scClientId = "ff550ffd042d54afc90a43b7151130a1";
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
 API.on(API.DJ_ADVANCE, onDJAdvance);
 API.on(API.CHAT, onChat);
+API.on(API.USER_JOIN, onJoin);
 
 log.info = 3;
 log.visible = 2;
@@ -179,24 +180,8 @@ function onChat(data) {
     lotteryUpdate();
 
     if(data.type == "message" || data.type == "emote") {
-        trackAFKs.push(new Array(data.fromID, Date.now()));
+        trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
     }
-}
-
-
-// Alert upcoming users that their set is about to start when total users > if they're AFK
-function waitListUpdated (users) {
-    lastDJAdvanceTime = Date.now();
-
-    if (users.length >= 7 && ((Date.now() - lastDJAdvanceTime) < 2000)) {
-        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
-    }
-}
-
-
-function getAverageTime() {
-    var averageTime = Math.floor(totalSongTime / totalSongs / 60);
-    return (isNaN(averageTime)) ? 4 : averageTime;
 }
 
 
@@ -231,6 +216,27 @@ function onDJAdvance(obj) {
             }
         }
     }
+}
+
+
+function onJoin(user) {
+    log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);
+}
+
+
+// Alert upcoming users that their set is about to start when total users > if they're AFK
+function waitListUpdated (users) {
+    lastDJAdvanceTime = Date.now();
+
+    if (users.length >= 7 && ((Date.now() - lastDJAdvanceTime) < 2000)) {
+        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
+    }
+}
+
+
+function getAverageTime() {
+    var averageTime = Math.floor(totalSongTime / totalSongs / 60);
+    return (isNaN(averageTime)) ? 4 : averageTime;
 }
 
 
