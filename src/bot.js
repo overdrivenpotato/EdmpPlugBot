@@ -8,6 +8,7 @@ log("Loading bot...");
 
 var skipFixEnabled = false;
 var version = "0.3.0";
+var meetupUrl = "http://reddit.com/r/edmproduction/";
 var trackAFKs = [];
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 var totalSongTime = 0, totalSongs = 0;
