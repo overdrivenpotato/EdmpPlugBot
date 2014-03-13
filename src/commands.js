@@ -238,7 +238,7 @@ var commands = [
 
 
     new Command("addiction", function(author){
-        log("The first step @" + author + ", is admitting you have a gambling problem. Get your life together and quit gambling on !rollthedice and !lottery.");
+        log("The first step @" + author + ", is admitting you have a gambling problem. Get your life together and quit gambling on !rollthedice and !lottery.", log.visible);
     })
 
 ];
