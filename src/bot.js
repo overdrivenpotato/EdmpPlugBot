@@ -4,13 +4,14 @@
  * Time: 9:20 PM
  */
 
-var skipFixEnabled = true;
+var skipFixEnabled = false;
 var version = "0.3.0";
 var trackAFKs = [];
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 var lastPrivateSkip = 0;
 var lastSkipTime = 0;
+var lastDJAdvanceTime = 0;
 var totalSongTime = 0, totalSongs = 0;
 
 
@@ -184,8 +185,10 @@ function getPosition(username) {
 
 // Alert upcoming users that their set is about to start when total users > if they're AFK
 function waitListUpdated (users) {
-    if (users.length >= 7) {
-        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.visible);
+    lastDJAdvanceTime = Date.now();
+
+    if (users.length >= 7 && ((Date.now() - lastDJAdvanceTime) > 2000)) {
+        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
     }
 }
 
