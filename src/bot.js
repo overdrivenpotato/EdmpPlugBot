@@ -61,12 +61,13 @@ function updateBot() {
 }
 
 function lotteryHourly() {// enable or disable the lottery
-// lottery should be disabled unless at least 7 people are in the DJ queue, OR is it wednesday/sat
-    lotteryEnabled = (API.getWaitList().length >= 7);
+    var day = new Date();
+    lotteryEnabled = (API.getWaitList().length >= 7);// disable lottery unless 7+ DJs queued
+
     if (lotteryEnabled) {
         log("The lottery is now open, type !lottery for a chance to be bumped to #1 in the DJ wait list!", log.visible);
     }
-    setTimeout(cronHourly, 1000);// make sure we set the next hourly check
+    setTimeout(cronHourly, 1500);// make sure we set the next hourly check, add a 1.5s delay to prevent spam
 }
 
 function cronHourly() {
