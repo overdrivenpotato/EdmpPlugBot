@@ -317,7 +317,8 @@ function analyzeSongHistory()
             getSourceLength(history[i].media.id, function(seconds){
                 totalSongs++;
                 var Sseconds = (isNaN(parseFloat(seconds))) ? 240 : parseFloat(seconds);// Assume 4 minute song if checking fails
-                totalSongTime += seconds;
+                log("Sseconds:" + Sseconds, log.info);
+                totalSongTime += Sseconds;
                 log("Time changed to " + totalSongTime);
             });
         } catch(err)
