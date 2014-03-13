@@ -339,8 +339,8 @@ function rollTheDice (author){
     } else if (x == y) {
         log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
-        API.moderateMoveDJ(getId(author), getPosition(author) + 2);
-        log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles or a 7 to not lose position!", log.visible);
+        API.moderateMoveDJ(getId(author), getPosition(author) - 4);
+        log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles or 7 to not lose position!", log.visible);
     }
 }
 
