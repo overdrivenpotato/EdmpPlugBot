@@ -13,12 +13,16 @@ javascript:(function(){document.body.appendChild(document.createElement('script'
 ##Commands
 * !goosesux
    * Self explanatory.
+* !turndown
+  *Why should you?
 * !skip
     * Skips the current dj playing. Requires mod level >= 2 (At least bouncer)
 * !privateskip
     * Skips the current dj and repositions them back to the beginning of the waitlist. Can be triggered by a mod or the dj themselves
 * !eta
     * Gives an eta for when your turn will be based on previous plays and your position in the waitlist.
+* !url
+    * Returns the URL of the playing song.
 * !mal
     * ples no
 * !reminder
