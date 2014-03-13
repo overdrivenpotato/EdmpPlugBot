@@ -157,13 +157,13 @@ function getPermLevel(username) {
 
 function getId(username) {
     var users = API.getUsers();
-    for(var i = 0; i < users.length; i++)
-    {
-        if(users[i].username == username.trim())
-        {
+
+    for(var i = 0; i < users.length; i++) {
+        if(users[i].username == username.trim()) {
             return users[i].id;
         }
     }
+
     return null;
 }
 
@@ -204,7 +204,7 @@ function getETA(username) {// use the countdown at the top of the page if you're
 
 
 function updateAFKs(data) {
-    var userID = getId(data.username);
+    var userID = getId(data.from);
     var start = trackAFKs.length - 1;
 
     for (var i = start; i >= 0; i--) {// Start high, most recent users
