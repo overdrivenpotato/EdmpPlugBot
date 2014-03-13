@@ -69,12 +69,11 @@ function cronHourly() {
     var min = d.getMinutes();
     var sec = d.getSeconds();
 
-    if((min == "00") && (sec == "00")) {
+    if((min == "00")) {
         lotteryHourly();
-        setTimeout(cronHourly, 1500);// make sure we set the next hourly check, add a 1.5s delay to prevent spam
-    } else {
-        setTimeout(to_be_executed,(60 * (60 - min) + (60 - sec)) * 1000);
     }
+
+    setTimeout(cronHourly, (60 * (60 - min) + (60 - sec)) * 1000);// check back in an hour
 }
 
 function stop(update) {
@@ -460,6 +459,8 @@ function lotteryHourly() {// enable or disable the lottery
 
     if (lotteryEnabled) {
         log("The lottery is now open, type !lottery for a chance to be bumped to #1 in the DJ wait list!", log.visible);
+    } else {
+        log("lotteryEnabled = false at lotteryHourly()", log.info)
     }
 }
 
