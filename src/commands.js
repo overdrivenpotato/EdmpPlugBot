@@ -261,10 +261,10 @@ var commands = [
 
     new Command("PushMe", function() {
         log("And then just touch me", log.visible);
-    }, null, null, false),
+    }, API.ROLE.NONE, true, false),
 
 
     new Command("SoICanGetMy", function() {
         log("Satisfaction", log.visible);
-    }, null, null, false)
+    }, API.ROLE.NONE, true, false)
 ];
