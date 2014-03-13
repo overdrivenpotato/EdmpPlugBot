@@ -174,7 +174,7 @@ function getAFKTime(username) {
     for (var i = start; i >= 0; i--) {// Start high, most recent users
 //log("i=" + i, log.info);
 //log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
-        for (var j = 0; j < trackAFKs[i].length; j++) {}
+        for (var j = 0; j < trackAFKs[i].length; j++) {
             if (trackAFKs[i].search(userID) != -1) {
                 var difference = (Date.now() - trackAFKs[i][2]) / 1000 / 60 / 60;
                 log(username + " spoke " + difference + " hours ago", log.visible);
