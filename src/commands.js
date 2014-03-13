@@ -138,8 +138,8 @@ var commands = [
             log("@" + author + ", you are not on the DJ wait list!", log.visible);
     }),
 
-    new Command("listadmins,admins,", function(author){
-        var admins = API.getAdmins();
+    new Command("listadmins,admins,staff,", function(author){
+        var admins = API.getStaff()
         if(admins=""){
             log("No admins are in the room.", log.visible);
         }
