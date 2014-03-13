@@ -195,9 +195,9 @@ function checkAFK(username) {
 
 function getETA(username) {// use the countdown at the top of the page if you're the next up to play, otherwise do average song length calculations
     var current = $("#now-playing-time").children(":last").html().split(":");
-    current[0] = (current[0].substring(0, 1) == "0") ? parseFloat(current[0].substring(1)) : parseFloat(current[0]);
-    log("current[0].substring(0, 1)="+current[0].substring(0, 1));
-    log("current[0].substring(1)="+current[0].substring(1));
+    current[0] = (current[0].substring(0, 1) == "0") ? current[0].substring(1) : current[0];
+    log("current[0].substring(0, 1)=" + current[0].substring(0, 1));
+    log("current[0].substring(1)=" + current[0].substring(1));
     var totalSeconds = (current[0] * 60) + current;
     return (getPosition(username) == 0) ? Math.round(totalSeconds) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
 }
