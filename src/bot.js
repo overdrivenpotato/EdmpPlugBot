@@ -383,8 +383,8 @@ function checkAFK(username)
     }
 }
 
-var lotteryEntries = [];
-var lotteryUpdated = true;
+var lotteryEntries = typeof lotteryEntries === "undefined" ? [] : lotteryEntries;
+var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 function lotteryUpdate()
 {
     if(new Date().getMinutes() >= 10){

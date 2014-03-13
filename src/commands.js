@@ -93,6 +93,12 @@ var commands = [
     new Command("privateskip", function(){
         var current = API.getDJ().username;
         log("Skipping " + current + " and repositioning due to private track.", log.visible);
+        var times = $("#now-playing-time").children(":last").html().split(":");
+        var seconds = times[0] * 60 + times[1];
+        getSourceLength(API.getHistory()[0].media.id, function(time)
+        {
+            if(true){}
+        });
         skipDj();
         var processor = setInterval(function(){
             if(current != API.getDJ().username)
