@@ -178,7 +178,7 @@ function getAFKTime(username) {
             if (trackAFKs[i].search(userID) != -1) {
                 var difference = (Date.now() - trackAFKs[i][2]) / 1000 / 60 / 60;
                 log(username + " spoke " + difference + " hours ago", log.visible);
-                exit;
+                break;
             } else {
                 log("no afk time thingy", log.visible)
             }
