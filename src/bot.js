@@ -291,36 +291,25 @@ window.edmpBot = window.setInterval(function(){
     meetupReminder();
 }, 10);
 
-function rolldice(dbl)
-{
+function rollTheDice (){
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
-    $('.dice1').attr('id', "dice" + x);
-    $('.dice2').attr('id', "dice" + y);
-    if (x == y) {//check for doubles
-        dbl++;
-        if(dbl%3==0) {
-        //Now reroll the dice, but if you hit 3 doubles in a row, you get message go to jail.
-            rolldice(dbl);
-        }
-    }
-}
 
-function rollTheDice ()
-{
-    log("coming soon!", log.visible);
-//roll a 2 or a 12 and move up 3 slots, anything else will cost you one slot
-    var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
-    var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
-    var dicetotal = x + y;
     if (dicetotal == 2 || dicetotal == 12) {
-//        API.moderateMoveDJ(getId(username), getPosition(author) - 3);
-//        log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump closer to the front!", log.visible);
+        if ((getPosition(author) - 3) < 1) {
+            API.moderateMoveDJ(getId(username), getPosition(author) - 3);
+            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump closer to the front!", log.visible);
+        } else {
+            API.moderateMoveDJ(getId(username), 1);
+            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congradulations, you've earned a 3 slot bump to the front of the line!", log.visible);
+        }
+
     } else if (x == y) {
-//        log ("@" + author + ", you rolled a " + x + " and a " + y + ",")
+        log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
-//        API.moderateMoveDJ(getId(username), getPosition(author) + 1);
+        API.moderateMoveDJ(getId(username), getPosition(author) + 1);
+        log ("Sucks to be you right now @" + author + ", you rolled a " + x + " and a " + y + ", you didn't roll doubles nor a 1 nor a 12, you lose a position!", log.visible);
     }
 }
 
