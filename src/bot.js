@@ -7,7 +7,11 @@
 var skipFixEnabled = true;
 var version = "0.3.0";
 var trackAFKs = [];
+var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
+var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 var lastPrivateSkip = 0;
+var lastSkipTime = 0;
+var totalSongTime = 0, totalSongs = 0;
 
 
 API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
@@ -16,6 +20,7 @@ API.on(API.CHAT, onChat);
 
 log.info = 3;
 log.visible = 2;
+
 function log(message, level)
 {
     level = (typeof level === "undefined") ? log.info : level;
@@ -50,7 +55,6 @@ function stop(update)
     }
 }
 
-var lastSkipTime = 0;
 function skipFix()
 {
     if(lastSkipTime < 1)
@@ -71,8 +75,6 @@ function skipFix()
     }
 }
 
-var lastMeetupMessageTime = typeof lastMeetupMessageTime === "undefined" ? 0 : lastMeetupMessageTime;
-var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 function meetupReminder()
 {
     if(meetupUrl.length > 0 && Date.now() - lastMeetupMessageTime > 600000)
@@ -116,7 +118,7 @@ console.log("args:" + args);
     }
 }
 
-var meetupUrl = typeof meetupUrl === "undefined" ? "" : meetupUrl;
+
 function commandDispatch(args, author)
 {
     args[0] = args[0].substring(1);
@@ -124,19 +126,23 @@ function commandDispatch(args, author)
     execCommand(author, args);
 }
 
+
 function isPlaying(username)
 {
     return typeof API.getDJ() !== "undefined" && API.getDJ().username == username.trim();
 }
 
+
 function moveToFirst(username) {
     API.moderateMoveDJ(getId(username), 1);
 }
+
 
 function skipDj()
 {
     API.moderateForceSkip();
 }
+
 
 function chat(text)
 {
@@ -146,10 +152,12 @@ function chat(text)
     $('#chat-input-field').trigger(e);
 }
 
+
 function getPermLevel(username)
 {
     return API.getUser(getId(username)).permission;
 }
+
 
 function getId(username) {
     var users = API.getUsers();
@@ -163,26 +171,30 @@ function getId(username) {
     return null;
 }
 
+
 function getETA(username) {
     return Math.round((getPosition(username) + 1) * getAverageTime());
 }
+
 
 function getPosition(username) {
     return API.getWaitListPosition(getId(username));
 }
 
+
 // Alert upcoming users that their set is about to start when total users > if they're AFK
 function waitListUpdated (users) {
     if (users.length >= 7) {
-        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
+        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.visible);
     }
 }
 
-var totalSongTime = 0, totalSongs = 0;
+
 function getAverageTime()
 {
     return Math.floor(totalSongTime / totalSongs / 60);
 }
+
 
 // Check to see if the user is repeatedly playing the same song
 function onDJAdvance(obj)
