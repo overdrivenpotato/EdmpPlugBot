@@ -76,7 +76,11 @@ var commands = [
         if(isPlaying(author)) {
             log("@" + author + " you're already the DJ, get your ears cleaned out!", log.visible);
         } else if (API.getWaitListPosition(getId(author)) != -1) {
-            log("@" + author + ", it will be your turn to DJ in ~" + getETA(author) + " minutes.", log.visible);
+            var eta = getETA(author);
+            var etaMsg = "@" + author + ", it will be your turn to DJ in ";
+            var etaMsg += (eta == 0) "SOOO SOOOOOONNN!" : "~" + getETA(author) + " minutes.";
+
+            log(etaMsg, log.visible);
         } else {
             log("@" + author + ", you are not on the DJ wait list!", log.visible);
         }
@@ -183,12 +187,6 @@ var commands = [
 
     new Command("rollthedice", function(author) {
         rollTheDice(author);
-    }),
-
-
-    new Command("afktest", function(author) {
-        //log("trackAFKs=" + trackAFKs[trackAFKs.length-1], log.visible);
-        checkAFK(author);
     }),
 
 

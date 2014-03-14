@@ -3,8 +3,7 @@
  * Date: 3/8/14
  * Time: 9:20 PM
  */
-// fix dice position moving stuff, dont let the last place person roll
-// !eta still doesn't properly grab minutes/seconds whatever
+// fix dice position moving stuff
 
 log("Loading bot...");
 
@@ -24,11 +23,11 @@ var totalSongTime = 0, totalSongs = 0;
 var defaultSongLength = 4;// measured in minutes
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
-var lastPrivateSkip = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastPrivateSkip;
-var lastSkipTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastSkipTime;
-var lastDJAdvanceTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastDJAdvanceTime;
+var lastPrivateSkip =       (typeof lastMeetupMessageTime === "undefined") ? 0 : lastPrivateSkip;
+var lastSkipTime =          (typeof lastMeetupMessageTime === "undefined") ? 0 : lastSkipTime;
+var lastDJAdvanceTime =     (typeof lastMeetupMessageTime === "undefined") ? 0 : lastDJAdvanceTime;
 
-var lotteryEntries = typeof lotteryEntries === "undefined" ? [] : lotteryEntries;
+var lotteryEntries = typeof lotteryEntries === "undefined" ? []   : lotteryEntries;
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 
 var scClientId = "ff550ffd042d54afc90a43b7151130a1";
@@ -83,6 +82,15 @@ function cronHourly() {
 }
 
 
+function cronFiveMinutes() {
+    log("cronFiveMinutes() has been summoned! The minutes are ripe, run additional 5-minute functions", log.info);
+    checkAFKs();
+
+    log("setting cronFiveMinutes() check for " + (5000 * 60) + " seconds from now", log.info);
+    setTimeout(cronFiveMinutes, (5000 * 60));// check back in 5 minutes
+}
+
+
 function stop(update) {
     clearInterval(window.edmpBot);
     log("Shutting down the bot. Bye!", log.visible);
@@ -103,6 +111,7 @@ function skipFix() {
     }
 
     var times = $("#now-playing-time").children(":last").html().split(":");
+
     if(times[0] < 1 && times[1] < 1) {
         var timeN = Date.now();
 
@@ -223,18 +232,18 @@ log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
 }
 
 
-function checkAFK(username) {
-    log("checkAFK called", log.info);
-    getAFKTime(username);
-}
-
-
 function getETA(username) {// use the countdown at the top of the page if you're the next up to play, otherwise do average song length calculations
     var current = $("#now-playing-time").children(":last").html().split(":");
     current[0] = (current[0][0] == "0") ? current[0][1] : current[0];// strip leading 0 from minutes
     var totalSeconds = parseFloat(current[0] * 60) + parseFloat(current[1]);
 
     return (getPosition(username) == 0) ? Math.round(totalSeconds / 60) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
+}
+
+
+function checkAFK(username) {
+    log("checkAFK called", log.info);
+    getAFKTime(username);
 }
 
 
@@ -530,7 +539,7 @@ function reminderHourly() {// Check for a new day
 
 analyzeSongHistory();
 cronHourly();// hourly checks, can't depend on chatter
-log("Loaded EDMPbot v" + version, log.visible);
+cronFiveMinutes()// 5-minute checks
 
 window.edmpBot = window.setInterval(function(){
     if(skipFixEnabled) {
@@ -538,3 +547,5 @@ window.edmpBot = window.setInterval(function(){
     }
     meetupReminder();
 }, 10);
+
+log("Loaded EDMPbot v" + version, log.visible);
