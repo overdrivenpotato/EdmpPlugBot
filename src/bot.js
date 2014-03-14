@@ -17,7 +17,7 @@ var curdate = new Date();
 
 var skipFixEnabled = false;
 var lotteryEnabled = false;
-var ReminderEnabled = (curdate.getDay() == 4 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
+var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
 var version = "0.4.5";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
@@ -46,6 +46,7 @@ API.on(API.USER_JOIN, onJoin);
 log.info = 3;
 log.visible = 2;
 
+
 function log(message, level) {
     level = (typeof level === "undefined") ? log.info : level;
     if(level < log.info) {
@@ -54,6 +55,7 @@ function log(message, level) {
     }
     console.log(message);
 }
+
 
 function updateBot() {
     log("Restarting in 2 seconds...", log.info);
@@ -64,6 +66,7 @@ function updateBot() {
     }, 2000);
 }
 
+
 function cronHourly() {
     log("cronHourly() has been summoned!", log.info);
 
@@ -72,7 +75,8 @@ function cronHourly() {
     var sec = d.getSeconds();
     var countdown = (60 * (60 - min) + (60 - sec)) * 1000;
 
-    if((min == "00")) {
+    if (!min || min == "00") {// browser-dependant
+        log("the hour is fresh, run additional hourly functions", log.info);
         lotteryHourly();// check to see the lottery can be activated
         reminderHourly();// check to see if it is now a meetup day to activate the reminder
     }
@@ -80,6 +84,7 @@ function cronHourly() {
     log("setting cronHourly() check for " + (countdown / 1000) + " seconds from now", log.info);
     setTimeout(cronHourly, countdown);// check back in an hour
 }
+
 
 function stop(update) {
     clearInterval(window.edmpBot);
@@ -91,6 +96,7 @@ function stop(update) {
         }, 15000);
     }
 }
+
 
 function skipFix() {
     if(lastSkipTime < 1) {
@@ -108,12 +114,14 @@ function skipFix() {
     }
 }
 
+
 function meetupReminder() {
     if(ReminderEnabled && (meetupUrl.length > 0) && ((Date.now() - lastMeetupMessageTime) > 600000)) {
         chat("Make sure to " + upvotes[Math.round(Math.random() * (upvotes.length - 1))] + " the /r/edmp thread at " + meetupUrl + "!");
         lastMeetupMessageTime = Date.now();
     }
 }
+
 
 function dispatch(message, author) {
     log("Dispatching message: " + message);
@@ -499,13 +507,14 @@ function lotteryUpdate() {
 
 
 function reminderHourly() {// Check for a new day
-    ReminderEnabled = (curdate.getDay() == 4 || curdate.getDay() == 6);
+    ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// only enables on Wednesdays & Saturdays
 }
 
 
 analyzeSongHistory();
-cronHourly();
+cronHourly();// hourly checks, can't depend on chatter
 log("Loaded EDMPbot v" + version, log.visible);
+
 window.edmpBot = window.setInterval(function(){
     if(skipFixEnabled) {
         skipFix();
