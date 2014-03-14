@@ -244,7 +244,7 @@ function updateAFKs(data) {
     var start = trackAFKs.length - 1;
     log ("updateAFKs called, trackAFKs.length=" + trackAFKs.length, log.info);
 
-    if (!start) {// gotta start with somebody!
+    if (start < 0) {// gotta start with somebody!
         trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);// Hasn't yet chatted, add an entry
         return;
     }
