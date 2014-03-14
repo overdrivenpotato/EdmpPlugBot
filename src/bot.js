@@ -220,27 +220,6 @@ function getETA(username) {// use the countdown at the top of the page if you're
 }
 
 
-function getAFKTime(username) {
-    var userID = getId(username);
-    var start = trackAFKs.length - 1;
-log("getAFKTime called, trackAFKs.length=" + trackAFKs.length, log.info);
-
-    for (var i = start; i >= 0; i--) {// Start high, most recent users
-log("i=" + i, log.info);
-log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
-        for (var j = 0; j < trackAFKs[i].length; j++) {
-            if (trackAFKs[i].indexOf(userID) != -1) {
-                var difference = (Date.now() - trackAFKs[i][2]) / 1000 / 60 / 60;
-                log(username + " spoke " + difference + " hours ago", log.visible);
-                break;
-            } else {
-                log("no afk time thingy", log.visible)
-            }
-        }
-    }
-}
-
-
 function getLastChat(username) {
     log("getLastChat called", log.info);
 
@@ -414,13 +393,13 @@ function analyzeSongHistory() {
                 var Sseconds = (isNaN(parseFloat(seconds))) ? (defaultSongLength * 60) : parseFloat(seconds);// failsafe
                 totalSongs++;
 
-                log("media.id=" + history[i].media.id + ", Sseconds=" + Sseconds, log.info);
+//log("media.id=" + history[i].media.id + ", Sseconds=" + Sseconds, log.info);
                 totalSongTime += Sseconds;
-                log("Time changed to " + totalSongTime, log.info);
+//log("Time changed to " + totalSongTime, log.info);
             });
         } catch(err) {
             console.error(err);
-            log("Getting song length failed. history[i].media.id=" + history[i].media.id, log.info);
+            log("Getting song length failed. history[" + i + "].media.id=" + history[i].media.id, log.info);
         }
     }
 }
@@ -539,7 +518,7 @@ function reminderHourly() {// Check for a new day
 
 analyzeSongHistory();
 cronHourly();// hourly checks, can't depend on chatter
-cronFiveMinutes()// 5-minute checks
+cronFiveMinutes();// 5-minute checks
 
 window.edmpBot = window.setInterval(function(){
     if(skipFixEnabled) {

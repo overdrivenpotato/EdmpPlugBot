@@ -77,8 +77,8 @@ var commands = [
             log("@" + author + " you're already the DJ, get your ears cleaned out!", log.visible);
         } else if (API.getWaitListPosition(getId(author)) != -1) {
             var eta = getETA(author);
-            var etaMsg = "@" + author + ", it will be your turn to DJ in ";
-            etaMsg += (eta == "0") ? "SOOO SOOOOOONNN!" : ("~" + getETA(author) + " minutes.");
+            var etaMsg = "@" + author + ", it will be your turn to DJ ";
+            etaMsg += (eta == "0") ? "SOOO SOOOOOONNN!" : ("in ~" + getETA(author) + " minutes.");
 
             log(etaMsg, log.visible);
         } else {
