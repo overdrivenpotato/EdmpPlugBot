@@ -236,7 +236,7 @@ var commands = [
 
 
     new Command("url", function(author) {
-        if (API.getDJ() != "undefined") {
+        if (typeof API.getDJ() !== "undefined") {
             getSourceUrl(API.getMedia().id, function(link) {
                 log("@" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
             })
