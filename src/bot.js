@@ -309,7 +309,7 @@ function onJoin(user) {
 
 
 function waitListUpdated (users) {// Alert upcoming users that their set is about to start when total users > 7 if they're AFK
-    if (users.length >= 1 && ((Date.now() - lastDJAdvanceTime) > 2000)) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
+    if (users.length > 1 && ((Date.now() - lastDJAdvanceTime) > 2000)) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
         log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
     }
 
