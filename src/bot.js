@@ -3,10 +3,7 @@
  * Date: 3/8/14
  * Time: 9:20 PM
  */
-
-// add an on the hour timer, prune chat list to 180 minutes and remind about !lottery
 // fix dice position moving stuff, dont let the last place person roll
-//say no song playing if there's no dj when !url is called
 
 
 log("Loading bot...");
@@ -24,7 +21,7 @@ var trackAFKs = [];
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 
 var totalSongTime = 0, totalSongs = 0;
-var defaultSongLength = 4;// minutes
+var defaultSongLength = 4;// measured in minutes
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
 var lastPrivateSkip = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastPrivateSkip;
@@ -36,7 +33,7 @@ var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdat
 
 var scClientId = "ff550ffd042d54afc90a43b7151130a1";
 
-API.on(API.WAIT_LIST_UPDATE, waitListUpdated);
+API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.DJ_ADVANCE, onDJAdvance);
 API.on(API.CHAT, onChat);
 API.on(API.USER_JOIN, onJoin);
@@ -47,10 +44,12 @@ log.visible = 2;
 
 function log(message, level) {
     level = (typeof level === "undefined") ? log.info : level;
+
     if(level < log.info) {
         console.log("Chatting: ");
         chat(message);
     }
+
     console.log(message);
 }
 
@@ -73,7 +72,7 @@ function cronHourly() {
     var sec = d.getSeconds();
     var countdown = (60 * (60 - min) + (60 - sec)) * 1000;
 
-    if (!min || min == "00") {// browser-dependant
+    if (min == "00" || min == "0" || typeof min === undefined) {// browser-dependant
         log("the hour is fresh, run additional hourly functions", log.info);
         lotteryHourly();// check to see the lottery can be activated
         reminderHourly();// check to see if it is now a meetup day to activate the reminder
@@ -88,6 +87,7 @@ function stop(update) {
     clearInterval(window.edmpBot);
     log("Shutting down the bot. Bye!", log.visible);
     API.off();
+
     if(!update) {
         setTimeout(function(){
             log("p.s. ptero is fat", log.visible);
@@ -105,6 +105,7 @@ function skipFix() {
     var times = $("#now-playing-time").children(":last").html().split(":");
     if(times[0] < 1 && times[1] < 1) {
         var timeN = Date.now();
+
         if(timeN - lastSkipTime > 5000) {
             log("Skipping due to lag", 1);
             commandDispatch("!skip", API.getUser().username.trim());
@@ -123,7 +124,7 @@ function meetupReminder() {
 
 function dispatch(message, author) {
     log("Dispatching message: " + message);
-    while(true)     {
+    while(true) {
         if(message.indexOf("<a") == -1) {
             break;
         }
@@ -308,8 +309,8 @@ function onJoin(user) {
 }
 
 
-function waitListUpdated (users) {// Alert upcoming users that their set is about to start when total users > 7 if they're AFK
-    if (users.length > 1 && ((Date.now() - lastDJAdvanceTime) > 2000)) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
+function onWaitListUpdate (users) {// Alert upcoming users that their set is about to start when total users > 7 if they're AFK
+    if (users.length >= 7 && ((Date.now() - lastDJAdvanceTime) > 2000)) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
         log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
     }
 
