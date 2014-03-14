@@ -158,11 +158,11 @@ var commands = [
     }),
 
 
-    new Command("admins", function() {
+    new Command("admins", function(author) {
         var admins = API.getStaff();
 
         if(admins.length <= 0) {
-            log("No admins are in the room. Oh. My. God. NO ADULT SUPERVISION!!!", log.visible);
+            log("Oh. My. God. NO ADULT SUPERVISION!!! You're on your own, @" + author, log.visible);
         } else {
             var logtext = "Admins Online: ";
 
@@ -248,7 +248,7 @@ var commands = [
         updateBot();
     }, API.ROLE.MANAGER, function(author){
         return author.trim() == "Invincibear";
-    })/*,
+    })
 
 
     new Command("herp", function() {
@@ -268,5 +268,5 @@ var commands = [
 
     new Command("soicangetmy", function() {
         log("Satisfaction", log.visible);
-    })*/
+    })
 ];
