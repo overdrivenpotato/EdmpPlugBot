@@ -223,6 +223,7 @@ log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
 
 
 function checkAFK(username) {
+    log("checkAFK called", log.info);
     getAFKTime(username);
 }
 

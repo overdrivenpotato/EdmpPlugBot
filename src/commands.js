@@ -187,7 +187,7 @@ var commands = [
 
 
     new Command("afktest", function(author) {
-        log("trackAFKs=" + trackAFKs[trackAFKs.length-1], log.visible);
+        //log("trackAFKs=" + trackAFKs[trackAFKs.length-1], log.visible);
         checkAFK(author);
     }),
 
