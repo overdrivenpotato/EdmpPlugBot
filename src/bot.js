@@ -21,7 +21,7 @@ var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "
 
 var totalSongTime = 0, totalSongs = 0;
 var defaultSongLength = 4;// measured in minutes
-var MaxAFKMinutes = 90;// 1.5hr afk DJ max
+var MaxAFKMinutes = 2;// 90m/1.5hr afk DJ max (set this var in minutes)
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
 var lastPrivateSkip =       (typeof lastMeetupMessageTime === "undefined") ? 0 : lastPrivateSkip;
@@ -308,7 +308,7 @@ function onDJAdvance(obj) {
     lastPrivateSkip = Date.now();
 // check if upcoming song & previously played song is the same
 //if same, send an @author chat warning
-// if same 2x, send an @author chat warning & skip
+// if same 2x, send an @author chat warning, skip the track
 // if same 3x, send an @author chat warning and remove from DJ list
     var songshistory = API.getHistory(); // get dj history
     var songs = [];
