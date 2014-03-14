@@ -419,10 +419,15 @@ function analyzeSongHistory() {
 
 
 function rollTheDice (author) {
-    if ((API.getWaitList() - (getPosition(author) + 1)) > 3 ) {// Must not be [3rd last - last]
+    if ((API.getWaitList().length - (getPosition(author) + 1)) > 3 ) {// Must not be [3rd last - last]
         log("@" + author + ", you can't roll if you're fresh on the DJ wait list, wait a few songs or get help by typing !addiction", log.visible);
         return;
+    } else if (getPosition(author) == -1) {
+        log("@" + author + ", you're already DJing, you can't move positions!", log.visible);
+    } else if (getPosition(author) == 0) {
+        log("@" + author + ", you're already the next to DJ, type !addiction for help with your problem.", log.visible);
     }
+
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
