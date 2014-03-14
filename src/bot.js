@@ -6,7 +6,6 @@
 
 // add an on the hour timer, prune chat list to 180 minutes and remind about !lottery
 // fix dice position moving stuff, dont let the last place person roll
-//dont list the bot in admins command
 //say no song playing if there's no dj when !url is called
 
 

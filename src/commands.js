@@ -236,9 +236,13 @@ var commands = [
 
 
     new Command("url", function(author) {
-        getSourceUrl(API.getMedia().id, function(link) {
-            log("@" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
-        })
+        if (API.getDJ() !== "undefined") {
+            getSourceUrl(API.getMedia().id, function(link) {
+                log("@" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
+            })
+        } else {
+            log("Nobody is DJing, @" + author, log.visible);
+        }
     }),
 
 
