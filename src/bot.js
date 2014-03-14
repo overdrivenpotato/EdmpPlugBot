@@ -205,6 +205,7 @@ function getId(username) {
 function getAFKTime(username) {
     var userID = getId(username);
     var start = trackAFKs.length - 1;
+log("getAFKTime called, trackAFKs.length=" + trackAFKs.length, log.info);
 
     for (var i = start; i >= 0; i--) {// Start high, most recent users
 log("i=" + i, log.info);
