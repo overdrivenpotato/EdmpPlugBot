@@ -296,7 +296,7 @@ function onDJAdvance(obj) {
 
 
 function onJoin(user) {
-    log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);
+    setTimeout('log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);', 1500);
 }
 
 
