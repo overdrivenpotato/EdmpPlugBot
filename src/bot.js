@@ -4,7 +4,7 @@
  * Time: 9:20 PM
  */
 // fix dice position moving stuff, dont let the last place person roll
-
+// !eta still doesn't properly grab minutes/seconds whatever
 
 log("Loading bot...");
 
@@ -249,10 +249,10 @@ function updateAFKs(data) {
     }
 
     for (var i = 0; i < trackAFKs.length; i++) {// Start high, most recent users
-log("i=" + i, log.info);
-log("trackAFKs:" + trackAFKs[i].indexOf(data.fromID), log.info);
+log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
         if (trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
             trackAFKs[i][2] = Date.now();
+            break;
         } else if (i == (trackAFKs.length - 1)) {// Hasn't yet chatted, add an entry
             trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
         }
@@ -419,6 +419,10 @@ function analyzeSongHistory() {
 
 
 function rollTheDice (author) {
+    if ((API.getWaitList() - (getPosition(author) + 1)) > 3 ) {// Must not be [3rd last - last]
+        log("@" + author + ", you can't roll if you're fresh on the DJ wait list, wait a few songs or get help by typing !addiction", log.visible);
+        return;
+    }
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
