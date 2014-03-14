@@ -240,7 +240,6 @@ function getETA(username) {// use the countdown at the top of the page if you're
 
 
 function updateAFKs(data) {
-    var userID = data.fromID;
     var start = trackAFKs.length - 1;
     log ("updateAFKs called, trackAFKs.length=" + trackAFKs.length, log.info);
 
@@ -251,8 +250,8 @@ function updateAFKs(data) {
 
     for (var i = start; i >= 0; i--) {// Start high, most recent users
 log("i=" + i, log.info);
-log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
-            if (trackAFKs[i].indexOf(userID) != -1) {// Update existing entry
+log("trackAFKs:" + trackAFKs[i].search(data.fromID), log.info);
+            if (trackAFKs[i].indexOf(data.fromID) != -1) {// Update existing entry
                 trackAFKs[i][2] = Date.now();
             } else {
                 trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);// Hasn't yet chatted, add an entry
