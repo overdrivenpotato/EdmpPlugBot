@@ -4,6 +4,8 @@
  * Time: 9:20 PM
  */
 // fix dice position moving stuff
+// populate trackAFKs with room list upon !update
+// add time checks to cron timers to prevent spam that will snowball out of control
 
 log("Loading bot...");
 
@@ -257,6 +259,7 @@ function updateAFKs(data) {
 
 
 function checkAFKs(minutes) {
+log("checkAFKs summoned", log.info);
     var DJWaitList = API.getWaitList();
 
     for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list

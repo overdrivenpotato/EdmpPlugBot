@@ -248,7 +248,7 @@ var commands = [
         updateBot();
     }, API.ROLE.MANAGER, function(author){
         return author.trim() == "Invincibear";
-    }),
+    })/*,
 
 
     new Command("herp", function() {
@@ -268,5 +268,5 @@ var commands = [
 
     new Command("soicangetmy", function() {
         log("Satisfaction", log.visible);
-    })
+    })*/
 ];
