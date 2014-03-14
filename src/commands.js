@@ -259,12 +259,12 @@ var commands = [
     }),
 
 
-    new Command("PushMe", function() {
+    new Command("pushme", function() {
         log("And then just touch me", log.visible);
     }),
 
 
-    new Command("SoICanGetMy", function() {
+    new Command("soicangetmy", function() {
         log("Satisfaction", log.visible);
     })
 ];

@@ -5,9 +5,10 @@
  */
 
 // add an on the hour timer, prune chat list to 180 minutes and remind about !lottery
-// fix dice position moving stuff
+// fix dice position moving stuff, dont let the last place person roll
 //dont list the bot in admins command
 //say no song playing if there's no dj when !url is called
+//!murica FUCK YEAH
 
 
 log("Loading bot...");
@@ -72,7 +73,8 @@ function cronHourly() {
     var countdown = (60 * (60 - min) + (60 - sec)) * 1000;
 
     if((min == "00")) {
-        lotteryHourly();
+        lotteryHourly();// check to see the lottery can be activated
+        reminderHourly();// check to see if it is now a meetup day to activate the reminder
     }
 
     log("setting cronHourly() check for " + (countdown / 1000) + " seconds from now", log.info);
@@ -107,9 +109,9 @@ function skipFix() {
 }
 
 function meetupReminder() {
-    if(meetupUrl.length > 0 && Date.now() - lastMeetupMessageTime > 600000) {
-        lastMeetupMessageTime = Date.now();
+    if(ReminderEnabled && (meetupUrl.length > 0) && ((Date.now() - lastMeetupMessageTime) > 600000)) {
         chat("Make sure to " + upvotes[Math.round(Math.random() * (upvotes.length - 1))] + " the /r/edmp thread at " + meetupUrl + "!");
+        lastMeetupMessageTime = Date.now();
     }
 }
 
@@ -278,15 +280,15 @@ function onDJAdvance(obj) {
     }
 
     if (songs.length >= 4 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid)) {
-        API.moderateRemoveDJ(API.getDJ().id);//remove from dj wait list
-        API.moderateForceSkip();//skip their turn
+        API.moderateRemoveDJ(API.getDJ().id);// third offense, remove from dj wait list
+        API.moderateForceSkip();// skip their turn
         log("@" + API.getDJ().username + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
     } else {
-        if (songs.length >= 3 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid)) {
-            API.moderateForceSkip();
-            API.moderateMoveDJ(API.getDJ().id, 1);
+        if (songs.length >= 3 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid)) {// second offense, skip
+            API.moderateForceSkip();// skip their turn
+            API.moderateMoveDJ(API.getDJ().id, 1);// return them to the front of the line to try another song
             log("@" + API.getDJ().username + ", you've already played that song twice before. Please play a different song or you will be removed from the DJ wait list.", log.visible);
-        } else {
+        } else {// first offense, slap on the wrist
             if (songs.length >= 2 && songs[0] == API.getMedia().cid) {
                 log("@" + API.getDJ().username + ", you've already played that song before. Please play a different song.", log.visible);
             }
@@ -493,6 +495,11 @@ function lotteryUpdate() {
     } else {
         lotteryUpdated = false;
     }
+}
+
+
+function reminderHourly() {// Check for a new day
+    ReminderEnabled = (curdate.getDay() == 4 || curdate.getDay() == 6);
 }
 
 
