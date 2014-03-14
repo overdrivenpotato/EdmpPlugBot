@@ -234,7 +234,7 @@ function getETA(username) {// use the countdown at the top of the page if you're
     current[0] = (current[0][0] == "0") ? current[0][1] : current[0];// strip leading 0 from minutes
     var totalSeconds = parseFloat(current[0] * 60) + parseFloat(current[1]);
 
-    return (getPosition(username) == 0) ? Math.round(totalSeconds) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
+    return (getPosition(username) == 0) ? Math.round(totalSeconds / 60) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
 }
 
 
