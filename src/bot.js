@@ -86,8 +86,8 @@ function cronFiveMinutes() {
     log("cronFiveMinutes() has been summoned! The minutes are ripe, run additional 5-minute functions", log.info);
 //    checkAFKs();
 
-    log("setting cronFiveMinutes() check for " + (5000 * 60) + " seconds from now", log.info);
-    setTimeout(cronFiveMinutes, (5000 * 60));// check back in 5 minutes
+    log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now", log.info);
+    setTimeout(cronFiveMinutes, (5 * 60 * 1000));// check back in 5 minutes
 }
 
 
@@ -211,6 +211,15 @@ function getId(username) {
 }
 
 
+function getETA(username) {// use the countdown at the top of the page if you're the next up to play, otherwise do average song length calculations
+    var current = $("#now-playing-time").children(":last").html().split(":");
+    current[0] = (current[0][0] == "0") ? current[0][1] : current[0];// strip leading 0 from minutes
+    var totalSeconds = parseFloat(current[0] * 60) + parseFloat(current[1]);
+
+    return (getPosition(username) == 0) ? Math.round(totalSeconds / 60) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
+}
+
+
 function getAFKTime(username) {
     var userID = getId(username);
     var start = trackAFKs.length - 1;
@@ -232,18 +241,9 @@ log("trackAFKs:" + trackAFKs[i].search(getID), log.info);
 }
 
 
-function getETA(username) {// use the countdown at the top of the page if you're the next up to play, otherwise do average song length calculations
-    var current = $("#now-playing-time").children(":last").html().split(":");
-    current[0] = (current[0][0] == "0") ? current[0][1] : current[0];// strip leading 0 from minutes
-    var totalSeconds = parseFloat(current[0] * 60) + parseFloat(current[1]);
+function getLastChat(username) {
+    log("getLastChat called", log.info);
 
-    return (getPosition(username) == 0) ? Math.round(totalSeconds / 60) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
-}
-
-
-function checkAFK(username) {
-    log("checkAFK called", log.info);
-    getAFKTime(username);
 }
 
 
