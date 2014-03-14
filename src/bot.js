@@ -69,12 +69,14 @@ function cronHourly() {
     var d = new Date();
     var min = d.getMinutes();
     var sec = d.getSeconds();
+    var countdown = (60 * (60 - min) + (60 - sec)) * 1000;
 
     if((min == "00")) {
         lotteryHourly();
     }
 
-    setTimeout(cronHourly, (60 * (60 - min) + (60 - sec)) * 1000);// check back in an hour
+    log("setting cronHourly() check for " + (countdown / 1000) + " seconds from now", log.info);
+    setTimeout(cronHourly, countdown);// check back in an hour
 }
 
 function stop(update) {
