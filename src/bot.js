@@ -424,8 +424,10 @@ function rollTheDice (author) {
         return;
     } else if (getPosition(author) == -1) {
         log("@" + author + ", you're already DJing, you can't move positions!", log.visible);
+        return;
     } else if (getPosition(author) == 0) {
         log("@" + author + ", you're already the next to DJ, type !addiction for help with your problem.", log.visible);
+        return;
     }
 
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
