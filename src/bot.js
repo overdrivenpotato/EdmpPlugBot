@@ -8,7 +8,6 @@
 // fix dice position moving stuff, dont let the last place person roll
 //dont list the bot in admins command
 //say no song playing if there's no dj when !url is called
-//!murica FUCK YEAH
 
 
 log("Loading bot...");

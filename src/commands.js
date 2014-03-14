@@ -163,7 +163,7 @@ var commands = [
             var logtext = "Admins Online: ";
 
             for(var i = 0; i < admins.length; i++) {
-                logtext += admins[i].username + (i == admins.length - 1 ? "" : ", ");
+                logtext += (admins[i].id != "531bdea096fba5070c4cad51") ? (admins[i].username + (i == admins.length - 1 ? "" : ", ")) : "";
             }
 
             log(logtext, log.visible);
