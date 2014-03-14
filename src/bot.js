@@ -248,7 +248,7 @@ function updateAFKs(data) {
         return;
     }
 
-    for (var i = start; i >= 0; i--) {// Start high, most recent users
+    for (var i = 0; i < trackAFKs.length; i++) {// Start high, most recent users
 log("i=" + i, log.info);
 log("trackAFKs:" + trackAFKs[i].indexOf(data.fromID), log.info);
             if (trackAFKs[i].indexOf(data.fromID) != -1) {// Update existing entry
