@@ -16,11 +16,12 @@ var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disabl
 var version = "0.4.5";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
-var trackAFKs = [];
+var trackAFKs = []; // [0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt]
 var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 
 var totalSongTime = 0, totalSongs = 0;
 var defaultSongLength = 4;// measured in minutes
+var MaxAFKMinutes = 90;// 1.5hr afk DJ max
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
 var lastPrivateSkip =       (typeof lastMeetupMessageTime === "undefined") ? 0 : lastPrivateSkip;
@@ -84,7 +85,7 @@ function cronHourly() {
 
 function cronFiveMinutes() {
     log("cronFiveMinutes() has been summoned! The minutes are ripe, run additional 5-minute functions", log.info);
-//    checkAFKs();
+    checkAFKs(MaxAFKMinutes);// Check for AFK DJs
 
     log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now", log.info);
     setTimeout(cronFiveMinutes, (5 * 60 * 1000));// check back in 5 minutes
@@ -223,29 +224,66 @@ function getETA(username) {// use the countdown at the top of the page if you're
 function getLastChat(username) {
     log("getLastChat called", log.info);
 
+    for (var i = 0; i < trackAFKs.length; i++) {
+//log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
+        if (trackAFKs[i].indexOf(data.fromID) == 1) {// found them!
+            return trackAFKs[i][2];
+        }
+    }
+
+    return -1;// didn't find the user
 }
 
 
 function updateAFKs(data) {
-    log ("updateAFKs called, trackAFKs.length=" + trackAFKs.length, log.info);
-
+//    log("updateAFKs called, trackAFKs.length=" + trackAFKs.length, log.info);
     if (!trackAFKs.length) {// gotta start with somebody!
         trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
         log("pushed the very first entry into trackAFKs", log.info);
         return;
     }
 
-    for (var i = 0; i < trackAFKs.length; i++) {// Start high, most recent users
-log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
+    for (var i = 0; i < trackAFKs.length; i++) {
+//log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
         if (trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
             trackAFKs[i][2] = Date.now();
-            break;
+            return;
         } else if (i == (trackAFKs.length - 1)) {// Hasn't yet chatted, add an entry
             trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
+            return;
         }
     }
 }
 
+
+function checkAFKs(minutes) {
+    var DJWaitList = API.getWaitList();
+
+    for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
+        for (var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
+            if (trackAFKs[j].indexOf(DJWaitList[i].username) == 1) {// found the waiting DJ in the trackAFKs array
+                var afkMinutes = (Date.now() - trackAFKs[j][2]) / 1000;
+                var afkName = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
+
+                if (afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
+                    log("AFK Checker: @" + DJWaitList[i].username + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list.", log.visible);
+                } else if (afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
+                    log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within 5 minutes or you'll be removed from the DJ wait list.", log.visible);
+                } else if (afkMinutes <= minutes) {// reached the AFK limit, remove from DJ wait list
+                    log("AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker.", log.visible);
+                    API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
+                }
+
+                break;
+            }
+        }
+    }
+}
+
+
+function checkAFKResponse(username) {
+// send an ACK to ppl who respond to the AFK checker
+}
 
 function getPosition(username) {
     return API.getWaitListPosition(getId(username));
