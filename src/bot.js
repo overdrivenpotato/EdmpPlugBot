@@ -242,6 +242,12 @@ function getETA(username) {// use the countdown at the top of the page if you're
 function updateAFKs(data) {
     var userID = data.fromID;
     var start = trackAFKs.length - 1;
+    log ("updateAFKs called, trackAFKs.length=" + trackAFKs.length, log.info);
+
+    if (!start) {// gotta start with somebody!
+        trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);// Hasn't yet chatted, add an entry
+        return;
+    }
 
     for (var i = start; i >= 0; i--) {// Start high, most recent users
 log("i=" + i, log.info);
@@ -261,6 +267,7 @@ function getPosition(username) {
 
 
 function onChat(data) {
+log ("onChat called, data.type=" + data.type, log.info);
     if(data.type == "message") {
         dispatch(data.message, data.from);
     }
