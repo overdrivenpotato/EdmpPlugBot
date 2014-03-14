@@ -253,7 +253,7 @@ log("i=" + i, log.info);
 log("trackAFKs:" + trackAFKs[i].indexOf(data.fromID), log.info);
         if (trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
             trackAFKs[i][2] = Date.now();
-        } else if (i == (trackAFKs.length - 1) {// Hasn't yet chatted, add an entry
+        } else if (i == (trackAFKs.length - 1)) {// Hasn't yet chatted, add an entry
             trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
         }
     }
