@@ -84,7 +84,7 @@ function cronHourly() {
 
 function cronFiveMinutes() {
     log("cronFiveMinutes() has been summoned! The minutes are ripe, run additional 5-minute functions", log.info);
-    checkAFKs();
+//    checkAFKs();
 
     log("setting cronFiveMinutes() check for " + (5000 * 60) + " seconds from now", log.info);
     setTimeout(cronFiveMinutes, (5000 * 60));// check back in 5 minutes
