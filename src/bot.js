@@ -6,6 +6,7 @@
 // fix dice position moving stuff
 // populate trackAFKs with room list upon !update
 // add time checks to cron timers to prevent spam that will snowball out of control
+// !admins sould not list resident DJs
 
 log("Loading bot...");
 
@@ -135,7 +136,7 @@ function meetupReminder() {
 
 
 function dispatch(message, author) {
-    log("Dispatching message: " + message);
+//log("Dispatching message: " + message);
     while(true) {
         if(message.indexOf("<a") == -1) {
             break;
@@ -294,7 +295,7 @@ function getPosition(username) {
 
 
 function onChat(data) {
-log ("onChat called, data.type=" + data.type, log.info);
+//log ("onChat called, data.type=" + data.type, log.info);
     if(data.type == "message") {
         dispatch(data.message, data.from);
     }
