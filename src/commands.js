@@ -248,7 +248,7 @@ var commands = [
         updateBot();
     }, API.ROLE.MANAGER, function(author){
         return author.trim() == "Invincibear";
-    })
+    }),
 
 
     new Command("herp", function() {
