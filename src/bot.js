@@ -20,7 +20,7 @@ var version = "0.4.5";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs = []; // [0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt]
-var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "upPope"];
+var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
 
 var totalSongTime = 0, totalSongs = 0;
 var defaultSongLength = 4;// measured in minutes
@@ -143,11 +143,11 @@ function dispatch(message, author) {
         }
 
         var start = message.indexOf("<a");
-console.log("start:" + start);
+        console.log("start:" + start);
         var end = message.indexOf("a>");
-console.log("end:" + end);
+        console.log("end:" + end);
         var link = $(message.substr(start, end)).attr("href");
-console.log("link:" + link);
+        console.log("link:" + link);
 
         message = message.split(message.substr(start, end));
         message = message[0] + link + message[1];
@@ -158,7 +158,7 @@ console.log("link:" + link);
         message = message.substr(message.indexOf("!"));
         try {
             var args = message.split(" ");
-console.log("args:" + args);
+            console.log("args:" + args);
             commandDispatch(args , author);
         } catch(exp) {
             console.log("Error: " + exp.stack);
@@ -260,7 +260,7 @@ function updateAFKs(data) {
 
 
 function checkAFKs(minutes) {
-log("checkAFKs summoned", log.info);
+    log("checkAFKs summoned", log.info);
     var DJWaitList = API.getWaitList();
 
     for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
