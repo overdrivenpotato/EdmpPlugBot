@@ -6,7 +6,8 @@
 // fix dice position moving stuff
 // populate trackAFKs with room list upon !update
 // add time checks to cron timers to prevent spam that will snowball out of control
-// !admins sould not list resident DJs
+// !admins should not list resident DJs
+// fix 8ball not working when @author is used
 
 log("Loading bot...");
 

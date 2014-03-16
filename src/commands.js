@@ -103,11 +103,6 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("goosesux", function() {
-        log("Yes he does.", log.visible);
-    }),
-
-
     new Command("turndown", function() {
         log("FOR WHAT?", log.visible);
     }),
@@ -167,7 +162,7 @@ var commands = [
             var logtext = "Admins Online: ";
 
             for(var i = 0; i < admins.length; i++) {
-                logtext += (admins[i].id != "531bdea096fba5070c4cad51" || admins[i].permissions <= API.ROLE.BOUNCER) ? (admins[i].username + (i == admins.length - 1 ? "" : ", ")) : "";
+                logtext += (admins[i].id != "531bdea096fba5070c4cad51" && admins[i].permissions >= API.ROLE.BOUNCER) ? (admins[i].username + (i == admins.length - 1 ? "" : ", ")) : "";
             }
 
             log(logtext, log.visible);
@@ -273,5 +268,10 @@ var commands = [
 
     new Command("sympathy", function() {
         log("Please direct your sympathy to @spyre", log.visible);
+    }),
+
+
+    new Command("goosesux", function() {
+        log("Yes he does.", log.visible);
     })
 ];
