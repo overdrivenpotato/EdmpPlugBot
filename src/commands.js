@@ -59,7 +59,7 @@ function Command(cmd, callback, permission, customPerm) {
 var commands = [
     new Command("help,", function(author){
         var avail = getAvailable(author);
-        var chatoutput = "@" + author + ", you have access to the following commands: ";
+        var chatoutput = "@" + author + ", you can use: ";
         for(var i = 0; i < avail.length; i++) {
             chatoutput += "!" + avail[i].cmd + (i != avail.length - 1 ? ", " : "");
         }
