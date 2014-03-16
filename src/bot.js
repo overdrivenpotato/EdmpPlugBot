@@ -20,7 +20,7 @@ var version = "0.4.5";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs = []; // [0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt]
-var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat"];
+var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "upPope"];
 
 var totalSongTime = 0, totalSongs = 0;
 var defaultSongLength = 4;// measured in minutes

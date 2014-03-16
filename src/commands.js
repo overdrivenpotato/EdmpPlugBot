@@ -161,13 +161,13 @@ var commands = [
     new Command("admins", function(author) {
         var admins = API.getStaff();
 
-        if(admins.length <= 0) {
+        if(admins.length <= 1) {
             log("Oh. My. God. NO ADULT SUPERVISION!!! You're on your own, @" + author, log.visible);
         } else {
             var logtext = "Admins Online: ";
 
             for(var i = 0; i < admins.length; i++) {
-                logtext += (admins[i].id != "531bdea096fba5070c4cad51") ? (admins[i].username + (i == admins.length - 1 ? "" : ", ")) : "";
+                logtext += (admins[i].id != "531bdea096fba5070c4cad51" || admins[i].permissions <= API.ROLE.BOUNCER) ? (admins[i].username + (i == admins.length - 1 ? "" : ", ")) : "";
             }
 
             log(logtext, log.visible);
@@ -268,5 +268,10 @@ var commands = [
 
     new Command("soicangetmy", function() {
         log("Satisfaction", log.visible);
+    }),
+
+
+    new Command("sympathy", function() {
+        log("Please direct your sympathy to @spyre", log.visible);
     })
 ];
