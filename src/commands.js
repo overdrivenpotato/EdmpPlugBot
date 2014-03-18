@@ -155,16 +155,15 @@ var commands = [
 
     new Command("admins", function(author) {
         var admins = API.getStaff();
+        var logtext = "Admins Online: ";
 
-        if(admins.length <= 1) {
+        for(var i = 0; i < admins.length; i++) {
+            logtext += (admins[i].id != "531bdea096fba5070c4cad51" && admins[i].permissions >= API.ROLE.BOUNCER) ? (admins[i].username + (i == admins.length - 1 ? "" : ", ")) : "";
+        }
+
+        if(admins.length < 1) {
             log("Oh. My. God. NO ADULT SUPERVISION!!! You're on your own, @" + author, log.visible);
         } else {
-            var logtext = "Admins Online: ";
-
-            for(var i = 0; i < admins.length; i++) {
-                logtext += (admins[i].id != "531bdea096fba5070c4cad51" && admins[i].permissions >= API.ROLE.BOUNCER) ? (admins[i].username + (i == admins.length - 1 ? "" : ", ")) : "";
-            }
-
             log(logtext, log.visible);
         }
     }),
