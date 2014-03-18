@@ -319,7 +319,7 @@ function onChat(data) {
     lotteryUpdate();
 
     if(data.type == "message" || data.type == "emote") {
-        checkAFKResponse(data.username);
+        checkAFKResponse(data.from);
         updateAFKs(data);
     }
 }
