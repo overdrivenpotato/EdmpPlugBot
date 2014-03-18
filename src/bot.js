@@ -8,6 +8,7 @@
 // add time checks to cron timers to prevent spam that will snowball out of control
 // fix 8ball not working when @author is used (Invincibear note: can't recreate the problem anymore?)
 // add secret commands that don't list in !help
+//change onDJAdvance to use passed obj fields
 
 log("Loading bot...");
 
@@ -20,7 +21,7 @@ var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disabl
 var version   = "0.4.7";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
-var trackAFKs = []; // format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt]
+var trackAFKs = []; // format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
 var upvotes   = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
 var afkName   = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
 
@@ -241,7 +242,7 @@ log("getLastChat called", log.info);
     for (var i = 0; i < trackAFKs.length; i++) {
 //log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
         if (trackAFKs[i].indexOf(userID) == 1) {// found them!
-            return trackAFKs[i][2];
+            return [trackAFKs[i][2], trackAFKs[i][4]];
         }
     }
 
@@ -263,7 +264,7 @@ log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
             trackAFKs[i][2] = Date.now();
             return;
         } else if (i == (trackAFKs.length - 1)) {// Hasn't yet chatted, add an entry
-            trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
+            trackAFKs.push([data.from, data.fromID, Date.now(), data.message], false);
             return;
         }
     }
@@ -298,9 +299,10 @@ log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK 
 
 
 function checkAFKResponse(username) {// send an ACK to ppl who respond to the AFK checker
-    var afkMinutes = (Date.now() - getLastChat(getId(username))) / 60 / 1000;
+    var lastChat   = getLastChat(getId(username));
+    var afkMinutes = (Date.now() - lastChat[0]) / 60 / 1000;
 
-    if (afkMinutes > MaxAFKMinutes && getId(username) != botID) {
+    if (getId(username) != botID && afkMinutes > MaxAFKMinutes && lastChat[1]) {// not bot, was afk, was already warned
         log ("@" + username + " satisfied the AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))], log.visible);
     }
 }
