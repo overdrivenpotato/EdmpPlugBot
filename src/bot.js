@@ -13,26 +13,27 @@ log("Loading bot...");
 
 var curdate = new Date();
 
-var skipFixEnabled = false;
-var lotteryEnabled = false;
+var skipFixEnabled  = false;
+var lotteryEnabled  = false;
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
-var version = "0.4.7";
+var version   = "0.4.7";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
-var trackAFKs = []; // [0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt]
-var upvotes = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
+var trackAFKs = []; // format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt]
+var upvotes   = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
 
-var totalSongTime = 0, totalSongs = 0;
+var totalSongTime     = 0;
+var totalSongs        = 0;
 var defaultSongLength = 4;// measured in minutes
-var MaxAFKMinutes = 2;// 90m/1.5hr afk DJ max (set this var in minutes)
+var MaxAFKMinutes     = 2;// 90m/1.5hr afk DJ max (set this var in minutes)
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
-var lastPrivateSkip =       (typeof lastPrivateSkip === "undefined")       ? 0 : lastPrivateSkip;
-var lastSkipTime =          (typeof lastSkipTime === "undefined")          ? 0 : lastSkipTime;
-var lastDJAdvanceTime =     (typeof lastDJAdvanceTime === "undefined")     ? 0 : lastDJAdvanceTime;
-var lastCronHourly =        (typeof lastCronHourly === "undefined")        ? 0 : lastCronHourly;
-var lastCronFiveMinutes =   (typeof lastCronFiveMinutes === "undefined")   ? 0 : lastCronFiveMinutes;
+var lastPrivateSkip       = (typeof lastPrivateSkip === "undefined")       ? 0 : lastPrivateSkip;
+var lastSkipTime          = (typeof lastSkipTime === "undefined")          ? 0 : lastSkipTime;
+var lastDJAdvanceTime     = (typeof lastDJAdvanceTime === "undefined")     ? 0 : lastDJAdvanceTime;
+var lastCronHourly        = (typeof lastCronHourly === "undefined")        ? 0 : lastCronHourly;
+var lastCronFiveMinutes   = (typeof lastCronFiveMinutes === "undefined")   ? 0 : lastCronFiveMinutes;
 
 var lotteryEntries = typeof lotteryEntries === "undefined" ? []   : lotteryEntries;
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
@@ -64,10 +65,8 @@ function log(message, level) {
 function updateBot() {
     log("Restarting in 2 seconds...", log.info);
     stop(true);
-    log("Starting timeout... ", log.info);
-    setTimeout(function(){
-        $.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/loader.js");
-    }, 2000);
+    log("Starting 2s loader timer... ", log.info);
+    setTimeout(function(){$.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/loader.js");}, 2000);
 }
 
 
@@ -85,8 +84,12 @@ function cronHourly() {// called at the start of a new hour ie. 0 minutes & seco
         reminderHourly();// check to see if it is now a meetup day to activate the reminder
     }
 
-    log("setting cronHourly() check for " + (countdown / 1000) + " seconds from now", log.info);
-    setTimeout(cronHourly, countdown);// check back in an hour
+    if (lastCronHourly == 0 || (Date.now() - lastCronHourly) >= (60 * 60 * 1000)) {// spam & resource overload prevention
+        log("setting cronHourly() check for " + (countdown / 60 / 1000) + " minutes from now", log.info);
+        setTimeout(cronHourly, countdown);// check back in an hour
+    }
+
+    lastCronHourly = Date.now();
 }
 
 
@@ -94,8 +97,7 @@ function cronFiveMinutes() {// called every 5 minutes
     log("cronFiveMinutes() has been called! The minutes are ripe, run additional 5-minute functions", log.info);
     checkAFKs(MaxAFKMinutes);// Check for AFK DJs
 
-log("Date.now() - lastCronFiveMinutes=" + (Date.now() - lastCronFiveMinutes), log.info);
-    if(lastCronFiveMinutes == 0 || (Date.now() - lastCronFiveMinutes) > (5 * 60 * 1000)) {// spam prevention
+    if(lastCronFiveMinutes == 0 || (Date.now() - lastCronFiveMinutes) >= (5 * 60 * 1000)) {// spam & resource overload prevention
         log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now", log.info);
         setTimeout(cronFiveMinutes, (5 * 60 * 1000));// check back in 5 minutes
     }
@@ -110,9 +112,7 @@ function stop(update) {
     API.off();
 
     if(!update) {
-        setTimeout(function(){
-            log("p.s. ptero is fat", log.visible);
-        }, 15000);
+        setTimeout(function(){log("p.s. ptero is fat", log.visible);}, 15000);
     }
 }
 
@@ -248,7 +248,7 @@ function getLastChat(username) {
 
 
 function updateAFKs(data) {
-//    log("updateAFKs called, trackAFKs.length=" + trackAFKs.length, log.info);
+log("updateAFKs called, trackAFKs.length=" + trackAFKs.length, log.info);
     if (!trackAFKs.length) {// gotta start with somebody!
         trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
         log("pushed the very first entry into trackAFKs", log.info);
@@ -256,7 +256,7 @@ function updateAFKs(data) {
     }
 
     for (var i = 0; i < trackAFKs.length; i++) {
-//log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
+log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
         if (trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
             trackAFKs[i][2] = Date.now();
             return;
@@ -268,8 +268,8 @@ function updateAFKs(data) {
 }
 
 
-function checkAFKs(minutes) {
-    log("checkAFKs summoned", log.info);
+function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as much participation as possible, not AFK DJs
+log("checkAFKs summoned", log.info);
     var DJWaitList = API.getWaitList();
 
     for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
@@ -277,7 +277,7 @@ function checkAFKs(minutes) {
             if (trackAFKs[j].indexOf(DJWaitList[i].username) == 1) {// found the waiting DJ in the trackAFKs array
                 var afkMinutes = (Date.now() - trackAFKs[j][2]) / 1000;
                 var afkName = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
-
+log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes", log.info);
                 if (afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
                     log("AFK Checker: @" + DJWaitList[i].username + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list.", log.visible);
                 } else if (afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
@@ -294,9 +294,9 @@ function checkAFKs(minutes) {
 }
 
 
-function checkAFKResponse(username) {
-// send an ACK to ppl who respond to the AFK checker
+function checkAFKResponse(username) {// send an ACK to ppl who respond to the AFK checker
 }
+
 
 function getPosition(username) {
     return API.getWaitListPosition(getId(username));
@@ -316,15 +316,10 @@ function onChat(data) {
 }
 
 
-// Check to see if the user is repeatedly playing the same song
-function onDJAdvance(obj) {
+function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the same song
     lastPrivateSkip = Date.now();
-// check if upcoming song & previously played song is the same
-//if same, send an @author chat warning
-// if same 2x, send an @author chat warning, skip the track
-// if same 3x, send an @author chat warning and remove from DJ list
     var songshistory = API.getHistory(); // get dj history
-    var songs = [];
+    var songs = [];// reset the array, don't need long-term history
 
     for(var i = 0; i < songshistory.length; i++) {
         if (typeof API.getDJ() !== "undefined" && songshistory[i].user.id == API.getDJ().id) {
