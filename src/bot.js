@@ -341,9 +341,9 @@ function onDJAdvance(obj) {
 }
 
 
-function onJoin(user) {
-    log(user, log.visible);
-    setTimeout('log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);', 1500);
+function onJoin(newuser) {// greet new user after a short delay to ensure they receive the message
+    log(newuser, log.visible);
+    setTimeout('log("Welcome @" + newuser.username + "! Type !help for more information and a list of available commands.", log.visible);', 2000);
 }
 
 
