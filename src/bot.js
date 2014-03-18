@@ -3,10 +3,10 @@
  * Date: 3/8/14
  * Time: 9:20 PM
  */
-// fix dice position moving stuff
+// fix dice position moving stuff (need a full room to test with)
 // populate trackAFKs with room list upon !update
 // add time checks to cron timers to prevent spam that will snowball out of control
-// fix 8ball not working when @author is used
+// fix 8ball not working when @author is used (invincibear note: can't recreate the problem anymore?)
 
 log("Loading bot...");
 
@@ -20,7 +20,7 @@ var version = "0.4.5";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs = []; // [0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt]
-var upvotes = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "upPope"];
+var upvotes = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
 
 var totalSongTime = 0, totalSongs = 0;
 var defaultSongLength = 4;// measured in minutes
@@ -34,6 +34,7 @@ var lastDJAdvanceTime =     (typeof lastMeetupMessageTime === "undefined") ? 0 :
 var lotteryEntries = typeof lotteryEntries === "undefined" ? []   : lotteryEntries;
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 
+var lastJoined = "";
 var scClientId = "ff550ffd042d54afc90a43b7151130a1";
 
 API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
@@ -342,7 +343,11 @@ function onDJAdvance(obj) {
 
 
 function onJoin(user) {// greet new user after a short delay to ensure they receive the message
-    setTimeout(function() {log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);}, 2000);
+log(user, log.info);
+    if (lastJoined != user.userID) {// prevent spam in case somebody has two tabs with different plug.dj rooms
+        setTimeout(function() {log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);}, 2000);
+        lastJoined = user.userID;
+    }
 }
 
 
