@@ -342,6 +342,7 @@ function onDJAdvance(obj) {
 
 
 function onJoin(user) {
+    log(user, log.visible);
     setTimeout('log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);', 1500);
 }
 
@@ -503,7 +504,7 @@ function eightball(author, args) {
         "Who do you think I am, Ms Cleo?",
         "Does Invincibear do it in the park?",
         "I'm not sure, @Ptero's mom knows best",
-        "Of all the questions you could've asked, you asked THAT one?!?!"
+        "Of all the questions you could've asked, you chose THAT one?!?!"
     ];
 
     if(args.length < 2) {
