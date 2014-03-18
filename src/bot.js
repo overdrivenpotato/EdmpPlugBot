@@ -326,7 +326,7 @@ function onDJAdvance(obj) {
     var songs = [];
 
     for(var i = 0; i < songshistory.length; i++) {
-        if (songshistory[i].user.id == API.getDJ().id) {
+        if (typeof API.getDJ() !== "undefined" && songshistory[i].user.id == API.getDJ().id) {
             songs.push(songshistory[i].media.id.substr(2));// find played songs by same user in history, insert into an array
         }
     }
