@@ -93,7 +93,7 @@ function cronFiveMinutes() {
     log("cronFiveMinutes() has been summoned! The minutes are ripe, run additional 5-minute functions", log.info);
     checkAFKs(MaxAFKMinutes);// Check for AFK DJs
 
-log("new Date.now() - lastCronFiveMinutes=" + (new Date.now() - lastCronFiveMinutes), log.info);
+log("Date.now() - lastCronFiveMinutes=" + (Date.now() - lastCronFiveMinutes), log.info);
     if((Date.now() - lastCronFiveMinutes) > (5 * 60 * 1000)) {// spam prevention
         log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now", log.info);
         setTimeout(cronFiveMinutes, (5 * 60 * 1000));
