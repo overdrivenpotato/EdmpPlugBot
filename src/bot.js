@@ -276,12 +276,12 @@ log("checkAFKs(" + minutes + ") called", log.info);
     var DJWaitList = API.getWaitList();
 
     for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
-log("looping through DJWaitList, i=" + i, log.info);
+//log("looping through DJWaitList, i=" + i, log.info);
         for (var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
-log("looping through trackAFKs, j=" + j, log.info);
+//log("looping through trackAFKs, j=" + j, log.info);
             if (DJWaitList[i].id != botID && trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
                 var afkMinutes = (Date.now() - trackAFKs[j][2]) / 60 / 1000;
-log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes", log.info);
+log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes called by checkAFKs(" + minutes + ")", log.info);
                 if (afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
                     log("AFK Checker: @" + DJWaitList[i].username + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list.", log.visible);
                     trackAFKs[j][4] = true;// set warned flag to true
