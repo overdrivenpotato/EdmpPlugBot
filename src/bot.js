@@ -248,7 +248,7 @@ function getLastChat(username) {
 
 
 function updateAFKs(data) {
-log("updateAFKs called, trackAFKs.length=" + trackAFKs.length, log.info);
+log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
     if (!trackAFKs.length) {// gotta start with somebody!
         trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
         log("pushed the very first entry into trackAFKs", log.info);
@@ -256,7 +256,7 @@ log("updateAFKs called, trackAFKs.length=" + trackAFKs.length, log.info);
     }
 
     for (var i = 0; i < trackAFKs.length; i++) {
-log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
+//log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
         if (trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
             trackAFKs[i][2] = Date.now();
             return;
@@ -269,7 +269,7 @@ log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(dat
 
 
 function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as much participation as possible, not AFK DJs
-log("checkAFKs summoned", log.info);
+log("checkAFKs(minutes) called", log.info);
     var DJWaitList = API.getWaitList();
 
     for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
