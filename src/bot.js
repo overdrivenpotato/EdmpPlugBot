@@ -273,7 +273,9 @@ log("checkAFKs(minutes) called", log.info);
     var DJWaitList = API.getWaitList();
 
     for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
+log("looping through DJWaitList, i=" + i, log.info);
         for (var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
+log("looping through trackAFKs, j=" + j, log.info);
             if (trackAFKs[j].indexOf(DJWaitList[i].username) == 1) {// found the waiting DJ in the trackAFKs array
                 var afkMinutes = (Date.now() - trackAFKs[j][2]) / 1000;
                 var afkName = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
