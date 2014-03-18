@@ -264,7 +264,7 @@ log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
             trackAFKs[i][2] = Date.now();
             return;
         } else if (i == (trackAFKs.length - 1)) {// Hasn't yet chatted, add an entry
-            trackAFKs.push([data.from, data.fromID, Date.now(), data.message], false);
+            trackAFKs.push([data.from, data.fromID, Date.now(), data.message, false]);
             return;
         }
     }
