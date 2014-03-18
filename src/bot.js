@@ -300,7 +300,7 @@ log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK 
 function checkAFKResponse(username) {// send an ACK to ppl who respond to the AFK checker
     var afkMinutes = (Date.now() - getLastChat(getId(username))) / 60 / 1000;
 
-    if (afkMinutes > MaxAFKMinutes) {
+    if (afkMinutes > MaxAFKMinutes && getId(username) != botID) {
         log ("@" + username + " satisfied the AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))], log.visible);
     }
 }
