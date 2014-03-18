@@ -237,10 +237,9 @@ function getETA(username) {// use the countdown at the top of the page if you're
 
 
 function getLastChat(userID) {
-log("getLastChat called", log.info);
+log("getLastChat(" + userID + ") called", log.info);
 
     for (var i = 0; i < trackAFKs.length; i++) {
-//log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
         if (trackAFKs[i].indexOf(userID) == 1) {// found them!
             return [trackAFKs[i][2], trackAFKs[i][4]];
         }
