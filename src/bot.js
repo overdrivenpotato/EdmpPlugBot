@@ -269,7 +269,7 @@ log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
 
 
 function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as much participation as possible, not AFK DJs
-log("checkAFKs(minutes) called", log.info);
+log("checkAFKs(" + minutes + ") called", log.info);
     var DJWaitList = API.getWaitList();
 
     for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
@@ -277,7 +277,7 @@ log("looping through DJWaitList, i=" + i, log.info);
         for (var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
 log("looping through trackAFKs, j=" + j, log.info);
             if (trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
-                var afkMinutes = (Date.now() - trackAFKs[j][2]) / 1000;
+                var afkMinutes = (Date.now() - trackAFKs[j][2]) / 60 / 1000;
                 var afkName = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
 log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes", log.info);
                 if (afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
