@@ -27,9 +27,11 @@ var defaultSongLength = 4;// measured in minutes
 var MaxAFKMinutes = 2;// 90m/1.5hr afk DJ max (set this var in minutes)
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
-var lastPrivateSkip =       (typeof lastMeetupMessageTime === "undefined") ? 0 : lastPrivateSkip;
-var lastSkipTime =          (typeof lastMeetupMessageTime === "undefined") ? 0 : lastSkipTime;
-var lastDJAdvanceTime =     (typeof lastMeetupMessageTime === "undefined") ? 0 : lastDJAdvanceTime;
+var lastPrivateSkip =       (typeof lastPrivateSkip === "undefined")       ? 0 : lastPrivateSkip;
+var lastSkipTime =          (typeof lastSkipTime === "undefined")          ? 0 : lastSkipTime;
+var lastDJAdvanceTime =     (typeof lastDJAdvanceTime === "undefined")     ? 0 : lastDJAdvanceTime;
+var lastCronHourly =        (typeof lastCronHourly === "undefined")        ? 0 : lastCronHourly;
+var lastCronFiveMinutes =   (typeof lastCronFiveMinutes === "undefined")   ? 0 : lastCronFiveMinutes;
 
 var lotteryEntries = typeof lotteryEntries === "undefined" ? []   : lotteryEntries;
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
@@ -91,8 +93,11 @@ function cronFiveMinutes() {
     log("cronFiveMinutes() has been summoned! The minutes are ripe, run additional 5-minute functions", log.info);
     checkAFKs(MaxAFKMinutes);// Check for AFK DJs
 
-    log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now", log.info);
-    setTimeout(cronFiveMinutes, (5 * 60 * 1000));// check back in 5 minutes
+log("new Date().now() - lastCronFiveMinutes=" + (new Date().now() - lastCronFiveMinutes), log.info);
+    if((new Date().now() - lastCronFiveMinutes) > (5 * 60 * 1000)) {// spam prevention
+        log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now", log.info);
+        setTimeout(cronFiveMinutes, (5 * 60 * 1000));
+    }// check back in 5 minutes
 }
 
 
