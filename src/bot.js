@@ -6,7 +6,8 @@
 // fix dice position moving stuff (need a full room to test with)
 // populate trackAFKs with room list upon !update
 // add time checks to cron timers to prevent spam that will snowball out of control
-// fix 8ball not working when @author is used (invincibear note: can't recreate the problem anymore?)
+// fix 8ball not working when @author is used (Invincibear note: can't recreate the problem anymore?)
+// add secret commands that don't list in !help
 
 log("Loading bot...");
 
@@ -16,7 +17,7 @@ var skipFixEnabled = false;
 var lotteryEnabled = false;
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
-var version = "0.4.5";
+var version = "0.4.7";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs = []; // [0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt]
@@ -36,8 +37,8 @@ var lastCronFiveMinutes =   (typeof lastCronFiveMinutes === "undefined")   ? 0 :
 var lotteryEntries = typeof lotteryEntries === "undefined" ? []   : lotteryEntries;
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 
-var lastJoined = "";
-var scClientId = "ff550ffd042d54afc90a43b7151130a1";
+var lastJoined = "";// userID of last joined user
+var scClientId = "ff550ffd042d54afc90a43b7151130a1";// API credentials
 
 API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.DJ_ADVANCE, onDJAdvance);
@@ -70,8 +71,8 @@ function updateBot() {
 }
 
 
-function cronHourly() {
-    log("cronHourly() has been summoned!", log.info);
+function cronHourly() {// called at the start of a new hour ie. 0 minutes & seconds
+    log("cronHourly() has been called!", log.info);
 
     var d = new Date();
     var min = d.getMinutes();
@@ -89,15 +90,15 @@ function cronHourly() {
 }
 
 
-function cronFiveMinutes() {
-    log("cronFiveMinutes() has been summoned! The minutes are ripe, run additional 5-minute functions", log.info);
+function cronFiveMinutes() {// called every 5 minutes
+    log("cronFiveMinutes() has been called! The minutes are ripe, run additional 5-minute functions", log.info);
     checkAFKs(MaxAFKMinutes);// Check for AFK DJs
 
 log("Date.now() - lastCronFiveMinutes=" + (Date.now() - lastCronFiveMinutes), log.info);
-    if((Date.now() - lastCronFiveMinutes) > (5 * 60 * 1000)) {// spam prevention
+    if(lastCronFiveMinutes == 0 || (Date.now() - lastCronFiveMinutes) > (5 * 60 * 1000)) {// spam prevention
         log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now", log.info);
-        setTimeout(cronFiveMinutes, (5 * 60 * 1000));
-    }// check back in 5 minutes
+        setTimeout(cronFiveMinutes, (5 * 60 * 1000));// check back in 5 minutes
+    }
 
     lastCronFiveMinutes = Date.now();
 }
