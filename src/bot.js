@@ -284,10 +284,13 @@ log("looping through trackAFKs, j=" + j, log.info);
 log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes", log.info);
                 if (afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
                     log("AFK Checker: @" + DJWaitList[i].username + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list.", log.visible);
+                    trackAFKs[j][4] = true;// set warned flag to true
                 } else if (afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
                     log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within 5 minutes or you'll be removed from the DJ wait list.", log.visible);
+                    trackAFKs[j][4] = true;// set warned flag to true
                 } else if (afkMinutes <= minutes) {// reached the AFK limit, remove from DJ wait list
                     log("AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker.", log.visible);
+                    trackAFKs[j][4] = true;// set warned flag to true
                     API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
                 }
 
