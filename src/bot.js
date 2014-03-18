@@ -6,7 +6,6 @@
 // fix dice position moving stuff
 // populate trackAFKs with room list upon !update
 // add time checks to cron timers to prevent spam that will snowball out of control
-// !admins should not list resident DJs
 // fix 8ball not working when @author is used
 
 log("Loading bot...");
@@ -555,6 +554,7 @@ function lotteryUpdate() {
 
 
 function reminderHourly() {// Check for a new day
+    curdate = new Date();
     ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// only enables on Wednesdays & Saturdays
 }
 
