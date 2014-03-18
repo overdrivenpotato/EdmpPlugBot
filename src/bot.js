@@ -98,6 +98,8 @@ log("Date.now() - lastCronFiveMinutes=" + (Date.now() - lastCronFiveMinutes), lo
         log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now", log.info);
         setTimeout(cronFiveMinutes, (5 * 60 * 1000));
     }// check back in 5 minutes
+
+    lastCronFiveMinutes = Date.now();
 }
 
 
