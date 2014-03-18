@@ -302,7 +302,6 @@ function checkAFKResponse(username) {// send an ACK to ppl who respond to the AF
 
     if (afkMinutes > MaxAFKMinutes) {
         log ("@" + username + " satisfied the AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))], log.visible);
-//if they were afk and they just typed, msg them saying they're good
     }
 }
 
@@ -320,6 +319,7 @@ function onChat(data) {
     lotteryUpdate();
 
     if(data.type == "message" || data.type == "emote") {
+        checkAFKResponse(data.username);
         updateAFKs(data);
     }
 }
