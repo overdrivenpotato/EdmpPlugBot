@@ -343,10 +343,9 @@ function onDJAdvance(obj) {
 
 
 function onJoin(user) {// greet new user after a short delay to ensure they receive the message
-log(user, log.info);
-    if (lastJoined != user.userID) {// prevent spam in case somebody has two tabs with different plug.dj rooms
+    if (lastJoined != user.id) {// prevent spam in case somebody has two tabs with different plug.dj rooms
         setTimeout(function() {log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);}, 2000);
-        lastJoined = user.userID;
+        lastJoined = user.id;
     }
 }
 
