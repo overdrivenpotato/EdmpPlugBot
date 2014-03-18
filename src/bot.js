@@ -236,11 +236,11 @@ function getETA(username) {// use the countdown at the top of the page if you're
 
 
 function getLastChat(userID) {
-    log("getLastChat called", log.info);
+log("getLastChat called", log.info);
 
     for (var i = 0; i < trackAFKs.length; i++) {
 //log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
-        if (trackAFKs[i].indexOf(data.fromID) == 1) {// found them!
+        if (trackAFKs[i].indexOf(userID) == 1) {// found them!
             return trackAFKs[i][2];
         }
     }
@@ -299,6 +299,7 @@ log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK 
 
 function checkAFKResponse(username) {// send an ACK to ppl who respond to the AFK checker
     var afkMinutes = (Date.now() - getLastChat(getId(username))) / 60 / 1000;
+
     if (afkMinutes > MaxAFKMinutes) {
         log ("@" + username + " satisfied the AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))], log.visible);
 //if they were afk and they just typed, msg them saying they're good
