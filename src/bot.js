@@ -253,7 +253,7 @@ log("found " + trackAFKs[i][0] + " in trackAFKs getLastChat() call", log.info);
 function updateAFKs(data) {
 log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
     if (!trackAFKs.length) {// gotta start with somebody!
-        trackAFKs.push([data.from, data.fromID, Date.now(), data.message]);
+        trackAFKs.push([data.from, data.fromID, Date.now(), data.message, false]);
         log("pushed the very first entry into trackAFKs", log.info);
         return;
     }
