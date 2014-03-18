@@ -22,6 +22,7 @@ var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs = []; // format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt]
 var upvotes   = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
+var afkName   = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
 
 var totalSongTime     = 0;
 var totalSongs        = 0;
@@ -40,6 +41,7 @@ var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdat
 
 var lastJoined = "";// userID of last joined user
 var scClientId = "ff550ffd042d54afc90a43b7151130a1";// API credentials
+var botID      = "531bdea096fba5070c4cad51";
 
 API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.DJ_ADVANCE, onDJAdvance);
@@ -233,7 +235,7 @@ function getETA(username) {// use the countdown at the top of the page if you're
 }
 
 
-function getLastChat(username) {
+function getLastChat(userID) {
     log("getLastChat called", log.info);
 
     for (var i = 0; i < trackAFKs.length; i++) {
@@ -276,9 +278,8 @@ log("checkAFKs(" + minutes + ") called", log.info);
 log("looping through DJWaitList, i=" + i, log.info);
         for (var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
 log("looping through trackAFKs, j=" + j, log.info);
-            if (trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
+            if (DJWaitList[i].id != botID && trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
                 var afkMinutes = (Date.now() - trackAFKs[j][2]) / 60 / 1000;
-                var afkName = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
 log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes", log.info);
                 if (afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
                     log("AFK Checker: @" + DJWaitList[i].username + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list.", log.visible);
@@ -297,6 +298,11 @@ log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK 
 
 
 function checkAFKResponse(username) {// send an ACK to ppl who respond to the AFK checker
+    var afkMinutes = (Date.now() - getLastChat(getId(username))) / 60 / 1000;
+    if (afkMinutes > MaxAFKMinutes) {
+        log ("@" + username + " satisfied the AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))], log.visible);
+//if they were afk and they just typed, msg them saying they're good
+    }
 }
 
 
