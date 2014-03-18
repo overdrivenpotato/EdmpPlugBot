@@ -276,7 +276,7 @@ log("checkAFKs(minutes) called", log.info);
 log("looping through DJWaitList, i=" + i, log.info);
         for (var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
 log("looping through trackAFKs, j=" + j, log.info);
-            if (trackAFKs[j].indexOf(DJWaitList[i].username) == 1) {// found the waiting DJ in the trackAFKs array
+            if (trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
                 var afkMinutes = (Date.now() - trackAFKs[j][2]) / 1000;
                 var afkName = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
 log("I found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes", log.info);
