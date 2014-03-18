@@ -241,6 +241,7 @@ log("getLastChat(" + userID + ") called", log.info);
 
     for (var i = 0; i < trackAFKs.length; i++) {
         if (trackAFKs[i].indexOf(userID) == 1) {// found them!
+log("found " + trackAFKs[i][0] + " in trackAFKs getLastChat() call", log.info);
             return [trackAFKs[i][2], trackAFKs[i][4]];
         }
     }
