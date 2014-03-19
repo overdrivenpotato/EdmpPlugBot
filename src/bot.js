@@ -665,9 +665,30 @@ function getSumOfHand(hand) {// return the total point value of a given hand ["Q
 }
 
 
-function blackJackStand(author, savedGame){// function for dealer to keep hitting if needed
-log ("blackJackStand() called", log.info);
-    //user can't hit anymore, all up to the bot now
+function blackJackStand(author){// function for dealer to keep hitting if needed
+log("blackJackStand() called", log.info);
+    var game     = getBlackJackGame(author, true);
+    var output   = output = "@" + author + ", dealer's final hand: ";
+
+    while(game != -1 && getSumOfHand(blackJackUsers[game][2]) >= getSumOfHand(blackJackUsers[game][3])) {// Dealer keeps hitting until score is higher than the user's
+        getCard      = _getRandCard(blackJackUsers[game][4], true);// deal a card and get the new deck-chosen card
+        blackJackUsers[game][2].push(blackJackUsers[game][4][getCard[1]]);// add the new card to the user's hand
+        blackJackUsers[game][4] = getCard[0];// make sure we use the spliced deck
+    }
+
+    output += blackJackUsers[game][3].join("-") + " totaling " + getSumOfHand(blackJackUsers[game][3]) + "; your final hand: " + blackJackUsers[game][2].join("-") + ", totalling " + getSumOfHand(blackJackUsers[game][3]) + ". ";
+
+    if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][3]) <= 21) {
+        log(output + "@EDMPBot wins, you suck compared to it.", log.visible);
+        deleteBlackJackGame(author);
+    } else if(getSumOfHand(blackJackUsers[game][3]) > 21) {
+        log(output + "Dealer busts, you WIN & advance " + blackJackUsers[game][1] + " DJ slots.", log.visible);
+// move the winner forward in line
+        deleteBlackJackGame(author);
+    } else if(getSumOfHand(blackJackUsers[game][2]) == getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) == 21) {
+        log (ouput + "You dodged a bullet, you both scored 21!", log.visible);
+        deleteBlackJackGame(author);
+    }
 }
 
 
@@ -689,7 +710,7 @@ function blackJack(author, args) {
                 savedGame[4] = getCard[0];// make sure we use the spliced deck
                 blackJackUsers[game] = savedGame;
 
-                output = "@" + author + " dealt a " + savedGame[4][getCard[1]] + ", making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + "; ";
+                output = "@" + author + ", dealt a " + savedGame[4][getCard[1]] + " making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + "; ";
 
                 if(getSumOfHand(savedGame[2]) == 21 && getSumOfHand(savedGame[3]) == 21) {
                     log(output + "forcing you to !stand, action is on the dealer now.", log.visible);
@@ -698,7 +719,7 @@ function blackJack(author, args) {
                     return;
                 } else if(getSumOfHand(savedGame[2]) == 21) {
                     log(output + "forcing you to !stand, action is on the dealer now.", log.visible);
-//do shit that !stand would do
+                    blackJackStand(author);
                     return;
                 } else if(getSumOfHand(savedGame[2]) > 21) {
                     log(output + "which is a BUST, please see !addiction to deal with your loss.", log.visible);
@@ -713,13 +734,12 @@ function blackJack(author, args) {
         break;
         case 'stand':
         case 'hold':
-            savedGame = getBlackJackGame(author);
-            blackJackStand(author, savedGame);
+            blackJackStand(author);
         break;
         case 'blackjack':
         default:
-log("let's play blackjack!", log.visible);
-log("args.length="+args.length, log.info);
+//log("let's play blackjack!", log.info);
+//log("args.length="+args.length, log.info);
             if(args.length <= 1) {
                 log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to lose. Usage: !blackjack 5", log.visible);
                 return;
@@ -737,7 +757,7 @@ log("args.length="+args.length, log.info);
             savedGame = getBlackJackGame(author);
 
             if (savedGame != -1) {
-                log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ". Your options are to either !hitme or !stand.", log.visible);
+                log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hitme or !stand.", log.visible);
             } else {
                 var newDeck    = deck;
                 var handUser   = [];// values of cards from newDeck, not the keys
