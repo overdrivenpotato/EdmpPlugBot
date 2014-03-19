@@ -592,12 +592,9 @@ function deleteBlackJackGame(username) {// game over, remove from blackJackUsers
     for (i; i < blackJackUsers.length; i++) {
         if (blackJackUsers[i].indexOf(getId(username)) != -1) {
             blackJackUsers.splice(i, 1);
-
-            return true;
+            return;
         }
     }
-
-    return -1;// if not already playing
 }
 
 
@@ -801,7 +798,7 @@ log("args.length="+args.length, log.info);
                         output += "Your options are to either !hitme or !stand.";
                     }
 
-                    log(option , log.visible);
+                    log(output , log.visible);
                     blackJackUsers[game][6] = true;// cards now face-up
                 }
 
