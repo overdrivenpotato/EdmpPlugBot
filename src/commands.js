@@ -73,8 +73,10 @@ var commands = [
 
 
     new Command("eta", function(author) {
+        var DJmsgs = ["you're already the DJ, get your ears cleaned out!", "quit wankin' your wiener, you're already the DJ!"];
+
         if(isPlaying(author)) {
-            log("@" + author + " you're already the DJ, get your ears cleaned out!", log.visible);
+            log("@" + author + DJmsgs[Math.round(Math.random() * (DJmsgs.length - 1))], log.visible);
         } else if (API.getWaitListPosition(getId(author)) != -1) {
             var eta = getETA(author);
             var etaMsg = "@" + author + ", it will be your turn to DJ ";

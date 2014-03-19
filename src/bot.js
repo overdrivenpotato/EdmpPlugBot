@@ -5,7 +5,7 @@
  */
 // fix dice position moving stuff (need a full room to test with)
 // add secret commands that don't list in !help
-//change onDJAdvance to use passed obj fields
+// change onDJAdvance to use passed obj fields
 
 log("Loading bot...");
 
@@ -15,7 +15,7 @@ var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
-var version   = "0.4.7";
+var version   = "0.5.0";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs = []; // format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
@@ -328,7 +328,7 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
     lastPrivateSkip = Date.now();
     var songshistory = API.getHistory(); // get dj history
     var songs = [];// reset the array, don't need long-term history
-
+log(obj, log.info);
     for(var i = 0; i < songshistory.length; i++) {
         if (typeof API.getDJ() !== "undefined" && songshistory[i].user.id == API.getDJ().id) {
             songs.push(songshistory[i].media.id.substr(2));// find played songs by same user in history, insert into an array
