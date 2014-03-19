@@ -25,7 +25,7 @@ var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
 var deck           = ["?", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
-var blackJackUsers = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup]
+var blackJackUsers = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
 var upvotes        = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
 var afkNames       = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
 
@@ -573,12 +573,13 @@ function lotteryUpdate() {
 }
 
 
-function getBlackJackGame(username) {
+function getBlackJackGame(username, count) {
+    count = (typeof count === "undefined") ? false : count;
     var i = 0;
 
     for (i; i < blackJackUsers.length; i++) {
         if (blackJackUsers[i].indexOf(getId(username)) != -1) {
-            return blackJackUsers[i];
+            return (count) ? i : blackJackUsers[i];
         }
     }
 
@@ -666,28 +667,33 @@ function getSumOfHand(hand) {// return the total point value of a given hand ["Q
 
 function blackJackStand(author, savedGame){// function for dealer to keep hitting if needed
 log ("blackJackStand() called", log.info);
+    //user can't hit anymore, all up to the bot now
 }
 
 
 function blackJack(author, args) {
     var savedGame = null;
     var getCard   = null;
+    var game      = null;
     var output    = "";
 
     switch(args[0]) {
         case 'hitme':
         case 'hit':
             savedGame = getBlackJackGame(author);
+            game      = getBlackJackGame(author, true);
 
             if (savedGame != -1) {
                 getCard      = _getRandCard(savedGame[4], true);// deal a card and get the new deck-chosen card
                 savedGame[2].push(savedGame[4][getCard[1]]);// add the new card to the user's hand
                 savedGame[4] = getCard[0];// make sure we use the spliced deck
+                blackJackUsers[game] = savedGame;
 
                 output = "@" + author + " dealt a " + savedGame[4][getCard[1]] + ", making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + "; ";
 
                 if(getSumOfHand(savedGame[2]) == 21 && getSumOfHand(savedGame[3]) == 21) {
                     log(output + "forcing you to !stand, action is on the dealer now.", log.visible);
+                    blackJackUsers[game][7] = true;
 //do shit that !stand would do
                     return;
                 } else if(getSumOfHand(savedGame[2]) == 21) {
@@ -736,7 +742,7 @@ log("args.length="+args.length, log.info);
                 var newDeck    = deck;
                 var handUser   = [];// values of cards from newDeck, not the keys
                 var handDealer = [];
-                var game       = null;
+                game           = null;
                 getCard        = null;
                 output         = "";
 
