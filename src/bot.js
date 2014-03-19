@@ -20,11 +20,11 @@ var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
-var version   = "0.6.1";
+var version   = "0.6.2";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
-var deck           = ["J", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
+var deck           = ["?", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
 var blackJackUsers = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup]
 var upvotes        = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
 var afkNames       = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
@@ -573,7 +573,7 @@ function lotteryUpdate() {
 }
 
 
-function getBlackJack(username) {
+function getBlackJackGame(username) {
     var i = 0;
 
     for (i; i < blackJackUsers.length; i++) {
@@ -598,14 +598,20 @@ function _getRandCard(deck, remove) {
 
 
 function blackJack(author, args) {
+    var savedGame
+
     switch(args[0]) {
         case 'hit':
         case 'hitme':
-            log("hit me, bitch!", log.visible);
+log("hit me, bitch!", log.visible);
+            savedGame = getBlackJackGame(author);
+log("savedGame=" + savedGame, log.info);
         break;
         case 'stand':
         case 'hold':
-            log("keep your cards to yourself mothafucka", log.visible);
+log("keep your cards to yourself mothafucka", log.visible);
+            savedGame = getBlackJackGame(author);
+log("savedGame=" + savedGame, log.info);
         break;
         case 'blackjack':
         default:
@@ -625,13 +631,15 @@ log("args.length="+args.length, log.info);
                 args[1] = ((API.getWaitList().length - getPosition(author)) < 1) ? 1 : (API.getWaitList().length - getPosition(author));// because math
             }
 
-            var savedGame = getBlackJack(author);
+            savedGame = getBlackJackGame(author);
 
-            if (0){//savedGame != -1) {
+            if (savedGame != -1) {
 log("game already exists, repeat current hands and available commands", log.visible);
+log("savedGame=" + savedGame, log.info);
+                log("@" + author + "'s hand: " + savedGame[2][0] + "-" + savedGame[2][1] + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ". Your options are to either !hitme or !stand.", log.visible);
             } else {
 //log("start a new game of black jack", log.visible);
-                var newDeck    = ["J", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];
+                var newDeck    = deck;
                 var handUser   = [];// values of cards from newDeck, not the keys
                 var handDealer = [];
                 var getCard    = null;
@@ -659,19 +667,19 @@ log("game already exists, repeat current hands and available commands", log.visi
                 game   = blackJackUsers.length - 1;// set array key for future storage/retrieval within function;
                 output = "@" + author + ", You were dealt: X-" + handUser[1] + ". Dealer was dealt: X-" + handDealer[1] + ". ";
 
-                if (handUser[1] == "A" || handDealer[1] == "A") {
-                    log(output + "Ace detected, flipping cards to reveal you hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". Checking for ten-point cards...");
+                if(handUser[1] == "A" || handDealer[1] == "A") {
+                    log(output + "Ace detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". Checking for ten-point cards...");
                     blackJackUsers[game][6] = true;// cards now face-up
 
                     setTimeout(function(){// delay needed because plug.dj can't handle rapid-succession messages
-                        if (((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
+                        if(((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
                             log("@" + author + ", you dodged a bullet, you both hit BlackJack! Your position in the DJ wait list remains the same, the game is over.", log.visible);
                             blackJackUsers[game][5] = true;// game over
-                        } else if ((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") && handUser[1] == "A") {
+                        } else if((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") && handUser[1] == "A") {
                             log("Congratulations @" + author + ", you won! You've gained " + args[1] + " positions!", log.visible);
                             blackJackUsers[game][5] = true;// game over
 // move user forward in line
-                        } else if ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A") {
+                        } else if((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A") {
                             log("Hey everybody, @" + author + ", just got beat at !blackjack by @EDMBot! You've lost " + args[1] + " positions, pitiful.", log.visible);
 // move user backward in line
                             blackJackUsers[game][5] = true;// game over
@@ -681,8 +689,12 @@ log("game already exists, repeat current hands and available commands", log.visi
                     }, 500);
 
                 } else {
-                    log(output + "No aces detected, flipping cards to reveal you hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". Your options are to either !hitme or !stand.", log.visible);
+                    log(output + "No aces detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". Your options are to either !hitme or !stand.", log.visible);
                     blackJackUsers[game][6] = true;// cards now face-up
+                }
+
+                if(blackJackUsers[game][5]) {
+// game over, remove from blackJackUsers[]
                 }
             }
         break;
