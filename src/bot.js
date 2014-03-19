@@ -5,7 +5,6 @@
  */
 // fix dice position moving stuff (need a full room to test with)
 // add secret commands that don't list in !help
-// change onDJAdvance to use passed obj fields
 
 log("Loading bot...");
 
@@ -336,7 +335,7 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
     lastPrivateSkip = Date.now();
     var songshistory = API.getHistory(); // get dj history
     var songs = [];// reset the array, don't need long-term history
-log(obj, log.info);
+
     for(var i = 0; i < songshistory.length; i++) {
         if (typeof API.getDJ() !== "undefined" && songshistory[i].user.id == obj.dj.id) {
             songs.push(songshistory[i].media.id.substr(2));// find played songs by same user in history, insert into an array

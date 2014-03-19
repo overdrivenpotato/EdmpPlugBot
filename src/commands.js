@@ -10,7 +10,7 @@ function getAvailable(author) {
     var avail = [];
 
     for(var i = 0; i < commands.length; i++) {
-        if(commands[i].hasPermission(author)) {// && commands[i].listed) {
+        if(commands[i].hasPermission(author) && commands[i].public) {
             avail.push(commands[i]);
         }
     }
@@ -32,7 +32,7 @@ function execCommand(author, args) {
 }
 
 
-function Command(cmd, callback, permission, customPerm) {
+function Command(cmd, callback, permission, customPerm, listed) {
     this.cmd = cmd.split(",");
     this.callback = callback;
     this.permission = typeof permission === "undefined" ? 0 : permission;
@@ -50,6 +50,8 @@ function Command(cmd, callback, permission, customPerm) {
         return getPermLevel(author) >= this.permission ||
             (typeof customPerm !== "undefined" ? customPerm(author) : false);
     };
+
+    this.listed = typeof listed === "undefined" ? true : listed;// bool, false = doesn't list in !help
 
     this.toString = function(){
         return this.cmd.toString();
@@ -259,7 +261,7 @@ var commands = [
 
     new Command("pushme", function() {
         log("And then just touch me", log.visible);
-    }),
+    }, null, null, false),
 
 
     new Command("soicangetmy", function() {
