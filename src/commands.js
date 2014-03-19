@@ -122,6 +122,17 @@ var commands = [
     }),
 
 
+    new Command("remove", function(author) {
+        var dj = API.getDJ();
+        if(typeof dj === "undefined") {
+            log("No dj to remove.", log.visible);
+            return;
+        }
+        log(author + " has removed " + dj.username + " from the stage.", log.info);
+        API.moderateRemoveDJ(dj.id);
+    }, API.ROLE.MANAGER),
+
+
     new Command("url", function(author) {
         if (typeof API.getDJ() !== "undefined") {
             getSourceUrl(API.getMedia().id, function(link) {
@@ -193,26 +204,9 @@ var commands = [
     }),
 
 
-    new Command("8ball", function(author, args) {
-        eightball(author, args);
-    }),
-
-
-    new Command("remove", function(author) {
-        var dj = API.getDJ();
-        if(typeof dj === "undefined") {
-            log("No dj to remove.", log.visible);
-            return;
-        }
-        log(author + " has removed " + dj.username + " from the stage.", log.info);
-        API.moderateRemoveDJ(dj.id);
-    }, API.ROLE.MANAGER),
-
-
     new Command("lottery", function(author) {
         if(new Date().getMinutes() >= 10) {
-            log("@" + author + ", the lottery occurs at the start of each hour." +
-                "Type !lottery within 10 minutes for a chance to win!", log.visible);
+            log("@" + author + ", the lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
             return;
         }
         if(lotteryEntries.indexOf(author) > -1)  {
@@ -226,8 +220,23 @@ var commands = [
     }),
 
 
+    new Command("blackjack", function(author, args) {
+        blackJack(author);
+    }, null, null, false),// hidden for now while it's developed
+
+
+    new Command("hit,hitme,stand,hold", function(author, args) {
+        blackJack(author, args);
+    }, null, null, false),// keep hidden, they will be revealed when a user stars a game of !blackjack
+
+
     new Command("addiction", function(author) {
         log("The first step @" + author + ", is admitting you have a gambling problem. Get your life together and quit gambling on !rollthedice and !lottery.", log.visible);
+    }),
+
+
+    new Command("8ball", function(author, args) {
+        eightball(author, args);
     }),
 
 

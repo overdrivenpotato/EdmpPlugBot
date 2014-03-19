@@ -9,6 +9,7 @@
 // stupid !8ball glitch from preceding functions
 // tell the channel when an admin joins (when there wasn't one before)
 // tell the channel when all the admins leave (party!!!!)
+// add blackjack game to skip 21 slots
 
 
 log("Loading bot...");
@@ -542,17 +543,6 @@ log(args, log.info);
 }
 
 
-function lotteryHourly() {// enable or disable the lottery
-    lotteryEnabled = (API.getWaitList().length >= 7);// disable lottery unless 7+ DJs queued
-
-    if (lotteryEnabled) {
-        log("The lottery is now open, type !lottery for a chance to be bumped to #1 in the DJ wait list!", log.visible);
-    } else {
-        log("lotteryEnabled = false at lotteryHourly()", log.info)
-    }
-}
-
-
 function lotteryUpdate() {
     if(new Date().getMinutes() >= 10){
         if(lotteryUpdated)
@@ -577,6 +567,24 @@ function lotteryUpdate() {
         lotteryEntries = [];
     } else {
         lotteryUpdated = false;
+    }
+}
+
+
+function blackjack(author, args) {
+    log("coming soon!", log.visible);
+}
+
+// Hourly shit and general bot stuffs
+
+
+function lotteryHourly() {// enable or disable the lottery
+    lotteryEnabled = (API.getWaitList().length >= 7);// disable lottery unless 7+ DJs queued
+
+    if (lotteryEnabled) {
+        log("The lottery is now open, type !lottery for a chance to be bumped to #1 in the DJ wait list!", log.visible);
+    } else {
+        log("lotteryEnabled = false at lotteryHourly()", log.info)
     }
 }
 
