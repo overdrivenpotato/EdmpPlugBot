@@ -666,7 +666,7 @@ function getSumOfHand(hand) {// return the total point value of a given hand ["Q
 
 
 function blackJackStand(author){// function for dealer to keep hitting if needed
-log("blackJackStand() called", log.info);
+log("blackJackStand() called, game=" + game, log.info);
     var game                = getBlackJackGame(author, true);
     var output              = "@" + author + ", dealer's final hand: ";
     var getCard             = null;
