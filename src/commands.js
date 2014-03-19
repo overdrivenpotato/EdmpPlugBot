@@ -72,7 +72,7 @@ var commands = [
 
 
     new Command("info", function() {
-        log("EDMPbot was developed by @overdrivenpotato and @Invincibear, minor contribution by @NVP. Type !help for available commands.", log.visible);
+        log("EDMPbot " + version + " was developed by @overdrivenpotato and @Invincibear, minor contribution by @NVP. Type !help for available commands.", log.visible);
     }),
 
 
