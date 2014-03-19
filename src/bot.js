@@ -667,8 +667,14 @@ function getSumOfHand(hand) {// return the total point value of a given hand ["Q
 
 function blackJackStand(author){// function for dealer to keep hitting if needed
 log("blackJackStand() called", log.info);
-    var game     = getBlackJackGame(author, true);
-    var output   = "@" + author + ", dealer's final hand: ";
+    var game                = getBlackJackGame(author, true);
+    var output              = "@" + author + ", dealer's final hand: ";
+    blackJackUsers[game][7] = true;
+
+    if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) < 21) {
+        log("@" + author + " your score is lower than @EDMPbot's, you must accept another card with !hitme", log.visible);
+        return;
+    }
 
     while(game != -1 && getSumOfHand(blackJackUsers[game][2]) >= getSumOfHand(blackJackUsers[game][3])) {// Dealer keeps hitting until score is higher than the user's
         getCard      = _getRandCard(blackJackUsers[game][4], true);// deal a card and get the new deck-chosen card
@@ -706,21 +712,25 @@ function blackJack(author, args) {
             savedGame = getBlackJackGame(author);
             game      = getBlackJackGame(author, true);
 
+            if (blackJackUsers[game][7]) {
+                log("@" + author + " you've already agreed to !stand, you must let the dealer play out their hand.");
+                return;
+            }
+
             if (savedGame != -1) {
                 getCard      = _getRandCard(savedGame[4], true);// deal a card and get the new deck-chosen card
                 savedGame[2].push(savedGame[4][getCard[1]]);// add the new card to the user's hand
                 savedGame[4] = getCard[0];// make sure we use the spliced deck
                 blackJackUsers[game] = savedGame;
 
-                output = "@" + author + ", dealt a " + savedGame[4][getCard[1]] + " making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + "; ";
+                output = "@" + author + ", dealt a " + savedGame[4][getCard[1]] + " making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + " ";
 
                 if(getSumOfHand(savedGame[2]) == 21 && getSumOfHand(savedGame[3]) == 21) {
-                    log(output + "forcing you to !stand, action is on the dealer now.", log.visible);
-                    blackJackUsers[game][7] = true;
-//do shit that !stand would do
+                    log(output + "; You got lucky and tied @EDMPBot!", log.visible);
+                    deleteBlackJackGame(author);
                     return;
                 } else if(getSumOfHand(savedGame[2]) == 21) {
-                    log(output + "forcing you to !stand, action is on the dealer now.", log.visible);
+                    log(output + "& forcing you to !stand, action is on the dealer now.", log.visible);
                     blackJackStand(author);
                     return;
                 } else if(getSumOfHand(savedGame[2]) > 21) {
@@ -728,7 +738,7 @@ function blackJack(author, args) {
                     deleteBlackJackGame(author);// game over, remove from blackJackUsers array
                     return;
                 } else {
-                    log(output + "dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hitme or !stand.", log.visible);
+                    log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hitme or !stand.", log.visible);
                 }
             } else {
                 log("@" + author + ", please start a new game with the !blackjack command, including the amount of DJ wait list slots to wager. Usage: !blackjack 5", log.visible);
@@ -808,7 +818,7 @@ function blackJack(author, args) {
                         }
                     }, 500);
                 } else {
-                    output += "No aces detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". ";
+                    output += "No Aces detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". ";
 
                     if(getSumOfHand(handUser) == 21 && getSumOfHand(handDealer) == 21) {
                         output += "You dodged a bullet, you both hit BlackJack!";
