@@ -672,6 +672,8 @@ log("start a new game of black jack", log.visible);
 // move user backward in line
 // remove entry from blackJackUsers, game is over
                         return;
+                    } else {
+                        log ("nothing to do but requires an else to work?", log.visible);
                     }
                 } else {
                     log("@" + author + ", no aces detected. Your options are to either !hitme or !stand.", log.visible);
