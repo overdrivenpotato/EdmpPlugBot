@@ -61,7 +61,7 @@ function Command(cmd, callback, permission, customPerm, listed) {
 
 
 var commands = [
-    new Command("help,", function(author){
+    new Command("help", function(author){
         var avail = getAvailable(author);
         var chatoutput = "@" + author + ", you can use: ";
         for(var i = 0; i < avail.length; i++) {
