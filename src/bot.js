@@ -680,7 +680,7 @@ log("blackJackStand(" + author + ") called, game=" + game, log.info);
 
     while(game != -1 && getSumOfHand(blackJackUsers[game][2]) > getSumOfHand(blackJackUsers[game][3])) {// Dealer keeps hitting until score is higher than the user's
 log("while loop", log.info);
-        getCard      = function(){return _getRandCard(blackJackUsers[game][4], true));// deal a card and get the new deck-chosen card
+        getCard      = function(){return _getRandCard(blackJackUsers[game][4], true);};// deal a card and get the new deck-chosen card
 log (getCard, log.info);
         blackJackUsers[game][3].push(blackJackUsers[game][4].getCard[1]);// add the new card to the dealer's hand
         blackJackUsers[game][4] = getCard[0];// make sure we use the spliced deck
