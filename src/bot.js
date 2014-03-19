@@ -7,6 +7,9 @@
 // add secret commands that don't list in !help
 // auto-like played songs
 // stupid !8ball glitch from preceding functions
+// tell the channel when an admin joins (when there wasn't one before)
+// tell the channel when all the admins leave (party!!!!)
+
 
 log("Loading bot...");
 
@@ -21,7 +24,7 @@ var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs = []; // format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
 var upvotes   = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
-var afkName   = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
+var afkNames   = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
 
 var totalSongTime     = 0;
 var totalSongs        = 0;
@@ -292,7 +295,7 @@ function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as 
                     log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within 5 minutes or you'll be removed from the DJ wait list.", log.visible);
                     trackAFKs[j][4] = true;// set warned flag to true
                 } else if(afkMinutes >= minutes) {// reached the AFK limit, remove from DJ wait list
-                    log("AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker.", log.visible);
+                    log("AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker.", log.visible);
                     trackAFKs[j][4] = true;// set warned flag to true
                     API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
                 }
@@ -309,7 +312,7 @@ function checkAFKResponse(username) {// send an ACK to ppl who respond to the AF
     var afkMinutes = (Date.now() - lastChat[0]) / 60 / 1000;
 
     if(getId(username) != botID && afkMinutes > MaxAFKMinutes && lastChat[1]) {// not bot, was afk, was already warned
-        log("@" + username + " satisfied the AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))], log.visible);
+        log("@" + username + " satisfied the AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))], log.visible);
     }
 }
 

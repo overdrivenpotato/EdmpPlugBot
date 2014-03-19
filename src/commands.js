@@ -107,23 +107,22 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("turndown", function() {
-        log("FOR WHAT?", log.visible);
+    new Command("update", function() {
+        updateBot();
+    }, API.ROLE.MANAGER, function(author){
+        return author.trim() == "Invincibear";
     }),
 
 
-    new Command("skip", function(author) {
-        skipDj();
-        log(author + " has skipped " + API.getDJ().username, log.visible);
-    }, API.ROLE.BOUNCER, function(author) {
-        return isPlaying(author);
+    new Command("url", function(author) {
+        if (typeof API.getDJ() !== "undefined") {
+            getSourceUrl(API.getMedia().id, function(link) {
+                log("@" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
+            })
+        } else {
+            log("Nobody is DJing, @" + author, log.visible);
+        }
     }),
-
-
-    new Command("skipfix", function() {
-        skipFixEnabled = !skipFixEnabled;
-        log("skipfix is set to " + skipFixEnabled);
-    }, API.ROLE.MANAGER),
 
 
     new Command("privateskip", function() {
@@ -157,6 +156,20 @@ var commands = [
     }),
 
 
+    new Command("skip", function(author) {
+        skipDj();
+        log(author + " has skipped " + API.getDJ().username, log.visible);
+    }, API.ROLE.BOUNCER, function(author) {
+        return isPlaying(author);
+    }),
+
+
+    new Command("skipfix", function() {
+        skipFixEnabled = !skipFixEnabled;
+        log("skipfix is set to " + skipFixEnabled);
+    }, API.ROLE.MANAGER),
+
+
     new Command("admins", function(author) {
         var admins = API.getStaff();
         var logtext = "Admins Online: ";
@@ -172,16 +185,6 @@ var commands = [
         }
     }),
 
-//    new Command("mal", function(){
-//        log("ware!", log.visible);
-//    }),
-
-
-//    new Command("stop", function(){
-//        stop();
-//        log("Stop has been disabled.", log.visible);
-//    }, API.ROLE.MANAGER),
-
 
     new Command("rollthedice", function(author) {
         rollTheDice(author);
@@ -190,11 +193,6 @@ var commands = [
 
     new Command("8ball", function(author, args) {
         eightball(author, args);
-    }),
-
-
-    new Command("smoke", function() {
-        log("WEED ERRYDAY", log.visible);
     }),
 
 
@@ -231,32 +229,24 @@ var commands = [
     }),
 
 
-    new Command("url", function(author) {
-        if (typeof API.getDJ() !== "undefined") {
-            getSourceUrl(API.getMedia().id, function(link) {
-                log("@" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
-            })
-        } else {
-            log("Nobody is DJing, @" + author, log.visible);
-        }
+    new Command("smoke", function() {
+        log("WEED ERRYDAY", log.visible);
     }),
 
 
-    new Command("update", function() {
-        updateBot();
-    }, API.ROLE.MANAGER, function(author){
-        return author.trim() == "Invincibear";
+    new Command("turndown", function() {
+        log("FOR WHAT?", log.visible);
     }),
 
 
     new Command("herp", function() {
         log("derp", log.visible);
-    }),
+    }, null, null, false),
 
 
     new Command("damn", function() {
         log("SON, WHERE'D YOU FIND THIS??", log.visible);
-    }),
+    }, null, null, false),
 
 
     new Command("pushme", function() {
@@ -266,15 +256,19 @@ var commands = [
 
     new Command("soicangetmy", function() {
         log("Satisfaction", log.visible);
-    }),
+    }, null, null, false),
 
 
     new Command("sympathy", function() {
         log("Please direct your sympathy to @spyre", log.visible);
-    }),
+    }, null, null, false),
+
+    new Command("mal", function(){
+        log("ware!", log.visible);
+    }, null, null, false),
 
 
     new Command("goosesux", function() {
         log("Yes he does.", log.visible);
-    })
+    }, null, null, false)
 ];
