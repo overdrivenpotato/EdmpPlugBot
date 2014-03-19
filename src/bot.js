@@ -765,7 +765,7 @@ function blackJack(author, args) {
             } else if(isPlaying(author)) {
                 log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
                 return;
-            } else if(getPosition(author) == API.getWaitList().length || getPosition(author) == -1) {
+            } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
             } else if(args[1] > (API.getWaitList().length - getPosition(author))) {
