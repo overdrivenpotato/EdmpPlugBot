@@ -338,23 +338,23 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
     var songs = [];// reset the array, don't need long-term history
 log(obj, log.info);
     for(var i = 0; i < songshistory.length; i++) {
-        if (typeof API.getDJ() !== "undefined" && songshistory[i].user.id == API.getDJ().id) {
+        if (typeof API.getDJ() !== "undefined" && songshistory[i].user.id == obj.dj.id) {
             songs.push(songshistory[i].media.id.substr(2));// find played songs by same user in history, insert into an array
         }
     }
 
-    if (songs.length >= 4 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid && songs[2] == API.getMedia().cid)) {
-        API.moderateRemoveDJ(API.getDJ().id);// third offense, remove from dj wait list
+    if (songs.length >= 4 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid && songs[2] == obj.media.cid)) {
+        API.moderateRemoveDJ(obj.dj.id);// third offense, remove from dj wait list
         API.moderateForceSkip();// skip their turn
-        log("@" + API.getDJ().username + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
+        log("@" + obj.dj.username + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
     } else {
-        if (songs.length >= 3 && (songs[0] == API.getMedia().cid && songs[1] == API.getMedia().cid)) {// second offense, skip
+        if (songs.length >= 3 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid)) {// second offense, skip
             API.moderateForceSkip();// skip their turn
-            API.moderateMoveDJ(API.getDJ().id, 1);// return them to the front of the line to try another song
-            log("@" + API.getDJ().username + ", you've already played that song twice before. Please play a different song or you will be removed from the DJ wait list.", log.visible);
+            API.moderateMoveDJ(obj.dj.id, 1);// return them to the front of the line to try another song
+            log("@" + obj.dj.username + ", you've already played that song twice before. Please play a different song or you will be removed from the DJ wait list.", log.visible);
         } else {// first offense, slap on the wrist
-            if (songs.length >= 2 && songs[0] == API.getMedia().cid) {
-                log("@" + API.getDJ().username + ", you've already played that song before. Please play a different song.", log.visible);
+            if (songs.length >= 2 && songs[0] == obj.media.cid) {
+                log("@" + obj.dj.username + ", you've already played that song before. Please play a different song.", log.visible);
             }
         }
     }
