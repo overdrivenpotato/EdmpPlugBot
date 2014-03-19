@@ -23,10 +23,10 @@ var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disabl
 var version   = "0.6.0";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
-var trackAFKs = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
-var blackJack = [];// format: array[0=>userID, wager, 1=>user's hand array[card1, card2, ...], 2=>dealer's hand array[card1, card2, ...]]
-var upvotes   = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
-var afkNames   = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
+var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
+var blackJackUsers = [];// format: array[0=>userID, wager, 1=>user's hand array[card1, card2, ...], 2=>dealer's hand array[card1, card2, ...]]
+var upvotes        = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
+var afkNames       = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
 
 var totalSongTime     = 0;
 var totalSongs        = 0;
@@ -587,6 +587,7 @@ function blackJack(author, args) {
             log("let's play blackjack!", log.visible);
             if (args.length < 1) {
                 log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to lose. Usage: !blackjack 5", log.visible);
+
             }
         break;
     }
