@@ -669,6 +669,7 @@ function blackJackStand(author){// function for dealer to keep hitting if needed
 log("blackJackStand() called", log.info);
     var game                = getBlackJackGame(author, true);
     var output              = "@" + author + ", dealer's final hand: ";
+    var getCard             = null;
 
     if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) < 21) {
         log("@" + author + " your score is lower than @EDMPbot's, you must accept another card with !hitme", log.visible);
