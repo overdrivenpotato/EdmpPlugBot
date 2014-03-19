@@ -20,7 +20,7 @@ var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
-var version   = "0.6.0";
+var version   = "0.6.1";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
@@ -628,7 +628,7 @@ function blackJack(author, args) {
             } else {
                 log("start a new game of black jack", log.visible);
                 var newDeck = deck;
-                log ("_getRandCard(" + newDeck + ", true)=" + getRandCard(_newDeck, true), log.info);
+                log ("_getRandCard(" + newDeck + ", true)=" + getRandCard(newDeck, true), log.info);
 //                blackJackUsers.push([getId(author), args[1], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]]]);
 
                 log("your hand: " + blackJackUsers[blackJackUsers.length - 1][2][0] + "," + blackJackUsers[blackJackUsers.length - 1][2][1], log.visible);
