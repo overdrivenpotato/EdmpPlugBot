@@ -572,6 +572,19 @@ function lotteryUpdate() {
 }
 
 
+function getBlackJack(username) {
+    var i = 0;
+
+    for (i; i < blackJackUsers.length; i++) {
+        if (blackJackUsers[i].indexOf(getId(username)) != -1) {
+            return blackJackUsers[i];
+        }
+    }
+
+    return -1;// if not already playing
+}
+
+
 function blackJack(author, args) {
     switch(args[0]) {
         case 'hit':
@@ -586,8 +599,23 @@ function blackJack(author, args) {
         default:
             log("let's play blackjack!", log.visible);
             log("args.length="+args.length, log.info);
-            if (args.length < 1) {
+            if(args.length <= 1) {
                 log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to lose. Usage: !blackjack 5", log.visible);
+                return;
+            } else if(isNaN(args[1])) {
+                log("@" + author + " please enter a valid wager. Minimum 1, maximum $max.", log.visible);
+                return;
+            } else if(getPosition(author) == API.getWaitList().length) {
+                log("@" + author + " You can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
+                return;
+            }
+
+            var savedGame = getBlackJack(author);
+
+            if (savedGame != -1) {
+                log("game already exists, repeat current hands and available commands", log.visible);
+            } else {
+                log("start a new game of black jack", log.visible);
             }
         break;
     }
