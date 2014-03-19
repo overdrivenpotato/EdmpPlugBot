@@ -245,13 +245,19 @@ log("getLastChat(" + userID + ") called", log.info);
 
 function updateAFKs(data) {
 log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
+    var i = 0;
+
     if(!trackAFKs.length) {// gotta start with somebody!
-        trackAFKs.push([data.from, data.fromID, Date.now(), data.message, false]);
-log("pushed the very first entry into trackAFKs", log.info);
+        var users = API.getUsers();
+
+        for(i = 0; i < users.length; i++) {// Cycle through users list and populate trackAFs with them
+            trackAFKs.push([users[i].username, users[i].id, Date.now(), null, false]);
+            log("pushed the very first entries into trackAFKs (all of API.getUsers())", log.info);
+        }
         return;
     }
 
-    for(var i = 0; i < trackAFKs.length; i++) {
+    for(i = 0; i < trackAFKs.length; i++) {
 //log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
         if(trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
             trackAFKs[i][2] = Date.now();
