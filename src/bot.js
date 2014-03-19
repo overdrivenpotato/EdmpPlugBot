@@ -524,7 +524,7 @@ function eightball(author, args) {
     if(args.length < 2) {
         log("@" + author + ", you never asked a question!? Usage: !8ball Is Invincibear dope?", log.visible);
     } else {
-        log("@" + author + ", " + outcomes[Math.round(Math.random() * outcomes.length)], log.visible);
+        log("@" + author + ", " + outcomes[Math.round(Math.random() * (outcomes.length - 1))], log.visible);
     }
 }
 
@@ -547,7 +547,7 @@ function lotteryUpdate() {
         lotteryUpdated = true;
 
         if(lotteryEntries.length > 1) {
-            var winner = lotteryEntries[Math.round(Math.random() * lotteryEntries.length)];
+            var winner = lotteryEntries[Math.round(Math.random() * (lotteryEntries.length - 1))];
 
             if(API.getWaitListPosition(getId(winner)) < 0) {
                 lotteryUpdated = false;
