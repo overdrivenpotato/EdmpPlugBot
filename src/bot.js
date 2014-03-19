@@ -762,11 +762,17 @@ function blackJack(author, args) {
             } else if(isNaN(args[1])) {
                 log("@" + author + " please enter a valid wager.", log.visible);
                 return;
-            } else if(getPosition(author) == API.getWaitList().length){//} || getPosition(author) == -1) {
+            } else if(isPlaying(author)) {
+                log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
+                return;
+            } else if(getPosition(author) == API.getWaitList().length || getPosition(author) == -1) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
             } else if(args[1] > (API.getWaitList().length - getPosition(author))) {
                 log("@" + author + ", your wager has been changed to " + (API.getWaitList().length - getPosition(author)), log.visible);
+                args[1] = ((API.getWaitList().length - getPosition(author)) < 1) ? 1 : (API.getWaitList().length - getPosition(author));// because math
+            } else if(args[1] > getPosition(author)) {
+                log("@" + author + ", your wager has been changed to " + getPosition(author), log.visible);
                 args[1] = ((API.getWaitList().length - getPosition(author)) < 1) ? 1 : (API.getWaitList().length - getPosition(author));// because math
             }
 
