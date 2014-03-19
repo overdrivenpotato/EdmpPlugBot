@@ -573,6 +573,20 @@ function lotteryUpdate() {
 
 function blackJack(author, args) {
     log("coming soon!", log.visible);
+    log("args=" + args, log.info);
+    switch(args) {
+        case 'hit':
+        case 'hitme':
+            log("hit me, bitch!", log.visible);
+        break;
+        case 'stand':
+        case 'hold':
+            log("keep your cards to yourself mothafucka", log.visible);
+        break;
+        default:
+            log("no idea what to do!", log.visible);
+        break;
+    }
 }
 
 // Hourly shit and general bot stuffs
