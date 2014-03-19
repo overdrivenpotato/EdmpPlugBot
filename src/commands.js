@@ -241,7 +241,7 @@ var commands = [
     }),
 
 
-    new Command("NOTHING", function() {
+    new Command("nothing", function() {
         log("WELL FINE THEN, bitch", log.visible);
     }, null, null, false),
 
