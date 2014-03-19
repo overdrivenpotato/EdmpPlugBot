@@ -613,7 +613,7 @@ function blackJack(author, args) {
             } else if(isNaN(args[1])) {
                 log("@" + author + " please enter a valid wager.", log.visible);
                 return;
-            } else if(getPosition(author) == API.getWaitList().length) {
+            } else if(getPosition(author) == API.getWaitList().length){//} || getPosition(author) == -1) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
             } else if(args[1] > (API.getWaitList().length - getPosition(author))) {
@@ -628,7 +628,7 @@ function blackJack(author, args) {
             } else {
                 log("start a new game of black jack", log.visible);
                 var newDeck = deck;
-                log ("_getRandCard(" + newDeck + ", true)=" + getRandCard(newDeck, true), log.info);
+                log ("_getRandCard(" + newDeck + ", true)=" + _getRandCard(newDeck, true), log.info);
 //                blackJackUsers.push([getId(author), args[1], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]]]);
 
                 log("your hand: " + blackJackUsers[blackJackUsers.length - 1][2][0] + "," + blackJackUsers[blackJackUsers.length - 1][2][1], log.visible);
