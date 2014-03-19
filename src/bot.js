@@ -24,8 +24,8 @@ var version   = "0.6.0";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
-var cards          = ["K", "A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q"];
-var blackJackUsers = [];// format: array[0=>userID, wager, 1=>user's hand array[card1, card2, ...], 2=>dealer's hand array[card1, card2, ...]]
+var cards          = ["J", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
+var blackJackUsers = [];// format: array[0=>userID, wager, 1=>user's hand array[card1, card2, ...], 2=>dealer's hand array[card1, card2, ...], 3=> deck array[0-51]]
 var upvotes        = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
 var afkNames       = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
 
@@ -586,6 +586,13 @@ function getBlackJack(username) {
 }
 
 
+function _getRandCard(deck, remove) {
+    var randNumber = Math.round(Math.random() * (deck.length - 1));
+
+    return (remove) ? deck.splice(randNumber, 1) : deck;
+}
+
+
 function blackJack(author, args) {
     switch(args[0]) {
         case 'hit':
@@ -620,7 +627,10 @@ function blackJack(author, args) {
                 log("game already exists, repeat current hands and available commands", log.visible);
             } else {
                 log("start a new game of black jack", log.visible);
-                blackJackUsers.push([getId(author), args[1], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]]]);
+                var newDeck = deck;
+                log ("_getRandCard(" + newDeck + ", true)=" + getRandCard(_newDeck, true), log.info);
+//                blackJackUsers.push([getId(author), args[1], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]]]);
+
                 log("your hand: " + blackJackUsers[blackJackUsers.length - 1][2][0] + "," + blackJackUsers[blackJackUsers.length - 1][2][1], log.visible);
             }
         break;
