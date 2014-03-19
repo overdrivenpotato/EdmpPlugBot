@@ -631,7 +631,7 @@ log("args.length="+args.length, log.info);
 log("game already exists, repeat current hands and available commands", log.visible);
             } else {
 log("start a new game of black jack", log.visible);
-                var newDeck    = function(){return deck;};// copy from a fresh deck
+                var newDeck    = ["J", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];
                 var handUser   = [];// values of cards from newDeck, not the keys
                 var handDealer = [];
 
