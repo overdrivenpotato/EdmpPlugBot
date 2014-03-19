@@ -5,6 +5,8 @@
  */
 // fix dice position moving stuff (need a full room to test with)
 // add secret commands that don't list in !help
+// auto-like played songs
+// stupid !8ball glitch from preceding functions
 
 log("Loading bot...");
 

@@ -10,7 +10,7 @@ function getAvailable(author) {
     var avail = [];
 
     for(var i = 0; i < commands.length; i++) {
-        if(commands[i].hasPermission(author) && commands[i].public) {
+        if(commands[i].hasPermission(author) && commands[i].listed) {
             avail.push(commands[i]);
         }
     }
@@ -35,7 +35,7 @@ function execCommand(author, args) {
 function Command(cmd, callback, permission, customPerm, listed) {
     this.cmd = cmd.split(",");
     this.callback = callback;
-    this.permission = typeof permission === "undefined" ? 0 : permission;
+    this.permission = (typeof permission === "undefined") ? 0 : permission;
 //    this.listed = typeof listed === "undefined" ? true : listed;
 
     this.exec = function(author, args) {
@@ -51,7 +51,7 @@ function Command(cmd, callback, permission, customPerm, listed) {
             (typeof customPerm !== "undefined" ? customPerm(author) : false);
     };
 
-    this.listed = typeof listed === "undefined" ? true : listed;// bool, false = doesn't list in !help
+    this.listed = (typeof listed === "undefined") ? true : listed;// bool, false = doesn't list in !help
 
     this.toString = function(){
         return this.cmd.toString();
