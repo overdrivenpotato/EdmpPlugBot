@@ -241,6 +241,11 @@ var commands = [
     }),
 
 
+    new Command("NOTHING", function() {
+        log("WELL FINE THEN, bitch", log.visible);
+    }, null, null, false),
+
+
     new Command("herp", function() {
         log("derp", log.visible);
     }, null, null, false),
