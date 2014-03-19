@@ -4,9 +4,6 @@
  * Time: 9:20 PM
  */
 // fix dice position moving stuff (need a full room to test with)
-// populate trackAFKs with room list upon !update
-// add time checks to cron timers to prevent spam that will snowball out of control
-// fix 8ball not working when @author is used (Invincibear note: can't recreate the problem anymore?)
 // add secret commands that don't list in !help
 //change onDJAdvance to use passed obj fields
 
@@ -228,11 +225,7 @@ function getId(username) {
 
 
 function getETA(username) {// use the countdown at the top of the page if you're the next up to play, otherwise do average song length calculations
-    var current = $("#now-playing-time").children(":last").html().split(":");
-    current[0] = (current[0][0] == "0") ? current[0][1] : current[0];// strip leading 0 from minutes
-    var totalSeconds = parseFloat(current[0] * 60) + parseFloat(current[1]);
-
-    return (getPosition(username) == 0) ? Math.round(totalSeconds / 60) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
+    return (getPosition(username) == 0) ? Math.round(API.getTimeRemaining() / 60) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
 }
 
 
