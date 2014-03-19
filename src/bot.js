@@ -585,9 +585,9 @@ function blackJack(author, args) {
         case 'blackjack':
         default:
             log("let's play blackjack!", log.visible);
+            log("args.length="+args.length, log.info);
             if (args.length < 1) {
                 log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to lose. Usage: !blackjack 5", log.visible);
-
             }
         break;
     }
