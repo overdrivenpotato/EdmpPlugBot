@@ -636,20 +636,20 @@ log("start a new game of black jack", log.visible);
                 var handDealer = [];
 
                 var getCard    = _getRandCard(newDeck, true);// deal a card and get the new deck-chosen card
-                handUser.push(getCard[1]);// add the first card to the user's hand
+                handUser.push(newDeck[getCard[1]]);// add the first card to the user's hand
                 newDeck        = getCard[0];// make sure we use the spliced deck
 
 
                 getCard        = _getRandCard(newDeck, true);// deal another card
-                handDealer.push(getCard[1]);// add second dealt card to dealer's hand
+                handDealer.push(newDeck[getCard[1]]);// add second dealt card to dealer's hand
                 newDeck        = getCard[0];
 
                 getCard        = _getRandCard(newDeck, true);// deal another card
-                handUser.push(getCard[1]);// add the third card to the user's hand
+                handUser.push(newDeck[getCard[1]]);// add the third card to the user's hand
                 newDeck        = getCard[0];// make sure we use the spliced deck
 
                 getCard        = _getRandCard(newDeck, true);// deal another card
-                handDealer.push(getCard[1]);// add fourth dealt card to dealer's hand
+                handDealer.push(newDeck[getCard[1]]);// add fourth dealt card to dealer's hand
                 newDeck        = getCard[0];
 
                 blackJackUsers.push([getId(author), args[1], handUser, handDealer, newDeck, false]);
