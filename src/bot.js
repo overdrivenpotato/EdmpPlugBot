@@ -668,7 +668,7 @@ function getSumOfHand(hand) {// return the total point value of a given hand ["Q
 function blackJackStand(author){// function for dealer to keep hitting if needed
 log("blackJackStand() called", log.info);
     var game     = getBlackJackGame(author, true);
-    var output   = output = "@" + author + ", dealer's final hand: ";
+    var output   = "@" + author + ", dealer's final hand: ";
 
     while(game != -1 && getSumOfHand(blackJackUsers[game][2]) >= getSumOfHand(blackJackUsers[game][3])) {// Dealer keeps hitting until score is higher than the user's
         getCard      = _getRandCard(blackJackUsers[game][4], true);// deal a card and get the new deck-chosen card
@@ -686,8 +686,10 @@ log("blackJackStand() called", log.info);
 // move the winner forward in line
         deleteBlackJackGame(author);
     } else if(getSumOfHand(blackJackUsers[game][2]) == getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) == 21) {
-        log (ouput + "You dodged a bullet, you both scored 21!", log.visible);
+        log(ouput + "You dodged a bullet, you both scored 21!", log.visible);
         deleteBlackJackGame(author);
+    } else {
+        log("something else, derp?", log.visible);
     }
 }
 
