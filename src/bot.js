@@ -653,10 +653,10 @@ log("start a new game of black jack", log.visible);
                 newDeck        = getCard[0];
 
                 blackJackUsers.push([getId(author), args[1], handUser, handDealer, newDeck, false]);
-                log("@" + author + ", You were dealt: [face-down],[" + handUser[1] + "]. Dealer was dealt: [face-down],[" + handDealer[1] + "]. Scanning for a face-up ace...", log.visible);
+                log("@" + author + ", You were dealt: X-" + handUser[1] + ". Dealer was dealt: X-" + handDealer[1] + ". Scanning for a face-up ace...", log.visible);
 
                 if (handUser[1] == "A" || handDealer[1] == "A") {
-                    log ("@" + author + ", an ace is detected, flipping face-down cards to reveal you hand: [" + handUser[0] + "],[" + handUser[1] + "]; dealer's hand: [" + handDealer[0] + "],[" + handDealer[1] + "]. Checking for ten-point cards...");
+                    log("@" + author + ", an ace is detected, flipping face-down cards to reveal you hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". Checking for ten-point cards...");
 
                     if (((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
                         log("@" + author + ", you dodged a bullet, you both hit BlackJack! Your position in the DJ wait list remains the same, the game is over.", log.visible);
