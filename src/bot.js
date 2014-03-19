@@ -686,7 +686,7 @@ log (getCard, log.info);
         blackJackUsers[game][4] = getCard[0];// make sure we use the spliced deck
     }
 
-    output += blackJackUsers[game][3].join("-") + " totaling " + getSumOfHand(blackJackUsers[game][3]) + "; your final hand: " + blackJackUsers[game][2].join("-") + ", totalling " + getSumOfHand(blackJackUsers[game][3]) + ". ";
+    output += blackJackUsers[game][3].join("-") + " totaling " + getSumOfHand(blackJackUsers[game][3]) + "; your final hand: " + blackJackUsers[game][2].join("-") + ", totalling " + getSumOfHand(blackJackUsers[game][2]) + ". ";
 
     if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][3]) <= 21) {
         log(output + "@EDMPBot wins, you suck compared to it.", log.visible);
