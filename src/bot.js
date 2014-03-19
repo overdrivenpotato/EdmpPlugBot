@@ -526,9 +526,10 @@ function eightball(author, args) {
         "Who do you think I am, Ms Cleo?",
         "Does Invincibear do it in the park?",
         "I'm not sure, @Ptero's mom knows best",
-        "Of all the questions you could've asked, you chose THAT one?!?!"
+        "Of all the questions you could've asked, you chose THAT one?!?!",
+        "I could answer that but more importantly since your doctor is too much of a pussy to tell you this... you have AIDS."
     ];
-
+log(args, log.info);
     if(args.length < 2) {
         log("@" + author + ", you never asked a question!? Usage: !8ball Is Invincibear dope?", log.visible);
     } else {
