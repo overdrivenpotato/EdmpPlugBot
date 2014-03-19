@@ -688,11 +688,11 @@ log("blackJackStand(" + author + ") called, game=" + game, log.info);
 
     if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][3]) <= 21) {
         log(output + "@EDMPBot wins, you suck compared to it.", log.visible);
-        API.moderateMoveDJ(getId(author), getPosition(author) +  blackJackUsers[game][1]);
+        API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
         deleteBlackJackGame(author);
     } else if(getSumOfHand(blackJackUsers[game][3]) > 21) {
         log(output + "Dealer busts, you WIN & advance " + blackJackUsers[game][1] + " DJ slots.", log.visible);
-        API.moderateMoveDJ(getId(author), getPosition(author) -  blackJackUsers[game][1]);
+        API.moderateMoveDJ(getId(author), getPosition(author) + 1 - blackJackUsers[game][1]);
         deleteBlackJackGame(author);
     } else if(getSumOfHand(blackJackUsers[game][2]) == getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) == 21) {
         log(ouput + "You dodged a bullet, you both scored 21!", log.visible);
@@ -738,7 +738,7 @@ function blackJack(author, args) {
                     return;
                 } else if(getSumOfHand(savedGame[2]) > 21) {
                     log(output + "which is a BUST, please see !addiction to deal with your loss.", log.visible);
-                    API.moderateMoveDJ(getId(author), getPosition(author) +  blackJackUsers[game][1]);
+                    API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
                     deleteBlackJackGame(author);// game over, remove from blackJackUsers array
                     return;
                 } else {
@@ -821,10 +821,10 @@ function blackJack(author, args) {
                             log(output + "Congratulations @" + author + ", you won! You've gained " + args[1] + " positions!", log.visible);
                             blackJackUsers[game][6] = true;// cards now face-up
                             deleteBlackJackGame(author);
-                            API.moderateMoveDJ(getId(author), getPosition(author) -  blackJackUsers[game][1]);
+                            API.moderateMoveDJ(getId(author), getPosition(author) + 1 - blackJackUsers[game][1]);
                         } else if((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A") {
                             log(output + "Hey everybody, @" + author + ", just got beaten at !blackjack by @EDMBot! You've lost " + args[1] + " positions, pitiful.", log.visible);
-                            API.moderateMoveDJ(getId(author), getPosition(author) +  blackJackUsers[game][1]);
+                            API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
                             blackJackUsers[game][6] = true;// cards now face-up
                             deleteBlackJackGame(author);
                         }
@@ -839,11 +839,11 @@ function blackJack(author, args) {
                     } else if(getSumOfHand(handUser) == 21) {
                         output += "You won! You've gained " + args[1] + " positions!";
                         blackJackUsers.splice(game, 1);// game over, remove from blackJackUsers array
-                        API.moderateMoveDJ(getId(author), getPosition(author) -  blackJackUsers[game][1]);
+                        API.moderateMoveDJ(getId(author), getPosition(author) + 1 - blackJackUsers[game][1]);
                         return;
                     } else if(getSumOfHand(handDealer) == 21) {
                         output += "You just got beaten at !blackjack by @EDMBot! You've lost " + args[1] + " positions, pitiful.";
-                        API.moderateMoveDJ(getId(author), getPosition(author) +  blackJackUsers[game][1]);
+                        API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
                         blackJackUsers.splice(game, 1);// game over, remove from blackJackUsers array
                         return;
                     } else {
