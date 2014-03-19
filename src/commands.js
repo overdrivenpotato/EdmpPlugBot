@@ -74,6 +74,10 @@ var commands = [
     new Command("info", function() {
         log("EDMPbot " + version + " was developed by @overdrivenpotato and @Invincibear, minor contribution by @NVP. Type !help for available commands.", log.visible);
     }),
+    
+        new Command("hype", function() {
+        log("1 PLAY!", log.visible);
+    }),
 
 
     new Command("eta", function(author) {
