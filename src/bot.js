@@ -637,26 +637,45 @@ log("start a new game of black jack", log.visible);
                 var getCard    = null;
 
                 getCard        = _getRandCard(newDeck, true);// deal a card and get the new deck-chosen card
-log(getCard,log.info);
                 handUser.push(newDeck[getCard[1]]);// add the first card to the user's hand
                 newDeck        = getCard[0];// make sure we use the spliced deck
-log(getCard,log.info);
+
                 getCard        = _getRandCard(newDeck, true);// deal another card
                 handDealer.push(newDeck[getCard[1]]);// add second dealt card to dealer's hand
                 newDeck        = getCard[0];
-log(getCard,log.info);
+
                 getCard        = _getRandCard(newDeck, true);// deal another card
                 handUser.push(newDeck[getCard[1]]);// add the third card to the user's hand
                 newDeck        = getCard[0];// make sure we use the spliced deck
-log(getCard,log.info);
+
                 getCard        = _getRandCard(newDeck, true);// deal another card
                 handDealer.push(newDeck[getCard[1]]);// add fourth dealt card to dealer's hand
                 newDeck        = getCard[0];
 
                 blackJackUsers.push([getId(author), args[1], handUser, handDealer, newDeck, false]);
-//                blackJackUsers.push([getId(author), args[1], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]]]);
+                log("@" + author + ", You were dealt: [face-down],[" + handUser[1] + "]. Dealer was dealt: [face-down],[" + handDealer[1] + "]. Scanning for a face-up ace...", log.visible);
 
-                log("@" + author + ", You were dealt: [face-down],[" + handUser[1] + "]. Dealer was dealt: [face-down],[" + handDealer[1] + "]. You can !stand or !hitme", log.visible);
+                if (handUser[1] == "A" || handDealer[1] == "A") {
+                    log ("@" + author + ", an ace is detected, flipping face-down cards to reveal you hand: [" + handUser[0] + "],[" + handUser[1] + "]; dealer's hand: [" + handDealer[0] + "],[" + handDealer[1] + "]. Checking for ten-point cards...");
+
+                    if ((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && (handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K")) {
+                        log("@" + author + ", you dodged a bullet, you both hit BlackJack! Your position in the DJ wait list remains the same, the game is over.", log.visible);
+// remove entry from blackJackUsers, game is over
+                        return;
+                    } else if (handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") {
+                        log("Congratulations @" + author + ", you won! You've gained " + args[1] + " positions!", log.visible);
+// move user forward in line
+// remove entry from blackJackUsers, game is over
+                        return;
+                    } else if (handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") {
+                        log("Hey everybody, @" + author + ", just got beat at !blackjack by @EDMBot! You've lost " + args[1] + " positions, pitiful.", log.visible);
+// move user backward in line
+// remove entry from blackJackUsers, game is over
+                        return;
+                    }
+                } else {
+                    log("@" + author + ", no aces detected. Your options are to either !hitme or !stand.", log.visible);
+                }
             }
         break;
     }
