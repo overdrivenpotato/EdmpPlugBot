@@ -810,17 +810,17 @@ function blackJack(author, args) {
                         if(((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
                             log(output + "You dodged a bullet, you both hit BlackJack!", log.visible);
                             blackJackUsers[game][6] = true;// cards now face-up
-                            blackJackUsers[game][5] = true;// game over
+                            deleteBlackJackGame(author);
                         } else if((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") && handUser[1] == "A") {
                             log(output + "Congratulations @" + author + ", you won! You've gained " + args[1] + " positions!", log.visible);
                             blackJackUsers[game][6] = true;// cards now face-up
-                            blackJackUsers[game][5] = true;// game over
+                            deleteBlackJackGame(author);
 // move user forward in line
                         } else if((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A") {
                             log(output + "Hey everybody, @" + author + ", just got beaten at !blackjack by @EDMBot! You've lost " + args[1] + " positions, pitiful.", log.visible);
 // move user backward in line
                             blackJackUsers[game][6] = true;// cards now face-up
-                            blackJackUsers[game][5] = true;// game over
+                            deleteBlackJackGame(author);
                         }
                     }, 2500);
                 } else {
