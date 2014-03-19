@@ -24,7 +24,7 @@ var version   = "0.6.0";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
-var cards          = ["J", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
+var deck           = ["J", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
 var blackJackUsers = [];// format: array[0=>userID, wager, 1=>user's hand array[card1, card2, ...], 2=>dealer's hand array[card1, card2, ...], 3=> deck array[0-51]]
 var upvotes        = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
 var afkNames       = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
