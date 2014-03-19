@@ -18,6 +18,7 @@ function getAvailable(author) {
     return avail;
 }
 
+
 function execCommand(author, args) {
     for(var i = 0; i < commands.length; i++) {
         for(var j = 0; j < commands[i].cmd.length; j++) {
@@ -57,6 +58,7 @@ function Command(cmd, callback, permission, customPerm, listed) {
         return this.cmd.toString();
     };
 }
+
 
 var commands = [
     new Command("help,", function(author){
@@ -104,6 +106,12 @@ var commands = [
     new Command("stopreminder", function(author) {
         meetupUrl = "";
         log("@" + author + " reminder stopped.", log.visible);
+    }, API.ROLE.MANAGER),
+
+
+    new Command("skipfix", function() {
+        skipFixEnabled = !skipFixEnabled;
+        log("skipfix is set to " + skipFixEnabled);
     }, API.ROLE.MANAGER),
 
 
@@ -162,12 +170,6 @@ var commands = [
     }, API.ROLE.BOUNCER, function(author) {
         return isPlaying(author);
     }),
-
-
-    new Command("skipfix", function() {
-        skipFixEnabled = !skipFixEnabled;
-        log("skipfix is set to " + skipFixEnabled);
-    }, API.ROLE.MANAGER),
 
 
     new Command("admins", function(author) {
