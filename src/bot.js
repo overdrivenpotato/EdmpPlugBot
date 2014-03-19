@@ -678,10 +678,11 @@ log("game already exists, repeat current hands and available commands", log.visi
                         } else {
                             log ("nothing to do but requires an else to work?", log.visible);
                         }
-                    }, 1000);
+                    }, 500);
 
                 } else {
-                    log(output + "No aces detected. Your options are to either !hitme or !stand.", log.visible);
+                    log(output + "No aces detected, flipping cards to reveal you hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". Your options are to either !hitme or !stand.", log.visible);
+                    blackJackUsers[game][6] = true;// cards now face-up
                 }
             }
         break;
