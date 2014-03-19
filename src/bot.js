@@ -656,7 +656,7 @@ log(getCard,log.info);
                 blackJackUsers.push([getId(author), args[1], handUser, handDealer, newDeck, false]);
 //                blackJackUsers.push([getId(author), args[1], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]]]);
 
-                log("@" + author + ", You were dealt: [face-down],[" + blackJackUsers[blackJackUsers.length - 1][2][1] + "]. Dealer was dealt: [face-down],[" + blackJackUsers[blackJackUsers.length - 1][2][1] + "]. You can !stand or !hitme", log.visible);
+                log("@" + author + ", You were dealt: [face-down],[" + handUser[1] + "]. Dealer was dealt: [face-down],[" + handDealer[1] + "]. You can !stand or !hitme", log.visible);
             }
         break;
     }
