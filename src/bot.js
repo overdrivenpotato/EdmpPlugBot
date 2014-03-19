@@ -634,22 +634,24 @@ log("start a new game of black jack", log.visible);
                 var newDeck    = ["J", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];
                 var handUser   = [];// values of cards from newDeck, not the keys
                 var handDealer = [];
+                var getCard    = null;
 
-                var getCard    = _getRandCard(newDeck, true);// deal a card and get the new deck-chosen card
-                newDeck        = getCard[0];// make sure we use the spliced deck
+                getCard        = _getRandCard(newDeck, true);// deal a card and get the new deck-chosen card
+log(getCard,log.info);
                 handUser.push(newDeck[getCard[1]]);// add the first card to the user's hand
-
-                getCard        = _getRandCard(newDeck, true);// deal another card
-                newDeck        = getCard[0];
-                handDealer.push(newDeck[getCard[1]]);// add second dealt card to dealer's hand
-
-                getCard        = _getRandCard(newDeck, true);// deal another card
                 newDeck        = getCard[0];// make sure we use the spliced deck
-                handUser.push(newDeck[getCard[1]]);// add the third card to the user's hand
-
+log(getCard,log.info);
                 getCard        = _getRandCard(newDeck, true);// deal another card
+                handDealer.push(newDeck[getCard[1]]);// add second dealt card to dealer's hand
                 newDeck        = getCard[0];
+log(getCard,log.info);
+                getCard        = _getRandCard(newDeck, true);// deal another card
+                handUser.push(newDeck[getCard[1]]);// add the third card to the user's hand
+                newDeck        = getCard[0];// make sure we use the spliced deck
+log(getCard,log.info);
+                getCard        = _getRandCard(newDeck, true);// deal another card
                 handDealer.push(newDeck[getCard[1]]);// add fourth dealt card to dealer's hand
+                newDeck        = getCard[0];
 
                 blackJackUsers.push([getId(author), args[1], handUser, handDealer, newDeck, false]);
 //                blackJackUsers.push([getId(author), args[1], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]]]);
