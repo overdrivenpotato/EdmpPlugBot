@@ -586,6 +586,21 @@ function getBlackJackGame(username) {
 }
 
 
+function deleteBlackJackGame(username) {// game over, remove from blackJackUsers array
+    var i = 0;
+
+    for (i; i < blackJackUsers.length; i++) {
+        if (blackJackUsers[i].indexOf(getId(username)) != -1) {
+            blackJackUsers.splice(i, 1);
+
+            return true;
+        }
+    }
+
+    return -1;// if not already playing
+}
+
+
 function _getRandCard(deck, remove) {
     var randNumber = Math.round(Math.random() * (deck.length - 1));
 
@@ -652,11 +667,8 @@ function getSumOfHand(hand) {// return the total point value of a given hand ["Q
 }
 
 
-function blackJackHit(){
-
-}
-function blackJackStand(){
-
+function blackJackStand(author, savedGame){// function for dealer to keep hitting if needed
+log ("blackJackStand() called", log.info);
 }
 
 
@@ -666,9 +678,8 @@ function blackJack(author, args) {
     var output    = "";
 
     switch(args[0]) {
-        case 'hit':
         case 'hitme':
-log("hit me, bitch!", log.visible);
+        case 'hit':
             savedGame = getBlackJackGame(author);
 
             if (savedGame != -1) {
@@ -678,11 +689,17 @@ log("hit me, bitch!", log.visible);
 
                 output = "@" + author + " dealt a " + savedGame[4][getCard[1]] + ", making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + "; ";
 
-                if(getSumOfHand(savedGame[2]) == 21) {
+                if(getSumOfHand(savedGame[2]) == 21 && getSumOfHand(savedGame[3]) == 21) {
                     log(output + "forcing you to !stand, action is on the dealer now.", log.visible);
+//do shit that !stand would do
+                    return;
+                } else if(getSumOfHand(savedGame[2]) == 21) {
+                    log(output + "forcing you to !stand, action is on the dealer now.", log.visible);
+//do shit that !stand would do
                     return;
                 } else if(getSumOfHand(savedGame[2]) > 21) {
                     log(output + "which is a BUST, please see !addiction to deal with your loss.", log.visible);
+                    deleteBlackJackGame(author);// game over, remove from blackJackUsers array
                     return;
                 } else {
                     log(output + "dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hitme or !stand.", log.visible);
@@ -693,9 +710,8 @@ log("hit me, bitch!", log.visible);
         break;
         case 'stand':
         case 'hold':
-log("keep your cards to yourself mothafucka", log.visible);
             savedGame = getBlackJackGame(author);
-log("savedGame=" + savedGame, log.info);
+            blackJackStand(author, savedGame);
         break;
         case 'blackjack':
         default:
@@ -754,33 +770,50 @@ log("args.length="+args.length, log.info);
 
                     setTimeout(function(){// delay needed because plug.dj can't handle rapid-succession messages
                         if(((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
-                            log("@" + author + ", you dodged a bullet, you both hit BlackJack! Your position in the DJ wait list remains the same, the game is over.", log.visible);
+                            log("@" + author + ", you dodged a bullet, you both hit BlackJack!", log.visible);
                             blackJackUsers[game][5] = true;// game over
                         } else if((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") && handUser[1] == "A") {
                             log("Congratulations @" + author + ", you won! You've gained " + args[1] + " positions!", log.visible);
                             blackJackUsers[game][5] = true;// game over
 // move user forward in line
                         } else if((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A") {
-                            log("Hey everybody, @" + author + ", just got beat at !blackjack by @EDMBot! You've lost " + args[1] + " positions, pitiful.", log.visible);
+                            log("Hey everybody, @" + author + ", just got beaten at !blackjack by @EDMBot! You've lost " + args[1] + " positions, pitiful.", log.visible);
 // move user backward in line
                             blackJackUsers[game][5] = true;// game over
-                        } else {
-                            log ("nothing to do but requires an else to work?", log.visible);
                         }
                     }, 500);
-
                 } else {
-                    log(output + "No aces detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". Your options are to either !hitme or !stand.", log.visible);
+                    output += "No aces detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". ";
+
+                    if(getSumOfHand(handUser) == 21 && getSumOfHand(handDealer) == 21) {
+                        output += "You dodged a bullet, you both hit BlackJack!";
+                        blackJackUsers.splice(game, 1);// game over, remove from blackJackUsers array
+                        return;
+                    } else if(getSumOfHand(handUser) == 21) {
+                        output += "You won! You've gained " + args[1] + " positions!";
+                        blackJackUsers.splice(game, 1);// game over, remove from blackJackUsers array
+                        return;
+                    } else if(getSumOfHand(handDealer) == 21) {
+                        output += "You just got beaten at !blackjack by @EDMBot! You've lost " + args[1] + " positions, pitiful.";
+                        blackJackUsers.splice(game, 1);// game over, remove from blackJackUsers array
+                        return;
+                    } else {
+                        output += "Your options are to either !hitme or !stand.";
+                    }
+
+                    log(option , log.visible);
                     blackJackUsers[game][6] = true;// cards now face-up
                 }
 
                 if(blackJackUsers[game][5]) {
-// game over, remove from blackJackUsers[]
+                    blackJackUsers.splice(game, 1);// game over, remove from blackJackUsers array
+                    return;
                 }
             }
         break;
     }
 }
+
 
 // Hourly shit and general bot stuffs
 
