@@ -230,7 +230,7 @@ function getETA(username) {// use the countdown at the top of the page if you're
 
 
 function getLastChat(userID) {
-log("getLastChat(" + userID + ") called", log.info);
+//log("getLastChat(" + userID + ") called", log.info);
 
     for(var i = 0; i < trackAFKs.length; i++) {
         if(trackAFKs[i].indexOf(userID) == 1) {// found them!
@@ -244,7 +244,7 @@ log("getLastChat(" + userID + ") called", log.info);
 
 
 function updateAFKs(data) {
-log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
+//log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
     var i = 0;
 
     if(!trackAFKs.length) {// gotta start with somebody!
@@ -274,7 +274,7 @@ log("added " + data.from + " to trackAFKs", log.info);
 
 
 function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as much participation as possible, not AFK DJs
-log("checkAFKs(" + minutes + ") called", log.info);
+//log("checkAFKs(" + minutes + ") called", log.info);
     var DJWaitList = API.getWaitList();
 
     for(var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
@@ -290,7 +290,7 @@ log("checkAFKs(" + minutes + ") called", log.info);
                 } else if(afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
                     log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within 5 minutes or you'll be removed from the DJ wait list.", log.visible);
                     trackAFKs[j][4] = true;// set warned flag to true
-                } else if(afkMinutes <= minutes) {// reached the AFK limit, remove from DJ wait list
+                } else if(afkMinutes >= minutes) {// reached the AFK limit, remove from DJ wait list
                     log("AFK " + afkName[Math.round(Math.random() * (afkName.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker.", log.visible);
                     trackAFKs[j][4] = true;// set warned flag to true
                     API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
