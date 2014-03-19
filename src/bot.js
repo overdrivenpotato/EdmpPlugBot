@@ -631,14 +631,13 @@ log("args.length="+args.length, log.info);
 log("game already exists, repeat current hands and available commands", log.visible);
             } else {
 log("start a new game of black jack", log.visible);
-                var newDeck    = deck;// copy from a fresh deck
+                var newDeck    = function(){return deck;};// copy from a fresh deck
                 var handUser   = [];// values of cards from newDeck, not the keys
                 var handDealer = [];
 
                 var getCard    = _getRandCard(newDeck, true);// deal a card and get the new deck-chosen card
                 handUser.push(newDeck[getCard[1]]);// add the first card to the user's hand
                 newDeck        = getCard[0];// make sure we use the spliced deck
-
 
                 getCard        = _getRandCard(newDeck, true);// deal another card
                 handDealer.push(newDeck[getCard[1]]);// add second dealt card to dealer's hand
