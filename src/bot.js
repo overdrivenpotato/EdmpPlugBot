@@ -589,7 +589,7 @@ function getBlackJack(username) {
 function _getRandCard(deck, remove) {
     var randNumber = Math.round(Math.random() * (deck.length - 1));
 
-    return (remove) ? deck.splice(randNumber, 1) : deck;
+    return (remove) ? [deck.splice(randNumber, 1), randNumber] : [deck, randNumber];
 }
 
 
