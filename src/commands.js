@@ -222,7 +222,9 @@ var commands = [
 
     new Command("blackjack", function(author, args) {
         blackJack(author, args);
-    }, null, null, false),// hidden for now while it's developed, hence separated from the other BJ commands
+    }, API.ROLE.MANAGER, function(author){
+        return author.trim() == "Invincibear";
+    }, false),// hidden for now while it's developed, hence separated from the other BJ commands
 
 
     new Command("hit,hitme,stand,hold", function(author, args) {
