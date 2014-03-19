@@ -571,7 +571,7 @@ function lotteryUpdate() {
 }
 
 
-function blackjack(author, args) {
+function blackJack(author, args) {
     log("coming soon!", log.visible);
 }
 
