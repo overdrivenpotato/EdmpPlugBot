@@ -129,7 +129,7 @@ var commands = [
     new Command("update", function() {
         updateBot();
     }, API.ROLE.MANAGER, function(author){
-        return author.trim() == ("Invincibear", "NVP");
+        return author.trim() == ("Invincibear");
     }),
 
 
