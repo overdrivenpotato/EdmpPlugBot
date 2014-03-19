@@ -820,7 +820,7 @@ function blackJack(author, args) {
 // move user backward in line
                             blackJackUsers[game][5] = true;// game over
                         }
-                    }, 1000);
+                    }, 2500);
                 } else {
                     output += "No Aces detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". ";
 
