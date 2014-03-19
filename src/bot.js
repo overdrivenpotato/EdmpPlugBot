@@ -24,6 +24,7 @@ var version   = "0.6.0";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
+var cards          = ["K", "A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q"];
 var blackJackUsers = [];// format: array[0=>userID, wager, 1=>user's hand array[card1, card2, ...], 2=>dealer's hand array[card1, card2, ...]]
 var upvotes        = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
 var afkNames       = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
@@ -603,11 +604,14 @@ function blackJack(author, args) {
                 log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to lose. Usage: !blackjack 5", log.visible);
                 return;
             } else if(isNaN(args[1])) {
-                log("@" + author + " please enter a valid wager. Minimum 1, maximum $max.", log.visible);
+                log("@" + author + " please enter a valid wager.", log.visible);
                 return;
             } else if(getPosition(author) == API.getWaitList().length) {
-                log("@" + author + " You can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
+                log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
+            } else if(args[1] > (API.getWaitList().length - getPosition(author))) {
+                log("@" + author + ", your wager has been changed to " + (API.getWaitList().length - getPosition(author)), log.visible);
+                args[1] = ((API.getWaitList().length - getPosition(author)) < 1) ? 1 : (API.getWaitList().length - getPosition(author));// because math
             }
 
             var savedGame = getBlackJack(author);
@@ -616,6 +620,8 @@ function blackJack(author, args) {
                 log("game already exists, repeat current hands and available commands", log.visible);
             } else {
                 log("start a new game of black jack", log.visible);
+                blackJackUsers.push([getId(author), args[1], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]], [cards[Math.round(Math.random() * (cards.length - 1))], cards[Math.round(Math.random() * (cards.length - 1))]]]);
+                log("your hand: " + blackJackUsers[blackJackUsers.length - 1][2][0] + "," + blackJackUsers[blackJackUsers.length - 1][2][1], log.visible);
             }
         break;
     }
