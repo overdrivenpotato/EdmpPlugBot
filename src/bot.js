@@ -666,10 +666,10 @@ function getSumOfHand(hand) {// return the total point value of a given hand ["Q
 
 
 function blackJackStand(author){// function for dealer to keep hitting if needed
-log("blackJackStand(" + author + ") called, game=" + game, log.info);
     var game                = getBlackJackGame(author, true);
     var output              = "@" + author + ", dealer's final hand: ";
     var getCard             = null;
+log("blackJackStand(" + author + ") called, game=" + game, log.info);
 
     if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) < 21) {
         log("@" + author + " your score is lower than @EDMPbot's, you must accept another card with !hitme", log.visible);
