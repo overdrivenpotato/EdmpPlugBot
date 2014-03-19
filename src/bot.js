@@ -627,7 +627,7 @@ log("args.length="+args.length, log.info);
 
             var savedGame = getBlackJack(author);
 
-            if (savedGame != -1) {
+            if (0){//savedGame != -1) {
 log("game already exists, repeat current hands and available commands", log.visible);
             } else {
 log("start a new game of black jack", log.visible);
