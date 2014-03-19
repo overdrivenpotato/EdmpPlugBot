@@ -20,7 +20,7 @@ var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
-var version   = "0.6.3";
+var version   = "0.6.4";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
@@ -680,7 +680,7 @@ log("blackJackStand() called", log.info);
     while(game != -1 && getSumOfHand(blackJackUsers[game][2]) > getSumOfHand(blackJackUsers[game][3])) {// Dealer keeps hitting until score is higher than the user's
 log("while loop", log.info);
         getCard      = _getRandCard(blackJackUsers[game][4], true);// deal a card and get the new deck-chosen card
-        blackJackUsers[game][2].push(blackJackUsers[game][4][getCard[1]]);// add the new card to the user's hand
+        blackJackUsers[game][3].push(blackJackUsers[game][4].getCard[1]);// add the new card to the dealer's hand
         blackJackUsers[game][4] = getCard[0];// make sure we use the spliced deck
     }
 
