@@ -597,15 +597,99 @@ function _getRandCard(deck, remove) {
 }
 
 
+function getSumOfHand(hand) {// return the total point value of a given hand ["Q", 3, "A", 6]
+    var skippedAces = 0;
+    var total       = 0;
+
+    for(i = 0; i < hand.length; i++) {
+       switch (hand[i]) {
+           case 'A':
+               skippedAces++;
+           break;
+           case 2:
+               total = total + 2;
+               break;
+           case 3:
+               total = total + 3;
+               break;
+           case 4:
+               total = total + 4;
+               break;
+           case 5:
+               total = total + 5;
+               break;
+           case 6:
+               total = total + 6;
+               break;
+           case 7:
+               total = total + 7;
+               break;
+           case 8:
+               total = total + 8;
+               break;
+           case 9:
+               total = total + 9;
+               break;
+           case 10:
+           case 'J':
+           case 'Q':
+           case 'K':
+               total = total + 10;
+           break;
+           case 'X':// joker
+           default:
+           break;
+       }
+    }
+
+    if (skippedAces) {
+        for(i = 0; i < skippedAces; i++) {
+            total = ((total + 11) <= 21) ? (total + 11) : (total + 1);// Ace = 11pts unless over 21, then Ace = 1pt
+        }
+    }
+
+    return total;
+}
+
+
+function blackJackHit(){
+
+}
+function blackJackStand(){
+
+}
+
+
 function blackJack(author, args) {
-    var savedGame
+    var savedGame = null;
+    var getCard   = null;
+    var output    = "";
 
     switch(args[0]) {
         case 'hit':
         case 'hitme':
 log("hit me, bitch!", log.visible);
             savedGame = getBlackJackGame(author);
-log("savedGame=" + savedGame, log.info);
+
+            if (savedGame != -1) {
+                getCard      = _getRandCard(savedGame[4], true);// deal a card and get the new deck-chosen card
+                savedGame[2].push(savedGame[4][getCard[1]]);// add the new card to the user's hand
+                savedGame[4] = getCard[0];// make sure we use the spliced deck
+
+                output = "@" + author + " dealt a " + savedGame[4][getCard[1]] + ", making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + "; ";
+
+                if(getSumOfHand(savedGame[2]) == 21) {
+                    log(output + "forcing you to !stand, action is on the dealer now.", log.visible);
+                    return;
+                } else if(getSumOfHand(savedGame[2]) > 21) {
+                    log(output + "which is a BUST, please see !addiction to deal with your loss.", log.visible);
+                    return;
+                } else {
+                    log(output + "dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hitme or !stand.", log.visible);
+                }
+            } else {
+                log("@" + author + ", please start a new game with the !blackjack command, including the amount of DJ wait list slots to wager. Usage: !blackjack 5", log.visible);
+            }
         break;
         case 'stand':
         case 'hold':
@@ -634,17 +718,14 @@ log("args.length="+args.length, log.info);
             savedGame = getBlackJackGame(author);
 
             if (savedGame != -1) {
-log("game already exists, repeat current hands and available commands", log.visible);
-log("savedGame=" + savedGame, log.info);
-                log("@" + author + "'s hand: " + savedGame[2][0] + "-" + savedGame[2][1] + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ". Your options are to either !hitme or !stand.", log.visible);
+                log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ". Your options are to either !hitme or !stand.", log.visible);
             } else {
-//log("start a new game of black jack", log.visible);
                 var newDeck    = deck;
                 var handUser   = [];// values of cards from newDeck, not the keys
                 var handDealer = [];
-                var getCard    = null;
                 var game       = null;
-                var output     = "";
+                getCard        = null;
+                output         = "";
 
                 getCard        = _getRandCard(newDeck, true);// deal a card and get the new deck-chosen card
                 handUser.push(newDeck[getCard[1]]);// add the first card to the user's hand
@@ -665,7 +746,7 @@ log("savedGame=" + savedGame, log.info);
                 blackJackUsers.push([getId(author), args[1], handUser, handDealer, newDeck, false, false]);// add dealt hands and reduced decks to blackJackUsers tracking array
 
                 game   = blackJackUsers.length - 1;// set array key for future storage/retrieval within function;
-                output = "@" + author + ", You were dealt: X-" + handUser[1] + ". Dealer was dealt: X-" + handDealer[1] + ". ";
+                output = "@" + author + " dealt: X-" + handUser[1] + ". Dealer was dealt: X-" + handDealer[1] + ". ";
 
                 if(handUser[1] == "A" || handDealer[1] == "A") {
                     log(output + "Ace detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". Checking for ten-point cards...");
