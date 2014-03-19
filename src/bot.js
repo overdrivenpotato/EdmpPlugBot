@@ -666,7 +666,7 @@ function getSumOfHand(hand) {// return the total point value of a given hand ["Q
 
 
 function blackJackStand(author){// function for dealer to keep hitting if needed
-log("blackJackStand() called, game=" + game, log.info);
+log("blackJackStand(" + author + ") called, game=" + game, log.info);
     var game                = getBlackJackGame(author, true);
     var output              = "@" + author + ", dealer's final hand: ";
     var getCard             = null;
@@ -819,7 +819,7 @@ function blackJack(author, args) {
 // move user backward in line
                             blackJackUsers[game][5] = true;// game over
                         }
-                    }, 500);
+                    }, 1000);
                 } else {
                     output += "No Aces detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". ";
 
