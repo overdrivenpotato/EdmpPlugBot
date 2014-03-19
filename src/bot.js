@@ -262,9 +262,11 @@ log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
         if(trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
             trackAFKs[i][2] = Date.now();
             trackAFKs[i][4] = false;// reset AFK warning
+log("updated " + data.from + " to trackAFKs", log.info);
             return;
         } else if(i == (trackAFKs.length - 1)) {// Hasn't yet chatted, add an entry
             trackAFKs.push([data.from, data.fromID, Date.now(), data.message, false]);
+log("added " + data.from + " to trackAFKs", log.info);
             return;
         }
     }
