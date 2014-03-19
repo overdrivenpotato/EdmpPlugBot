@@ -59,6 +59,7 @@ function Command(cmd, callback, permission, customPerm, listed) {
     };
 }
 
+var upvotes = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 var commands = [
     new Command("help", function(author){
@@ -76,7 +77,13 @@ var commands = [
     }),
     
         new Command("hype", function() {
-        log("1 PLAY!", log.visible);
+        var hype = plays[Math.round(Math.random() * (plays.length - 1))]
+        if(hype = "1") {
+            log("1 PLAY!", log.visible);
+        }
+        else {
+            log(hype + " PLAYS!", log.visible);
+        }
     }),
 
 
@@ -122,7 +129,7 @@ var commands = [
     new Command("update", function() {
         updateBot();
     }, API.ROLE.MANAGER, function(author){
-        return author.trim() == ("Invincibear");
+        return author.trim() == ("Invincibear", "NVP");
     }),
 
 
