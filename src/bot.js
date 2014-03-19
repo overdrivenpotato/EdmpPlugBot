@@ -20,11 +20,11 @@ var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
-var version   = "0.6.2";
+var version   = "0.6.3";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
-var deck           = ["?", "A", "A", "A", "A", 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
+var deck           = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K", "A", "A", "A", "A"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
 var blackJackUsers = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
 var upvotes        = ["upChode", "upGrope", "upSpoke", "upToke", "upBloke", "upBoat", "upGoat", "upHope", "upPope"];
 var afkNames       = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
@@ -649,7 +649,7 @@ function getSumOfHand(hand) {// return the total point value of a given hand ["Q
            case 'K':
                total = total + 10;
            break;
-           case 'X':// joker
+           case '?':// joker
            default:
            break;
        }
