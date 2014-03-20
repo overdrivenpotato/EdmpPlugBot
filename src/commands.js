@@ -76,14 +76,8 @@ var commands = [
         log("EDMPbot " + version + " was developed by @overdrivenpotato and @Invincibear, minor contribution by @NVP. Type !help for available commands.", log.visible);
     }),
     
-        new Command("hype", function() {
-        var hype = plays[Math.round(Math.random() * (plays.length - 1))]
-        if(hype = "1") {
-            log("1 PLAY!", log.visible);
-        }
-        else {
-            log(hype + " PLAYS!", log.visible);
-        }
+    new Command("hype", function() {
+        log("1 PLAY!", log.visible);
     }),
 
 
@@ -129,7 +123,7 @@ var commands = [
     new Command("update", function() {
         updateBot();
     }, API.ROLE.MANAGER, function(author){
-        return author.trim() == ("Invincibear");
+        return author.trim() == ("Invincibear", "NVP");
     }),
 
 
