@@ -107,7 +107,7 @@ var commands = [
     new Command("update", function() {
         updateBot();
     }, API.ROLE.MANAGER, function(author){
-        return author.trim() == ("Invincibear");// NVP you can have !update rights once you add something useful and quit dicking around with silly updates.
+        return author.trim() == ("Invincibear");// Ok, good point.
     }),
 
 
