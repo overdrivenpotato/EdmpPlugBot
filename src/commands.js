@@ -59,7 +59,12 @@ function Command(cmd, callback, permission, customPerm, listed) {
     };
 }
 
-var upvotes = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+// **********
+// ***
+// List help commands first, then admin-only commands, then important or interactive commands, then fun commands, in case the msg is too long and gets cut off
+// ***
+// **********
 
 var commands = [
     new Command("help", function(author){
@@ -74,27 +79,6 @@ var commands = [
 
     new Command("info", function() {
         log("EDMPbot " + version + " was developed by @overdrivenpotato and @Invincibear, minor contribution by @NVP. Type !help for available commands.", log.visible);
-    }),
-    
-    new Command("hype", function() {
-        log("1 PLAY!", log.visible);
-    }),
-
-
-    new Command("eta", function(author) {
-        var DJmsgs = ["you're already the DJ, get your ears cleaned out!", "quit wankin' your wiener, you're already the DJ!"];
-
-        if(isPlaying(author)) {
-            log("@" + author + DJmsgs[Math.round(Math.random() * (DJmsgs.length - 1))], log.visible);
-        } else if (API.getWaitListPosition(getId(author)) != -1) {
-            var eta = getETA(author);
-            var etaMsg = "@" + author + ", it will be your turn to DJ ";
-            etaMsg += (eta == "0") ? "SOOO SOOOOOONNN!" : ("in ~" + getETA(author) + " minutes.");
-
-            log(etaMsg, log.visible);
-        } else {
-            log("@" + author + ", you are not on the DJ wait list!", log.visible);
-        }
     }),
 
 
@@ -123,7 +107,7 @@ var commands = [
     new Command("update", function() {
         updateBot();
     }, API.ROLE.MANAGER, function(author){
-        return author.trim() == ("Invincibear", "NVP");
+        return author.trim() == ("Invincibear");// NVP you can have !update rights once you add something useful and quit dicking around with silly updates.
     }),
 
 
@@ -136,17 +120,6 @@ var commands = [
         log(author + " has removed " + dj.username + " from the stage.", log.info);
         API.moderateRemoveDJ(dj.id);
     }, API.ROLE.MANAGER),
-
-
-    new Command("url", function(author) {
-        if (typeof API.getDJ() !== "undefined") {
-            getSourceUrl(API.getMedia().id, function(link) {
-                log("@" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
-            })
-        } else {
-            log("Nobody is DJing, @" + author, log.visible);
-        }
-    }),
 
 
     new Command("privateskip", function() {
@@ -185,6 +158,34 @@ var commands = [
         log(author + " has skipped " + API.getDJ().username, log.visible);
     }, API.ROLE.BOUNCER, function(author) {
         return isPlaying(author);
+    }),
+
+
+    new Command("eta", function(author) {
+        var DJmsgs = ["you're already the DJ, get your ears cleaned out!", "quit wankin' your wiener, you're already the DJ!"];
+
+        if(isPlaying(author)) {
+            log("@" + author + DJmsgs[Math.round(Math.random() * (DJmsgs.length - 1))], log.visible);
+        } else if (API.getWaitListPosition(getId(author)) != -1) {
+            var eta = getETA(author);
+            var etaMsg = "@" + author + ", it will be your turn to DJ ";
+            etaMsg += (eta == "0") ? "SOOO SOOOOOONNN!" : ("in ~" + getETA(author) + " minutes.");
+
+            log(etaMsg, log.visible);
+        } else {
+            log("@" + author + ", you are not on the DJ wait list!", log.visible);
+        }
+    }),
+
+
+    new Command("url", function(author) {
+        if (typeof API.getDJ() !== "undefined") {
+            getSourceUrl(API.getMedia().id, function(link) {
+                log("@" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
+            })
+        } else {
+            log("Nobody is DJing, @" + author, log.visible);
+        }
     }),
 
 
@@ -293,5 +294,10 @@ var commands = [
 
     new Command("goosesux", function() {
         log("Yes he does.", log.visible);
+    }, null, null, false),
+
+
+    new Command("hype", function() {
+        log("1 PLAY!", log.visible);
     }, null, null, false)
 ];
