@@ -24,7 +24,6 @@ var version   = "0.6.6";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
 var trackAFKs       = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
-var deck            = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K", "A", "A", "A", "A"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
 var blackJackUsers  = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
 var upvotes         = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
 var afkNames        = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
@@ -706,6 +705,21 @@ log("blackJackStand(" + author + ") called, game=" + game, log.info);
 }
 
 
+function checkBlackJackPositions(author, wager) {// make sure players bet what||less than they can gain||lose
+    if(((getPosition(author) + 1) - args[1]) < 1) {// check if they bet more than they can win
+        if(((getPosition(author) + 1) + args[1]) > API.getWaitList().length) {// check if they bet more than they can lose
+            wager = checkBlackJackPositions(author, (API.getWaitList().length - getPosition(author) + 1));
+        } else {// they only bet more than they can win, change to the amount of slots they can gain
+            wager = checkBlackJackPositions(author, getPosition(author));
+        }
+    } else if(((getPosition(author) + 1) + args[1]) > API.getWaitList().length) {// check if they bet more than they can lose
+        wager = checkBlackJackPositions(author, (API.getWaitList().length - getPosition(author) + 1));
+    }
+
+    return wager;
+}
+
+
 function blackJack(author, args) {
     var savedGame = null;
     var getCard   = null;
@@ -771,22 +785,17 @@ function blackJack(author, args) {
             } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
-            } else if(args[1] > (API.getWaitList().length - getPosition(author))) {
-                log("@" + author + ", your wager has been reduced to " + (API.getWaitList().length - getPosition(author)), log.visible);
-                args[1] = ((API.getWaitList().length - getPosition(author)) < 1) ? 1 : (API.getWaitList().length - getPosition(author));// because math
-            } else if(args[1] > getPosition(author)) {
-                log("@" + author + ", your wager has been changed to " + getPosition(author), log.visible);
-                args[1] = (args[1] > getPosition(author)) ? 1 : (API.getWaitList().length - getPosition(author));// because math
+            } else if(checkBlackJackPositions(author, args[1]) != args[1]) {// check if they bet more than they can win
+                args[1] = checkBlackJackPositions(author, wager);
+                log("@" + author + ", your wager has been changed to " + args[1], log.visible);
             }
-// check if position - wager < 1, if so swap for 1
-//       if position + wager > lineup, swap to lineup - position
 
             savedGame = getBlackJackGame(author);
 
             if (savedGame != -1) {
                 log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hitme or !stand.", log.visible);
             } else {
-                var newDeck    = deck;
+                var newDeck    = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K", "A", "A", "A", "A"];
                 var handUser   = [];// values of cards from newDeck, not the keys
                 var handDealer = [];
                 game           = null;
