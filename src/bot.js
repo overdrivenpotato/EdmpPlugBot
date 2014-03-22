@@ -715,7 +715,7 @@ function checkBlackJackWager(author, wager) {// make sure players bet what||less
         }
     }
     if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-        wager = API.getWaitList().length - (getPosition(author) + 1);
+        wager = API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
     }
 
     return wager;
