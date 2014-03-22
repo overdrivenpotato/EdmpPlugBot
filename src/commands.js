@@ -229,7 +229,7 @@ var commands = [
     new Command("blackjack", function(author, args) {
         blackJack(author, args);
     }, API.ROLE.MANAGER, function(author){
-        return true;// author.trim() == "Invincibear";
+        return true;// getID(author) == invincibear;
     }, bjtoggle),
 
 
