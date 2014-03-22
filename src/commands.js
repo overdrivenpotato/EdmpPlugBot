@@ -252,7 +252,10 @@ var commands = [
         log("WEED ERRYDAY", log.visible);
     }),
 
-
+    new Command("real", function() {
+        log("REAL TRAP SHIT!", log.visible);
+    }),
+    
     new Command("turndown", function() {
         log("FOR WHAT?", log.visible);
     }),
