@@ -3,8 +3,6 @@
  * Date: 3/8/14
  * Time: 9:20 PM
  */
-// fix dice position moving stuff (need a full room to test with)
-// add secret commands that don't list in !help
 // auto-like played songs
 // stupid !8ball glitch from preceding functions
 // tell the channel when an admin joins (when there wasn't one before)
@@ -12,6 +10,8 @@
 // blackjack needs to be limited to a player at a time, 5 minute time limit
 // fix blackjack limiter
 // add disconnect protection, 10 minute grace period?
+// eta should return minutes OR hours & minutes
+// roll the dice says can't roll because already DJing but reality is they're the last DJ in the queue
 
 
 log("Loading bot...");
