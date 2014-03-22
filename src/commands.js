@@ -230,7 +230,7 @@ var commands = [
         blackJack(author, args);
     }, API.ROLE.MANAGER, function(author){
         return true;// author.trim() == "Invincibear";
-    }, false),// hidden for now while it's developed, hence separated from the other BJ commands
+    }, bjtoggle),
 
 
     new Command("hit,hitme,stand,hold", function(author, args) {
