@@ -9,7 +9,7 @@
 // stupid !8ball glitch from preceding functions
 // tell the channel when an admin joins (when there wasn't one before)
 // tell the channel when all the admins leave (party!!!!)
-// add blackjack game to skip 21 slots
+// blackjack needs to be limited to a player at a time, 5 minute time limit
 
 
 log("Loading bot...");
@@ -23,16 +23,18 @@ var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disabl
 var version   = "0.6.5";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
-var trackAFKs      = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
-var deck           = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K", "A", "A", "A", "A"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
-var blackJackUsers = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
-var upvotes        = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
-var afkNames       = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
+var trackAFKs       = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
+var deck            = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K", "A", "A", "A", "A"];//joker needed because probability of getting a 0 with currently implemented random logic is stupid low
+var blackJackUsers  = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
+var upvotes         = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
+var afkNames        = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
+var blackJackPlayer = [Date.now(), null];// format: array[timestamp, userid]
 
-var totalSongTime     = 0;
-var totalSongs        = 0;
-var defaultSongLength = 4;// measured in minutes
-var MaxAFKMinutes     = 90;// 90m/1.5hr afk DJ max (set this var in minutes)
+var totalSongTime      = 0;
+var totalSongs         = 0;
+var defaultSongLength  = 4;// measured in minutes
+var MaxAFKMinutes      = 90;// 90m/1.5hr afk DJ max (set this var in minutes)
+var blackJackTimeLimit = 5 * 60 * 1000;// 5 minute time limit per blackjack player
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
 var lastPrivateSkip       = (typeof lastPrivateSkip === "undefined")       ? 0 : lastPrivateSkip;
@@ -611,12 +613,12 @@ function _getRandCard(deck, remove) {
 }
 
 
-function getSumOfHand(hand) {// return the total point value of a given hand ["Q", 3, "A", 6]
+function getSumOfHand(hand){// return the total point value of a given hand ["Q", 3, "A", 6]
     var skippedAces = 0;
     var total       = 0;
 
     for(i = 0; i < hand.length; i++) {
-       switch (hand[i]) {
+       switch(hand[i]) {
            case 'A':
                skippedAces++;
            break;
@@ -763,10 +765,10 @@ function blackJack(author, args) {
             } else if(isNaN(args[1])) {
                 log("@" + author + " please enter a valid wager.", log.visible);
                 return;
-            } else if(0){//isPlaying(author)) {
+            } else if(isPlaying(author)) {
                 log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
                 return;
-            } else if(0){//getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1) {
+            } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
             } else if(args[1] > (API.getWaitList().length - getPosition(author))) {
@@ -776,6 +778,8 @@ function blackJack(author, args) {
                 log("@" + author + ", your wager has been changed to " + getPosition(author), log.visible);
                 args[1] = (args[1] > getPosition(author)) ? 1 : (API.getWaitList().length - getPosition(author));// because math
             }
+// check if position - wager < 1, if so swap for 1
+//       if position + wager > lineup, swap to lineup - position
 
             savedGame = getBlackJackGame(author);
 
