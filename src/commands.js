@@ -228,9 +228,7 @@ var commands = [
     
     new Command("blackjack", function(author, args) {
         blackJack(author, args);
-    }, API.ROLE.MANAGER, function(author){
-        return true;// getID(author) == invincibear;
-    }, bjtoggle),
+    }),
 
 
     new Command("hit,hitme,stand,hold", function(author, args) {
@@ -240,7 +238,7 @@ var commands = [
     new Command("on,off", function(author, args) {
         blackJack(author, args);
     }, API.ROLE.MANAGER, function(author){
-        return true; author.trim() == ("Invincibear", "NVP");
+        return true;// author.trim() == ("Invincibear", "NVP");
     }),// Separated because of Permissions
 
     new Command("addiction", function(author) {
