@@ -520,7 +520,7 @@ function rollTheDice (author) {
             API.moderateMoveDJ(getId(author), getPosition(author) - 4);
             log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations, you've earned a 3 slot bump closer to the front!", log.visible);
         } else {
-            API.moderateMoveDJ(getId(username), 1);
+            API.moderateMoveDJ(getId(author), 1);
             log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations, you've earned a 5 slot bump to the front of the line!", log.visible);
         }
     } else if (x == y) {
@@ -850,7 +850,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
             } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
-            } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet more than they can win
+            } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet excessively
                 args[1] = checkBlackJackWager(author, args[1]);
                 log("@" + author + ", your wager has been changed to " + args[1], log.visible);
             }
