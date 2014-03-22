@@ -727,6 +727,12 @@ function blackJack(author, args) {
     var output    = "";
 
     switch(args[0]) {
+        case 'on':
+            var bjtoggle = ""
+        break;
+        case 'off':
+            var bjtoggle = "false"
+        break;
         case 'hitme':
         case 'hit':
             savedGame = getBlackJackGame(author);
