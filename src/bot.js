@@ -20,6 +20,7 @@ var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var blackJackEnabled= (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
+var GreetingEnabled = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 
 var version   = "0.6.7";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
@@ -28,7 +29,7 @@ var trackAFKs       = [];// format: array[0=>username, 1=>userID, 2=>time of las
 var blackJackUsers  = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
 var upvotes         = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
 var afkNames        = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
-var blackJackPlayer = [Date.now(), null];// format: array[timestamp, userid];
+var blackJackPlayer = [Date.now(), ""];// format: array[timestamp, userid];
 
 var totalSongTime      = 0;
 var totalSongs         = 0;
@@ -235,6 +236,19 @@ function getId(username) {
 }
 
 
+function getUsername(userID) {
+    var users = API.getUsers();
+
+    for(var i = 0; i < users.length; i++) {
+        if(users[i].id == userID.trim()) {
+            return users[i].username;
+        }
+    }
+
+    return null;
+}
+
+
 function getETA(username) {// use the countdown at the top of the page if you're the next up to play, otherwise do average song length calculations
     return (getPosition(username) == 0) ? Math.round(API.getTimeRemaining() / 60) : Math.round((getPosition(username) + 1) * getAverageTime());// round to prevent unforeseeable errors
 }
@@ -373,7 +387,7 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
 
 
 function onJoin(user) {// greet new user after a short delay to ensure they receive the message
-    if (lastJoined != user.id) {// prevent spam in case somebody has two tabs with different plug.dj rooms
+    if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms
         setTimeout(function() {log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);}, 2000);
         lastJoined = user.id;
     }
@@ -594,6 +608,8 @@ function getBlackJackGame(username, count) {
 function deleteBlackJackGame(username) {// game over, remove from blackJackUsers array
     var i = 0;
 
+    blackJackPlayer = [Date.now(), ""];// remove userID of previous player
+
     for (i; i < blackJackUsers.length; i++) {
         if (blackJackUsers[i].indexOf(getId(username)) != -1) {
             blackJackUsers.splice(i, 1);
@@ -720,6 +736,25 @@ function checkBlackJackWager(author, wager) {// make sure players bet what||less
     }
 
     return wager;
+}
+
+
+function checkBlackJackPlayer(author) {
+    if (blackJackPlayer[1] != "") {// no active player
+        return true;
+    } else if(blackJackPlayer[1] != getId(author)) {// wrong active player
+        log("One player at a time, @" + author, log.visible);
+        return false;
+    } else if((Date.now() - blackJackPlayer[0]) > blackJackTimeLimit) {// time limit expired
+        var BJusername = getUsername(blackJackPlayer[0]);
+        var game       = getBlackJackGame(BJusername, true);//array key of current saved game
+
+        log("@" + BJusername + ", time expired and you forfeit your game of blackjack. You lose " + savedgame[1] + " slots.");
+        API.moderateMoveDJ(blackJackPlayer[1], getPosition(BJusername) + 1 + blackJackUsers[game][1]);
+        deleteBlackJackGame(BJusername);
+
+        return true;
+    }
 }
 
 
