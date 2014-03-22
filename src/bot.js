@@ -715,7 +715,7 @@ function checkBlackJackWager(author, wager) {// make sure players bet what||less
         }
     }
     if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-        wager = API.getWaitList().length - getPosition(author) + 1;
+        wager = API.getWaitList().length - (getPosition(author) + 1);
     }
 
     return wager;
@@ -758,7 +758,6 @@ function blackJack(author, args) {
                 } else if(getSumOfHand(savedGame[2]) > 21) {
                     log(output + "which is a BUST, please see !addiction to deal with your loss.", log.visible);
                     API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
-log("getPosition(author)=" + getPosition(author) + " + 1 + blackJackUsers[game][1]=" + blackJackUsers[game][1], log.info);
                     deleteBlackJackGame(author);// game over, remove from blackJackUsers array
                     return;
                 } else {
