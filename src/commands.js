@@ -229,7 +229,7 @@ var commands = [
     new Command("blackjack", function(author, args) {
         blackJack(author, args);
     }, API.ROLE.MANAGER, function(author){
-        return author.trim() == "Invincibear";
+        return true;// author.trim() == "Invincibear";
     }, false),// hidden for now while it's developed, hence separated from the other BJ commands
 
 
