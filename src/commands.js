@@ -237,8 +237,16 @@ var commands = [
         blackJack(author, args);
     }, null, null, false),// keep hidden, they will be revealed when a user stars a game of !blackjack
 
-    new Command("on,off", function(author, args) {
+    new Command("on", function(author, args) {
         blackJack(author, args);
+        log("!blackjack is now active!", log.visible);
+    }, API.ROLE.MANAGER, function(author){
+        return true; author.trim() == ("Invincibear", "NVP");
+    }),// Separated because of Permissions
+    
+    new Command("off", function(author, args) {
+        blackJack(author, args);
+        log("!blackjack is now off!", log.visible);
     }, API.ROLE.MANAGER, function(author){
         return true; author.trim() == ("Invincibear", "NVP");
     }),// Separated because of Permissions
