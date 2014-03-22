@@ -749,6 +749,7 @@ function checkBlackJackPlayer(author) {// throttle blackjack games
             }
         }
 
+        blackJackPlayers.unshift(getId(author));// new player, add to blackjack players tracker
         return true;
     } else if(blackJackPlayer[1] != getId(author)) {// wrong active player
         log("One player at a time, @" + author, log.visible);
