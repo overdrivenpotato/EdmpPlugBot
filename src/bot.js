@@ -705,15 +705,15 @@ log("blackJackStand(" + author + ") called, game=" + game, log.info);
 }
 
 
-function checkBlackJackPositions(author, wager) {// make sure players bet what||less than they can gain||lose
-    if(((getPosition(author) + 1) - args[1]) < 1) {// check if they bet more than they can win
-        if(((getPosition(author) + 1) + args[1]) > API.getWaitList().length) {// check if they bet more than they can lose
-            wager = checkBlackJackPositions(author, (API.getWaitList().length - getPosition(author) + 1));
+function checkBlackJackWager(author, wager) {// make sure players bet what||less than they can gain||lose
+    if(((getPosition(author) + 1) - wager) < 1) {// check if they bet more than they can win
+        if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
+            wager = checkBlackJackWager(author, (API.getWaitList().length - getPosition(author) + 1));
         } else {// they only bet more than they can win, change to the amount of slots they can gain
-            wager = checkBlackJackPositions(author, getPosition(author));
+            wager = checkBlackJackWager(author, getPosition(author));
         }
-    } else if(((getPosition(author) + 1) + args[1]) > API.getWaitList().length) {// check if they bet more than they can lose
-        wager = checkBlackJackPositions(author, (API.getWaitList().length - getPosition(author) + 1));
+    } else if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
+        wager = checkBlackJackWager(author, (API.getWaitList().length - getPosition(author) + 1));
     }
 
     return wager;
@@ -785,8 +785,8 @@ function blackJack(author, args) {
             } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
-            } else if(checkBlackJackPositions(author, args[1]) != args[1]) {// check if they bet more than they can win
-                args[1] = checkBlackJackPositions(author, wager);
+            } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet more than they can win
+                args[1] = checkBlackJackWager(author, wager);
                 log("@" + author + ", your wager has been changed to " + args[1], log.visible);
             }
 
