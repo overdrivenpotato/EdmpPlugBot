@@ -10,6 +10,8 @@
 // tell the channel when an admin joins (when there wasn't one before)
 // tell the channel when all the admins leave (party!!!!)
 // blackjack needs to be limited to a player at a time, 5 minute time limit
+// fix blackjack limiter
+// add disconnect protection, 10 minute grace period?
 
 
 log("Loading bot...");
@@ -37,6 +39,7 @@ var totalSongs         = 0;
 var defaultSongLength  = 4;// measured in minutes
 var MaxAFKMinutes      = 90;// 90m/1.5hr afk DJ max (set this var in minutes)
 var blackJackTimeLimit = 5 * 60 * 1000;// 5 minute time limit per blackjack player
+var disconnectGrace    = 10 * 60 * 1000;// 10 minute grace period for accidental disconnects
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
 var lastPrivateSkip       = (typeof lastPrivateSkip === "undefined")       ? 0 : lastPrivateSkip;
@@ -776,9 +779,9 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
     if (!blackJackEnabled && args[1] != ("on" || "off")) {
         log("@" + author + ", blackJack isn't enabled, you can type !admins for a list of admins who can use " + '"!blackjack on"', log.visible);
         return;
-    } else if(!checkBlackJackPlayer(author) && args[1] != ("on" || "off")) {
-        return;
-    }
+    }// else if(!checkBlackJackPlayer(author) && args[1] != ("on" || "off")) {
+     //   return;
+   // }
 
     switch(args[0]) {
         case 'hitme':
