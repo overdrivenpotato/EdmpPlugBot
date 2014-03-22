@@ -25,11 +25,12 @@ var GreetingEnabled = (curdate.getDay() != 3 && curdate.getDay() != 6);// disabl
 var version   = "0.6.7";
 var meetupUrl = "http://reddit.com/r/edmproduction/";
 
-var trackAFKs       = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
-var blackJackUsers  = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
-var upvotes         = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
-var afkNames        = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
-var blackJackPlayer = [Date.now(), ""];// format: array[timestamp, userid];
+var trackAFKs        = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
+var blackJackUsers   = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
+var upvotes          = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
+var afkNames         = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
+var blackJackPlayer  = [Date.now(), ""];// format: array[timestamp, userid];
+var blackJackPlayers = [];
 
 var totalSongTime      = 0;
 var totalSongs         = 0;
@@ -739,19 +740,26 @@ function checkBlackJackWager(author, wager) {// make sure players bet what||less
 }
 
 
-function checkBlackJackPlayer(author) {
-    if (blackJackPlayer[1] != "") {// no active player
+function checkBlackJackPlayer(author) {// throttle blackjack games
+    if(blackJackPlayer[1] != "") {// no active player
+        for(var i = 0;i < 5; i++) {
+            if(blackJackPlayers[i] == getId(author)) {
+                log("@" + author + ", you must wait a few turns before you can play !blackjack again.", log.visible);
+                return false;
+            }
+        }
+
         return true;
     } else if(blackJackPlayer[1] != getId(author)) {// wrong active player
         log("One player at a time, @" + author, log.visible);
         return false;
     } else if((Date.now() - blackJackPlayer[0]) > blackJackTimeLimit) {// time limit expired
-        var BJusername = getUsername(blackJackPlayer[0]);
-        var game       = getBlackJackGame(BJusername, true);//array key of current saved game
+        var username = getUsername(blackJackPlayer[0]);
+        var game       = getBlackJackGame(username, true);//array key of current saved game
 
-        log("@" + BJusername + ", time expired and you forfeit your game of blackjack. You lose " + savedgame[1] + " slots.");
-        API.moderateMoveDJ(blackJackPlayer[1], getPosition(BJusername) + 1 + blackJackUsers[game][1]);
-        deleteBlackJackGame(BJusername);
+        log("@" + username + ", time expired and you forfeit your game of blackjack. You lose " + blackJackUsers[game][1] + " slots.");
+        API.moderateMoveDJ(blackJackPlayer[1], getPosition(username) + 1 + blackJackUsers[game][1]);
+        deleteBlackJackGame(username);
 
         return true;
     }
@@ -766,6 +774,10 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
 
     if (!blackJackEnabled && args[1] != ("on" || "off")) {
         log("@" + author + ", blackJack isn't enabled, you can type !admins for a list of admins who can use " + '"!blackjack on"', log.visible);
+        return;
+    }
+
+    if(!checkBlackJackPlayer(author)) {
         return;
     }
 
