@@ -107,7 +107,7 @@ var commands = [
     new Command("update", function() {
         updateBot();
     }, API.ROLE.MANAGER, function(author){
-        return getId(author) == (invincibear);// Ok, good point.
+        return getId(author) == (invincibear, nvp);// Ok, good point.
     }),
 
 

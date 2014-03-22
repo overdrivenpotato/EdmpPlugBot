@@ -50,6 +50,7 @@ var lastJoined = "";// userID of last joined user
 var scClientId = "ff550ffd042d54afc90a43b7151130a1";// API credentials
 var botID      = "531bdea096fba5070c4cad51";
 var invincibear= "52fff97b3b7903273314e678";
+var nvp        = "53090acb63051f462837692e";
 
 API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.DJ_ADVANCE, onDJAdvance);
