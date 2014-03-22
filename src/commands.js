@@ -225,7 +225,7 @@ var commands = [
         log("@" + author + " has entered the lottery! There are now " + lotteryEntries.length + " entries!", log.visible);
     }),
 
-
+    
     new Command("blackjack", function(author, args) {
         blackJack(author, args);
     }, API.ROLE.MANAGER, function(author){
@@ -237,6 +237,11 @@ var commands = [
         blackJack(author, args);
     }, null, null, false),// keep hidden, they will be revealed when a user stars a game of !blackjack
 
+    new Command("on,off", function(author, args) {
+        blackJack(author, args);
+    }, API.ROLE.MANAGER, function(author){
+        return true; author.trim() == ("Invincibear", "NVP");
+    }),// Separated because of Permissions
 
     new Command("addiction", function(author) {
         log("The first step @" + author + ", is admitting you have a gambling problem. Get your life together and quit gambling on !rollthedice and !lottery.", log.visible);
