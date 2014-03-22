@@ -262,26 +262,21 @@ var commands = [
         log("WELL FINE THEN, bitch", log.visible);
     }, null, null, false),
 
-
     new Command("herp", function() {
         log("derp", log.visible);
     }, null, null, false),
-
 
     new Command("damn", function() {
         log("SON, WHERE'D YOU FIND THIS??", log.visible);
     }, null, null, false),
 
-
     new Command("pushme", function() {
         log("And then just touch me", log.visible);
     }, null, null, false),
 
-
     new Command("soicangetmy", function() {
         log("Satisfaction", log.visible);
     }, null, null, false),
-
 
     new Command("sympathy", function() {
         log("Please direct your sympathy to @spyre", log.visible);
@@ -291,11 +286,13 @@ var commands = [
         log("ware!", log.visible);
     }, null, null, false),
 
-
     new Command("goosesux", function() {
         log("Yes he does.", log.visible);
     }, null, null, false),
 
+    new Command("becomeselfaware ", function() {
+        log("Been there, done that, haven't you tried !8ball?", log.visible);
+    }, null, null, false),
 
     new Command("hype", function() {
         log("1 PLAY!", log.visible);
