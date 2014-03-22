@@ -18,7 +18,7 @@ var curdate = new Date();
 
 var skipFixEnabled  = false;
 var lotteryEnabled  = false;
-var blackJackEnabled= false;
+var blackJackEnabled= (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
 var version   = "0.6.7";
@@ -28,7 +28,7 @@ var trackAFKs       = [];// format: array[0=>username, 1=>userID, 2=>time of las
 var blackJackUsers  = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
 var upvotes         = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
 var afkNames        = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
-var blackJackPlayer = [Date.now(), null];// format: array[timestamp, userid]
+var blackJackPlayer = [Date.now(), null];// format: array[timestamp, userid];
 
 var totalSongTime      = 0;
 var totalSongs         = 0;
@@ -729,7 +729,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
     var game      = null;
     var output    = "";
 
-    if (!blackJackEnabled) {
+    if (!blackJackEnabled && args[0] != ("on" || "off")) {
         log("@" + author + ", blackJack isn't enabled, you can type !admins for a list of admins who can use " + '"!blackjack on"', log.visible);
         return;
     }
@@ -781,11 +781,11 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
         default:
             if(args[1] == "on") {
                 blackJackEnabled = true;
-                log("Blackjack is now active!        Type !blackjack to play!", log.visible);
+                log("Blackjack is now active! Type !blackjack insertnumberofslotstogamblehere to play!", log.visible);
                 return;
             } else if(args[1] == "off") {
                 blackJackEnabled = false;
-                log("Blackjack is now closed. Try again later!", log.visible);
+                log("Blackjack is now closed, try again later.", log.visible);
                 return;
             }
 
