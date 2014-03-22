@@ -792,7 +792,7 @@ function blackJack(author, args) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
             } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet more than they can win
-                args[1] = checkBlackJackWager(author, wager);
+                args[1] = checkBlackJackWager(author, args[1]);
                 log("@" + author + ", your wager has been changed to " + args[1], log.visible);
             }
 
