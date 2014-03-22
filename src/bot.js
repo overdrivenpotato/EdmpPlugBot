@@ -723,24 +723,29 @@ function checkBlackJackWager(author, wager) {// make sure players bet what||less
 }
 
 
-function blackJack(author, args) {
+function blackJack(author, args) {// ever been to a casino? good, then I won't explain this function
     var savedGame = null;
     var getCard   = null;
     var game      = null;
     var output    = "";
 
+    if (!blackJackEnabled) {
+        log("@" + author + ", blackJack isn't enabled, you can type !admins for a list of admins who can use " + '"!blackjack on"', log.visible);
+        return;
+    }
+
     switch(args[0]) {
         case 'hitme':
         case 'hit':
-            savedGame = getBlackJackGame(author);
-            game      = getBlackJackGame(author, true);
+            savedGame = getBlackJackGame(author);// array of current saved game
+            game      = getBlackJackGame(author, true);//array key of current saved game
 
-            if (blackJackUsers[game][7]) {
+            if(blackJackUsers[game][7]) {
                 log("@" + author + " you've already agreed to !stand, you must let the dealer play out their hand.");
                 return;
             }
 
-            if (savedGame != -1) {
+            if(savedGame != -1) {
                 getCard      = _getRandCard(savedGame[4], true);// deal a card and get the new deck-chosen card
                 savedGame[2].push(savedGame[4][getCard[1]]);// add the new card to the user's hand
                 savedGame[4] = getCard[0];// make sure we use the spliced deck
@@ -778,7 +783,6 @@ function blackJack(author, args) {
                 blackJackEnabled = true;
                 log("Blackjack is now active!        Type !blackjack to play!", log.visible);
                 return;
-                break;
             } else if(args[1] == "off") {
                 blackJackEnabled = false;
                 log("Blackjack is now closed. Try again later!", log.visible);
