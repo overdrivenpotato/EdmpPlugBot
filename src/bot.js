@@ -775,7 +775,7 @@ function blackJack(author, args) {
         default:
             if(args[1] == "on") {
                 blackJackEnabled = true;
-                log("Blackjack is now active! Type !blackjack to play!", log.visible);
+                log("Blackjack is now active!        Type !blackjack to play!", log.visible);
                 return;
                 break;
             } else if(args[1] == "off") {
