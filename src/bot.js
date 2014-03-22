@@ -729,14 +729,6 @@ function blackJack(author, args) {
     var output    = "";
 
     switch(args[0]) {
-        case 'on':
-            blackJackEnabled = true;
-            log("turn bj on", log.visible);
-        break;
-        case 'off':
-            blackJackEnabled = false;
-            log("turn bj off", log.visible);
-        break;
         case 'hitme':
         case 'hit':
             savedGame = getBlackJackGame(author);
@@ -781,8 +773,17 @@ function blackJack(author, args) {
         break;
         case 'blackjack':
         default:
-//log("let's play blackjack!", log.info);
-//log("args.length="+args.length, log.info);
+            if(args[1] == "on") {
+                blackJackEnabled = true;
+                log("turn bj on", log.visible);
+                return;
+                break;
+            } else if(args[1] == "off") {
+                blackJackEnabled = false;
+                log("turn bj off", log.visible);
+                return;
+            }
+
             if(args.length <= 1) {
                 log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to lose. Usage: !blackjack 5", log.visible);
                 return;
