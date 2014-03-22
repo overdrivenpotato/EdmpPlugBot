@@ -18,6 +18,7 @@ var curdate = new Date();
 
 var skipFixEnabled  = false;
 var lotteryEnabled  = false;
+var blackJackEnabled= false;
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 
 var version   = "0.6.6";
@@ -729,10 +730,12 @@ function blackJack(author, args) {
 
     switch(args[0]) {
         case 'on':
-            var bjtoggle = "";
+            blackJackEnabled = true;
+            log("turn bj on", log.visible);
         break;
         case 'off':
-            var bjtoggle = "false";
+            blackJackEnabled = false;
+            log("turn bj off", log.visible);
         break;
         case 'hitme':
         case 'hit':
