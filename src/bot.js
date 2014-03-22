@@ -776,12 +776,12 @@ log("getPosition(author)=" + getPosition(author) + " + 1 + blackJackUsers[game][
         default:
             if(args[1] == "on") {
                 blackJackEnabled = true;
-                log("turn bj on", log.visible);
+                log("Blackjack is now active! Type !blackjack to play!", log.visible);
                 return;
                 break;
             } else if(args[1] == "off") {
                 blackJackEnabled = false;
-                log("turn bj off", log.visible);
+                log("Blackjack is now closed. Try again later!", log.visible);
                 return;
             }
 
