@@ -708,9 +708,9 @@ log("blackJackStand(" + author + ") called, game=" + game, log.info);
 function checkBlackJackWager(author, wager) {// make sure players bet what||less than they can gain||lose
     if(((getPosition(author) + 1) - wager) < 1) {// check if they bet more than they can win
         if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-            wager = checkBlackJackWager(author, (API.getWaitList().length - getPosition(author) + 1));
+            wager = API.getWaitList().length - getPosition(author) + 1;
         } else {// they only bet more than they can win, change to the amount of slots they can gain
-            wager = checkBlackJackWager(author, getPosition(author));
+            wager = getPosition("Invincibear");// how much they can win
         }
     } else if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
         wager = checkBlackJackWager(author, (API.getWaitList().length - getPosition(author) + 1));
