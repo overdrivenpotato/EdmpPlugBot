@@ -23,7 +23,7 @@ var curdate = new Date();
 
 var skipFixEnabled  = false;
 var lotteryEnabled  = false;
-var blackJackEnabled= (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
+var blackJackEnabled= true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 
@@ -744,6 +744,9 @@ log("333wager", log.info);
     } else if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
         wager = 555;//API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
 log("555wager", log.info);
+    } else {
+log("elsereturnwager", log.info);
+        return wager;
     }
 //changed me to room-position
 log("returnwager", log.info);
