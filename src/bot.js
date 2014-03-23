@@ -524,7 +524,7 @@ function rollTheDice(author) {
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
 
-    if (dicetotal == 5 || dicetotal == 7 || dicetotal == 9 || x == y) {
+    if (dicetotal == 7 || x == y) {
         log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations! You've earned a 3 slot bump closer to the front!", log.visible);
 
         if ((getPosition(author) + 1 - 3) > 1) {
@@ -533,7 +533,7 @@ function rollTheDice(author) {
             API.moderateMoveDJ(getId(author), 1);
         }
     } else {
-        log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles, 5, 7, or 9 to advance.", log.visible);
+        log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles or 7 to advance.", log.visible);
         API.moderateMoveDJ(getId(author), getPosition(author) + 1 + 1);
     }
 }
