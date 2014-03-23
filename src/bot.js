@@ -27,7 +27,7 @@ var curdate = new Date();
 var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var blackJackEnabled= true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
-var ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
+var ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 
 var version   = "0.6.9";

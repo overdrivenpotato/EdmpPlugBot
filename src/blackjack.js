@@ -151,7 +151,7 @@ function checkBlackJackWager(author, wager) {// make sure players bet what||less
 
 
 function checkBlackJackPlayer(author) {// throttle blackjack games
-    if(blackJackPlayer[1] != "") {// no active player
+    if(blackJackPlayer[1] == "") {// no active player
         for(var i = 0;i < 5; i++) {
             if(blackJackPlayers[i] == getId(author)) {
                 log("@" + author + ", you must wait a few turns before you can play !blackjack again.", log.visible);
