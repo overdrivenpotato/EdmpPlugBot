@@ -735,8 +735,8 @@ log("blackJackStand(" + author + ") called, game=" + game, log.info);
 
 function checkBlackJackWager(author, wager) {// make sure players bet what||less than they can gain||lose
 log("checkBlackJackWager(" + author + ", " + wager + ")", log.info);
-    var correctedPosition = parseFloat(getPosition(author) + 1);
-    wager = parseFloat(wager);
+    var correctedPosition = parseInt(getPosition(author) + 1);
+    wager = parseInt(wager);
 
     if((correctedPosition - wager) < 1) {// check if they bet more than they can win
 log("firstif", log.info);
