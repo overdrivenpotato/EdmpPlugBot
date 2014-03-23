@@ -310,23 +310,23 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                 if(handUser[1] == "A" || handDealer[1] == "A") {
                     output += "Ace detected, revealing hands, yours: " + handUser[0] + "-" + handUser[1] + "; dealer's: " + handDealer[0] + "-" + handDealer[1] + ". ";
 
-                    setTimeout(function(){// delay needed because plug.dj can't handle rapid-succession messages
+//                    setTimeout(function(){// delay needed because plug.dj can't handle rapid-succession messages
                         if(((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
                             log(output + "You dodged a bullet, you both hit BlackJack!", log.visible);
                             blackJackUsers[game][6] = true;// cards now face-up
                             deleteBlackJackGame(author);
                         } else if((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") && handUser[1] == "A") {
-                            log(output + "Congratulations @" + author + ", you won! You've gained " + args[1] + " positions!", log.visible);
+                            log(output + "Congratulations you won!", log.visible);
                             blackJackUsers[game][6] = true;// cards now face-up
                             deleteBlackJackGame(author);
                             API.moderateMoveDJ(getId(author), getPosition(author) + 1 - blackJackUsers[game][1]);
                         } else if((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A") {
-                            log(output + "Hey everybody, @" + author + ", just got beaten at !blackjack by @EDMBot! You've lost " + args[1] + " positions, pitiful.", log.visible);
+                            log(output + "@" + author + " got beaten at !blackjack by @EDMBot", log.visible);
                             API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
                             blackJackUsers[game][6] = true;// cards now face-up
                             deleteBlackJackGame(author);
                         }
-                    }, 2500);
+//                    }, 2500);
                 } else {
                     output += "No Aces detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". ";
 
