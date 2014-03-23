@@ -210,6 +210,9 @@ var commands = [
 //    }), 
 //Disabled until we can fix it
 
+    new Command("rollthedice", function(author) {
+        log("!rollthedice is disabled until further notice. Try again later.")
+    }),
 
     new Command("lottery", function(author) {
         if(new Date().getMinutes() >= 10) {
