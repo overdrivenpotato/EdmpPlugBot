@@ -127,7 +127,7 @@ function cronFiveMinutes() {// called every 5 minutes
 
 function stop(update) {
     clearInterval(window.edmpBot);
-    log("Shutting down the bot. Bye!", log.visible);
+    log("Shutting down the bot. Bye!", log.info);
     API.off();
 
     if(!update) {
@@ -731,17 +731,24 @@ log("blackJackStand(" + author + ") called, game=" + game, log.info);
 
 
 function checkBlackJackWager(author, wager) {// make sure players bet what||less than they can gain||lose
+log("checkBlackJackWager(" + author + ", " + wager + ")", log.info);
     if(((getPosition(author) + 1) - wager) < 1) {// check if they bet more than they can win
+log("firstif", log.info);
         if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
             wager = 111;//API.getWaitList().length - getPosition(author) + 1;// how much they can lose
+log("111wager", log.info);
         } else {// they only bet more than they can win, change to the amount of slots they can gain
             wager = 333;//getPosition(author);// how much they can win
+log("333wager", log.info);
         }
     } else if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
         wager = 555;//API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
+log("555wager", log.info);
     }
 //changed me to room-position
+log("returnwager", log.info);
     return wager;
+
 }
 
 
