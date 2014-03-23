@@ -252,7 +252,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
             }
 
             if(args.length <= 1) {
-                if(getBlackJackGame(author, true) == getId(author)) {// already have an active game, show them their options
+                if(getBlackJackGame(author, true) != -1) {// already have an active game, show them their options
                     savedGame = getBlackJackGame(author);
                     log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand.", log.visible);
                 } else {
