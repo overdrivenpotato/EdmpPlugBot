@@ -156,7 +156,7 @@ function checkBlackJackPlayer(author) {// throttle blackjack games
     if(blackJackPlayer[1] == "") {// no active player
         for(var i = 0;i < 5; i++) {
             if(blackJackPlayers[i] == authorID) {
-                log("@" + author + ", you must wait a few turns before you can play !blackjack again.", log.visible);
+                log("@" + author + ", you must wait a few turns before you can play !blackjack again", log.visible);
                 return false;
             }
         }
@@ -165,13 +165,13 @@ function checkBlackJackPlayer(author) {// throttle blackjack games
         blackJackPlayers.unshift(authorID);// new player, add to blackjack players tracker
         return true;
     } else if(blackJackPlayer[1] != "" && blackJackPlayer[1] != authorID) {// wrong active player
-        log("One player at a time, @" + author, log.visible);
+        log("One blackjack player at a time, @" + author, log.visible);
         return false;
     } else if((Date.now() - blackJackPlayer[0]) > blackJackTimeLimit) {// time limit expired
         var username = getUsername(blackJackPlayer[0]);
         var game     = getBlackJackGame(username, true);//array key of current saved game
 
-        log("@" + username + ", time expired and you forfeit your game of blackjack. You lose " + blackJackUsers[game][1] + " slots.");
+        log("@" + username + ", time expired and you forfeit your blackjack game, losing " + blackJackUsers[game][1] + " slots");
         API.moderateMoveDJ(blackJackPlayer[1], getPosition(username) + 1 + blackJackUsers[game][1]);
         deleteBlackJackGame(username);
 
@@ -203,7 +203,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
             game      = getBlackJackGame(author, true);//array key of current saved game
 
             if(savedGame != -1 && blackJackUsers[game][7]) {
-                log("@" + author + " you've already agreed to !stand, you must let the dealer play out their hand.");
+                log("@" + author + " you've already agreed to !stand, you must let the dealer play out their hand");
                 return;
             }
 
@@ -220,16 +220,16 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                     deleteBlackJackGame(author);
                     return;
                 } else if(getSumOfHand(savedGame[2]) == 21) {
-                    log(output + "& forcing you to !stand, action is on the dealer now.", log.visible);
+                    log(output + "& forcing you to !stand, action is on the dealer now", log.visible);
                     blackJackStand(author);
                     return;
                 } else if(getSumOfHand(savedGame[2]) > 21) {
-                    log(output + "which is a BUST, please see !addiction to deal with your loss.", log.visible);
+                    log(output + "which is a BUST, please see !addiction to deal with your loss", log.visible);
                     API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
                     deleteBlackJackGame(author);// game over, remove from blackJackUsers array
                     return;
                 } else {
-                    log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand.", log.visible);
+                    log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand", log.visible);
                 }
             } else {
                 log("@" + author + ", please start a new game with the !blackjack command, including the amount of DJ wait list slots to wager. Usage: !blackjack 5", log.visible);

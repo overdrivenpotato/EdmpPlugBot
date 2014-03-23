@@ -17,6 +17,7 @@
 // better private track detection
 // blackjack 21 win doesn't send to chat, msg flood?
 // Work on not flooding the chat with text from the bot.
+// hourly cron no longer working???
 
 
 
