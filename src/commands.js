@@ -205,9 +205,10 @@ var commands = [
     }),
 
 
-    new Command("rollthedice", function(author) {
-        rollTheDice(author);
-    } false), //Disabled until we can fix it
+//    new Command("rollthedice", function(author) {
+//        rollTheDice(author);
+//    }), 
+//Disabled until we can fix it
 
 
     new Command("lottery", function(author) {
