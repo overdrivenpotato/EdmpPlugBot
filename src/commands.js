@@ -302,7 +302,7 @@ var commands = [
         log("BLAZE IT FAGGOT", log.visible);
     }),
 
-    new Command("gamble", function() {
+    new Command("gamble", function(author) {
         log("@" + author + ", you can lose your dreams and aspirations by playing !lottery, !rollthedice, and !blackjack", log.visible);
     })
 ];
