@@ -15,6 +15,7 @@
 // add !war game to swap slots with the challenger
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
 // better private track detection
+//dice odds to 5-7-9-dbls
 
 
 
@@ -741,17 +742,17 @@ log("checkBlackJackWager(" + author + ", " + wager + ")", log.info);
     if((correctedPosition - wager) < 1) {// check if they bet more than they can win
 log("firstif", log.info);
         if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-            wager = 111;//API.getWaitList().length - getPosition(author) + 1;// how much they can lose
+            wager = API.getWaitList().length - getPosition(author) + 1;// how much they can lose
 log("111wager", log.info);
         } else {// they only bet more than they can win, change to the amount of slots they can gain
-            wager = 333;//getPosition(author);// how much they can win
+            wager = getPosition(author);// how much they can win
 log("333wager", log.info);
         }
     } if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
 log("getPosition(author)=" + getPosition(author) + "; wager=" + wager + "; API.getWaitList().length=" + API.getWaitList().length, log.info);
 log("translates into this math", log.info);
 log(((getPosition(author) + 1) + wager) + " > " + API.getWaitList().length, log.info);
-        wager = 555;//API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
+        wager = API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
 log("555wager", log.info);
     } else {
 log("elsereturnwager", log.info);
@@ -809,7 +810,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
             savedGame = getBlackJackGame(author);// array of current saved game
             game      = getBlackJackGame(author, true);//array key of current saved game
 
-            if(blackJackUsers[game][7]) {
+            if(savedGame != -1 && blackJackUsers[game][7]) {
                 log("@" + author + " you've already agreed to !stand, you must let the dealer play out their hand.");
                 return;
             }
