@@ -252,7 +252,13 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
             }
 
             if(args.length <= 1) {
-                log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to lose. Usage: !blackjack 5", log.visible);
+                if(getBlackJackGame(author, true) == getId(author)) {// already have an active game, show them their options
+                    savedGame = getBlackJackGame(author);
+                    log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand.", log.visible);
+                } else {
+                    log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to lose. Usage: !blackjack 5", log.visible);
+                }
+
                 return;
             } else if(isNaN(args[1])) {
                 log("@" + author + " please enter a valid wager.", log.visible);
