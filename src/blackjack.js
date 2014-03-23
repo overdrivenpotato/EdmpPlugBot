@@ -161,7 +161,7 @@ function checkBlackJackPlayer(author) {// throttle blackjack games
             }
         }
 
-        blackJackPlayer[1] = authorID;// set current player id to enforce 1 player at a time
+        blackJackPlayer[1] = authorID;// set current userID to enforce 1 player at a time
         blackJackPlayers.unshift(authorID);// new player, add to blackjack players tracker
         return true;
     } else if(blackJackPlayer[1] != "" && blackJackPlayer[1] != authorID) {// wrong active player
