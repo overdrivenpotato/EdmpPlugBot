@@ -131,30 +131,20 @@ function blackJackStand(author){// function for dealer to keep hitting if needed
 
 
 function checkBlackJackWager(author, wager) {// make sure players bet what||less than they can gain||lose
-    log("checkBlackJackWager(" + author + ", " + wager + ")", log.info);
     var correctedPosition = parseInt(getPosition(author) + 1);
     wager = parseInt(wager);
 
     if((correctedPosition - wager) < 1) {// check if they bet more than they can win
-        log("firstif", log.info);
         if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
             wager = API.getWaitList().length - getPosition(author) + 1;// how much they can lose
-            log("111wager", log.info);
         } else {// they only bet more than they can win, change to the amount of slots they can gain
             wager = getPosition(author);// how much they can win
-            log("333wager", log.info);
         }
-    } if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-        log("getPosition(author)=" + getPosition(author) + "; wager=" + wager + "; API.getWaitList().length=" + API.getWaitList().length, log.info);
-        log("translates into this math", log.info);
-        log(((getPosition(author) + 1) + wager) + " > " + API.getWaitList().length, log.info);
-        wager = API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
-        log("555wager", log.info);
-    } else {
-        log("elsereturnwager", log.info);
-        return wager;
     }
-    log("returnwager", log.info);
+    if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
+        wager = API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
+    }
+
     return wager;
 
 }

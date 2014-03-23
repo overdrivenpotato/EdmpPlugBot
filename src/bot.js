@@ -508,14 +508,14 @@ function analyzeSongHistory() {
 }
 
 
-function rollTheDice (author) {
-    if ((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
+function rollTheDice(author) {
+    if((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
         log("@" + author + ", you can't roll if you're fresh on the DJ wait list, wait a few songs or get help by typing !addiction", log.visible);
         return;
-    } else if (getPosition(author) == -1) {
+    } else if(getPosition(author) == -1) {
         log("@" + author + ", you're already DJing, you can't move positions!", log.visible);
         return;
-    } else if (getPosition(author) == 0) {
+    } else if(getPosition(author) == 0) {
         log("@" + author + ", you're already the next to DJ, type !addiction for help with your problem.", log.visible);
         return;
     }
@@ -524,19 +524,17 @@ function rollTheDice (author) {
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
 
-    if (dicetotal == 7) {
-        if ((getPosition(author) - 4) < 1) {
-            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations, you've earned a 3 slot bump closer to the front!", log.visible);
-            API.moderateMoveDJ(getId(author), getPosition(author) - 4);
+    if (dicetotal == 5 || dicetotal == 7 || dicetotal == 9 || x == y) {
+        log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations! You've earned a 3 slot bump closer to the front!", log.visible);
+
+        if ((getPosition(author) + 1 - 3) < 1) {
+            API.moderateMoveDJ(getId(author), getPosition(author) + 1 - 3);
         } else {
-            log ("@" + author + ", you rolled the near-impossible, a " + x + " and a " + y + ". Congratulations! You've been bumped to the front of the line!", log.visible);
             API.moderateMoveDJ(getId(author), 1);
         }
-    } else if (x == y) {
-        log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
-        log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles or 7 to not lose position!", log.visible);
-        API.moderateMoveDJ(getId(author), getPosition(author) + 2);
+        log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles, 5, 7, or 9 to advance.", log.visible);
+        API.moderateMoveDJ(getId(author), getPosition(author) + 1 + 1);
     }
 }
 
