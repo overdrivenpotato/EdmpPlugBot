@@ -187,7 +187,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
         log("@" + author + ", blackJack isn't enabled, you can type !admins for a list of admins who can use " + '"!blackjack on"', log.visible);
         return;
     }
-    if(!checkBlackJackPlayer(author) && args[1] != "on" && args[1] != "off") {
+    if(!checkBlackJackPlayer(author) && args[1] != "on" && args[1] != "off" && args[1] != "hit" && args[1] != "hitme" && args[1] != "stand" && args[1] != "hold") {
        return;
     }
 
