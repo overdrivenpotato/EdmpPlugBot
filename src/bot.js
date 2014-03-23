@@ -390,6 +390,8 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
             }
         }
     }
+
+    setTimeout(function(){$("#woot").click();}, 2000);// auto-woot the song
 }
 
 
@@ -524,7 +526,7 @@ function rollTheDice (author) {
             log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations, you've earned a 3 slot bump closer to the front!", log.visible);
         } else {
             API.moderateMoveDJ(getId(author), 1);
-            log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations, you've earned a 5 slot bump to the front of the line!", log.visible);
+            log ("@" + author + ", you rolled the near-impossible, a " + x + " and a " + y + ". Congratulations! You've been bumped to the front of the line!", log.visible);
         }
     } else if (x == y) {
         log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
@@ -741,14 +743,16 @@ log("111wager", log.info);
             wager = 333;//getPosition(author);// how much they can win
 log("333wager", log.info);
         }
-    } else if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
+    } if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
+log("getPosition(author)=" + getPosition(author) + "; wager=" + wager + "; API.getWaitList().length=" + API.getWaitList().length, log.info);
+log("translates into this math", log.info);
+log(((getPosition(author) + 1) + wager) + " > " + API.getWaitList().length, log.info);
         wager = 555;//API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
 log("555wager", log.info);
     } else {
 log("elsereturnwager", log.info);
         return wager;
     }
-//changed me to room-position
 log("returnwager", log.info);
     return wager;
 
