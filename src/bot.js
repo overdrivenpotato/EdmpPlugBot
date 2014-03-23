@@ -15,7 +15,9 @@
 // add !war game to swap slots with the challenger
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
 // better private track detection
-//dice odds to 5-7-9-dbls
+// dice odds to 5-7-9-dbls
+// blackjack 21 win doesn't send to chat, msg flood?
+
 
 
 log("Loading bot...");
@@ -523,17 +525,17 @@ function rollTheDice (author) {
 
     if (dicetotal == 7) {
         if ((getPosition(author) - 4) < 1) {
-            API.moderateMoveDJ(getId(author), getPosition(author) - 4);
             log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations, you've earned a 3 slot bump closer to the front!", log.visible);
+            API.moderateMoveDJ(getId(author), getPosition(author) - 4);
         } else {
-            API.moderateMoveDJ(getId(author), 1);
             log ("@" + author + ", you rolled the near-impossible, a " + x + " and a " + y + ". Congratulations! You've been bumped to the front of the line!", log.visible);
+            API.moderateMoveDJ(getId(author), 1);
         }
     } else if (x == y) {
         log ("@" + author + ", you rolled doubles congrats! You neither advance nor retard a position, close call!")
     } else {
-        API.moderateMoveDJ(getId(author), getPosition(author) + 2);
         log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles or 7 to not lose position!", log.visible);
+        API.moderateMoveDJ(getId(author), getPosition(author) + 2);
     }
 }
 
@@ -906,7 +908,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                 blackJackUsers.push([getId(author), args[1], handUser, handDealer, newDeck, false, false]);// add dealt hands and reduced decks to blackJackUsers tracking array
 
                 game   = blackJackUsers.length - 1;// set array key for future storage/retrieval within function;
-                output = "@" + author + " dealt: X-" + handUser[1] + ". Dealer's dealt: X-" + handDealer[1] + ". ";
+                output = "@" + author + " dealt: [?]-" + handUser[1] + ". Dealer's dealt: X-" + handDealer[1] + ". ";
 
                 if(handUser[1] == "A" || handDealer[1] == "A") {
                     output += "Ace detected, revealing hands, yours: " + handUser[0] + "-" + handUser[1] + "; dealer's: " + handDealer[0] + "-" + handDealer[1] + ". ";
