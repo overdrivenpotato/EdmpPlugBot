@@ -161,7 +161,7 @@ function checkBlackJackPlayer(author) {// throttle blackjack games
 
         blackJackPlayers.unshift(getId(author));// new player, add to blackjack players tracker
         return true;
-    } else if(blackJackPlayer[1] != getId(author)) {// wrong active player
+    } else if(blackJackPlayer[1] != "" && blackJackPlayer[1] != getId(author)) {// wrong active player
         log("One player at a time, @" + author, log.visible);
         return false;
     } else if((Date.now() - blackJackPlayer[0]) > blackJackTimeLimit) {// time limit expired
