@@ -14,6 +14,7 @@
 // roll the dice says can't roll because already DJing but reality is they're the last DJ in the queue
 // add !war game to swap slots with the challenger
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
+// better private track detection
 
 
 
@@ -734,16 +735,19 @@ log("blackJackStand(" + author + ") called, game=" + game, log.info);
 
 function checkBlackJackWager(author, wager) {// make sure players bet what||less than they can gain||lose
 log("checkBlackJackWager(" + author + ", " + wager + ")", log.info);
-    if(((getPosition(author) + 1) - wager) < 1) {// check if they bet more than they can win
+    var correctedPosition = parseFloat(getPosition(author) + 1);
+    wager = parseFloat(wager);
+
+    if((correctedPosition - wager) < 1) {// check if they bet more than they can win
 log("firstif", log.info);
-        if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
+        if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
             wager = 111;//API.getWaitList().length - getPosition(author) + 1;// how much they can lose
 log("111wager", log.info);
         } else {// they only bet more than they can win, change to the amount of slots they can gain
             wager = 333;//getPosition(author);// how much they can win
 log("333wager", log.info);
         }
-    } if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
+    } if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
 log("getPosition(author)=" + getPosition(author) + "; wager=" + wager + "; API.getWaitList().length=" + API.getWaitList().length, log.info);
 log("translates into this math", log.info);
 log(((getPosition(author) + 1) + wager) + " > " + API.getWaitList().length, log.info);
