@@ -193,12 +193,13 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
     var game      = null;
     var output    = "";
 
-    if (!blackJackEnabled && args[1] != ("on" || "off")) {
+    if (!blackJackEnabled && args[1] != "on" && args[1] != "off") {
         log("@" + author + ", blackJack isn't enabled, you can type !admins for a list of admins who can use " + '"!blackjack on"', log.visible);
         return;
-    }// else if(!checkBlackJackPlayer(author) && args[1] != ("on" || "off")) {
-    //   return;
-    // }
+    }
+    if(!checkBlackJackPlayer(author) && args[1] != "on" && args[1] != "off") {
+       return;
+    }
 
     switch(args[0]) {
         case 'hitme':
@@ -303,7 +304,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                 blackJackUsers.push([getId(author), args[1], handUser, handDealer, newDeck, false, false]);// add dealt hands and reduced decks to blackJackUsers tracking array
 
                 game   = blackJackUsers.length - 1;// set array key for future storage/retrieval within function;
-                output = "@" + author + " dealt: [?]-" + handUser[1] + ". Dealer's dealt: X-" + handDealer[1] + ". ";
+                output = "@" + author + " dealt: [?]-" + handUser[1] + ". Dealer's dealt: [?]-" + handDealer[1] + ". ";
 
                 if(handUser[1] == "A" || handDealer[1] == "A") {
                     output += "Ace detected, revealing hands, yours: " + handUser[0] + "-" + handUser[1] + "; dealer's: " + handDealer[0] + "-" + handDealer[1] + ". ";
