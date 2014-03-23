@@ -211,7 +211,7 @@ var commands = [
 //Disabled until we can fix it
 
     new Command("rollthedice", function(author) {
-        log("!rollthedice is disabled until further notice. Try again later.")
+        log("!rollthedice is disabled until further notice. Try again later.", log.visible);
     }),
 
     new Command("lottery", function(author) {
