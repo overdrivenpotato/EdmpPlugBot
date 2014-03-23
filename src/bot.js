@@ -704,7 +704,7 @@ function blackJackStand(author){// function for dealer to keep hitting if needed
 log("blackJackStand(" + author + ") called, game=" + game, log.info);
 
     if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) < 21) {
-        log("@" + author + " your score is lower than @EDMPbot's, you must accept another card with !hitme", log.visible);
+        log("@" + author + " your score is lower than @EDMPbot's, you must accept another card with !hit", log.visible);
         return;
     } else {
         blackJackUsers[game][7] = true;
@@ -838,7 +838,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                     deleteBlackJackGame(author);// game over, remove from blackJackUsers array
                     return;
                 } else {
-                    log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hitme or !stand.", log.visible);
+                    log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand.", log.visible);
                 }
             } else {
                 log("@" + author + ", please start a new game with the !blackjack command, including the amount of DJ wait list slots to wager. Usage: !blackjack 5", log.visible);
@@ -880,7 +880,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
             savedGame = getBlackJackGame(author);
 
             if (savedGame != -1) {
-                log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hitme or !stand.", log.visible);
+                log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand.", log.visible);
             } else {
                 var newDeck    = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K", "A", "A", "A", "A"];
                 var handUser   = [];// values of cards from newDeck, not the keys
@@ -947,8 +947,10 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                         API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
                         blackJackUsers.splice(game, 1);// game over, remove from blackJackUsers array
                         return;
+                    } else if (getSumOfHand(handUser) < getSumOfHand(handDealer)) {
+                        output += "Your hand is weaker, you must !hit";
                     } else {
-                        output += "Your options are to either !hitme or !stand.";
+                        output += "Your options are to either !hit or !stand.";
                     }
 
                     log(output , log.visible);
