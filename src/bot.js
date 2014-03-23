@@ -15,8 +15,6 @@
 // add !war game to swap slots with the challenger
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
 // better private track detection
-// blackjack 21 win doesn't send to chat, msg flood?
-// Work on not flooding the chat with text from the bot.
 // hourly cron no longer working???
 
 

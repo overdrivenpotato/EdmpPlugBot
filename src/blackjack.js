@@ -168,7 +168,7 @@ function checkBlackJackPlayer(author) {// throttle blackjack games
         log("One blackjack player at a time, @" + author, log.visible);
         return false;
     } else if((Date.now() - blackJackPlayer[0]) > blackJackTimeLimit) {// time limit expired
-        var username = getUsername(blackJackPlayer[0]);
+        var username = getUsername(blackJackPlayer[1]);
         var game     = getBlackJackGame(username, true);//array key of current saved game
 
         log("@" + username + ", time expired and you forfeit your blackjack game, losing " + blackJackUsers[game][1] + " slots");
