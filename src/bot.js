@@ -12,6 +12,9 @@
 // add disconnect protection, 10 minute grace period?
 // eta should return minutes OR hours & minutes
 // roll the dice says can't roll because already DJing but reality is they're the last DJ in the queue
+// add !war game to swap slots with the challenger
+// ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
+
 
 
 log("Loading bot...");
@@ -37,7 +40,7 @@ var blackJackPlayers = [];
 var totalSongTime      = 0;
 var totalSongs         = 0;
 var defaultSongLength  = 4;// measured in minutes
-var MaxAFKMinutes      = 90;// 90m/1.5hr afk DJ max (set this var in minutes)
+var MaxAFKMinutes      = 30;// afk DJ max (set this var in minutes)
 var blackJackTimeLimit = 5 * 60 * 1000;// 5 minute time limit per blackjack player
 var disconnectGrace    = 10 * 60 * 1000;// 10 minute grace period for accidental disconnects
 
@@ -730,14 +733,14 @@ log("blackJackStand(" + author + ") called, game=" + game, log.info);
 function checkBlackJackWager(author, wager) {// make sure players bet what||less than they can gain||lose
     if(((getPosition(author) + 1) - wager) < 1) {// check if they bet more than they can win
         if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-            wager = API.getWaitList().length - getPosition(author) + 1;
+            wager = 111;//API.getWaitList().length - getPosition(author) + 1;// how much they can lose
         } else {// they only bet more than they can win, change to the amount of slots they can gain
-            wager = getPosition(author);// how much they can win
+            wager = 333;//getPosition(author);// how much they can win
         }
     } else if(((getPosition(author) + 1) + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-        wager = API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
+        wager = 555;//API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
     }
-
+//changed me to room-position
     return wager;
 }
 
