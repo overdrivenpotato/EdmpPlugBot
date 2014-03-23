@@ -229,11 +229,7 @@ var commands = [
     
     new Command("blackjack", function(author, args) {
         blackJack(author, args);
-    }, API.ROLE.BOUNCER, function(author){
-        return (getId(author) == invincibear || getId(author) == nvp);
     }),
-
-
     new Command("hit,hitme,stand,hold", function(author, args) {
         blackJack(author, args);
     }, null, null, false),// keep hidden, they will be revealed when a user stars a game of !blackjack
@@ -304,5 +300,5 @@ var commands = [
     
     new Command("420", function() {
         log("BLAZE IT FAGGOT", log.visible);
-    }),
+    })
 ];
