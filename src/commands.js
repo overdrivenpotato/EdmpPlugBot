@@ -303,6 +303,6 @@ var commands = [
     }),
 
     new Command("gamble", function(author) {
-        log("@" + author + ", you can lose your dreams and aspirations by playing !lottery, !rollthedice, and !blackjack", log.visible);
+        log("@" + author + ", you can lose your dreams and aspirations by playing !lottery, !rollthedice, and !blackjack. When you're tired of being such a drain on society, get help with !addiction", log.visible);
     })
 ];
