@@ -176,6 +176,8 @@ function checkBlackJackPlayer(author) {// throttle blackjack games
         deleteBlackJackGame(username);
 
         return true;
+    } else if(blackJackPlayer[1] == authorID) {// they are the current player
+        return true;
     }
 }
 
