@@ -300,5 +300,9 @@ var commands = [
 
     new Command("hype", function() {
         log("1 PLAY!", log.visible);
-    }, null, null, false)
+    }, null, null, false),
+    
+    new Command("420", function() {
+        log("BLAZE IT FAGGOT", log.visible);
+    }),
 ];
