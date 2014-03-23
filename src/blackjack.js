@@ -151,22 +151,25 @@ function checkBlackJackWager(author, wager) {// make sure players bet what||less
 
 
 function checkBlackJackPlayer(author) {// throttle blackjack games
+    var authorID = getId(author);
+
     if(blackJackPlayer[1] == "") {// no active player
         for(var i = 0;i < 5; i++) {
-            if(blackJackPlayers[i] == getId(author)) {
+            if(blackJackPlayers[i] == authorID) {
                 log("@" + author + ", you must wait a few turns before you can play !blackjack again.", log.visible);
                 return false;
             }
         }
 
-        blackJackPlayers.unshift(getId(author));// new player, add to blackjack players tracker
+        blackJackPlayer[1] = authorID;// set current player id to enforce 1 player at a time
+        blackJackPlayers.unshift(authorID);// new player, add to blackjack players tracker
         return true;
-    } else if(blackJackPlayer[1] != "" && blackJackPlayer[1] != getId(author)) {// wrong active player
+    } else if(blackJackPlayer[1] != "" && blackJackPlayer[1] != authorID) {// wrong active player
         log("One player at a time, @" + author, log.visible);
         return false;
     } else if((Date.now() - blackJackPlayer[0]) > blackJackTimeLimit) {// time limit expired
         var username = getUsername(blackJackPlayer[0]);
-        var game       = getBlackJackGame(username, true);//array key of current saved game
+        var game     = getBlackJackGame(username, true);//array key of current saved game
 
         log("@" + username + ", time expired and you forfeit your game of blackjack. You lose " + blackJackUsers[game][1] + " slots.");
         API.moderateMoveDJ(blackJackPlayer[1], getPosition(username) + 1 + blackJackUsers[game][1]);
