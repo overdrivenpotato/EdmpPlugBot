@@ -303,6 +303,6 @@ var commands = [
     }, null, null, false),
     
     new Command("420", function() {
-        log("JUSTBLAZE", log.visible);
+        log("JUST BLAZE", log.visible);
     }),
 ];
