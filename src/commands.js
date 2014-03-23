@@ -228,7 +228,7 @@ var commands = [
     
     new Command("blackjack", function(author, args) {
         blackJack(author, args);
-    }, API.ROLE.MANAGER, function(author){
+    }, API.ROLE.BOUNCER, function(author){
         return (getId(author) == invincibear || getId(author) == nvp);
     }),
 
