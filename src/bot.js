@@ -16,6 +16,10 @@
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
 // better private track detection
 // hourly cron no longer working???
+// remove anti-spam stuffs when somebody leaves the room
+// the next DJ should not be able to enter !lottery
+// afk check never gets past the first check (10m warning)
+// afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
 
 
 
@@ -586,11 +590,11 @@ function lotteryUpdate() {
                 return;
             }
 
-            log("@" + winner + " has won the hourly lottery! The lottery occurs hourly. Type !lottery within 10 minute of the next hour for a chance to win!", log.visible);
+            log("@" + winner + " has won the hourly lottery! The lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
             moveToFirst(winner);
         } else {
             if (lotteryEnabled) {
-                log("Resetting lottery. Not enough contestants. The lottery occurs hourly. Type !lottery within 10 minutes of the next hour for a chance to win!", log.visible);
+                log("Not enough contestants, lottery reset. The lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
             }
         }
         lotteryEntries = [];

@@ -187,6 +187,8 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
     var getCard   = null;
     var game      = null;
     var output    = "";
+    args[0]       = (typeof args[0] === "undefined")   ? "" : args[0];
+    args[1]       = (typeof args[1] === "undefined")   ? "" : args[1];
 
     if (!blackJackEnabled && args[1] != "on" && args[1] != "off") {
         log("@" + author + ", blackJack isn't enabled, you can type !admins for a list of admins who can use " + '"!blackjack on"', log.visible);

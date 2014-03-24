@@ -257,7 +257,6 @@ var commands = [
         log("FOR WHAT?", log.visible);
     }),
 
-
     new Command("nothing", function() {
         log("WELL FINE THEN, bitch", log.visible);
     }, null, null, false),
@@ -300,9 +299,13 @@ var commands = [
 
     new Command("420", function() {
         log("BLAZE IT FAGGOT", log.visible);
-    }),
+    }, null, null, false),
+
+    new Command("awe", function() {
+        log("YEAH!", log.visible);
+    }, null, null, false),
 
     new Command("gamble", function(author) {
         log("@" + author + ", you can lose your dreams and aspirations by playing !lottery, !rollthedice, and !blackjack. When you're tired of being such a drain on society, get help with !addiction", log.visible);
-    })
+    }, null, null, false)
 ];
