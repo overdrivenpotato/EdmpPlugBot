@@ -236,7 +236,7 @@ var commands = [
 
 
     new Command("addiction", function(author) {
-        if (author == "Ptero-test") {
+        if (author == "Ptero") {
             log("Sorry @Ptero, but you've got some serious issues that even I cant fix. Consult a real doctor.")
         }
         else {
