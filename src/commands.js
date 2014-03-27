@@ -314,7 +314,7 @@ var commands = [
         log("@" + author + ", you can lose your dreams and aspirations by playing !lottery, !rollthedice, and !blackjack. When you're tired of being such a drain on society, get help with !addiction", log.visible);
     }, null, null, false),
     
-    new Command("fuck", function() {
+    new Command("fuck,shit,cunt", function() {
         log("WATCH YOUR FUCKING LANGUAGE!", log.visible);
     }, null, null, false)
 ];
