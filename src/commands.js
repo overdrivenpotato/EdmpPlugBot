@@ -264,61 +264,61 @@ var commands = [
 
     new Command("nothing", function() {
         log("WELL FINE THEN, bitch", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("herp", function() {
         log("derp", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("damn", function() {
         log("SON, WHERE'D YOU FIND THIS??", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("pushme", function() {
         log("And then just touch me", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("soicangetmy", function() {
         log("Satisfaction", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("sympathy", function() {
         log("Please direct your sympathy to @spyre", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("mal", function(){
         log("ware!", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("goosesux", function() {
         log("Yes he does.", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("becomeselfaware ", function() {
         log("Been there, done that, haven't you tried !8ball?", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("hype", function() {
         log("1 PLAY!", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("420", function() {
         log("BLAZE IT FAGGOT", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("awe", function() {
         log("YEAH!", log.visible);
-    }, null, null, false),
+    }),
 
     new Command("gamble", function(author) {
         log("@" + author + ", you can lose your dreams and aspirations by playing !lottery, !rollthedice, and !blackjack. When you're tired of being such a drain on society, get help with !addiction", log.visible);
-    }, null, null, false),
+    }),
     
     new Command("fuck,shit,cunt", function() {
         log("WATCH YOUR FUCKING LANGUAGE!", log.visible);
-    }, null, null, false),
+    }),
     
     new Command("shrek", function(author) {
         log("But @" + author + ", Shrek is LOVE...", log.visible);
-    }, null, null, false)
+    })
 ];
