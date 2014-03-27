@@ -236,7 +236,7 @@ var commands = [
 
 
     new Command("addiction", function(author) {
-        if (author = "Ptero") {
+        if (author == "Ptero") {
             log("Sorry @Ptero, but you've got some serious gambling issues that even I cant fix.")
         }
         else {
