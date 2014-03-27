@@ -311,34 +311,34 @@ log("added " + data.from + " to trackAFKs", log.info);
 }
 
 
-function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as much participation as possible, not AFK DJs
+//function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as much participation as possible, not AFK DJs
 //log("checkAFKs(" + minutes + ") called", log.info);
-    var DJWaitList = API.getWaitList();
+//    var DJWaitList = API.getWaitList();
 
-    for(var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
+//    for(var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
 //log("looping through DJWaitList, i=" + i, log.info);
-        for(var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
+//        for(var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
 //log("looping through trackAFKs, j=" + j, log.info);
-            if(DJWaitList[i].id != botID && trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
-                var afkMinutes = (Date.now() - trackAFKs[j][2]) / 60 / 1000;
+//            if(DJWaitList[i].id != botID && trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
+//                var afkMinutes = (Date.now() - trackAFKs[j][2]) / 60 / 1000;
 //log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes called by checkAFKs(" + minutes + ")", log.info);
-                if(afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
-                    log("AFK Checker: @" + DJWaitList[i].username + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list.", log.visible);
-                    trackAFKs[j][4] = true;// set warned flag to true
-                } else if(afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
-                    log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within 5 minutes or you'll be removed from the DJ wait list.", log.visible);
-                    trackAFKs[j][4] = true;// set warned flag to true
-                } else if(afkMinutes >= minutes) {// reached the AFK limit, remove from DJ wait list
-                    log("AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker.", log.visible);
-                    trackAFKs[j][4] = true;// set warned flag to true
-                    API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
-                }
+//                if(afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
+//                    log("AFK Checker: @" + DJWaitList[i].username + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list.", log.visible);
+//                    trackAFKs[j][4] = true;// set warned flag to true
+//                } else if(afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
+//                    log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within 5 minutes or you'll be removed from the DJ wait list.", log.visible);
+//                    trackAFKs[j][4] = true;// set warned flag to true
+//                } else if(afkMinutes >= minutes) {// reached the AFK limit, remove from DJ wait list
+//                    log("AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker.", log.visible);
+//                    trackAFKs[j][4] = true;// set warned flag to true
+//                    API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
+//                }
 
-                break;
-            }
-        }
-    }
-}
+//                break;
+//            }
+//        }
+//    }
+//}
 
 
 function checkAFKResponse(username) {// send an ACK to ppl who respond to the AFK checker
