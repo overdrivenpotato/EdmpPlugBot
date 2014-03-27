@@ -236,7 +236,12 @@ var commands = [
 
 
     new Command("addiction", function(author) {
+        if (author = "Ptero") {
+            log("Sorry @Ptero, but you've got some serious gambling issues that even I cant fix.")
+        }
+        else {
         log("The first step @" + author + ", is admitting you have a gambling problem. Get your life together and quit gambling on !rollthedice, !lottery, and !blackjack.", log.visible);
+        }
     }),
 
 
