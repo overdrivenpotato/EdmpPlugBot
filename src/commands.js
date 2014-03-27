@@ -316,5 +316,9 @@ var commands = [
     
     new Command("fuck,shit,cunt", function() {
         log("WATCH YOUR FUCKING LANGUAGE!", log.visible);
+    }, null, null, false),
+    
+    new Command("shrek", function() {
+        log("But " + author + ", Shrek is LOVE...", log.visible);
     }, null, null, false)
 ];
