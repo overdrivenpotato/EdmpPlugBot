@@ -127,10 +127,10 @@ var commands = [
         if(lastPrivateSkip < 5) {
             lastPrivateSkip = Date.now();
         } else {
-            if(Date.now() - lastPrivateSkip > 30000) {
-                log("Couldn't skip " + current + " due to timeout.");
-                return;
-            }
+//            if(Date.now() - lastPrivateSkip > 30000) {
+//                log("Couldn't skip " + current + " due to timeout.");
+//                return;
+//            }
         }
 
         log("Skipping " + current + " and repositioning due to private track.", log.visible);
