@@ -120,7 +120,7 @@ function cronHourly() {// called at the start of a new hour ie. 0 minutes & seco
 
 function cronFiveMinutes() {// called every 5 minutes
     log("cronFiveMinutes() has been called! The minutes are ripe, run additional 5-minute functions", log.info);
-    checkAFKs(MaxAFKMinutes);// Check for AFK DJs
+//    checkAFKs(MaxAFKMinutes);// Check for AFK DJs
 
     if(lastCronFiveMinutes == 0 || (Date.now() - lastCronFiveMinutes) >= (5 * 60 * 1000)) {// spam & resource overload prevention
         log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now", log.info);
