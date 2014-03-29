@@ -636,23 +636,9 @@ function init()
         meetupReminder();
     }, 10);
 
-    try {
-        analyzeSongHistory();
-    } catch(exp) {
-        log("Caught error in song history analysis", log.visible);
-    }
-
-    try {
-        cronHourly();// hourly checks, can't depend on chatter
-    } catch(exp) {
-        log("Caught error in hCron", log.visible);
-    }
-
-    try {
-        cronFiveMinutes();// 5-minute checks
-    } catch(exp) {
-        log("Caught error in fCron", log.visible);
-    }
+    analyzeSongHistory();
+    cronHourly(); // hourly checks, can't depend on chatter
+    cronFiveMinutes(); // 5-minute checks
 
     log("Loaded EDMPbot v" + version, log.visible);
 }
