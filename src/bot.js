@@ -627,16 +627,39 @@ function reminderHourly() {// Check for a new day
     ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// only enables on Wednesdays & Saturdays
 }
 
+function init()
+{
+    window.edmpBot = window.setInterval(function(){
+        if(skipFixEnabled) {
+            skipFix();
+        }
+        meetupReminder();
+    }, 10);
 
-analyzeSongHistory();
-cronHourly();// hourly checks, can't depend on chatter
-cronFiveMinutes();// 5-minute checks
-
-window.edmpBot = window.setInterval(function(){
-    if(skipFixEnabled) {
-        skipFix();
+    try {
+        analyzeSongHistory();
+    } catch(exp) {
+        log("Caught error in song history analysis", log.visible);
     }
-    meetupReminder();
-}, 10);
 
-log("Loaded EDMPbot v" + version, log.visible);
+    try {
+        cronHourly();// hourly checks, can't depend on chatter
+    } catch(exp) {
+        log("Caught error in hCron", log.visible);
+    }
+
+    try {
+        cronFiveMinutes();// 5-minute checks
+    } catch(exp) {
+        log("Caught error in fCron", log.visible);
+    }
+
+    log("Loaded EDMPbot v" + version, log.visible);
+}
+
+try {
+    init();
+}
+catch(exp) {
+    log("Error while initializing bot: " + exp.stack);
+}
