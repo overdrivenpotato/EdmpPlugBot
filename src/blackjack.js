@@ -41,7 +41,7 @@ function getSumOfHand(hand){// return the total point value of a given hand ["Q"
     var skippedAces = 0;
     var total       = 0;
 
-    for(i = 0; i < hand.length; i++) {
+    for(var i = 0; i < hand.length; i++) {
         switch(hand[i]) {
             case 'A':
                 skippedAces++;
@@ -83,7 +83,7 @@ function getSumOfHand(hand){// return the total point value of a given hand ["Q"
     }
 
     if (skippedAces) {
-        for(i = 0; i < skippedAces; i++) {
+        for(var i = 0; i < skippedAces; i++) {
             total = ((total + 11) <= 21) ? (total + 11) : (total + 1);// Ace = 11pts unless over 21, then Ace = 1pt
         }
     }

@@ -425,15 +425,16 @@ function getAverageTime() {
 
 
 function loadXMLDoc(filename) {//From http://www.w3schools.com/dom/dom_loadxmldoc.asp
+    var xHttp;
     if (window.XMLHttpRequest) {
-        xhttp=new XMLHttpRequest();
+        xHttp = new XMLHttpRequest();
     } else {// code for IE5 and IE6
-        xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        xHttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
 
-    xhttp.open("GET",filename,false);
-    xhttp.send();
-    return xhttp.responseXML;
+    xHttp.open("GET", filename, false);
+    xHttp.send();
+    return xHttp.responseXML;
 }
 
 
