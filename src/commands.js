@@ -205,10 +205,8 @@ var commands = [
 
 
     new Command("rollthedice", function(author) {
-        log("@" + author + " rollthedice has been disabled.", log.visible);
-        return;
+        ///log("!rollthedice is disabled until further notice. Try again later.", log.visible);return;
         rollTheDice(author);
-//        log("!rollthedice is disabled until further notice. Try again later.", log.visible);
     }),
 
 
