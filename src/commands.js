@@ -229,6 +229,8 @@ var commands = [
 
     
     new Command("blackjack", function(author, args) {
+        log("@" + author + " blackjack has been disabled.", log.visible);
+        return;
         blackJack(author, args);
     }),
     new Command("hit,hitme,stand,hold", function(author, args) {
