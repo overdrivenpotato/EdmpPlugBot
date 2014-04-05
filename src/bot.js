@@ -512,7 +512,7 @@ function analyzeSongHistory() {
 
 
 function rollTheDice(author) {
-    if(getId(author) == invincibear) {// I can play whenever, bitches!
+    if(getId(author) == invincibear || getId(author) == nvp || getId(author) == overdrivenpotato) {// I can play whenever, bitches!
     } else if((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
         log("@" + author + ", you can't roll if you're fresh on the DJ wait list, wait a few songs or get help by typing !addiction", log.visible);
         return;
