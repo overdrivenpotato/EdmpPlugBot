@@ -89,18 +89,13 @@ var commands = [
             lastMeetupMessageTime = 0;
             meetupUrl = args[1];
         }
-    }, API.ROLE.MANAGER, function(author){
-        return (getId(author) == invincibear || getId(author) == nvp);
-    }),
-
+    }, API.ROLE.MANAGER),
 
 
     new Command("stopreminder", function(author) {
         meetupUrl = "";
         log("@" + author + " reminder stopped.", log.visible);
-    }, API.ROLE.MANAGER, function(author){
-        return (getId(author) == invincibear || getId(author) == nvp);
-    }),
+    }, API.ROLE.MANAGER),
 
 
     new Command("skipfix", function() {
