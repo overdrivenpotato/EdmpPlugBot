@@ -126,12 +126,13 @@ var commands = [
         var current = API.getDJ().username;
         if(lastPrivateSkip < 5) {
             lastPrivateSkip = Date.now();
-        } else {
+        }
+//        else {
 //            if(Date.now() - lastPrivateSkip > 30000) {
-//                log("Couldn't skip " + current + " due to timeout.");
+//                log("Couldn't skip " + current + " due to timeout.", log.visible);
 //                return;
 //            }
-        }
+//        }
 
         log("Skipping " + current + " and repositioning due to private track.", log.visible);
 //        var times = $("#now-playing-time").children(":last").html().split(":");
@@ -231,6 +232,8 @@ var commands = [
         return;
         blackJack(author, args);
     }),
+
+
     new Command("hit,hitme,stand,hold", function(author, args) {
         blackJack(author, args);
     }, null, null, false),// keep hidden, they will be revealed when a user stars a game of !blackjack
