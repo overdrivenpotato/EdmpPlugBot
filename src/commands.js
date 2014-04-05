@@ -105,7 +105,7 @@ var commands = [
 
 
     new Command("update", function() {
-        log("Restarting in 2 seconds...", log.info);
+        log("Restarting the bot, Bye!...", log.visible);
         stop(true);
         log("Starting 2s loader timer... ", log.info);
         setTimeout(function(){$.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/loader.js");}, 2000);
