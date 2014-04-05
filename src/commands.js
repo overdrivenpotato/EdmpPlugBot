@@ -124,30 +124,24 @@ var commands = [
 
     new Command("privateskip", function() {
         var current = API.getDJ().username;
-        if(lastPrivateSkip < 5) {
-            lastPrivateSkip = Date.now();
-        }
-//        else {
-//            if(Date.now() - lastPrivateSkip > 30000) {
-//                log("Couldn't skip " + current + " due to timeout.", log.visible);
-//                return;
-//            }
-//        }
-
-        log("Skipping " + current + " and repositioning due to private track.", log.visible);
-//        var times = $("#now-playing-time").children(":last").html().split(":");
-//        var seconds = times[0] * 60 + times[1];
-//        getSourceLength(API.getHistory()[0].media.id, function(time)
-//        {
-//            if(true){}
-//        });
-        skipDj();
-        var processor = setInterval(function() {
-            if(current != API.getDJ().username) {
-                clearInterval(processor);
-                moveToFirst(current);
+        var times = $("#now-playing-time").children(":last").html().split(":");
+        var seconds = (parseInt(times[0] * 60) + parseInt(times[1]));
+        getSourceLength(API.getMedia().id, function(time)
+        {
+            if(time - seconds < 30) {
+                log("Skipping " + current + " and repositioning due to private track.", log.visible);
+                skipDj();
+                var processor = setInterval(function () {
+                    if (current != API.getDJ().username) {
+                        clearInterval(processor);
+                        moveToFirst(current);
+                    }
+                }, 10);
+            } else {
+                log("Couldn't skip @" + current + " due to timeout.", log.visible);
             }
-        }, 10);
+        });
+
     }, API.ROLE.BOUNCER, function(author) {
         return isPlaying(author);
     }),

@@ -51,7 +51,6 @@ var blackJackTimeLimit = 5 * 60 * 1000;// 5 minute time limit per blackjack play
 var disconnectGrace    = 10 * 60 * 1000;// 10 minute grace period for accidental disconnects
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
-var lastPrivateSkip       = (typeof lastPrivateSkip === "undefined")       ? 0 : lastPrivateSkip;
 var lastSkipTime          = (typeof lastSkipTime === "undefined")          ? 0 : lastSkipTime;
 var lastDJAdvanceTime     = (typeof lastDJAdvanceTime === "undefined")     ? 0 : lastDJAdvanceTime;
 var lastCronHourly        = (typeof lastCronHourly === "undefined")        ? 0 : lastCronHourly;
