@@ -105,7 +105,10 @@ var commands = [
 
 
     new Command("update", function() {
-        updateBot();
+        log("Restarting in 2 seconds...", log.info);
+        stop(true);
+        log("Starting 2s loader timer... ", log.info);
+        setTimeout(function(){$.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/loader.js");}, 2000);
     }, API.ROLE.MANAGER, function(author){
         return (getId(author) == invincibear || getId(author) == nvp);
     }),

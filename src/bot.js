@@ -85,15 +85,6 @@ function log(message, level) {
     console.log(message);
 }
 
-
-function updateBot() {
-    log("Restarting in 2 seconds...", log.info);
-    stop(true);
-    log("Starting 2s loader timer... ", log.info);
-    setTimeout(function(){$.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/loader.js");}, 2000);
-}
-
-
 function cronHourly() {// called at the start of a new hour ie. 0 minutes & seconds
     log("cronHourly() has been called!", log.info);
 
