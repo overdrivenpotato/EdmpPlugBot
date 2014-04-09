@@ -30,7 +30,7 @@ var curdate = new Date();
 var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var blackJackEnabled= true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
-var ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
+//var ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 
 var version   = "0.7.1";
@@ -96,7 +96,7 @@ function cronHourly() {// called at the start of a new hour ie. 0 minutes & seco
     if (min == "00" || min == "0" || typeof min === undefined) {// browser-dependant
         log("the hour is fresh, run additional hourly functions", log.info);
         lotteryHourly();// check to see the lottery can be activated
-        reminderHourly();// check to see if it is now a meetup day to activate the reminder
+//        reminderHourly();// check to see if it is now a meetup day to activate the reminder
     }
 
     if (lastCronHourly == 0 || (Date.now() - lastCronHourly) >= (60 * 60 * 1000)) {// spam & resource overload prevention
@@ -152,7 +152,7 @@ function skipFix() {
 
 
 function meetupReminder() {
-    if(ReminderEnabled && (meetupUrl.length > 0) && ((Date.now() - lastMeetupMessageTime) > 600000)) {
+    if((meetupUrl.length > 0) && ((Date.now() - lastMeetupMessageTime) > 600000)) {
         chat("Make sure to " + upvotes[Math.round(Math.random() * (upvotes.length - 1))] + " the /r/edmp thread at " + meetupUrl + "!");
         lastMeetupMessageTime = Date.now();
     }
@@ -612,11 +612,6 @@ function lotteryHourly() {// enable or disable the lottery
     }
 }
 
-
-function reminderHourly() {// Check for a new day
-    curdate = new Date();
-    ReminderEnabled = (curdate.getDay() == 3 || curdate.getDay() == 6);// only enables on Wednesdays & Saturdays
-}
 
 function init()
 {
