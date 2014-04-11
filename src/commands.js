@@ -166,7 +166,8 @@ var commands = [
         } else if (API.getWaitListPosition(getId(author)) != -1) {
             var eta = getETA(author);
             var etaMsg = "@" + author + ", it will be your turn to DJ ";
-            etaMsg += (eta == "0") ? "SOOO SOOOOOONNN!" : ("in ~" + getETA(author) + " minutes.");
+            etaMsg += (eta == "0") ? "SOOO SOOOOOONNN!" :
+                ("in ~" + (eta / 60 < 1 ? "" : Math.floor(eta / 60) + "h " ) + eta % 60 + "m");
 
             log(etaMsg, log.visible);
         } else {
