@@ -131,7 +131,7 @@ var commands = [
         var seconds = (parseInt(times[0] * 60) + parseInt(times[1]));
         getSourceLength(API.getMedia().id, function(time)
         {
-            if(time - seconds < 30) {
+            if(time - seconds < 30 || getPermLevel(API.getDJ().username) >= API.ROLE.BOUNCER) {
                 log("Skipping " + current + " and repositioning due to private track.", log.visible);
                 skipDj();
                 var processor = setInterval(function () {

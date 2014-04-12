@@ -3,7 +3,6 @@
  * Date: 3/8/14
  * Time: 9:20 PM
  */
-// auto-like played songs
 // stupid !8ball glitch from preceding functions
 // tell the channel when an admin joins (when there wasn't one before)
 // tell the channel when all the admins leave (party!!!!)
