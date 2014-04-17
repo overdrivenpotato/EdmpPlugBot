@@ -296,7 +296,7 @@ var commands = [
         log("Yes he does.", log.visible);
     }),
 
-    new Command("becomeselfaware ", function() {
+    new Command("becomeselfaware", function() {
         log("Been there, done that, haven't you tried !8ball?", log.visible);
     }),
 
