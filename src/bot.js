@@ -526,7 +526,7 @@ function rollTheDice(author) {
         log ("@" + author + ", you rolled a " + x + " and a " + y + ", congratulations! You've earned a 3 slot bump closer to the front!", log.visible);
     } else {
         log ("@" + author + ", you rolled a " + x + " and a " + y + ", you need doubles or 7 to advance.", log.visible);
-        API.moderateMoveDJ(getId(author), getPosition(author) + 1 + 1);
+        API.moderateMoveDJ(getId(author), getPosition(author) + 1 + 2);
     }
 }
 
