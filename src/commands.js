@@ -213,8 +213,8 @@ var commands = [
 
 
     new Command("rollthedice", function(author) {
-        log("!rollthedice is disabled until further notice. Try again later.", log.visible);
-//        rollTheDice(author);
+//        log("!rollthedice is disabled until further notice. Try again later.", log.visible);
+        rollTheDice(author);
     }),
 
 
@@ -236,7 +236,7 @@ var commands = [
 
     
     new Command("blackjack", function(author, args) {
-//        log("@" + author + " blackjack has been disabled.", log.visible);return;
+        log("@" + author + " blackjack has been disabled.", log.visible);return;
         blackJack(author, args);
     }),
 
