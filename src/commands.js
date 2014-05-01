@@ -324,7 +324,7 @@ var commands = [
     }),
 
     new Command("suck", function() {
-        log("!suck @Ptero's ddick for mod", log.visible);
+        log("!suck @Ptero's dick for mod", log.visible);
     }),
 
     new Command("gamble", function(author) {
