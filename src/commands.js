@@ -311,6 +311,22 @@ var commands = [
         log("YEAH!", log.visible);
     }),
 
+    new Command("ricky", function() {
+        log("RIP Ricky", log.visible);
+    }),
+
+    new Command("doughboy", function() {
+        log("RIP Doughboy", log.visible);
+    }),
+
+    new Command("rick", function() {
+        log("Never gonna give you up, Never gonna let you down, Never gonna run around and desert you, Never gonna make you cry, Never gonna say goodbye, Never gonna tell a lie and hurt you.", log.visible);
+    }),
+
+    new Command("suck", function() {
+        log("!suck @Ptero's ddick for mod", log.visible);
+    }),
+
     new Command("gamble", function(author) {
         log("@" + author + ", you can lose your dreams and aspirations by playing !lottery, !rollthedice, and !blackjack. When you're tired of being such a drain on society, get help with !addiction", log.visible);
     }),
