@@ -132,7 +132,7 @@ var commands = [
 
         getSourceLength(API.getMedia().id, function(time)
         {
-            if(((time - seconds) < 30) || getPermLevel(author) >= API.ROLE.BOUNCER) {
+            if(((time - seconds) < 30)) {// || getPermLevel(author) >= API.ROLE.BOUNCER) {
                 log("Skipping " + current + " and repositioning due to private track.", log.visible);
                 skipDj();
 
@@ -219,9 +219,11 @@ var commands = [
         if(new Date().getMinutes() >= 10) {
             log("@" + author + ", the lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
             return;
-        }
-        if(lotteryEntries.indexOf(author) > -1)  {
+        } else if(lotteryEntries.indexOf(author) > -1)  {
             log("@" + author + " you are already in the lottery! The winner will be picked from " + lotteryEntries.length + " entries. Please type !addiction for any help.", log.visible);
+            return;
+        } else if(getPosition(author) == 0) {
+            log("@" + author + ", you're already the next to DJ, type !addiction for help with your problem.", log.visible);
             return;
         }
 
@@ -231,8 +233,7 @@ var commands = [
 
     
     new Command("blackjack", function(author, args) {
-        log("@" + author + " blackjack has been disabled.", log.visible);
-        return;
+//        log("@" + author + " blackjack has been disabled.", log.visible);return;
         blackJack(author, args);
     }),
 

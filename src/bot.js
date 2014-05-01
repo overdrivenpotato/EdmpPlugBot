@@ -13,7 +13,6 @@
 // better private track detection
 // hourly cron no longer working???
 // remove anti-spam stuffs when somebody leaves the room
-// the next DJ should not be able to enter !lottery
 // afk check never gets past the first check (10m warning)
 // afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
 
