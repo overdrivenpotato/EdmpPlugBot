@@ -129,11 +129,13 @@ var commands = [
         var current = API.getDJ().username;
         var times = $("#now-playing-time").children(":last").html().split(":");
         var seconds = (parseInt(times[0] * 60) + parseInt(times[1]));
+
         getSourceLength(API.getMedia().id, function(time)
         {
-            if(time - seconds < 30 || getPermLevel(current) >= API.ROLE.BOUNCER) {
+            if(((time - seconds) < 30) || getPermLevel(author) >= API.ROLE.BOUNCER) {
                 log("Skipping " + current + " and repositioning due to private track.", log.visible);
                 skipDj();
+
                 var processor = setInterval(function () {
                     if (current != API.getDJ().username) {
                         clearInterval(processor);
@@ -193,9 +195,13 @@ var commands = [
 
         for(var i = 0; i < admins.length; i++) {
             logtext += (admins[i].id != botID && admins[i].permissions >= API.ROLE.BOUNCER) ? (admins[i].username + ((i == (admins.length - 1)) ? "" : ", ")) : "";
+
+            if(admins[i].permissions >= API.ROLE.BOUNCER) {
+                realAdmins.push(admins[i]);
+            }
         }
 
-        if(admins.length <= 1) {
+        if(realAdmins.length < 1 || (realAdmins.length == 1 && realAdmins[0].id == botID)) {
             log("Oh. My. God. NO ADULT SUPERVISION!!! You're on your own, @" + author, log.visible);
         } else {
             log(logtext, log.visible);

@@ -4,8 +4,6 @@
  * Time: 9:20 PM
  */
 // stupid !8ball glitch from preceding functions
-// tell the channel when an admin joins (when there wasn't one before)
-// tell the channel when all the admins leave (party!!!!)
 // blackjack needs to be limited to a player at a time, 5 minute time limit
 // fix blackjack limiter
 // add disconnect protection, 10 minute grace period?
@@ -67,6 +65,7 @@ API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.DJ_ADVANCE, onDJAdvance);
 API.on(API.CHAT, onChat);
 API.on(API.USER_JOIN, onJoin);
+API.on(API.USER_LEAVE, onLeave);
 
 log.info = 3;
 log.visible = 2;
@@ -397,7 +396,42 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
 
 function onJoin(user) {// greet new user after a short delay to ensure they receive the message
     if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms
-        setTimeout(function() {log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);}, 2000);
+        setTimeout(function() {log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);}, 2500);// Delay needed for new entrant to actually connect and see the msg
+        lastJoined = user.id;
+    }
+
+    var admins      = API.getStaff();
+    var realAdmins  = [];
+
+    for(var i = 0; i < admins.length; i++) {
+        if(admins[i].permissions >= API.ROLE.BOUNCER) {
+            realAdmins.push(admins[i]);
+        }
+    }
+
+    if(realAdmins.length > 1 || (realAdmins.length == 1 && realAdmins[0].id != botID)) {
+        log("***ATTENTION*** Adult supervision has arrived in the form of @" + user.username = ", the most terrible of all admins.", log.visible);
+    }
+}
+
+
+function onLeave(user) {// greet new user after a short delay to ensure they receive the message
+    if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms, although plug.dj now has their own spam prevention for this scenario
+        var admins      = API.getStaff();
+        var realAdmins  = [];
+
+        for(var i = 0; i < admins.length; i++) {
+            if(admins[i].permissions >= API.ROLE.BOUNCER) {
+                realAdmins.push(admins[i]);
+            }
+        }
+
+        if(realAdmins.length < 1 || (realAdmins.length == 1 && realAdmins[0].id == botID)) {
+            log("***ATTENTION*** there are no admins left in the room. ERMERGHURD TIIIMMM TERRR PRRTTTEEEE!", log.visible);
+        } else if (user.username == "Ptero") {
+            log("OH look, Princess @Ptero has left the building.", log.visible);
+        }
+
         lastJoined = user.id;
     }
 }
