@@ -345,7 +345,7 @@ function getPosition(username) {
 
 
 function onChat(data) {
-log ("onChat called, data=" + data, log.info);
+log("onChat called, data=", log.info);log(data, log.info);
     if(data.type == "message") {
         if(dispatch(data.message, data.from)) {
             API.moderateDeleteChat(data.chatID);
