@@ -131,7 +131,7 @@ var commands = [
         var seconds = (parseInt(times[0] * 60) + parseInt(times[1]));
         getSourceLength(API.getMedia().id, function(time)
         {
-            if(time - seconds < 30 || getPermLevel(API.getDJ().username) >= API.ROLE.BOUNCER) {
+            if(time - seconds < 30 || getPermLevel(current) >= API.ROLE.BOUNCER) {
                 log("Skipping " + current + " and repositioning due to private track.", log.visible);
                 skipDj();
                 var processor = setInterval(function () {
@@ -211,12 +211,12 @@ var commands = [
 
     new Command("lottery", function(author) {
         if(new Date().getMinutes() >= 10) {
-//            log("@" + author + ", the lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
-//            return;
+            log("@" + author + ", the lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
+            return;
         }
         if(lotteryEntries.indexOf(author) > -1)  {
-//            log("@" + author + " you are already in the lottery! The winner will be picked from " + lotteryEntries.length + " entries. Please type !addiction for any help.", log.visible);
-//            return;
+            log("@" + author + " you are already in the lottery! The winner will be picked from " + lotteryEntries.length + " entries. Please type !addiction for any help.", log.visible);
+            return;
         }
 
         lotteryEntries.push(author);
@@ -325,6 +325,10 @@ var commands = [
 
     new Command("suck", function() {
         log("!suck @Ptero's dick for mod", log.visible);
+    }),
+
+    new Command("nignog", function() {
+        log("nig nog tryin to get a handbeezy? http://youtu.be/vm3TjRxntQk", log.visible);
     }),
 
     new Command("gamble", function(author) {
