@@ -204,7 +204,7 @@ var commands = [
 
 
     new Command("rollthedice", function(author) {
-        log("!rollthedice is disabled until further notice. Try again later.", log.visible);return;
+        log("!rollthedice is disabled until further notice. Try again later.", log.visible);
 //        rollTheDice(author);
     }),
 
@@ -253,93 +253,93 @@ var commands = [
 
     new Command("smoke", function() {
         log("WEED ERRYDAY", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("real", function() {
         log("REAL TRAP SHIT!", log.visible);
-    }),
+    }, null, null, false),
     
     new Command("turndown", function() {
         log("FOR WHAT?", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("nothing", function() {
         log("WELL FINE THEN, bitch", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("herp", function() {
         log("derp", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("damn", function() {
         log("SON, WHERE'D YOU FIND THIS??", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("pushme", function() {
         log("And then just touch me", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("soicangetmy", function() {
         log("Satisfaction", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("sympathy", function() {
         log("Please direct your sympathy to @spyre", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("mal", function(){
         log("ware!", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("goosesux", function() {
         log("Yes he does.", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("becomeselfaware", function() {
         log("Been there, done that, haven't you tried !8ball?", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("hype", function() {
         log("1 PLAY!", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("420", function() {
         log("BLAZE IT FAGGOT", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("awe", function() {
         log("YEAH!", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("ricky", function() {
         log("RIP Ricky", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("doughboy", function() {
         log("RIP Doughboy", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("rick", function() {
         log("Never gonna give you up, Never gonna let you down, Never gonna run around and desert you, Never gonna make you cry, Never gonna say goodbye, Never gonna tell a lie and hurt you.", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("suck", function() {
         log("!suck @Ptero's dick for mod", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("nignog", function() {
         log("nig nog tryin to get a handbeezy? http://youtu.be/vm3TjRxntQk", log.visible);
-    }),
+    }, null, null, false),
 
     new Command("gamble", function(author) {
         log("@" + author + ", you can lose your dreams and aspirations by playing !lottery, !rollthedice, and !blackjack. When you're tired of being such a drain on society, get help with !addiction", log.visible);
-    }),
+    }, null, null, false),
     
     new Command("fuck,shit,cunt", function() {
         log("WATCH YOUR FUCKING LANGUAGE!", log.visible);
-    }),
+    }, null, null, false),
     
     new Command("shrek", function(author) {
         log("But @" + author + ", Shrek is LOVE...", log.visible);
-    })
+    }, null, null, false)
 ];

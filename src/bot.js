@@ -9,7 +9,6 @@
 // blackjack needs to be limited to a player at a time, 5 minute time limit
 // fix blackjack limiter
 // add disconnect protection, 10 minute grace period?
-// eta should return minutes OR hours & minutes
 // roll the dice says can't roll because already DJing but reality is they're the last DJ in the queue
 // add !War game to swap slots with the challenger
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
