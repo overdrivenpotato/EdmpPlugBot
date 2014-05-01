@@ -194,7 +194,7 @@ function dispatch(message, author) {
 function commandDispatch(args, author) {
     args[0] = args[0].substring(1);
     console.log(author + " has dispatched: \'" + args[0] + "\'" + " with args: " + args);
-    execCommand(author, args);
+    return execCommand(author, args);
 }
 
 

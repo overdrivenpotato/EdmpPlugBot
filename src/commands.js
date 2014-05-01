@@ -24,12 +24,13 @@ function execCommand(author, args) {
         for(var j = 0; j < commands[i].cmd.length; j++) {
             if(commands[i].cmd[j] == args[0].toLowerCase()) {
                 commands[i].exec(author, args);
-                return;
+                return true;
             }
         }
     }
 
     console.log(author + " has entered an invalid command.");
+    return false;
 }
 
 
@@ -42,8 +43,10 @@ function Command(cmd, callback, permission, customPerm, listed) {
     this.exec = function(author, args) {
         if(this.hasPermission(author)) {
             this.callback(author, args);
+            return true;
         } else {
             console.log("No permission");
+            return false;
         }
     };
 
