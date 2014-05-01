@@ -195,7 +195,7 @@ var commands = [
             logtext += (admins[i].id != botID && admins[i].permissions >= API.ROLE.BOUNCER) ? (admins[i].username + ((i == (admins.length - 1)) ? "" : ", ")) : "";
         }
 
-        if(admins.length < 1) {
+        if(admins.length <= 1) {
             log("Oh. My. God. NO ADULT SUPERVISION!!! You're on your own, @" + author, log.visible);
         } else {
             log(logtext, log.visible);
