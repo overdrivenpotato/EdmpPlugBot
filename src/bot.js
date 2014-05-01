@@ -179,12 +179,9 @@ function dispatch(message, author) {
         try {
             var args = message.split(" ");
             console.log("args:" + args);
-            commandDispatch(args , author);
-
-            return true;
+            return commandDispatch(args , author);
         } catch(exp) {
             console.log("Error: " + exp.stack);
-
             return false;
         }
     }
