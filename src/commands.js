@@ -125,7 +125,7 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("privateskip", function() {
+    new Command("privateskip", function(author) {
         var current = API.getDJ().username;
         var times = $("#now-playing-time").children(":last").html().split(":");
         var seconds = (parseInt(times[0] * 60) + parseInt(times[1]));
