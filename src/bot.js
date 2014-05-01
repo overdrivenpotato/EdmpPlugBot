@@ -11,7 +11,7 @@
 // add disconnect protection, 10 minute grace period?
 // eta should return minutes OR hours & minutes
 // roll the dice says can't roll because already DJing but reality is they're the last DJ in the queue
-// add !war game to swap slots with the challenger
+// add !War game to swap slots with the challenger
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
 // better private track detection
 // hourly cron no longer working???
@@ -183,8 +183,12 @@ function dispatch(message, author) {
             var args = message.split(" ");
             console.log("args:" + args);
             commandDispatch(args , author);
+
+            return true;
         } catch(exp) {
             console.log("Error: " + exp.stack);
+
+            return false;
         }
     }
 }
@@ -348,7 +352,9 @@ function getPosition(username) {
 function onChat(data) {
 //log ("onChat called, data.type=" + data.type, log.info);
     if(data.type == "message") {
-        dispatch(data.message, data.from);
+        if(dispatch(data.message, data.from)) {
+            API.moderateDeleteChat(data.chatID);
+        }
     }
     lotteryUpdate();
 
