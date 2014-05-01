@@ -104,7 +104,7 @@ var commands = [
     new Command("skipfix", function() {
         skipFixEnabled = !skipFixEnabled;
         log("skipfix is set to " + skipFixEnabled);
-    }, API.ROLE.MANAGER),
+    }, API.ROLE.MANAGER, null, false),
 
 
     new Command("update", function() {

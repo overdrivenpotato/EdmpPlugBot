@@ -15,6 +15,7 @@
 // remove anti-spam stuffs when somebody leaves the room
 // afk check never gets past the first check (10m warning)
 // afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
+// if one person plays blackjack but is denied because of slot position, another person can't play (flood protection flaw)
 
 
 
@@ -344,7 +345,7 @@ function getPosition(username) {
 
 
 function onChat(data) {
-//log ("onChat called, data.type=" + data.type, log.info);
+log ("onChat called, data=" + data, log.info);
     if(data.type == "message") {
         if(dispatch(data.message, data.from)) {
             API.moderateDeleteChat(data.chatID);
@@ -406,7 +407,7 @@ function onJoin(user) {// greet new user after a short delay to ensure they rece
     }
 
     if(realAdmins.length > 1 || (realAdmins.length == 1 && realAdmins[0].id != botID)) {
-        log("***ATTENTION*** Adult supervision has arrived in the form of @" + user.username = ", the most terrible of all admins.", log.visible);
+        log("***ATTENTION*** Adult supervision has arrived in the form of @" + user.username + ", the most terrible of all admins.", log.visible);
     }
 }
 
