@@ -87,7 +87,7 @@ var commands = [
 
     new Command("reminder", function(author, args) {
         if(args.length < 2) {
-            log("@" + author + " please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere", log.visible);
+            log("@" + author + " [!reminder] please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere", log.visible);
         } else {
             lastMeetupMessageTime = 0;
             meetupUrl = args[1];
@@ -184,7 +184,7 @@ var commands = [
     new Command("url", function(author) {
         if (typeof API.getDJ() !== "undefined") {
             getSourceUrl(API.getMedia().id, function(link) {
-                log("@" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
+                log("@" + author + " [!url] " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
             })
         } else {
             log("Nobody is DJing, @" + author, log.visible);
@@ -193,8 +193,9 @@ var commands = [
 
 
     new Command("admins", function(author) {
-        var admins = API.getStaff();
-        var logtext = "Admins Online: ";
+        var admins      = API.getStaff();
+        var logtext     = "Admins Online: ";
+        var realAdmins  = [];
 
         for(var i = 0; i < admins.length; i++) {
             logtext += (admins[i].id != botID && admins[i].permissions >= API.ROLE.BOUNCER) ? (admins[i].username + ((i == (admins.length - 1)) ? "" : ", ")) : "";
