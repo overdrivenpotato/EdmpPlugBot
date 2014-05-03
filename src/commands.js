@@ -221,11 +221,11 @@ var commands = [
 
     new Command("lottery", function(author) {
         if(new Date().getMinutes() >= 10) {
-            log("@" + author + ", the lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
-            return;
+//            log("@" + author + ", the lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
+//            return;
         } else if(lotteryEntries.indexOf(author) > -1)  {
-            log("@" + author + " you are already in the lottery! The winner will be picked from " + lotteryEntries.length + " entries. Please type !addiction for any help.", log.visible);
-            return;
+//            log("@" + author + " you are already in the lottery! The winner will be picked from " + lotteryEntries.length + " entries. Please type !addiction for any help.", log.visible);
+//            return;
         } else if(getPosition(author) == 0) {
             log("@" + author + ", you're already the next to DJ, type !addiction for help with your problem.", log.visible);
             return;
@@ -262,7 +262,7 @@ var commands = [
 
 
     new Command("smoke", function() {
-        log("WEED ERRYDAY", log.visible);
+        log("SMOKE WEED ERRYDAY", log.visible);
     }, null, null, false),
 
     new Command("real", function() {
@@ -270,7 +270,7 @@ var commands = [
     }, null, null, false),
     
     new Command("turndown", function() {
-        log("FOR WHAT?", log.visible);
+        log("TURN DOWN FOR WHAT?", log.visible);
     }, null, null, false),
 
     new Command("nothing", function() {
@@ -282,43 +282,23 @@ var commands = [
     }, null, null, false),
 
     new Command("damn", function() {
-        log("SON, WHERE'D YOU FIND THIS??", log.visible);
-    }, null, null, false),
-
-    new Command("pushme", function() {
-        log("And then just touch me", log.visible);
-    }, null, null, false),
-
-    new Command("soicangetmy", function() {
-        log("Satisfaction", log.visible);
+        log("DAMN SON, WHERE'D YOU FIND THIS??", log.visible);
     }, null, null, false),
 
     new Command("sympathy", function() {
         log("Please direct your sympathy to @spyre", log.visible);
     }, null, null, false),
 
-    new Command("mal", function(){
-        log("ware!", log.visible);
-    }, null, null, false),
-
-    new Command("goosesux", function() {
-        log("Yes he does.", log.visible);
-    }, null, null, false),
-
-    new Command("becomeselfaware", function() {
-        log("Been there, done that, haven't you tried !8ball?", log.visible);
-    }, null, null, false),
-
     new Command("hype", function() {
-        log("1 PLAY!", log.visible);
+        log("#HYPE 1 PLAY!", log.visible);
     }, null, null, false),
 
     new Command("420", function() {
-        log("BLAZE IT FAGGOT", log.visible);
+        log("420, BLAZE IT: FAGGOT", log.visible);
     }, null, null, false),
 
     new Command("awe", function() {
-        log("YEAH!", log.visible);
+        log("AWWWEEE YEEEAAAHHH!", log.visible);
     }, null, null, false),
 
     new Command("ricky", function() {
@@ -344,11 +324,11 @@ var commands = [
     new Command("gamble", function(author) {
         log("@" + author + ", you can lose your dreams and aspirations by playing !lottery, !rollthedice, and !blackjack. When you're tired of being such a drain on society, get help with !addiction", log.visible);
     }, null, null, false),
-    
+
     new Command("fuck,shit,cunt", function() {
         log("WATCH YOUR FUCKING LANGUAGE!", log.visible);
     }, null, null, false),
-    
+
     new Command("shrek", function(author) {
         log("But @" + author + ", Shrek is LOVE...", log.visible);
     }, null, null, false)
