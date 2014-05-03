@@ -81,7 +81,7 @@ var commands = [
 
 
     new Command("info", function() {
-        log("EDMPbot " + version + " was developed by @overdrivenpotato and @Invincibear, minor contribution by @NVP. Type !help for available commands.", log.visible);
+        log("[!info] EDMPbot " + version + " was developed by @overdrivenpotato and @Invincibear, minor contribution by @NVP. Type !help for available commands.", log.visible);
     }),
 
 
@@ -97,7 +97,7 @@ var commands = [
 
     new Command("stopreminder", function(author) {
         meetupUrl = "";
-        log("@" + author + " reminder stopped.", log.visible);
+        log("[!stopreminder] @" + author + " reminder stopped.", log.visible);
     }, API.ROLE.MANAGER),
 
 
@@ -120,10 +120,10 @@ var commands = [
     new Command("remove", function(author) {
         var dj = API.getDJ();
         if(typeof dj === "undefined") {
-            log("No dj to remove.", log.visible);
+            log("@" + author + " [!remove] No dj to remove.", log.visible);
             return;
         }
-        log(author + " has removed " + dj.username + " from the stage.", log.info);
+        log("[!remove] " + author + " has removed " + dj.username + " from the stage.", log.info);
         API.moderateRemoveDJ(dj.id);
     }, API.ROLE.MANAGER),
 
@@ -170,13 +170,13 @@ var commands = [
             log("@" + author + DJmsgs[Math.round(Math.random() * (DJmsgs.length - 1))], log.visible);
         } else if (API.getWaitListPosition(getId(author)) != -1) {
             var eta = getETA(author);
-            var etaMsg = "@" + author + ", it will be your turn to DJ ";
+            var etaMsg = "[!eta] @" + author + ", it will be your turn to DJ ";
             etaMsg += (eta == "0") ? "SOOO SOOOOOONNN!" :
                 ("in ~" + (eta / 60 < 1 ? "" : Math.floor(eta / 60) + "h " ) + eta % 60 + "m");
 
             log(etaMsg, log.visible);
         } else {
-            log("@" + author + ", you are not on the DJ wait list!", log.visible);
+            log("[!eta] @" + author + ", you are not on the DJ wait list!", log.visible);
         }
     }),
 
@@ -184,10 +184,10 @@ var commands = [
     new Command("url", function(author) {
         if (typeof API.getDJ() !== "undefined") {
             getSourceUrl(API.getMedia().id, function(link) {
-                log("@" + author + " [!url] " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
+                log("[!url] @" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
             })
         } else {
-            log("Nobody is DJing, @" + author, log.visible);
+            log("[!url] Nobody is DJing, @" + author, log.visible);
         }
     }),
 
@@ -236,8 +236,7 @@ var commands = [
     }),
 
     
-    new Command("blackjack", function(author, args) {
-        log("@" + author + " blackjack has been disabled.", log.visible);return;
+    new Command("blackjack", function(author, args) {// There's a var top of bot.js to turn it off
         blackJack(author, args);
     }),
 
