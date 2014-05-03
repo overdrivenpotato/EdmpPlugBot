@@ -232,7 +232,7 @@ var commands = [
         }
 
         lotteryEntries.push(author);
-        log("@" + author + " has entered the lottery! There are now " + lotteryEntries.length + " entries!", log.visible);
+        log("[!lottery] @" + author + " has entered the lottery! (" + lotteryEntries.length + " entries)", log.visible);
     }),
 
     
