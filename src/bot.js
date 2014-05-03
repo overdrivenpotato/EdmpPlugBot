@@ -6,6 +6,7 @@
 // stupid !8ball glitch from preceding functions
 // blackjack needs to be limited to a player at a time, 5 minute time limit
 // fix blackjack limiter
+// if one person plays blackjack but is denied because of slot position, another person can't play (flood protection flaw)
 // add disconnect protection, 10 minute grace period?
 // roll the dice says can't roll because already DJing but reality is they're the last DJ in the queue
 // add !War game to swap slots with the challenger
@@ -15,7 +16,6 @@
 // remove anti-spam stuffs when somebody leaves the room
 // afk check never gets past the first check (10m warning)
 // afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
-// if one person plays blackjack but is denied because of slot position, another person can't play (flood protection flaw)
 
 
 
@@ -423,7 +423,7 @@ function onLeave(user) {// greet new user after a short delay to ensure they rec
             }
         }
 
-        if(realAdmins.length < 1 || (realAdmins.length == 1 && realAdmins[0].id == botID)) {
+        if(user.permissions >= API.ROLE.BOUNCER && (realAdmins.length < 1 || (realAdmins.length == 1 && realAdmins[0].id == botID))) {// only display msg when the LAST amdin leaves, not when anybody leaves
             log("***ATTENTION*** there are no admins left in the room. ERMERGHURD TIIIMMM TERRR PRRTTTEEEE!", log.visible);
         } else if (user.username == "Ptero") {
             log("OH look, Princess @Ptero has left the building.", log.visible);
@@ -537,16 +537,15 @@ function analyzeSongHistory() {
 
 
 function rollTheDice(author) {
-//    if((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
-//        log("@" + author + ", you can't roll if you're fresh on the DJ wait list, wait a few songs or get help by typing !addiction", log.visible);
-//        return;
-//    } else if(getPosition(author) == -1) {
-//        log("@" + author + ", you're already DJing, you can't move positions!", log.visible);
-//        return;
-//    } else if(getPosition(author) == 0) {
-//       log("@" + author + ", you're already the next to DJ, type !addiction for help with your problem.", log.visible);
-//        return;
-//    }
+    if((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
+        log("Wait a few songs @" + author + ", or get help with !addiction", log.visible);
+        return;
+    } else if(getPosition(author) == 0) {
+       log("@" + author + ", you're already the next DJ, get help with !addiction", log.visible);
+        return;
+    } else if(getPosition(author) == -1) {//log("@" + author + ", you're already DJing, you can't move positions!", log.visible);
+        return;
+    }
 
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
