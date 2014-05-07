@@ -507,6 +507,8 @@ function getScLengthSeconds(soundId, callBack) {
     $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
         function(e){
             callBack(e.duration / 1000);
+        }).fail(function() {
+            callBack(0);
         });
 }
 
