@@ -393,7 +393,7 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
     if(obj.media.id.indexOf("2:") != -1) {
         getSourceLength(obj.media.id, function(time){
             if(time == 0) {
-                var DJid = getId(API.getDJ.username);
+                var DJid = getId(API.getDJ().username);
 
                 if(lastSkipped != DJid) {
                     log("@" + API.getDJ().username + " your track is either private or missing, please line up another song in your playlist. Hurry! You've been bumped back to the front of the line!", log.visible);
