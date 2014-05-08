@@ -136,15 +136,7 @@ var commands = [
         getSourceLength(API.getMedia().id, function(time)
         {
             if(((time - seconds) < 30)) {// || getPermLevel(author) >= API.ROLE.BOUNCER) {
-                log("Skipping " + current + " and repositioning due to private track.", log.visible);
-                skipDj();
-
-                var processor = setInterval(function () {
-                    if (current != API.getDJ().username) {
-                        clearInterval(processor);
-                        moveToFirst(current);
-                    }
-                }, 10);
+                privateSkip(current);
             } else {
                 log("Couldn't skip @" + current + " due to timeout.", log.visible);
             }

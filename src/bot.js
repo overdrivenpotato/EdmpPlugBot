@@ -388,8 +388,28 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
     }
 
     setTimeout(function(){$("#woot").click();}, 2000);// auto-woot the song
+
+    if(obj.media.id.indexOf("2:") != -1)
+    {
+        getSourceLength(obj.media.id, function(time){
+            if(time == 0) {
+                privateSkip(API.getDJ().username);
+            }
+        });
+    }
 }
 
+function privateSkip(user) {
+    log("Skipping " + user + " and repositioning due to private track.", log.visible);
+    skipDj();
+
+    var processor = setInterval(function () {
+        if (user != API.getDJ().username) {
+            clearInterval(processor);
+            moveToFirst(user);
+        }
+    }, 10);
+}
 
 function onJoin(user) {// greet new user after a short delay to ensure they receive the message
     if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms
