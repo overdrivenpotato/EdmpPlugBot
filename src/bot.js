@@ -15,7 +15,7 @@
 // remove anti-spam stuffs when somebody leaves the room
 // afk check never gets past the first check (10m warning)
 // afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
-// join lotto when next DJ?
+// join lotto when not on DJ list?
 
 
 
@@ -393,7 +393,7 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
     if(obj.media.id.indexOf("2:") != -1) {
         getSourceLength(obj.media.id, function(time){
             if(time == 0) {
-                var DJid = getId(API.getDJ);
+                var DJid = getId(API.getDJ.username);
 
                 if(lastSkipped != DJid) {
                     log("@" + API.getDJ().username + " your track is either private or missing, please line up another song in your playlist. Hurry! You've been bumped back to the front of the line!", log.visible);
