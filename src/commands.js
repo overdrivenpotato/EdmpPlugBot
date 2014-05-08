@@ -205,6 +205,15 @@ var commands = [
     }),
 
 
+    new Command("move", function(author, args) {
+        if(args.length < 3 || args[1].indexOf("@") == -1) {
+            log("@" + author + " please use in the form of: !move @" + author + " 14");
+            return;
+        }
+        API.moderateMoveDJ(getId(args[1].substr(1)), args[2]);
+    }, API.ROLE.MANAGER),
+
+
     new Command("rollthedice", function(author) {
 //        log("!rollthedice is disabled until further notice. Try again later.", log.visible);
         rollTheDice(author);
