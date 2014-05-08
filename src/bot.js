@@ -15,7 +15,6 @@
 // remove anti-spam stuffs when somebody leaves the room
 // afk check never gets past the first check (10m warning)
 // afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
-// join lotto when not on DJ list?
 
 
 

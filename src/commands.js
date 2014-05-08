@@ -230,6 +230,9 @@ var commands = [
         } else if(getPosition(author) == 0) {
             log("@" + author + ", you're already the next to DJ, type !addiction for help with your problem.", log.visible);
             return;
+        } else if (API.getWaitListPosition(getId(author)) == -1) {
+            log("@" + author + ", you must be on the DJ wait list to enter the !lottery", log.visible);
+            return;
         }
 
         lotteryEntries.push(author);
