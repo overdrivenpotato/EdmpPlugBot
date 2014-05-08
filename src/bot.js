@@ -11,11 +11,11 @@
 // roll the dice says can't roll because already DJing but reality is they're the last DJ in the queue
 // add !War game to swap slots with the challenger
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
-// better private track detection
 // hourly cron no longer working???
 // remove anti-spam stuffs when somebody leaves the room
 // afk check never gets past the first check (10m warning)
 // afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
+// join lotto when next DJ?
 
 
 
@@ -56,6 +56,7 @@ var lotteryEntries = typeof lotteryEntries === "undefined" ? []   : lotteryEntri
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 
 var lastJoined = "";// userID of last joined user
+var lastSkipped= "";// userID of last private track auto-skipped user
 var scClientId = "ff550ffd042d54afc90a43b7151130a1";// API credentials
 var botID      = "531bdea096fba5070c4cad51";
 var invincibear= "52fff97b3b7903273314e678";
@@ -371,17 +372,17 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
         }
     }
 
-    if (songs.length >= 4 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid && songs[2] == obj.media.cid)) {
+    if(songs.length >= 4 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid && songs[2] == obj.media.cid)) {
         API.moderateRemoveDJ(obj.dj.id);// third offense, remove from dj wait list
         API.moderateForceSkip();// skip their turn
         log("@" + obj.dj.username + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
     } else {
-        if (songs.length >= 3 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid)) {// second offense, skip
+        if(songs.length >= 3 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid)) {// second offense, skip
             API.moderateForceSkip();// skip their turn
             API.moderateMoveDJ(obj.dj.id, 1);// return them to the front of the line to try another song
             log("@" + obj.dj.username + ", you've already played that song twice before. Please play a different song or you will be removed from the DJ wait list.", log.visible);
         } else {// first offense, slap on the wrist
-            if (songs.length >= 2 && songs[0] == obj.media.cid) {
+            if(songs.length >= 2 && songs[0] == obj.media.cid) {
                 log("@" + obj.dj.username + ", you've already played that song before. Please play a different song.", log.visible);
             }
         }
@@ -389,18 +390,26 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
 
     setTimeout(function(){$("#woot").click();}, 2000);// auto-woot the song
 
-    if(obj.media.id.indexOf("2:") != -1)
-    {
+    if(obj.media.id.indexOf("2:") != -1) {
         getSourceLength(obj.media.id, function(time){
             if(time == 0) {
-                privateSkip(API.getDJ().username);
+                var DJid = getId(API.getDJ);
+
+                if(lastSkipped != DJid) {
+                    log("@" + API.getDJ().username + " your track is either private or missing, please line up another song in your playlist. Hurry! You've been bumped back to the front of the line!", log.visible);
+                    lastSkipped = DJid;
+                    privateSkip(API.getDJ().username);
+                } else {
+                    log("@" + API.getDJ().username + " you've now played two private/missing tracks in a row, you've been removed from the DJ wait list.", log.visible);
+                    API.moderateRemoveDJ(DJid);
+                }
             }
         });
     }
 }
 
+
 function privateSkip(user) {
-    log("Skipping " + user + " and repositioning due to private track.", log.visible);
     skipDj();
 
     var processor = setInterval(function () {
@@ -410,6 +419,7 @@ function privateSkip(user) {
         }
     }, 10);
 }
+
 
 function onJoin(user) {// greet new user after a short delay to ensure they receive the message
     if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms
