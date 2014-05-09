@@ -63,6 +63,7 @@ API.on(API.DJ_ADVANCE, onDJAdvance);
 API.on(API.CHAT, onChat);
 API.on(API.USER_JOIN, onJoin);
 API.on(API.USER_LEAVE, onLeave);
+API.on(API.CHAT_COMMAND, onCommand);
 
 log.info = 3;
 log.visible = 2;
