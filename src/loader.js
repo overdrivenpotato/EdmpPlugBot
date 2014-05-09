@@ -6,7 +6,6 @@
  */
 var scripts = [
     "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/commands.js",
-    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/newCommands.js",
     "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/blackjack.js",
     "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js"];
 
