@@ -19,7 +19,7 @@ function deleteBlackJackGame(username) {// game over, remove from blackJackUsers
 
     for (i; i < blackJackUsers.length; i++) {
         if (blackJackUsers[i].indexOf(getId(username)) != -1) {
-            blackJackUsers.splice(i, 1);
+            blackJackUsers.push(i, 1);
             return;
         }
     }
@@ -116,6 +116,7 @@ function blackJackStand(author){// function for dealer to keep hitting if needed
     if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][3]) <= 21) {
         log(output + "@EDMPBot wins, you suck compared to it.", log.visible);
         API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
+//log("deleteBlackJackGame author="+author, log.info);
         deleteBlackJackGame(author);
     } else if(getSumOfHand(blackJackUsers[game][3]) > 21) {
         log(output + "Dealer busts, you WIN & advance " + blackJackUsers[game][1] + " DJ slots.", log.visible);
@@ -232,6 +233,8 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                     API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
                     deleteBlackJackGame(author);// game over, remove from blackJackUsers array
                     return;
+                }  else if (getSumOfHand(savedGame[2]) < getSumOfHand(savedGame[3])) {
+                    log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your hand is weaker, you must !hit";
                 } else {
                     log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand", log.visible);
                 }
@@ -268,14 +271,14 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                 log("[!blackjack] @" + author + " please enter a valid wager.", log.visible);
                 return;
             } else if(isPlaying(author)) {
-//                log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
-//                return;
+                log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
+                return;
             } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1) {
-//                log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
-//                return;
+                log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
+                return;
             } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet excessively
-//                args[1] = checkBlackJackWager(author, args[1]);
-//                log("@" + author + ", your wager has been changed to " + args[1], log.visible);
+                args[1] = checkBlackJackWager(author, args[1]);
+                log("@" + author + ", your wager has been changed to " + args[1], log.visible);
             }
 
             savedGame = getBlackJackGame(author);
