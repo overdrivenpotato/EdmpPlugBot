@@ -41,7 +41,7 @@ function getSumOfHand(hand){// return the total point value of a given hand ["Q"
     var skippedAces = 0;
     var total       = 0;
 
-    for(var i = 0; i < hand.length; i++) {
+    for(i = 0; i < hand.length; i++) {
         switch(hand[i]) {
             case 'A':
                 skippedAces++;
@@ -83,7 +83,7 @@ function getSumOfHand(hand){// return the total point value of a given hand ["Q"
     }
 
     if (skippedAces) {
-        for(var i = 0; i < skippedAces; i++) {
+        for(i = 0; i < skippedAces; i++) {
             total = ((total + 11) <= 21) ? (total + 11) : (total + 1);// Ace = 11pts unless over 21, then Ace = 1pt
         }
     }
@@ -234,7 +234,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                     deleteBlackJackGame(author);// game over, remove from blackJackUsers array
                     return;
                 }  else if (getSumOfHand(savedGame[2]) < getSumOfHand(savedGame[3])) {
-                    log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your hand is weaker, you must !hit";
+                    log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your hand is weaker, you must !hit", log.visible);
                 } else {
                     log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand", log.visible);
                 }
