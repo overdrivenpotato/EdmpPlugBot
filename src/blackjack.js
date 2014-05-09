@@ -277,6 +277,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 return;
             } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet excessively
+log(getPosition(author), log.info);
                 args[1] = checkBlackJackWager(author, args[1]);
                 log("@" + author + ", your wager has been changed to " + args[1], log.visible);
             }
