@@ -1,8 +1,3 @@
-/**
- * User: Marko
- * Date: 3/8/14
- * Time: 9:20 PM
- */
 // stupid !8ball glitch from preceding functions
 // blackjack needs to be limited to a player at a time, 5 minute time limit
 // fix blackjack limiter
@@ -92,7 +87,7 @@ function cronHourly() {// called at the start of a new hour ie. 0 minutes & seco
     var sec = d.getSeconds();
     var countdown = (60 * (60 - min) + (60 - sec)) * 1000;
 
-    if (min == "00" || min == "0" || typeof min === undefined) {// browser-dependant
+    if (min == "00" || min == "0" || min == "01" || min == "1" || typeof min === undefined) {// browser-dependant, had to add 01 for some silly reason
         log("the hour is fresh, run additional hourly functions", log.info);
         lotteryHourly();// check to see the lottery can be activated
         ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
@@ -660,8 +655,7 @@ function lotteryHourly() {// enable or disable the lottery
 }
 
 
-function init()
-{
+function init() {
     window.edmpBot = window.setInterval(function(){
         meetupReminder();
     }, 10);
@@ -675,7 +669,6 @@ function init()
 
 try {
     init();
-}
-catch(exp) {
+} catch(exp) {
     log("Error while initializing bot: " + exp.stack);
 }
