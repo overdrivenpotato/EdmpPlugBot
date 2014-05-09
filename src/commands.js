@@ -129,7 +129,7 @@ var commands = [
 
         getSourceLength(API.getMedia().id, function(time)
         {
-            if(((time - seconds) < 30)) {// || getPermLevel(author) >= API.ROLE.BOUNCER) {
+            if(((time - seconds) < 30) || getPermLevel(author) >= API.ROLE.BOUNCER) {
                 privateSkip(current);
                 log("Skipped @" + current + " and repositioned due to a private/missing track", log.visible);
             } else {
