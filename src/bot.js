@@ -15,6 +15,8 @@
 // remove anti-spam stuffs when somebody leaves the room
 // afk check never gets past the first check (10m warning)
 // afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
+// fix "move username position" command to work with a @ in the username (same bug as with !8ball)
+// change lottery to use the / instead of !, condense the entries and make less spammy
 
 
 
@@ -25,10 +27,10 @@ var curdate = new Date();
 var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var blackJackEnabled= true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
-//var ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
+var ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 
-var version   = "0.7.2";
+var version   = "0.7.4";
 var meetupUrl = "";
 
 var trackAFKs        = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
@@ -93,6 +95,7 @@ function cronHourly() {// called at the start of a new hour ie. 0 minutes & seco
     if (min == "00" || min == "0" || typeof min === undefined) {// browser-dependant
         log("the hour is fresh, run additional hourly functions", log.info);
         lotteryHourly();// check to see the lottery can be activated
+        ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 //        reminderHourly();// check to see if it is now a meetup day to activate the reminder
     }
 
@@ -125,25 +128,6 @@ function stop(update) {
 
     if(!update) {
         setTimeout(function(){log("p.s. ptero is fat", log.visible);}, 15000);
-    }
-}
-
-
-function skipFix() {
-    if(lastSkipTime < 1) {
-        lastSkipTime = Date.now();
-        return;
-    }
-
-    var times = $("#now-playing-time").children(":last").html().split(":");
-
-    if(times[0] < 1 && times[1] < 1) {
-        var timeN = Date.now();
-
-        if(timeN - lastSkipTime > 5000) {
-            log("Skipping due to lag", 1);
-            commandDispatch("!skip", API.getUser().username.trim());
-        }
     }
 }
 
@@ -361,6 +345,7 @@ function onChat(data) {
 
 
 function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the same song
+log(obj);
     lastPrivateSkip = Date.now();
     var songshistory = API.getHistory(); // get dj history
     var songs = [];// reset the array, don't need long-term history
@@ -373,7 +358,6 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
 
     if(songs.length >= 4 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid && songs[2] == obj.media.cid)) {
         API.moderateRemoveDJ(obj.dj.id);// third offense, remove from dj wait list
-        API.moderateForceSkip();// skip their turn
         log("@" + obj.dj.username + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
     } else {
         if(songs.length >= 3 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid)) {// second offense, skip
@@ -679,9 +663,6 @@ function lotteryHourly() {// enable or disable the lottery
 function init()
 {
     window.edmpBot = window.setInterval(function(){
-        if(skipFixEnabled) {
-            skipFix();
-        }
         meetupReminder();
     }, 10);
 

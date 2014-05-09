@@ -101,12 +101,6 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("skipfix", function() {
-        skipFixEnabled = !skipFixEnabled;
-        log("skipfix is set to " + skipFixEnabled);
-    }, API.ROLE.MANAGER, null, false),
-
-
     new Command("update", function() {
 //log("Restarting the bot, Bye!...", log.visible);// really not needed, if you don't see it come up it's already fucked
         stop(true);
@@ -137,6 +131,7 @@ var commands = [
         {
             if(((time - seconds) < 30)) {// || getPermLevel(author) >= API.ROLE.BOUNCER) {
                 privateSkip(current);
+                log("Skipped @" + current + " and repositioned due to a private/missing track", log.visible);
             } else {
                 log("Couldn't skip @" + current + " due to timeout.", log.visible);
             }
