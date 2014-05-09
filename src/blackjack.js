@@ -197,7 +197,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
         return;
     }
     if(!checkBlackJackPlayer(author) && args[1] != "on" && args[1] != "off" && args[1] != "hit" && args[1] != "hitme" && args[1] != "stand" && args[1] != "hold") {
-       return;
+       return;// why the eff was this even called then??
     }
 
     switch(args[0]) {
@@ -268,14 +268,14 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                 log("[!blackjack] @" + author + " please enter a valid wager.", log.visible);
                 return;
             } else if(isPlaying(author)) {
-                log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
-                return;
+//                log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
+//                return;
             } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1) {
-                log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
-                return;
+//                log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
+//                return;
             } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet excessively
-                args[1] = checkBlackJackWager(author, args[1]);
-                log("@" + author + ", your wager has been changed to " + args[1], log.visible);
+//                args[1] = checkBlackJackWager(author, args[1]);
+//                log("@" + author + ", your wager has been changed to " + args[1], log.visible);
             }
 
             savedGame = getBlackJackGame(author);

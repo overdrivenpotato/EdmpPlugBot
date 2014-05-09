@@ -10,7 +10,6 @@
 // remove anti-spam stuffs when somebody leaves the room
 // afk check never gets past the first check (10m warning)
 // afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
-// fix "move username position" command to work with a @ in the username (same bug as with !8ball)
 // change lottery to use the / instead of !, condense the entries and make less spammy
 
 
@@ -25,7 +24,7 @@ var blackJackEnabled= true;//(curdate.getDay() != 3 && curdate.getDay() != 6);//
 var ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 
-var version   = "0.7.4";
+var version   = "0.7.5";
 var meetupUrl = "";
 
 var trackAFKs        = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
