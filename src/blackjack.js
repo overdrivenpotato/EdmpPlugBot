@@ -138,12 +138,15 @@ function checkBlackJackWager(author, wager) {// make sure players bet what||less
     if((correctedPosition - wager) < 1) {// check if they bet more than they can win
         if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
             wager = API.getWaitList().length - getPosition(author) + 1;// how much they can lose
+log("API.getWaitList().length - getPosition(author) + 1 = " + API.getWaitList().length + " - " + getPosition(author) + " + 1 = " + wager, log.info);
         } else {// they only bet more than they can win, change to the amount of slots they can gain
             wager = getPosition(author);// how much they can win
+log("getPosition(author) = " + getPosition(author) + " = " + wager, log.info);
         }
     }
     if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-        wager = API.getWaitList().length - (getPosition(author) + 1);// how much they can lose
+        wager = API.getWaitList().length - getPosition(author) + 1;// how much they can lose
+log("API.getWaitList().length - getPosition(author) + 1 = " + API.getWaitList().length + " - " + getPosition(author) + " + 1 = " + wager, log.info);
     }
 
     return wager;
