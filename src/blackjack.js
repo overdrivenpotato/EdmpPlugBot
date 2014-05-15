@@ -268,20 +268,24 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                 } else {
                     log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to win/lose. Usage: !blackjack 5", log.visible);
                     deleteBlackJackGame(username);
+                    blackJackPlayer = [Date.now(), ""];
                 }
 
                 return;
             } else if(isNaN(args[1])) {
                 log("[!blackjack] @" + author + " please enter a valid wager.", log.visible);
                 deleteBlackJackGame(username);
+                blackJackPlayer = [Date.now(), ""];
                 return;
             } else if(isPlaying(author)) {
                 log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
                 deleteBlackJackGame(username);
+                blackJackPlayer = [Date.now(), ""];
                 return;
             } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1 || getPosition(author) == 0) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
                 deleteBlackJackGame(username);
+                blackJackPlayer = [Date.now(), ""];
                 return;
             } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet excessively
                 args[1] = checkBlackJackWager(author, args[1]);
