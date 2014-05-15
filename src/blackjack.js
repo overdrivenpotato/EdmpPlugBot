@@ -258,6 +258,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
             } else if(args[1] == "off") {
                 blackJackEnabled = false;
                 log("Blackjack is now closed, try again later.", log.visible);
+                deleteBlackJackGame(author);
                 return;
             }
 
@@ -267,25 +268,21 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
                     log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand.", log.visible);
                 } else {
                     log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to win/lose. Usage: !blackjack 5", log.visible);
-                    deleteBlackJackGame(username);
-                    blackJackPlayer = [Date.now(), ""];
+                    deleteBlackJackGame(author);
                 }
 
                 return;
             } else if(isNaN(args[1])) {
                 log("[!blackjack] @" + author + " please enter a valid wager.", log.visible);
-                deleteBlackJackGame(username);
-                blackJackPlayer = [Date.now(), ""];
+                deleteBlackJackGame(author);
                 return;
             } else if(isPlaying(author)) {
                 log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
-                deleteBlackJackGame(username);
-                blackJackPlayer = [Date.now(), ""];
+                deleteBlackJackGame(author);
                 return;
             } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1 || getPosition(author) == 0) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
-                deleteBlackJackGame(username);
-                blackJackPlayer = [Date.now(), ""];
+                deleteBlackJackGame(author);
                 return;
             } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet excessively
                 args[1] = checkBlackJackWager(author, args[1]);
