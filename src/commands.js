@@ -313,7 +313,7 @@ var commands = [
     }, null, null, false),
 
     new Command("suck", function() {
-        log("!suck @Ptero's dick for mod", log.visible);
+        log("!suck @Ptero's dick for mod", log.info);
     }, null, null, false),
 
     new Command("nignog", function() {

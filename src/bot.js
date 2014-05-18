@@ -432,7 +432,8 @@ log(user, log.info);
 
         if(user.permissions >= API.ROLE.BOUNCER && (realAdmins.length < 1 || (realAdmins.length == 1 && realAdmins[0].id == botID))) {// only display msg when the LAST amdin leaves, not when anybody leaves
             log("***ATTENTION*** there are no admins left in the room. ERMERGHURD TIIIMMM TERRR PRRTTTEEEE!", log.visible);
-        } else if (user.username == "Ptero") {
+        }
+        if (user.username == "Ptero") {
             log("OH look, Princess @Ptero has left the building.", log.visible);
         }
 

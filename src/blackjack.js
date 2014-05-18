@@ -132,27 +132,16 @@ function blackJackStand(author){// function for dealer to keep hitting if needed
 
 
 function checkBlackJackWager(author, wager) {// make sure players bet what||less than they can gain||lose
-log("var correctedPosition =  parseInt(getPosition(author) + 1) =  parseInt(" + getPosition(author) + " + 1) = parseInt(" + getPosition(author) + 1 + ") = " + parseInt(getPosition(author) + 1), log.info);
-    var correctedPosition = parseInt(getPosition(author) + 1);
-log("wager = parseInt(wager) = " + parseInt(wager), log.info);
-    wager = parseInt(wager);
+    var correctedPosition   = parseInt(getPosition(author) + 1);
+    var maxWin              = correctedPosition - 1;
+    var maxLose             = API.getWaitList().length - correctedPosition;
+    wager                   = parseInt(wager);
 
-    if((correctedPosition - wager) < 1) {// check if they bet more than they can win
-        if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-            wager = API.getWaitList().length - getPosition(author) + 1;// how much they can lose
-log("API.getWaitList().length - getPosition(author) + 1 = " + API.getWaitList().length + " - " + getPosition(author) + " + 1 = " + wager, log.info);
-        } else {// they only bet more than they can win, change to the amount of slots they can gain
-            wager = getPosition(author);// how much they can win
-log("getPosition(author) = " + getPosition(author) + " = " + wager, log.info);
-        }
-    }
-    if((correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can lose
-        wager = API.getWaitList().length - getPosition(author) + 1;// how much they can lose
-log("API.getWaitList().length - getPosition(author) + 1 = " + API.getWaitList().length + " - " + getPosition(author) + " + 1 = " + wager, log.info);
+    if((correctedPosition - wager) < 1 || (correctedPosition + wager) > API.getWaitList().length) {// check if they bet more than they can win
+        wager = (maxWin > maxLose) ? maxLose : maxWin;// use the lesser amount
     }
 
     return wager;
-
 }
 
 
@@ -213,6 +202,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
         return;
     }
     if (!checkBlackJackPlayer(author) && args[1] != "hit" && args[1] != "hitme" && args[1] != "stand" && args[1] != "hold") {
+log("lost code in !blackjack", log.info);
        return;// why the eff was this even called then??
     }
 
