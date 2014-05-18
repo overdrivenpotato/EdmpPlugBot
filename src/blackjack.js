@@ -1,8 +1,7 @@
 function getBlackJackGame(username, count) {
     count = (typeof count === "undefined") ? false : count;
-    var i = 0;
 
-    for (i; i < blackJackUsers.length; i++) {
+    for (i = 0; i < blackJackUsers.length; i++) {// search stored games
         if (blackJackUsers[i].indexOf(getId(username)) != -1) {
             return (count) ? i : blackJackUsers[i];
         }
@@ -14,14 +13,13 @@ function getBlackJackGame(username, count) {
 
 function deleteBlackJackGame(username, freepass) {// game over, remove from blackJackUsers array
     freepass    = (typeof freepass === "undefined") ? false : freepass;
-    var i       = 0;
 
-    blackJackPlayer = [Date.now(), ""];// remove userID of previous player
+    blackJackPlayer = [Date.now(), ""];// remove userID of previous current player
 
-    for(i; i < blackJackUsers.length; i++) {
+    for(i = 0; i < blackJackUsers.length; i++) {// search stored games
         if(blackJackUsers[i].indexOf(getId(username)) != -1) {
-            blackJackUsers.push(i, 1);
-            return;
+            blackJackUsers.splice(blackJackUsers.indexOf(getId(username)), 1);
+            break;
         }
     }
 
@@ -34,7 +32,7 @@ function deleteBlackJackGame(username, freepass) {// game over, remove from blac
 function _getRandCard(deck, remove) {
     var randNumber = Math.round(Math.random() * (deck.length - 1));
 
-    if (remove) {
+    if(remove) {
         deck.splice(randNumber, 1);
     }
 
