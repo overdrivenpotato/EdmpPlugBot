@@ -13,7 +13,7 @@ function getBlackJackGame(username, count) {
 
 
 function deleteBlackJackGame(username, freepass) {// game over, remove from blackJackUsers array
-    freepass    = (typeof freepass === "undefined") ? false : true;
+    freepass    = (typeof freepass === "undefined") ? false : freepass;
     var i       = 0;
 
     blackJackPlayer = [Date.now(), ""];// remove userID of previous player
@@ -129,7 +129,7 @@ function blackJackStand(author){// function for dealer to keep hitting if needed
         deleteBlackJackGame(author);
     } else if(getSumOfHand(blackJackUsers[game][2]) == getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) == 21) {
         log(ouput + "You dodged a bullet, you both scored 21!", log.visible);
-        deleteBlackJackGame(author);
+        deleteBlackJackGame(author, true);
     } else {
         log("something else, derp?", log.visible);
     }
@@ -173,7 +173,7 @@ function checkBlackJackPlayer(author) {// throttle blackjack games
 
         log("@" + username + ", time expired and you forfeit your blackjack game, losing " + blackJackUsers[game][1] + " slots");
         API.moderateMoveDJ(blackJackPlayer[1], getPosition(username) + 1 + blackJackUsers[game][1]);
-        deleteBlackJackGame(username);
+        deleteBlackJackGame(username, true);
 
         return true;
     } else if(blackJackPlayer[1] == authorID) {// they are the current player
@@ -203,7 +203,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
     } else if(args[1] == "off") {
         blackJackEnabled = false;
         log("Blackjack is now closed, try again later.", log.visible);
-        deleteBlackJackGame(author);
+        deleteBlackJackGame(author, true);
         return;
     }
     if (!checkBlackJackPlayer(author) && args[1] != "hit" && args[1] != "hitme" && args[1] != "stand" && args[1] != "hold") {
@@ -232,7 +232,7 @@ log("lost code in !blackjack", log.info);
 
                 if(getSumOfHand(savedGame[2]) == 21 && getSumOfHand(savedGame[3]) == 21) {
                     log(output + "; You got lucky and tied @EDMPBot!", log.visible);
-                    deleteBlackJackGame(author);
+                    deleteBlackJackGame(author, true);
                     return;
                 } else if(getSumOfHand(savedGame[2]) == 21) {
                     log(output + "& forcing you to !stand, action is on the dealer now", log.visible);
@@ -259,16 +259,16 @@ log("lost code in !blackjack", log.info);
         case 'blackjack':
         default:
             if(isNaN(args[1]) || args[1] == "" || typeof args[1] === "undefined") {
-                log("[!blackjack] @" + author + " please enter a valid wager.", log.visible);
-                deleteBlackJackGame(author);
+                log("[!blackjack] @" + author + " please enter a valid wager like so: !blackjack 3", log.visible);
+                deleteBlackJackGame(author, true);
                 return;
             } else if(isPlaying(author)) {
-                log("@" + author + ", you're already DJing, you have no slots to gamble.", log.visible);
-                deleteBlackJackGame(author);
+                log("@" + author + ", you're already DJing, you have no slots to gamble. See !addiction for more details.", log.visible);
+                deleteBlackJackGame(author, true);
                 return;
             } else if(getPosition(author) == (API.getWaitList().length - 1) || getPosition(author) == -1 || getPosition(author) == 0) {
                 log("@" + author + ", you can't gamble when you have nothing to lose! See !addiction for more details.", log.visible);
-                deleteBlackJackGame(author);
+                deleteBlackJackGame(author, true);
                 return;
             } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet excessively
                 args[1] = checkBlackJackWager(author, args[1]);
@@ -315,7 +315,7 @@ log("lost code in !blackjack", log.info);
                         if(((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
                             log(output + "You dodged a bullet, you both hit BlackJack!", log.visible);
                             blackJackUsers[game][6] = true;// cards now face-up
-                            deleteBlackJackGame(author);
+                            deleteBlackJackGame(author, true);
                         } else if((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") && handUser[1] == "A") {
                             log(output + "Congratulations you won!", log.visible);
                             blackJackUsers[game][6] = true;// cards now face-up
