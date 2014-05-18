@@ -253,7 +253,7 @@ log("lost code in !blackjack", log.info);
             break;
         case 'blackjack':
         default:
-            if(isNaN(args[1])) {
+            if(isNaN(args[1]) || args[1] == "" || typeof args[1] === "undefined") {
                 log("[!blackjack] @" + author + " please enter a valid wager.", log.visible);
                 deleteBlackJackGame(author);
                 return;
