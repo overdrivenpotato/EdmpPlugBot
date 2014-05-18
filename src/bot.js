@@ -51,12 +51,14 @@ var lastCronFiveMinutes   = (typeof lastCronFiveMinutes === "undefined")   ? 0 :
 var lotteryEntries = typeof lotteryEntries === "undefined" ? []   : lotteryEntries;
 var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
 
-var lastJoined = "";// userID of last joined user
-var lastSkipped= "";// userID of last private track auto-skipped user
-var scClientId = "ff550ffd042d54afc90a43b7151130a1";// API credentials
-var botID      = "531bdea096fba5070c4cad51";
-var invincibear= "52fff97b3b7903273314e678";
-var nvp        = "53090acb63051f462837692e";
+var lastJoined      = "";// userID of last joined user
+var lastSkipped     = "";// userID of last private track auto-skipped user
+var lastLotto       = "";// msgID of the last chatted lotto entry
+var lastBlackjack   = "";// msgID of the last chatted lotto entry
+var scClientId      = "ff550ffd042d54afc90a43b7151130a1";// API credentials
+var botID           = "531bdea096fba5070c4cad51";
+var invincibear     = "52fff97b3b7903273314e678";
+var nvp             = "53090acb63051f462837692e";
 
 API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.DJ_ADVANCE, onDJAdvance);
@@ -180,18 +182,13 @@ function isPlaying(username) {
 }
 
 
-function moveToFirst(username) {
-    API.moderateMoveDJ(getId(username), 1);
-}
-
-
 function skipDj() {
     API.moderateForceSkip();
 }
 
 
 function chat(text) {
-    $("#chat-input-field").val("/me " + text);
+    $("#chat-input-field").val("/em " + text);
     var e = $.Event('keydown');
     e.which = 13;
     $('#chat-input-field').trigger(e);
@@ -324,7 +321,7 @@ function getPosition(username) {
 
 
 function onChat(data) {
-//log("onChat called, data=", log.info);log(data, log.info);
+log("onChat called, data=", log.info);log(data, log.info);
     if(data.type == "message") {
         if(dispatch(data.message, data.from) && data.message.substr(0, 6) != "!8ball") {
             API.moderateDeleteChat(data.chatID);
@@ -393,7 +390,7 @@ function privateSkip(user) {
     var processor = setInterval(function () {
         if (user != API.getDJ().username) {
             clearInterval(processor);
-            moveToFirst(user);
+            API.moderateMoveDJ(getId(user), 1);
         }
     }, 10);
 }
@@ -625,7 +622,7 @@ function lotteryUpdate() {
             }
 
             log("@" + winner + " has won the hourly lottery! The lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
-            moveToFirst(winner);
+            API.moderateMoveDJ(getId(winner), 1);
         } else {
             if (lotteryEnabled) {
                 log("Not enough contestants, lottery reset. The lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
