@@ -132,7 +132,9 @@ function blackJackStand(author){// function for dealer to keep hitting if needed
 
 
 function checkBlackJackWager(author, wager) {// make sure players bet what||less than they can gain||lose
+log("var correctedPosition =  parseInt(getPosition(author) + 1) =  parseInt(" + getPosition(author) + " + 1) = parseInt(" + getPosition(author) + 1 + ") = " + parseInt(getPosition(author) + 1), log.info);
     var correctedPosition = parseInt(getPosition(author) + 1);
+log("wager = parseInt(wager) = " + parseInt(wager), log.info);
     wager = parseInt(wager);
 
     if((correctedPosition - wager) < 1) {// check if they bet more than they can win
@@ -200,7 +202,17 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
         log("[!blackjack] @" + author + ", blackJack isn't enabled, you can type !admins for a list of admins who can use " + '"!blackjack on"', log.visible);
         return;
     }
-    if(!checkBlackJackPlayer(author) && args[1] != "on" && args[1] != "off" && args[1] != "hit" && args[1] != "hitme" && args[1] != "stand" && args[1] != "hold") {
+    if(args[1] == "on") {
+        blackJackEnabled = true;
+        log("Blackjack is now active! Type !blackjack insertnumberofslotstogamblehere to play!", log.visible);
+        return;
+    } else if(args[1] == "off") {
+        blackJackEnabled = false;
+        log("Blackjack is now closed, try again later.", log.visible);
+        deleteBlackJackGame(author);
+        return;
+    }
+    if (!checkBlackJackPlayer(author) && args[1] != "hit" && args[1] != "hitme" && args[1] != "stand" && args[1] != "hold") {
        return;// why the eff was this even called then??
     }
 
@@ -216,12 +228,12 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
             }
 
             if(savedGame != -1) {
-                getCard      = _getRandCard(savedGame[4], true);// deal a card and get the new deck-chosen card
+                getCard              = _getRandCard(savedGame[4], true);// deal a card and get the new deck-chosen card
                 savedGame[2].push(savedGame[4][getCard[1]]);// add the new card to the user's hand
-                savedGame[4] = getCard[0];// make sure we use the spliced deck
+                savedGame[4]         = getCard[0];// make sure we use the spliced deck
                 blackJackUsers[game] = savedGame;
 
-                output = "@" + author + ", dealt a " + savedGame[4][getCard[1]] + " making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + " ";
+                output               = "@" + author + ", dealt a " + savedGame[4][getCard[1]] + " making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + " ";
 
                 if(getSumOfHand(savedGame[2]) == 21 && getSumOfHand(savedGame[3]) == 21) {
                     log(output + "; You got lucky and tied @EDMPBot!", log.visible);
@@ -251,28 +263,7 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
             break;
         case 'blackjack':
         default:
-            if(args[1] == "on") {
-                blackJackEnabled = true;
-                log("Blackjack is now active! Type !blackjack insertnumberofslotstogamblehere to play!", log.visible);
-                return;
-            } else if(args[1] == "off") {
-                blackJackEnabled = false;
-                log("Blackjack is now closed, try again later.", log.visible);
-                deleteBlackJackGame(author);
-                return;
-            }
-
-            if(args.length <= 1) {
-                if(getBlackJackGame(author, true) != -1) {// already have an active game, show them their options
-                    savedGame = getBlackJackGame(author);
-                    log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand.", log.visible);
-                } else {
-                    log("@" + author + " please wager an amount of slots, you can't bet more than the amount of slots you can afford to win/lose. Usage: !blackjack 5", log.visible);
-                    deleteBlackJackGame(author);
-                }
-
-                return;
-            } else if(isNaN(args[1])) {
+            if(isNaN(args[1])) {
                 log("[!blackjack] @" + author + " please enter a valid wager.", log.visible);
                 deleteBlackJackGame(author);
                 return;

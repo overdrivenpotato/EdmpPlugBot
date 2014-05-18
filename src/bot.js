@@ -1,6 +1,5 @@
 // stupid !8ball glitch from preceding functions
 // blackjack needs to be limited to a player at a time, 5 minute time limit
-// fix blackjack limiter
 // if one person plays blackjack but is denied because of slot position, another person can't play (flood protection flaw)
 // add disconnect protection, 10 minute grace period?
 // roll the dice says can't roll because already DJing but reality is they're the last DJ in the queue
