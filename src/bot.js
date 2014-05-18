@@ -11,6 +11,7 @@
 // afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
 // change lottery to use the / instead of !, condense the entries and make less spammy
 // less spam!!!!!!! only ever one active lotto or blackjack message at a time
+// remove from lotto list if you leave the wait list
 
 
 

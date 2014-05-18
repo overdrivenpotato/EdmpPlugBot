@@ -12,16 +12,21 @@ function getBlackJackGame(username, count) {
 }
 
 
-function deleteBlackJackGame(username) {// game over, remove from blackJackUsers array
-    var i = 0;
+function deleteBlackJackGame(username, freepass) {// game over, remove from blackJackUsers array
+    freepass    = (typeof freepass === "undefined") ? false : true;
+    var i       = 0;
 
     blackJackPlayer = [Date.now(), ""];// remove userID of previous player
 
-    for (i; i < blackJackUsers.length; i++) {
-        if (blackJackUsers[i].indexOf(getId(username)) != -1) {
+    for(i; i < blackJackUsers.length; i++) {
+        if(blackJackUsers[i].indexOf(getId(username)) != -1) {
             blackJackUsers.push(i, 1);
             return;
         }
+    }
+
+    if(freepass && blackJackPlayers.indexOf(getId(username)) != -1) {// don't prohibit them from waiting for 5 others to play BJ
+        blackJackPlayers.splice(blackJackPlayers.indexOf(getId(username)), 1);// remove from the list that inhibits immediate plays
     }
 }
 
