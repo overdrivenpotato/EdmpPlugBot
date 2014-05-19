@@ -21,7 +21,7 @@ function updateAFKs(data) {
 
         for(i = 0; i < users.length; i++) {// Cycle through users list and populate trackAFs with them
             trackAFKs.push([users[i].username, users[i].id, Date.now(), null, false]);
-            log("pushed the very first entries into trackAFKs (all of API.getUsers())", log.info);
+log("pushed the very first entries into trackAFKs (all of API.getUsers())", log.info);
         }
         return;
     }
@@ -31,11 +31,11 @@ function updateAFKs(data) {
         if(trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
             trackAFKs[i][2] = Date.now();
             trackAFKs[i][4] = false;// reset AFK warning
-            log("updated " + data.from + " to trackAFKs", log.info);
+log("updated " + data.from + " to trackAFKs", log.info);
             return;
         } else if(i == (trackAFKs.length - 1)) {// Hasn't yet chatted, add an entry
             trackAFKs.push([data.from, data.fromID, Date.now(), data.message, false]);
-            log("added " + data.from + " to trackAFKs", log.info);
+log("added " + data.from + " to trackAFKs", log.info);
             return;
         }
     }
@@ -43,7 +43,7 @@ function updateAFKs(data) {
 
 
 function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as much participation as possible, not AFK DJs
-    log("checkAFKs(" + minutes + ") called", log.info);
+log("checkAFKs(" + minutes + ") called", log.info);
     var DJWaitList      = API.getWaitList();
     var AFKlist         = "";
     checkAFKFirstStrike = [];
@@ -52,12 +52,12 @@ function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as 
 
 
     for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
-        log("looping through DJWaitList, i=" + i, log.info);
+log("looping through DJWaitList, i=" + i, log.info);
         for (var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
-            log("looping through trackAFKs, j=" + j, log.info);
+log("looping through trackAFKs, j=" + j, log.info);
             if (DJWaitList[i].id != botID && trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
                 var afkMinutes = (Date.now() - trackAFKs[j][2]) / 60 / 1000;
-                log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes called by checkAFKs(" + minutes + ")", log.info);
+log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes called by checkAFKs(" + minutes + ")", log.info);
                 if (afkMinutes >= minutes) {// reached the AFK limit, remove from DJ wait list
                     trackAFKs[j][4] = true;// set warned flag to true
                     API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
@@ -115,6 +115,17 @@ function checkAFKResponse(username) {// send an ACK to ppl who respond to the AF
 }
 
 
-function AFKCheckCleanup() {
+function AFKCheckCleanup() {// Remove people from AFK checker if they left the wait list
+    var tempTrackAFKs   = trackAFKs;
+    var DJWaitList      = API.getWaitList();
 
+    for(i = 0; i < tempTrackAFKs.length; i++) {
+        if(tempTrackAFKs[i][4]) {// they've been warned, see if they're still on the wait list and if not, set flag to false
+            for(j = 0; j < DJWaitList.length; j++) {
+                if(tempTrackAFKs[i][1] == DJWaitList[j].id) {// If they've been warned and they're still on the wait list, remove from temp list
+                    tempTrackAFKs.splice(i, 1);
+                }
+            }
+        }
+    }
 }
