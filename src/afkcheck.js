@@ -116,14 +116,13 @@ function checkAFKResponse(username) {// send an ACK to ppl who respond to the AF
 
 
 function AFKCheckCleanup() {// Remove people from AFK checker if they left the wait list
-    var tempTrackAFKs   = trackAFKs;
-    var DJWaitList      = API.getWaitList();
+    var DJWaitList = API.getWaitList();
 
-    for(i = 0; i < tempTrackAFKs.length; i++) {
-        if(tempTrackAFKs[i][4]) {// they've been warned, see if they're still on the wait list and if not, set flag to false
+    for(i = 0; i < trackAFKs.length; i++) {
+        if(trackAFKs[i][4]) {// they've been warned, see if they're still on the wait list and if not, set flag to false
             for(j = 0; j < DJWaitList.length; j++) {
-                if(tempTrackAFKs[i][1] == DJWaitList[j].id) {// If they've been warned and they're still on the wait list, remove from temp list
-                    tempTrackAFKs.splice(i, 1);
+                if(trackAFKs[i][1] == DJWaitList[j].id) {// If they've been warned and they're still on the wait list, remove from temp list
+                    trackAFKs[i][4] = false;
                 }
             }
         }
