@@ -47,7 +47,7 @@ function lotteryUpdate() {
 
 
 function checkLottoOutput(chatID, message) {
-    if(message.search("has entered the lottery") == -1) {
+    if(message.search("has entered the lottery") != -1) {
         return false;// Do this first cause there's a higher chance of the chatted msg being irrelevant to lotto
     } else {
         if(lastLotto == "") {
