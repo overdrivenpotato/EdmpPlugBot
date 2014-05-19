@@ -54,7 +54,7 @@ var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdat
 var lastJoined      = "";// userID of last joined user
 var lastSkipped     = "";// userID of last private track auto-skipped user
 var lastLotto       = "";// msgID of the last chatted lotto entry
-var lastBlackjack   = "";// msgID of the last chatted lotto entry
+var lastBlackJack   = "";// msgID of the last chatted lotto entry
 var scClientId      = "ff550ffd042d54afc90a43b7151130a1";// API credentials
 var botID           = "531bdea096fba5070c4cad51";
 var invincibear     = "52fff97b3b7903273314e678";
