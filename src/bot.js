@@ -19,13 +19,12 @@ log("Loading bot...");
 
 var curdate = new Date();
 
-var skipFixEnabled  = false;
 var lotteryEnabled  = false;
 var blackJackEnabled= true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 
-var version   = "0.7.5";
+var version   = "0.7.6";
 var meetupUrl = "";
 
 var trackAFKs        = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
@@ -48,8 +47,8 @@ var lastDJAdvanceTime     = (typeof lastDJAdvanceTime === "undefined")     ? 0 :
 var lastCronHourly        = (typeof lastCronHourly === "undefined")        ? 0 : lastCronHourly;
 var lastCronFiveMinutes   = (typeof lastCronFiveMinutes === "undefined")   ? 0 : lastCronFiveMinutes;
 
-var lotteryEntries = typeof lotteryEntries === "undefined" ? []   : lotteryEntries;
-var lotteryUpdated = typeof lotteryUpdated === "undefined" ? true : lotteryUpdated;
+var lotteryEntries = (typeof lotteryEntries === "undefined") ? []   : lotteryEntries;
+var lotteryUpdated = (typeof lotteryUpdated === "undefined") ? true : lotteryUpdated;
 
 var lastJoined      = "";// userID of last joined user
 var lastSkipped     = "";// userID of last private track auto-skipped user
