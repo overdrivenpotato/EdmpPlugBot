@@ -190,10 +190,11 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
     args[0]       = (typeof args[0] === "undefined")   ? "" : args[0];
     args[1]       = (typeof args[1] === "undefined")   ? "" : args[1];
 
-    if (!blackJackEnabled && args[1] != "on" && args[1] != "off") {
+    if(!blackJackEnabled && args[1] != "on" && args[1] != "off") {
         log("[!blackjack] @" + author + ", blackJack isn't enabled, you can type !admins for a list of admins who can use " + '"!blackjack on"', log.visible);
         return;
     }
+
     if(args[1] == "on") {
         blackJackEnabled = true;
         log("Blackjack is now active! Type !blackjack insertnumberofslotstogamblehere to play!", log.visible);
@@ -204,7 +205,8 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
         deleteBlackJackGame(author, true);
         return;
     }
-    if (!checkBlackJackPlayer(author) && args[1] != "hit" && args[1] != "hitme" && args[1] != "stand" && args[1] != "hold") {
+
+    if(!checkBlackJackPlayer(author) && args[1] != "hit" && args[1] != "hitme" && args[1] != "stand" && args[1] != "hold") {
 log("lost code in !blackjack", log.info);
        return;// why the eff was this even called then??
     }
@@ -307,23 +309,35 @@ log("lost code in !blackjack", log.info);
                 output = "[!blackjack]@" + author + " dealt: [?]-" + handUser[1] + ". Dealer's dealt: [?]-" + handDealer[1] + ". ";
 
                 if(handUser[1] == "A" || handDealer[1] == "A") {
+log("somebody got an ace off the bat", log.info);
                     output += "Ace detected, revealing hands, yours: " + handUser[0] + "-" + handUser[1] + "; dealer's: " + handDealer[0] + "-" + handDealer[1] + ". ";
 
 //                    setTimeout(function(){// delay needed because plug.dj can't handle rapid-succession messages
                         if(((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
+log("both hit BJ", log.info);
                             log(output + "You dodged a bullet, you both hit BlackJack!", log.visible);
                             blackJackUsers[game][6] = true;// cards now face-up
                             deleteBlackJackGame(author, true);
                         } else if((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") && handUser[1] == "A") {
+log("player hit BJ and won", log.info);
                             log(output + "Congratulations you won!", log.visible);
                             blackJackUsers[game][6] = true;// cards now face-up
                             deleteBlackJackGame(author);
                             API.moderateMoveDJ(getId(author), getPosition(author) + 1 - blackJackUsers[game][1]);
                         } else if((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A") {
+log("dealer hit BJ and won, player lost", log.info);
                             log(output + "@" + author + " got beaten at !blackjack by @EDMBot", log.visible);
                             API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
                             blackJackUsers[game][6] = true;// cards now face-up
                             deleteBlackJackGame(author);
+                        } else {
+                            if (getSumOfHand(handUser) < getSumOfHand(handDealer)) {
+                                output += "Your hand is weaker, you must !hit";
+                            } else {
+                                output += "Your options are to either !hit or !stand.";
+                            }
+
+                            log(output, log.visible);
                         }
 //                    }, 2500);
                 } else {
