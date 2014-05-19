@@ -83,7 +83,7 @@ log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK fo
         log("AFK Checker: " + AFKlist + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list", log.visible);
         AFKlist = "";
     }
-    if (checkAFKSecondStrikelog.length > 0) {
+    if (checkAFKSecondStrike.length > 0) {
         for(i = 0; i < checkAFKSecondStrike.length; i++) {
             AFKlist += "@" + checkAFKSecondStrike[i];
             AFKlist =+ (i != (checkAFKSecondStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
