@@ -8,6 +8,8 @@ var scripts = [
     "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/commands.js",
     "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/lottery.js",
     "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/blackjack.js",
+    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/afkcheck.js",
+    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/handlers.js",
     "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js"];
 
 function load(script)

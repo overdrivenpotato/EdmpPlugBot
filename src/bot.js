@@ -60,7 +60,6 @@ var nvp             = "53090acb63051f462837692e";
 
 API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.DJ_ADVANCE, onDJAdvance);
-API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.CHAT, onChat);
 API.on(API.USER_JOIN, onJoin);
 API.on(API.USER_LEAVE, onLeave);
@@ -181,11 +180,6 @@ function isPlaying(username) {
 }
 
 
-function skipDj() {
-    API.moderateForceSkip();
-}
-
-
 function chat(text) {
     $("#chat-input-field").val("/em " + text);
     var e = $.Event('keydown');
@@ -230,198 +224,13 @@ function getETA(username) {// use the countdown at the top of the page if you're
 }
 
 
-function getLastChat(userID) {
-//log("getLastChat(" + userID + ") called", log.info);
-
-    for(var i = 0; i < trackAFKs.length; i++) {
-        if(trackAFKs[i].indexOf(userID) == 1) {// found them!
-//log("found " + trackAFKs[i][0] + " in trackAFKs getLastChat() call", log.info);
-            return [trackAFKs[i][2], trackAFKs[i][4]];
-        }
-    }
-
-    return -1;// didn't find the user
-}
-
-
-function updateAFKs(data) {
-//log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
-    var i = 0;
-
-    if(!trackAFKs.length) {// gotta start with somebody!
-        var users = API.getUsers();
-
-        for(i = 0; i < users.length; i++) {// Cycle through users list and populate trackAFs with them
-            trackAFKs.push([users[i].username, users[i].id, Date.now(), null, false]);
-            log("pushed the very first entries into trackAFKs (all of API.getUsers())", log.info);
-        }
-        return;
-    }
-
-    for(i = 0; i < trackAFKs.length; i++) {
-//log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
-        if(trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
-            trackAFKs[i][2] = Date.now();
-            trackAFKs[i][4] = false;// reset AFK warning
-log("updated " + data.from + " to trackAFKs", log.info);
-            return;
-        } else if(i == (trackAFKs.length - 1)) {// Hasn't yet chatted, add an entry
-            trackAFKs.push([data.from, data.fromID, Date.now(), data.message, false]);
-log("added " + data.from + " to trackAFKs", log.info);
-            return;
-        }
-    }
-}
-
-
-function checkAFKs(minutes) {// Makes sure DJs chat every x minutes, we want as much participation as possible, not AFK DJs
-    log("checkAFKs(" + minutes + ") called", log.info);
-    var DJWaitList      = API.getWaitList();
-    var AFKlist         = [];
-    checkAFKFirstStrike = [];
-    checkAFKSecondStrike= [];
-    checkAFKThirdStrike = [];
-
-
-    for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
-log("looping through DJWaitList, i=" + i, log.info);
-        for (var j = 0; j < trackAFKs.length; j++) {// cycle through trackAFKs to compare against
-log("looping through trackAFKs, j=" + j, log.info);
-            if (DJWaitList[i].id != botID && trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
-                var afkMinutes = (Date.now() - trackAFKs[j][2]) / 60 / 1000;
-log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes called by checkAFKs(" + minutes + ")", log.info);
-                if (afkMinutes >= minutes) {// reached the AFK limit, remove from DJ wait list
-                    trackAFKs[j][4] = true;// set warned flag to true
-                    API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
-                } else if (afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
-                    checkAFKSecondStrike.push(DJWaitList[i].username);
-                    trackAFKs[j][4] = true;// set warned flag to true
-                } else if (afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
-                    checkAFKFirstStrike.push(DJWaitList[i].username);
-                    trackAFKs[j][4] = true;// set warned flag to true
-                }
-
-                break;
-            }
-        }
-    }
-
-    if (checkAFKFirstStrike.length > 0) {
-        for(i = 0; i < checkAFKFirstStrike.length; i++) {
-            AFKlist += "@" + checkAFKFirstStrike[i];
-            AFKlist =+ (i != (checkAFKFirstStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
-        }
-
-        log("AFK Checker: " + AFKlist + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list", log.visible);
-        AFKlist = "";
-    }
-    if (checkAFKSecondStrikelog.length > 0) {
-        for(i = 0; i < checkAFKSecondStrike.length; i++) {
-            AFKlist += "@" + checkAFKSecondStrike[i];
-            AFKlist =+ (i != (checkAFKSecondStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
-        }
-
-        log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within 5 minutes or you'll be removed from the DJ wait list", log.visible);
-        AFKlist = "";
-    }
-    if (checkAFKThirdStrike.length > 0) {
-        for(i = 0; i < checkAFKThirdStrike.length; i++) {
-            AFKlist += "@" + checkAFKThirdStrike[i];
-            AFKlist =+ (i != (checkAFKThirdStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
-        }
-
-        log("AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker", log.visible);
-    }
-}
-
-
-function checkAFKResponse(username) {// send an ACK to ppl who respond to the AFK checker
-    var lastChat   = getLastChat(getId(username));
-    var afkMinutes = (Date.now() - lastChat[0]) / 60 / 1000;
-
-    if(getId(username) != botID && afkMinutes > MaxAFKMinutes && lastChat[1]) {// not bot, was afk, was already warned
-        log("@" + username + " satisfied the AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))], log.visible);
-    }
-}
-
-
 function getPosition(username) {
     return API.getWaitListPosition(getId(username));
 }
 
 
-function onChat(data) {
-log("onChat called, data=", log.info);log(data, log.info);
-    if(data.type == "message") {
-        if(dispatch(data.message, data.from) && data.message.substr(0, 6) != "!8ball") {
-            API.moderateDeleteChat(data.chatID);
-        }
-    }
-    lotteryUpdate();
-
-    if(data.type == "message" || data.type == "emote") {
-        checkAFKResponse(data.from);
-        updateAFKs(data);
-
-        if (data.fromID == botID) {
-            if (!checkLottoOutput(data.chatID, data.message)) {// far more like to find a lotto msg than a bj msg
-                checkBlackJackOutput(data.chatID, data.message);
-            }
-        }
-    }
-}
-
-
-function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the same song
-log(obj);
-    lastPrivateSkip = Date.now();
-    var songshistory = API.getHistory(); // get dj history
-    var songs = [];// reset the array, don't need long-term history
-
-    for(var i = 0; i < songshistory.length; i++) {
-        if (typeof API.getDJ() !== "undefined" && songshistory[i].user.id == obj.dj.id) {
-            songs.push(songshistory[i].media.id.substr(2));// find played songs by same user in history, insert into an array
-        }
-    }
-
-    if(songs.length >= 4 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid && songs[2] == obj.media.cid)) {
-        API.moderateRemoveDJ(obj.dj.id);// third offense, remove from dj wait list
-        log("@" + obj.dj.username + ", you've already played that song thrice before. Please play a different song and rejoin the DJ wait list.", log.visible);
-    } else {
-        if(songs.length >= 3 && (songs[0] == obj.media.cid && songs[1] == obj.media.cid)) {// second offense, skip
-            API.moderateForceSkip();// skip their turn
-            API.moderateMoveDJ(obj.dj.id, 1);// return them to the front of the line to try another song
-            log("@" + obj.dj.username + ", you've already played that song twice before. Please play a different song or you will be removed from the DJ wait list.", log.visible);
-        } else {// first offense, slap on the wrist
-            if(songs.length >= 2 && songs[0] == obj.media.cid) {
-                log("@" + obj.dj.username + ", you've already played that song before. Please play a different song.", log.visible);
-            }
-        }
-    }
-
-    setTimeout(function(){$("#woot").click();}, 2000);// auto-woot the song
-
-    if(obj.media.id.indexOf("2:") != -1) {
-        getSourceLength(obj.media.id, function(time){
-            if(time == 0) {
-                var DJid = getId(API.getDJ().username);
-
-                if(lastSkipped != DJid) {
-                    log("@" + API.getDJ().username + " your track is either private or missing, please line up another song in your playlist. Hurry! You've been bumped back to the front of the line!", log.visible);
-                    lastSkipped = DJid;
-                    privateSkip(API.getDJ().username);
-                } else {
-                    log("@" + API.getDJ().username + " you've now played two private/missing tracks in a row, you've been removed from the DJ wait list.", log.visible);
-                    API.moderateRemoveDJ(DJid);
-                }
-            }
-        });
-    }
-}
-
-
 function privateSkip(user) {
-    skipDj();
+    API.moderateForceSkip();
 
     var processor = setInterval(function () {
         if (user != API.getDJ().username) {
@@ -429,63 +238,6 @@ function privateSkip(user) {
             API.moderateMoveDJ(getId(user), 1);
         }
     }, 10);
-}
-
-
-function onJoin(user) {// greet new user after a short delay to ensure they receive the message
-    if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms
-        setTimeout(function() {log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);}, 2500);// Delay needed for new entrant to actually connect and see the msg
-        lastJoined = user.id;
-    }
-
-    var admins      = API.getStaff();
-    var realAdmins  = [];
-
-    for(var i = 0; i < admins.length; i++) {
-        if(admins[i].permissions >= API.ROLE.BOUNCER) {
-            realAdmins.push(admins[i]);
-        }
-    }
-
-    if(realAdmins.length > 1 || (realAdmins.length == 1 && realAdmins[0].id != botID)) {
-        log("***ATTENTION*** Adult supervision has arrived in the form of @" + user.username + ", the most terrible of all admins.", log.visible);
-    }
-}
-
-
-function onLeave(user) {// greet new user after a short delay to ensure they receive the message
-log(user, log.info);
-    if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms, although plug.dj now has their own spam prevention for this scenario
-        var admins      = API.getStaff();
-        var realAdmins  = [];
-
-        for(var i = 0; i < admins.length; i++) {
-            if(admins[i].permissions >= API.ROLE.BOUNCER) {
-                realAdmins.push(admins[i]);
-            }
-        }
-
-        if(user.permissions >= API.ROLE.BOUNCER && (realAdmins.length < 1 || (realAdmins.length == 1 && realAdmins[0].id == botID))) {// only display msg when the LAST amdin leaves, not when anybody leaves
-            log("***ATTENTION*** there are no admins left in the room. ERMERGHURD TIIIMMM TERRR PRRTTTEEEE!", log.visible);
-        }
-        if (user.username == "Ptero") {
-            log("OH look, Princess @Ptero has left the building.", log.visible);
-        }
-
-        lastJoined = user.id;
-    }
-}
-
-
-function onWaitListUpdate (users) {// Alert upcoming users that their set is about to start when total users > 7 if they're AFK
-    if (users.length >= 7 && ((Date.now() - lastDJAdvanceTime) > 2000)) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
-        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
-    }
-
-    lastDJAdvanceTime = Date.now();
-
-// remove from lotto list, remove from afk check list
-// remove anti-spam stuffs when somebody leaves the room
 }
 
 
