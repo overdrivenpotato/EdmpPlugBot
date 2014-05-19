@@ -309,37 +309,31 @@ log("lost code in !blackjack", log.info);
                 output = "[!blackjack]@" + author + " dealt: [?]-" + handUser[1] + ". Dealer's dealt: [?]-" + handDealer[1] + ". ";
 
                 if(handUser[1] == "A" || handDealer[1] == "A") {
-log("somebody got an ace off the bat", log.info);
                     output += "Ace detected, revealing hands, yours: " + handUser[0] + "-" + handUser[1] + "; dealer's: " + handDealer[0] + "-" + handDealer[1] + ". ";
 
-//                    setTimeout(function(){// delay needed because plug.dj can't handle rapid-succession messages
-                        if(((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
-log("both hit BJ", log.info);
-                            log(output + "You dodged a bullet, you both hit BlackJack!", log.visible);
-                            blackJackUsers[game][6] = true;// cards now face-up
-                            deleteBlackJackGame(author, true);
-                        } else if((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") && handUser[1] == "A") {
-log("player hit BJ and won", log.info);
-                            log(output + "Congratulations you won!", log.visible);
-                            blackJackUsers[game][6] = true;// cards now face-up
-                            deleteBlackJackGame(author);
-                            API.moderateMoveDJ(getId(author), getPosition(author) + 1 - blackJackUsers[game][1]);
-                        } else if((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A") {
-log("dealer hit BJ and won, player lost", log.info);
-                            log(output + "@" + author + " got beaten at !blackjack by @EDMBot", log.visible);
-                            API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
-                            blackJackUsers[game][6] = true;// cards now face-up
-                            deleteBlackJackGame(author);
+                    if(((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" || handUser[0] == "K") && handUser[1] == "A") && ((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A")) {
+                        log(output + "You dodged a bullet, you both hit BlackJack!", log.visible);
+                        blackJackUsers[game][6] = true;// cards now face-up
+                        deleteBlackJackGame(author, true);
+                    } else if((handUser[0] == 10 || handUser[0] == "J" || handUser[0] == "Q" ||handUser[0] == "K") && handUser[1] == "A") {
+                        log(output + "Congratulations you won!", log.visible);
+                        blackJackUsers[game][6] = true;// cards now face-up
+                        deleteBlackJackGame(author);
+                        API.moderateMoveDJ(getId(author), getPosition(author) + 1 - blackJackUsers[game][1]);
+                    } else if((handDealer[0] == 10 || handDealer[0] == "J" || handDealer[0] == "Q" || handDealer[0] == "K") && handDealer[1] == "A") {
+                        log(output + "@" + author + " got beaten at !blackjack by @EDMBot", log.visible);
+                        API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
+                        blackJackUsers[game][6] = true;// cards now face-up
+                        deleteBlackJackGame(author);
+                    } else {
+                        if (getSumOfHand(handUser) < getSumOfHand(handDealer)) {
+                            output += "Your hand is weaker, you must !hit";
                         } else {
-                            if (getSumOfHand(handUser) < getSumOfHand(handDealer)) {
-                                output += "Your hand is weaker, you must !hit";
-                            } else {
-                                output += "Your options are to either !hit or !stand.";
-                            }
-
-                            log(output, log.visible);
+                            output += "Your options are to either !hit or !stand.";
                         }
-//                    }, 2500);
+
+                         log(output, log.visible);
+                    }
                 } else {
                     output += "No Aces detected, flipping cards to reveal your hand: " + handUser[0] + "-" + handUser[1] + "; dealer's hand: " + handDealer[0] + "-" + handDealer[1] + ". ";
 
