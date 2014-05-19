@@ -21,7 +21,7 @@ var blackJackEnabled= true;//(curdate.getDay() != 3 && curdate.getDay() != 6);//
 var ReminderEnabled = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 
-var version   = "0.7.6";
+var version   = "0.8";
 var meetupUrl = "";
 
 var trackAFKs        = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
@@ -36,10 +36,8 @@ var totalSongs         = 0;
 var defaultSongLength  = 4;// measured in minutes
 var MaxAFKMinutes      = 30;// afk DJ max (set this var in minutes; default=30)
 var blackJackTimeLimit = 5 * 60 * 1000;// 5 minute time limit per blackjack player
-var disconnectGrace    = 10 * 60 * 1000;// 10 minute grace period for accidental disconnects
 
 var lastMeetupMessageTime = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
-var lastSkipTime          = (typeof lastSkipTime === "undefined")          ? 0 : lastSkipTime;
 var lastDJAdvanceTime     = (typeof lastDJAdvanceTime === "undefined")     ? 0 : lastDJAdvanceTime;
 var lastCronHourly        = (typeof lastCronHourly === "undefined")        ? 0 : lastCronHourly;
 var lastCronFiveMinutes   = (typeof lastCronFiveMinutes === "undefined")   ? 0 : lastCronFiveMinutes;
@@ -333,7 +331,6 @@ log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK fo
         }
 
         log("AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker", log.visible);
-        AFKlist = "";
     }
 }
 
