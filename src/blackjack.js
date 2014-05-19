@@ -97,12 +97,12 @@ function getSumOfHand(hand){// return the total point value of a given hand ["Q"
 
 function blackJackStand(author){// function for dealer to keep hitting if needed
     var game                = getBlackJackGame(author, true);
-    var output              = "@" + author + ", dealer's final hand: ";
+    var output              = "[!blackjack]@" + author + ", dealer's final hand: ";
     var getCard             = null;
     log("blackJackStand(" + author + ") called, game=" + game, log.info);
 
     if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) < 21) {
-        log("@" + author + " your score is lower than @EDMPbot's, you must accept another card with !hit", log.visible);
+        log("[!blackjack]@" + author + " your score is lower than @EDMPbot's, you must accept another card with !hit", log.visible);
         return;
     } else {
         blackJackUsers[game][7] = true;
@@ -226,7 +226,7 @@ log("lost code in !blackjack", log.info);
                 savedGame[4]         = getCard[0];// make sure we use the spliced deck
                 blackJackUsers[game] = savedGame;
 
-                output               = "@" + author + ", dealt a " + savedGame[4][getCard[1]] + " making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + " ";
+                output               = "[!blackjack]@" + author + ", dealt a " + savedGame[4][getCard[1]] + " making your hand: " + savedGame[2].join("-") + ", totaling " + getSumOfHand(savedGame[2]) + " ";
 
                 if(getSumOfHand(savedGame[2]) == 21 && getSumOfHand(savedGame[3]) == 21) {
                     log(output + "; You got lucky and tied @EDMPBot!", log.visible);
@@ -247,7 +247,7 @@ log("lost code in !blackjack", log.info);
                     log(output + "; dealer's hand: " + savedGame[3].join("-") + ", totaling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand", log.visible);
                 }
             } else {
-                log("@" + author + ", please start a new game with the !blackjack command, including the amount of DJ wait list slots to wager. Usage: !blackjack 5", log.visible);
+                log("[!blackjack]@" + author + ", please start a new game, include the amount of DJ wait list slots to wager. Usage: !blackjack 5", log.visible);
             }
             break;
         case 'stand':
@@ -276,7 +276,7 @@ log("lost code in !blackjack", log.info);
             savedGame = getBlackJackGame(author);
 
             if (savedGame != -1) {
-                log("@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand.", log.visible);
+                log("[!blackjack]@" + author + ", you already have a game running. Your hand: " + savedGame[2][0] + "-" + savedGame[2][1] + ", totaling " + getSumOfHand(savedGame[2]) + "; dealer's hand: " + savedGame[3][0] + "-" + savedGame[3][1] + ", totalling " + getSumOfHand(savedGame[3]) + ". Your options are to either !hit or !stand.", log.visible);
             } else {
                 var newDeck    = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K", "A", "A", "A", "A"];
                 var handUser   = [];// values of cards from newDeck, not the keys
@@ -304,7 +304,7 @@ log("lost code in !blackjack", log.info);
                 blackJackUsers.push([getId(author), args[1], handUser, handDealer, newDeck, false, false]);// add dealt hands and reduced decks to blackJackUsers tracking array
 
                 game   = blackJackUsers.length - 1;// set array key for future storage/retrieval within function;
-                output = "@" + author + " dealt: [?]-" + handUser[1] + ". Dealer's dealt: [?]-" + handDealer[1] + ". ";
+                output = "[!blackjack]@" + author + " dealt: [?]-" + handUser[1] + ". Dealer's dealt: [?]-" + handDealer[1] + ". ";
 
                 if(handUser[1] == "A" || handDealer[1] == "A") {
                     output += "Ace detected, revealing hands, yours: " + handUser[0] + "-" + handUser[1] + "; dealer's: " + handDealer[0] + "-" + handDealer[1] + ". ";
@@ -359,5 +359,17 @@ log("lost code in !blackjack", log.info);
                 }
             }
             break;
+    }
+}
+
+
+function checkBlackJackOutput(chatID, message) {
+    if(message.search("[!blackjack]") == -1) {
+        return false;// Do this first cause there's a higher chance of the chatted msg being irrelevant to BlackJack
+    } else {
+        if(lastBlackJack != "") {
+            API.moderateDeleteChat(lastBlackJack);
+        }
+        lastBlackJack = chatID;
     }
 }

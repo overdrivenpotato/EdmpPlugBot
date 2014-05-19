@@ -62,6 +62,7 @@ var nvp             = "53090acb63051f462837692e";
 
 API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.DJ_ADVANCE, onDJAdvance);
+API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.CHAT, onChat);
 API.on(API.USER_JOIN, onJoin);
 API.on(API.USER_LEAVE, onLeave);
@@ -332,6 +333,12 @@ log("onChat called, data=", log.info);log(data, log.info);
     if(data.type == "message" || data.type == "emote") {
         checkAFKResponse(data.from);
         updateAFKs(data);
+
+        if (data.fromID == botID) {
+            if (!checkLottoOutput(data.chatID, data.message)) {// far more like to find a lotto msg than a bj msg
+                checkBlackJackOutput(data.chatID, data.message);
+            }
+        }
     }
 }
 
@@ -447,6 +454,8 @@ function onWaitListUpdate (users) {// Alert upcoming users that their set is abo
     }
 
     lastDJAdvanceTime = Date.now();
+
+// remove from lotto list, remove from afk check list
 }
 
 
@@ -607,51 +616,10 @@ log(args, log.info);
 }
 
 
-function lotteryUpdate() {
-    if(new Date().getMinutes() >= 10){
-        if(lotteryUpdated)
-            return;
-        lotteryUpdated = true;
-
-        if(lotteryEntries.length > 1) {
-            var winner = lotteryEntries[Math.round(Math.random() * (lotteryEntries.length - 1))];
-
-            if(API.getWaitListPosition(getId(winner)) < 0) {
-                lotteryUpdated = false;
-                return;
-            }
-
-            log("@" + winner + " has won the hourly lottery! The lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
-            API.moderateMoveDJ(getId(winner), 1);
-        } else {
-            if (lotteryEnabled) {
-                log("Not enough contestants, lottery reset. The lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
-            }
-        }
-        lotteryEntries = [];
-    } else {
-        lotteryUpdated = false;
-    }
-}
-
-
 
 //
 // Hourly shit and general bot stuffs
 //
-
-
-
-function lotteryHourly() {// enable or disable the lottery
-    lotteryEnabled = (API.getWaitList().length >= 7);// disable lottery unless 7+ DJs queued
-
-    if (lotteryEnabled) {
-        log("The lottery is now open, type !lottery for a chance to be bumped to #1 in the DJ wait list!", log.visible);
-    } else {
-        log("lotteryEnabled = false at lotteryHourly()", log.info)
-    }
-}
-
 
 function init() {
     window.edmpBot = window.setInterval(function(){
