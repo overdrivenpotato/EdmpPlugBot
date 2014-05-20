@@ -143,7 +143,7 @@ var commands = [
 
 
     new Command("skip", function(author) {
-        skipDj();
+        API.moderateForceSkip();
         log(author + " has skipped " + API.getDJ().username, log.visible);
     }, API.ROLE.BOUNCER, function(author) {
         return isPlaying(author);
