@@ -2,6 +2,7 @@ function onChat(data) {
     log("onChat called, data=", log.info);log(data, log.info);
     if(data.type == "message") {
         if(dispatch(data.message, data.from) && data.message.substr(0, 6) != "!8ball") {
+log("deleting the !command text", log.info);
             API.moderateDeleteChat(data.chatID);
         }
     }
