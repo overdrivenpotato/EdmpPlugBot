@@ -79,7 +79,7 @@ log("if(afkMinutes >= (minutes - 10)) if(" + afkMinutes + " >= " + (minutes - 10
     }
 
     if (checkAFKFirstStrike.length > 0) {
-        for(i = 0; i > checkAFKFirstStrike.length; i++) {
+        for(i = 0; i < checkAFKFirstStrike.length; i++) {
             AFKlist += "@" + checkAFKFirstStrike[i];
             AFKlist =+ (i != (checkAFKFirstStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
         }
@@ -88,7 +88,7 @@ log("if(afkMinutes >= (minutes - 10)) if(" + afkMinutes + " >= " + (minutes - 10
         AFKlist = "";
     }
     if (checkAFKSecondStrike.length > 0) {
-        for(i = 0; i > checkAFKSecondStrike.length; i++) {
+        for(i = 0; i < checkAFKSecondStrike.length; i++) {
             AFKlist += "@" + checkAFKSecondStrike[i];
             AFKlist =+ (i != (checkAFKSecondStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
         }
@@ -97,7 +97,7 @@ log("if(afkMinutes >= (minutes - 10)) if(" + afkMinutes + " >= " + (minutes - 10
         AFKlist = "";
     }
     if (checkAFKThirdStrike.length > 0) {
-        for(i = 0; i > checkAFKThirdStrike.length; i++) {
+        for(i = 0; i < checkAFKThirdStrike.length; i++) {
             AFKlist += "@" + checkAFKThirdStrike[i];
             AFKlist =+ (i != (checkAFKThirdStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
         }
