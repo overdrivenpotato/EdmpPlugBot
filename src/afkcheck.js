@@ -58,13 +58,17 @@ log("looping through trackAFKs, j=" + j, log.info);
             if (DJWaitList[i].id != botID && trackAFKs[j].indexOf(DJWaitList[i].id) == 1) {// found the waiting DJ in the trackAFKs array
                 var afkMinutes = (Date.now() - trackAFKs[j][2]) / 60 / 1000;
 log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK for " + afkMinutes + " minutes called by checkAFKs(" + minutes + ")", log.info);
-                if (afkMinutes >= minutes) {// reached the AFK limit, remove from DJ wait list
+                if(afkMinutes >= minutes) {// reached the AFK limit, remove from DJ wait list
+log("if(afkMinutes >= minutes) if(" + afkMinutes + " >= " + minutes + ")", log.info);
                     trackAFKs[j][4] = true;// set warned flag to true
-                    API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
-                } else if (afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
+//                    API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
+log("remove DJ from AFK check: " + DJWaitList[i].id, log.info);
+                } else if(afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
+log("if(afkMinutes >= (minutes - 5)) if(" + afkMinutes + " >= " + (minutes - 5) + ")", log.info);
                     checkAFKSecondStrike.push(DJWaitList[i].username);
                     trackAFKs[j][4] = true;// set warned flag to true
-                } else if (afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
+                } else if(afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
+log("if(afkMinutes >= (minutes - 10)) if(" + afkMinutes + " >= " + (minutes - 10) + ")", log.info);
                     checkAFKFirstStrike.push(DJWaitList[i].username);
                     trackAFKs[j][4] = true;// set warned flag to true
                 }
