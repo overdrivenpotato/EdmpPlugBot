@@ -11,10 +11,9 @@ function onChat(data) {
         checkAFKResponse(data.from);
         updateAFKs(data);
 
-        if (data.fromID == botID) {
-            if (!checkLottoOutput(data.chatID, data.message)) {// far more like to find a lotto msg than a bj msg
-                checkBlackJackOutput(data.chatID, data.message);
-            }
+        if(data.fromID == botID) {
+            checkLottoOutput(data.chatID, data.message);// far more like to find a lotto msg than a bj msg
+            checkBlackJackOutput(data.chatID, data.message);
         }
     }
 }
