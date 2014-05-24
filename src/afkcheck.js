@@ -4,7 +4,7 @@ function getLastChat(userID) {
     for(var i = 0; i < trackAFKs.length; i++) {
         if(trackAFKs[i].indexOf(userID) == 1) {// found them!
 //log("found " + trackAFKs[i][0] + " in trackAFKs getLastChat() call", log.info);
-            return [trackAFKs[i][2], trackAFKs[i][4]];
+            return [trackAFKs[i][2], trackAFKs[i][4], i];
         }
     }
 
@@ -30,6 +30,7 @@ log("pushed the very first entries into trackAFKs (all of API.getUsers())", log.
 //log("i=" + i + ", trackAFKs[i].indexOf(data.fromID)=" + trackAFKs[i].indexOf(data.fromID), log.info);
         if(trackAFKs[i].indexOf(data.fromID) == 1) {// Update existing entry
             trackAFKs[i][2] = Date.now();
+            trackAFKs[i][3] = data.message;
             trackAFKs[i][4] = false;// reset AFK warning
 log("updated " + data.from + " to trackAFKs", log.info);
             return;
@@ -49,7 +50,6 @@ log("checkAFKs(" + minutes + ") called", log.info);
     checkAFKFirstStrike = [];
     checkAFKSecondStrike= [];
     checkAFKThirdStrike = [];
-
 
     for (var i = 0; i < DJWaitList.length; i++) {// cycle through DJ wait list
 log("looping through DJWaitList, i=" + i, log.info);

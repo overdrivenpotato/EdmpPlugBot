@@ -1,13 +1,9 @@
 // stupid !8ball glitch from preceding functions
-// blackjack needs to be limited to a player at a time, 5 minute time limit
 // if one person plays blackjack but is denied because of slot position, another person can't play (flood protection flaw)
 // add disconnect protection, 10 minute grace period?
-// roll the dice says can't roll because already DJing but reality is they're the last DJ in the queue
 // add !War game to swap slots with the challenger
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
 // remove anti-spam stuffs when somebody leaves the room
-// afk check never gets past the first check (10m warning)
-// afk check should send one message to a bunch of ppl, not a bunch of messages to one person at a time
 // remove from lotto list if you leave the wait list
 
 
