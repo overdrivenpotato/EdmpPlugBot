@@ -13,8 +13,8 @@ log("!!!!!!!!!!!!!!!!!!! deleting the !command text", log.info);
         updateAFKs(data);
 
         if(data.fromID == botID) {
-//            checkLottoOutput(data.chatID, data.message);// far more like to find a lotto msg than a bj msg
-//            checkBlackJackOutput(data.chatID, data.message);
+            checkLottoOutput(data.chatID, data.message);// far more like to find a lotto msg than a bj msg
+            checkBlackJackOutput(data.chatID, data.message);
         }
     }
 }
