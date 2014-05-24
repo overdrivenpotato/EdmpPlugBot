@@ -298,6 +298,17 @@ function analyzeSongHistory() {
 }
 
 
+function checkChatSpam(data) {
+    var lastChat = getLastChat(getId(username));
+
+    if(data.message == trackAFKs[lastChat[2]][3] && ((Date.now() - lastChat[0]) <= 5000)) {// repeated messages in 5 or less seconds = spam!
+log("spam detection! twice in a row, delete the message", log.info);
+log("trackAFKs[lastChat[2]][3] = " + trackAFKs[lastChat[2]][3], log.info);
+log("((Date.now() - lastChat[0]) <= 5000) = ((" + Date.now() + " - " + lastChat[0] + ") <= 5000) = ((" + Date.now() - lastChat[0] + ") <= 5000)", log.info);
+    }
+}
+
+
 function rollTheDice(author) {
     if((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
         log("Wait a few songs @" + author + ", or get help with !addiction", log.visible);
