@@ -20,7 +20,7 @@ function updateAFKs(data) {
         var users = API.getUsers();
 
         for(i = 0; i < users.length; i++) {// Cycle through users list and populate trackAFs with them
-            trackAFKs.push([users[i].username, users[i].id, Date.now(), null, false]);
+            trackAFKs.push([users[i].username, users[i].id, Date.now(), "", false]);
 log("pushed the very first entries into trackAFKs (all of API.getUsers())", log.info);
         }
         return;
