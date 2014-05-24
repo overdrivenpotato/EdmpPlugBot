@@ -376,7 +376,7 @@ function checkBlackJackOutput(chatID, message) {
         return false;// Do this first cause there's a higher chance of the chatted msg being irrelevant to BlackJack
     } else {
         if(lastBlackJack != "") {
-//log("!!!!!!!!!!!!!!!!!!! API.moderateDeleteChat(lastBlackJack); API.moderateDeleteChat(" + lastBlackJack + ");", log.info);
+log("!!!!!!!!!!!!!!!!!!! API.moderateDeleteChat(lastBlackJack); API.moderateDeleteChat(" + lastBlackJack + ");", log.info);
             API.moderateDeleteChat(lastBlackJack);
         }
 

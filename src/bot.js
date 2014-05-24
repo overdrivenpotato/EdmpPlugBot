@@ -303,8 +303,9 @@ function checkChatSpam(data) {
 
     if(data.message == trackAFKs[lastChat[2]][3] && ((Date.now() - lastChat[0]) <= 5000) && getPermLevel(data.from) < API.ROLE.BOUNCER || data.fromID == botID) {// repeated messages in 5 or less seconds from a pleb = spam!
 log("spam detection! twice in a row, delete the message", log.info);
-//log("trackAFKs[lastChat[2]][3] = " + trackAFKs[lastChat[2]][3], log.info);
-//log((Date.now() - lastChat[0]) + " less than euqal to 5000", log.info);
+log("trackAFKs[lastChat[2]][3] = " + trackAFKs[lastChat[2]][3], log.info);
+log((Date.now() - lastChat[0]) + " less than euqal to 5000", log.info);
+log("getPermLevel(data.from) less than API.ROLE.BOUNCER || data.fromID == botID ......... " + getPermLevel(data.from) + " less than " + API.ROLE.BOUNCER + " || " + data.fromID + " == " + botID, log.info);
         API.moderateDeleteChat(data.chatID);
     }
 }
