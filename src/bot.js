@@ -19,7 +19,7 @@ var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);/
 checkSPAMEnabled            = true;
 
 var version                 = "0.9";
-var meetupUrl               = "";
+var meetupUrl               = (typeof meetupUrl=== "undefined") ? "" : meetupUrl;
 
 var trackAFKs               = [];// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
 var blackJackUsers          = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
