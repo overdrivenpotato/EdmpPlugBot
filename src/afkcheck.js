@@ -61,8 +61,9 @@ log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK fo
                 if(afkMinutes >= minutes) {// reached the AFK limit, remove from DJ wait list
 log("if(afkMinutes >= minutes) if(" + afkMinutes + " >= " + minutes + ")", log.info);
                     trackAFKs[j][4] = true;// set warned flag to true
-//                    API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
+log("!!!!!!!!!!!!!!!!!!! API.moderateRemoveDJ(DJWaitList[i].id); API.moderateRemoveDJ(DJWaitList[" + i + "]." + id + ");", log.info);
 log("remove DJ from AFK check: " + DJWaitList[i].id, log.info);
+//                    API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
                 } else if(afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
 log("if(afkMinutes >= (minutes - 5)) if(" + afkMinutes + " >= " + (minutes - 5) + ")", log.info);
                     checkAFKSecondStrike.push(DJWaitList[i].username);

@@ -6,6 +6,7 @@
  */
 var scripts = [
     "http://empirestorage.ca/edmp?f=commands.js",
+    "http://empirestorage.ca/edmp?f=cron.js",
     "http://empirestorage.ca/edmp?f=lottery.js",
     "http://empirestorage.ca/edmp?f=blackjack.js",
     "http://empirestorage.ca/edmp?f=afkcheck.js",
