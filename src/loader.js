@@ -5,12 +5,12 @@
  * Time: 10:34 PM
  */
 var scripts = [
-    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/commands.js",
-    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/lottery.js",
-    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/blackjack.js",
-    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/afkcheck.js",
-    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/handlers.js",
-    "https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/bot.js"];
+    "http://empirestorage.ca/edmp?f=commands.js",
+    "http://empirestorage.ca/edmp?f=lottery.js",
+    "http://empirestorage.ca/edmp?f=blackjack.js",
+    "http://empirestorage.ca/edmp?f=afkcheck.js",
+    "http://empirestorage.ca/edmp?f=handlers.js",
+    "http://empirestorage.ca/edmp?f=bot.js"];
 
 function load(script)
 {

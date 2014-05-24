@@ -105,7 +105,7 @@ var commands = [
 //log("Restarting the bot, Bye!...", log.visible);// really not needed, if you don't see it come up it's already fucked
         stop(true);
         log("Starting 2s loader timer... ", log.info);
-        setTimeout(function(){$.getScript("https://raw.github.com/overdrivenpotato/EdmpPlugBot/master/src/loader.js");}, 2000);
+        setTimeout(function(){$.getScript("http://empirestorage.ca/edmp?f=loader.js");}, 2000);
     }, API.ROLE.MANAGER, function(author){
         return (getId(author) == invincibear || getId(author) == nvp);
     }),
