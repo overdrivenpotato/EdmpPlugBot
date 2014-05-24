@@ -5,7 +5,7 @@
 // ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
 // remove anti-spam stuffs when somebody leaves the room
 // remove from lotto list if you leave the wait list
-
+//add tracker for who called the last !command and add to spam to check perms of issuer of last command. if they're a bouncer or more let the results of !command continue, or else delete it
 
 
 log("Loading bot...");
