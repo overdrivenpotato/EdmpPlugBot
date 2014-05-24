@@ -9,14 +9,16 @@ log("onChat called, data=", log.info);log(data, log.info);
     lotteryUpdate();
 
     if(data.type == "message" || data.type == "emote") {
+        if(data.fromID != botID) {
+            checkChatSpam(data);
+        }
+
         checkAFKResponse(data.from);
         updateAFKs(data);
 
         if(data.fromID == botID) {
             checkLottoOutput(data.chatID, data.message);// far more like to find a lotto msg than a bj msg
             checkBlackJackOutput(data.chatID, data.message);
-        } else {
-            checkChatSpam(data);
         }
     }
 }
