@@ -52,7 +52,7 @@ function checkLottoOutput(chatID, message) {
     } else {
         if(lastLotto != "") {
 log("!!!!!!!!!!!!!!!!!!! API.moderateDeleteChat(lastLotto); API.moderateDeleteChat(" + lastLotto + ");", log.info);
-//            API.moderateDeleteChat(lastLotto);
+            API.moderateDeleteChat(lastLotto);
         }
 
         lastLotto = chatID;

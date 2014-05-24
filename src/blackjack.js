@@ -372,12 +372,12 @@ log("lost code in !blackjack", log.info);
 
 
 function checkBlackJackOutput(chatID, message) {
-    if(message.search("[!blackjack]") == "-1") {
+    if(message.search("!blackjack") == "-1") {
         return false;// Do this first cause there's a higher chance of the chatted msg being irrelevant to BlackJack
     } else {
         if(lastBlackJack != "") {
 log("!!!!!!!!!!!!!!!!!!! API.moderateDeleteChat(lastBlackJack); API.moderateDeleteChat(" + lastBlackJack + ");", log.info);
-//            API.moderateDeleteChat(lastBlackJack);
+            API.moderateDeleteChat(lastBlackJack);
         }
 
         lastBlackJack = chatID;
