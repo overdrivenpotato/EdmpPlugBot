@@ -210,6 +210,23 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
+    new Command("checkafks", function(author, args) {
+        if(args.length < 2) {
+            log("@" + author + " please use in the form of: !afkcheck on (or) !afkcheck off");
+            return;
+        }
+
+        switch(args[1]) {
+            case "on":
+                checkAFKEnabled = true;
+            break;
+            case "off":
+                checkAFKEnabled = false;
+            break;
+        }
+    }, API.ROLE.MANAGER),
+
+
     new Command("rollthedice", function(author) {
         rollTheDice(author);
     }),
