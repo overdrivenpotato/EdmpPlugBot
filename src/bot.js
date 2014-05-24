@@ -299,7 +299,7 @@ function analyzeSongHistory() {
 
 
 function checkChatSpam(data) {
-    var lastChat = getLastChat(getId(username));
+    var lastChat = getLastChat(getId(data.from));
 
     if(data.message == trackAFKs[lastChat[2]][3] && ((Date.now() - lastChat[0]) <= 5000)) {// repeated messages in 5 or less seconds = spam!
 log("spam detection! twice in a row, delete the message", log.info);
