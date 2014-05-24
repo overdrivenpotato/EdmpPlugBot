@@ -1,6 +1,10 @@
 function onChat(data) {
 log("onChat called, data=", log.info);log(data, log.info);
     if(data.type == "message") {
+        if(data.fromID != botID) {
+            checkChatSpam(data);
+        }
+
         if(dispatch(data.message, data.from) && data.message.substr(0, 6) != "!8ball") {
 //log("!!!!!!!!!!!!!!!!!!! deleting the !command text", log.info);
             API.moderateDeleteChat(data.chatID);
@@ -9,10 +13,6 @@ log("onChat called, data=", log.info);log(data, log.info);
     lotteryUpdate();
 
     if(data.type == "message" || data.type == "emote") {
-        if(data.fromID != botID) {
-            checkChatSpam(data);
-        }
-
         checkAFKResponse(data.from);
         updateAFKs(data);
 

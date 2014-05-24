@@ -107,7 +107,7 @@ var commands = [
         log("Starting 2s loader timer... ", log.info);
         setTimeout(function(){$.getScript("http://empirestorage.ca/edmp?f=loader.js");}, 2000);
     }, API.ROLE.MANAGER, function(author){
-        return (getId(author) == invincibear || getId(author) == nvp);
+        return (getId(author) == nvp);
     }),
 
 
@@ -219,10 +219,31 @@ var commands = [
         switch(args[1]) {
             case "on":
                 checkAFKEnabled = true;
-            break;
+                log("@" + author + " has enabled AFK checking, MAX AFK time is " + MaxAFKMinutes + " minutes", log.visible);
+                break;
             case "off":
                 checkAFKEnabled = false;
-            break;
+                log("@" + author + " has disabled AFK checking", log.visible);
+                break;
+        }
+    }, API.ROLE.MANAGER),
+
+
+    new Command("checkspam", function(author, args) {
+        if(args.length < 2) {
+            log("@" + author + " please use in the form of: !checkspam on (or) !checkspam off");
+            return;
+        }
+
+        switch(args[1]) {
+            case "on":
+                checkSPAMEnabled = true;
+                log("@" + author + " has enabled SPAM reduction", log.visible);
+                break;
+            case "off":
+                checkSPAMEnabled = false;
+                log("@" + author + " has disabled SPAM reduction", log.visible);
+                break;
         }
     }, API.ROLE.MANAGER),
 
