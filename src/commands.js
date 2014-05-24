@@ -351,6 +351,26 @@ var commands = [
         log("WATCH YOUR FUCKING LANGUAGE!", log.visible);
     }, null, null, false),
 
+    new Command("ableton", function() {
+        log("Ableton INFERIOR race", log.visible);
+    }, null, null, false),
+
+    new Command("fl,fruity,fruityloops", function() {
+        log("FruityLoops INFERIOR race", log.visible);
+    }, null, null, false),
+
+    new Command("cubase", function() {
+        log("Cubase MASTER race", log.visible);
+    }, null, null, false),
+
+    new Command("logic", function() {
+        log("Logic MASTER race", log.visible);
+    }, null, null, false),
+
+    new Command("bitwig", function() {
+        log("Bitwig MASTER race", log.visible);
+    }, null, null, false),
+
     new Command("shrek", function(author) {
         log("But @" + author + ", Shrek is LOVE...", log.visible);
     }, null, null, false)
