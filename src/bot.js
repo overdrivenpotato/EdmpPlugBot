@@ -1,11 +1,7 @@
-// stupid !8ball glitch from preceding functions
-// if one person plays blackjack but is denied because of slot position, another person can't play (flood protection flaw)
 // add disconnect protection, 10 minute grace period?
 // add !War game to swap slots with the challenger
-// ptero wants an AFK function that mass-tags all the AFKs in one go, and another function to tag everybody who doesn't meh or woot
 // remove anti-spam stuffs when somebody leaves the room
 // remove from lotto list if you leave the wait list
-//add tracker for who called the last !command and add to spam to check perms of issuer of last command. if they're a bouncer or more let the results of !command continue, or else delete it
 
 
 log("Loading bot...");
@@ -18,7 +14,7 @@ var ReminderEnabled         = false;//(curdate.getDay() == 3 || curdate.getDay()
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var checkSPAMEnabled        = true;
 
-var version                 = "0.9";
+var version                 = "1.0";
 var meetupUrl               = (typeof meetupUrl=== "undefined") ? "" : meetupUrl;
 
 var trackAFKs               = (typeof trackAFKs === "undefined")? [] : trackAFKs;// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
@@ -45,7 +41,7 @@ var lastCronFiveMinutes     = (typeof lastCronFiveMinutes === "undefined")      
 var lotteryEntries          = (typeof lotteryEntries === "undefined")           ? []    : lotteryEntries;
 var lotteryUpdated          = (typeof lotteryUpdated === "undefined")           ? true  : lotteryUpdated;
 
-var checkAFKEnabled         = (typeof checkAFKEnabled === "undefined")          ? false : checkAFKEnabled;
+var checkAFKEnabled         = (typeof checkAFKEnabled === "undefined")          ? !!(curdate.getDay() == 3 || curdate.getDay() == 6) : checkAFKEnabled;// enabled by default on meetup days
 var checkAFKFirstStrike     = (typeof checkAFKFirstStrike === "undefined")      ? []    : checkAFKFirstStrike;
 var checkAFKSecondStrike    = (typeof checkAFKSecondStrike === "undefined")     ? []    : checkAFKSecondStrike;
 var checkAFKThirdStrike     = (typeof checkAFKThirdStrike === "undefined")      ? []    : checkAFKThirdStrike;

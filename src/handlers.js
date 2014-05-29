@@ -93,7 +93,7 @@ function onJoin(user) {// greet new user after a short delay to ensure they rece
 }
 
 
-function onLeave(user) {// greet new user after a short delay to ensure they receive the message
+function onLeave(user) {
     log(user, log.info);
     if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms, although plug.dj now has their own spam prevention for this scenario
         var admins      = API.getStaff();
