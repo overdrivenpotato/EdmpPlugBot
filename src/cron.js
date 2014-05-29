@@ -28,7 +28,7 @@ function cronFiveMinutes() {// called every 5 minutes
     if(checkAFKEnabled) {// Check for AFK DJs
         checkAFKs(MaxAFKMinutes);
     }
-log("if (Date.now() - lastCronFiveMinutes) >= ((5 * 60 * 1000) - 1000)) = (" + Date.now() + " - " + lastCronFiveMinutes + ") >= (" + (5 * 60 * 1000) + " - 1000) + ) = (" + Date.now() - lastCronFiveMinutes + ") >= (" + (5 * 60 * 1000 - 1000) + ")", log.info);
+log("if (Date.now() - lastCronFiveMinutes) >= ((5 * 60 * 1000) - 1000)) = (" + Date.now() + " - " + lastCronFiveMinutes + ") >= (" + (5 * 60 * 1000) + " - 1000) + ) = (" + Date.now() - lastCronFiveMinutes + ") GreaterThanEqualTo (" + (5 * 60 * 1000 - 1000) + ")", log.info);
     if(lastCronFiveMinutes == 0 || lastCronFiveMinutes == "" || (Date.now() - lastCronFiveMinutes) >= ((5 * 60 * 1000) - 1000)) {// spam & resource overload prevention
         var timestamp = new Date(Date.now() + (5 * 60 * 1000));
         log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now at " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(), log.info);
