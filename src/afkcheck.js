@@ -66,6 +66,7 @@ log("remove DJ from AFK check: " + DJWaitList[i].id, log.info);
                         API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
                         checkAFKThirdStrike.push(DJWaitList[i].username);
                     } else {// Just trying to catch weird exceptions, probably not needed but we give them the benefit of the doubt
+log("trackAFKs[j][4] = true; trackAFKs[" + j + "][4] = true;", log.info);
                         checkAFKSecondStrike.push(DJWaitList[i].username);
                         trackAFKs[j][4] = true;// set warned flag to true
                     }
