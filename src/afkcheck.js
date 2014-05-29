@@ -64,6 +64,7 @@ log("!!!!!!!!!!!!!!!!!!! API.moderateRemoveDJ(DJWaitList[i].id); API.moderateRem
 log("remove DJ from AFK check: " + DJWaitList[i].id, log.info);
                     if(trackAFKs[j][4]) {// they've been warned
                         API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
+                        checkAFKThirdStrike.push(DJWaitList[i].username);
                     } else {// Just trying to catch weird exceptions, probably not needed but we give them the benefit of the doubt
                         checkAFKSecondStrike.push(DJWaitList[i].username);
                         trackAFKs[j][4] = true;// set warned flag to true
@@ -86,7 +87,7 @@ log("if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) if(" + afkMinutes + " 
     if (checkAFKFirstStrike.length > 0) {
         for(i = 0; i < checkAFKFirstStrike.length; i++) {
             AFKlist = AFKlist + "@" + checkAFKFirstStrike[i];
-            AFKlist = AFKlist + (i != (checkAFKFirstStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
+            AFKlist = (i != (checkAFKFirstStrike.length - 1)) ? AFKlist + "," : AFKlist + "";// only add trailing comma if there are more AFK DJs waiting
         }
 
         log("AFK Checker: " + AFKlist + ", reply/chat within " + AFKFirstWarningMinutes + " minutes or you'll be removed from the DJ wait list", log.visible);
@@ -95,7 +96,7 @@ log("if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) if(" + afkMinutes + " 
     if (checkAFKSecondStrike.length > 0) {
         for(i = 0; i < checkAFKSecondStrike.length; i++) {
             AFKlist = AFKlist + "@" + checkAFKSecondStrike[i];
-            AFKlist = AFKlist + (i != (checkAFKSecondStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
+            AFKlist = (i != (checkAFKSecondStrike.length - 1)) ? AFKlist + "," : AFKlist + "";// only add trailing comma if there are more AFK DJs waiting
         }
 
         log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within " + AFKSecondWarningMinutes + " minutes or you'll be removed from the DJ wait list", log.visible);
@@ -104,10 +105,11 @@ log("if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) if(" + afkMinutes + " 
     if (checkAFKThirdStrike.length > 0) {
         for(i = 0; i < checkAFKThirdStrike.length; i++) {
             AFKlist = AFKlist + "@" + checkAFKThirdStrike[i];
-            AFKlist = AFKlist + (i != (checkAFKThirdStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
+            AFKlist = (i != (checkAFKThirdStrike.length - 1)) ? AFKlist + "," : AFKlist + "";// only add trailing comma if there are more AFK DJs waiting
         }
 
         log("AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))] + ": @" + DJWaitList[i].username + " you've been removed from the DJ wait list, fucking wanker", log.visible);
+        AFKlist = "";
     }
 
     AFKCheckCleanup();
