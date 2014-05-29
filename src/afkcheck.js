@@ -64,12 +64,12 @@ log("if(afkMinutes >= minutes) if(" + afkMinutes + " >= " + minutes + ")", log.i
 log("!!!!!!!!!!!!!!!!!!! API.moderateRemoveDJ(DJWaitList[i].id); API.moderateRemoveDJ(DJWaitList[" + i + "]." + id + ");", log.info);
 log("remove DJ from AFK check: " + DJWaitList[i].id, log.info);
 //                    API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
-                } else if(afkMinutes >= (minutes - 5)) {// final warning, 5 minutes left to act!
-log("if(afkMinutes >= (minutes - 5)) if(" + afkMinutes + " >= " + (minutes - 5) + ")", log.info);
+                } else if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) {// final warning, AFKFirstWarningMinutes minutes left to act!
+log("if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) if(" + afkMinutes + " >= " + (minutes - AFKFirstWarningMinutes) + ")", log.info);
                     checkAFKSecondStrike.push(DJWaitList[i].username);
                     trackAFKs[j][4] = true;// set warned flag to true
-                } else if(afkMinutes >= (minutes - 10)) {// give them their first warning, 10 minutes to AFK deadline!
-log("if(afkMinutes >= (minutes - 10)) if(" + afkMinutes + " >= " + (minutes - 10) + ")", log.info);
+                } else if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) {// give them their first warning, AFKSecondWarningMinutes minutes to AFK deadline!
+log("if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) if(" + afkMinutes + " >= " + (minutes - AFKSecondWarningMinutes) + ")", log.info);
                     checkAFKFirstStrike.push(DJWaitList[i].username);
                     trackAFKs[j][4] = true;// set warned flag to true
                 }
@@ -85,7 +85,7 @@ log("if(afkMinutes >= (minutes - 10)) if(" + afkMinutes + " >= " + (minutes - 10
             AFKlist =+ (i != (checkAFKFirstStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
         }
 
-        log("AFK Checker: " + AFKlist + ", reply/chat within 10 minutes or you'll be removed from the DJ wait list", log.visible);
+        log("AFK Checker: " + AFKlist + ", reply/chat within " + AFKSecondWarningMinutes + " minutes or you'll be removed from the DJ wait list", log.visible);
         AFKlist = "";
     }
     if (checkAFKSecondStrike.length > 0) {
@@ -94,7 +94,7 @@ log("if(afkMinutes >= (minutes - 10)) if(" + afkMinutes + " >= " + (minutes - 10
             AFKlist =+ (i != (checkAFKSecondStrike.length - 1)) ? "," : "";// only add trailing comma if there are more AFK DJs waiting
         }
 
-        log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within 5 minutes or you'll be removed from the DJ wait list", log.visible);
+        log("AFK Checker: @" + DJWaitList[i].username + " FINAL WARNING, reply/chat within " + AFKFirstWarningMinutes + " minutes or you'll be removed from the DJ wait list", log.visible);
         AFKlist = "";
     }
     if (checkAFKThirdStrike.length > 0) {

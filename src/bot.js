@@ -32,6 +32,8 @@ var totalSongTime           = 0;
 var totalSongs              = 0;
 var defaultSongLength       = 4;// measured in minutes
 var MaxAFKMinutes           = 45;// afk DJ max (set this var in minutes; default=30)
+var AFKFirstWarningMinutes  = 10;
+var AFKSecondWarningMinutes = 5;
 var blackJackTimeLimit      = 5 * 60 * 1000;// 5 minute time limit per blackjack player
 
 var lastMeetupMessageTime   = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
