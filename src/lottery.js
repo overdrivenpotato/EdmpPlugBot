@@ -62,6 +62,39 @@ log("!!!!!!!!!!!!!!!!!!! API.moderateDeleteChat(lastLotto); API.moderateDeleteCh
 }
 
 
+function lottoCleanup() {
+    var DJWaitList  = API.getWaitList();
+    var found       = false;
+    var removed     = [];
+    var lottoList   = "";
+
+    for(var i = 0; i < lotteryEntries.length; i++) {// cycle through lotteryEntries
+        found = false;
+
+        for(var j = 0; j < DJWaitList.length; j++) {// cycle through DJ wait list to compare against
+            if(lotteryEntries[i] == DJWaitList[j].id) {// found the waiting DJ in the DJWaitList
+                found = true;
+                break;
+            }
+        }
+
+        if(!found) {
+            removed.push(lotteryEntries[i]);// compile a list of removed lotto players
+            lotteryEntries.splice(lotteryEntries[i], 1);// remove from the lotto array
+        }
+    }
+
+    if(removed.length > 0) {
+        for(i = 0; i < removed.length; i++) {
+            lottoList = lottoList + "@" + removed[i];
+            lottoList = (i != (removed.length - 1)) ? lottoList + "," : lottoList + "";// only add trailing comma if removing more than one contestant
+        }
+
+        log("Removed " + lottoList + " from the the current !lottery", log.visible);
+    }
+}
+
+
 function lotteryHourly() {// enable or disable the lottery
     lotteryEnabled = (API.getWaitList().length >= 7);// disable lottery unless 7+ DJs queued
 

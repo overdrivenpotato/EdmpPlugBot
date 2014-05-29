@@ -21,6 +21,14 @@ log("!!!!!!!!!!!!!!!!!!! deleting the !command text", log.info);
             checkBlackJackOutput(data.chatID, data.message);
         }
     }
+
+    var waitList = APT.getWaitList();
+
+    if(waitList.length >= 7) {// more than 7 audience members &
+        var eta = getETA(waitList[0].username);
+
+        log("@" + waitList[0].username + ", your set begins in ~" + (eta / 60 < 1 ? "" : Math.floor(eta / 60) + "h " ) + eta % 60 + "m", log.info);
+    }
 }
 
 
@@ -117,12 +125,7 @@ function onLeave(user) {
 }
 
 
-function onWaitListUpdate(users) {// Alert upcoming users that their set is about to start when total users > 7 if they're AFK
-log("onWaitListUpdate", log.info);log(users, log.info);
-    getLastChat(users[1].id)
-    if(users.length >= 7) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
-        var eta = getETA(users[1].username);
-
-        log("@" + users[1].username + ", your set begins in ~" + (eta / 60 < 1 ? "" : Math.floor(eta / 60) + "h " ) + eta % 60 + "m", log.info);
-    }
+function onWaitListUpdate(users) {// Check for lotto updates
+    log(users, log.info);
+    lottoCleanup();
 }

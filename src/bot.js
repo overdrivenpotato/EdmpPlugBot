@@ -14,7 +14,7 @@ var ReminderEnabled         = false;//(curdate.getDay() == 3 || curdate.getDay()
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var checkSPAMEnabled        = true;
 
-var version                 = "9.5";
+var version                 = "9.6";
 var meetupUrl               = (typeof meetupUrl=== "undefined") ? "" : meetupUrl;
 
 var trackAFKs               = (typeof trackAFKs === "undefined")? [] : trackAFKs;// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
