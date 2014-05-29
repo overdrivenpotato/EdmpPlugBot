@@ -12,6 +12,11 @@ function getLastChat(userID) {
 }
 
 
+function setWarnedFlag(key, bool) {
+    trackAFKs[key][4] = bool;
+}
+
+
 function updateAFKs(data) {
 //log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
     var i = 0;
@@ -68,7 +73,7 @@ log("remove DJ from AFK check: " + DJWaitList[i].id, log.info);
                     } else {// Just trying to catch weird exceptions, probably not needed but we give them the benefit of the doubt
 log("trackAFKs[j][4] = true; trackAFKs[" + j + "][4] = true;", log.info);
                         checkAFKSecondStrike.push(DJWaitList[i].username);
-                        trackAFKs[j][4] = true;// set warned flag to true
+                        setWarnedFlag(j, true);// set warned flag to true
                     }
                 } else if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) {// final warning, AFKSecondWarningMinutes minutes left to act!
 log("if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) if(" + afkMinutes + " >= " + (minutes - AFKSecondWarningMinutes) + ")", log.info);
@@ -110,7 +115,6 @@ log("if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) if(" + afkMinutes + " 
         }
 
         log("AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))] + ": " + AFKlist + " you've been removed from the DJ wait list, fucking wanker", log.visible);
-        AFKlist = "";
     }
 
     AFKCheckCleanup();
