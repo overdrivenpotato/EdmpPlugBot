@@ -4,7 +4,7 @@ function cronHourly() {// called at the start of a new hour ie. 0 minutes & seco
     var d = new Date();
     var min = d.getMinutes();
     var sec = d.getSeconds();
-    var countdown = (60 * (60 - min) + (60 - sec)) * 1000;
+    var countdown = (60 * (60 - min) + (60 - sec) - 60) * 1000;// -60 cause shit keeps checking at 01 after pl have already entered the lotto
 
     if (min == "00" || min == "0" || min == "01" || min == "1" || typeof min === undefined) {// browser-dependant, had to add 01 for some silly reason
         log("the hour is fresh, run additional hourly functions", log.info);
