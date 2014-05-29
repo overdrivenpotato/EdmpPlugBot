@@ -2,7 +2,7 @@ function lottery(author) {
     if(new Date().getMinutes() >= 10) {
         log("@" + author + ", the lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
         return;
-    } else if(lotteryEntries.indexOf(author) > -1)  {
+    } else if(lotteryEntries.indexOf(getId(author)) > -1)  {
         log("You're already in the lottery @" + author + "! (" + lotteryEntries.length + " entries) See !addiction for help", log.visible);
         return;
     } else if(getPosition(author) == 0) {
@@ -13,7 +13,7 @@ function lottery(author) {
         return;
     }
 
-    lotteryEntries.push(author);
+    lotteryEntries.push(getId(author));
     log("[!lottery] @" + author + " has entered the lottery! (" + lotteryEntries.length + " entries)", log.visible);
 }
 
@@ -27,13 +27,13 @@ function lotteryUpdate() {
         if(lotteryEntries.length > 1) {
             var winner = lotteryEntries[Math.round(Math.random() * (lotteryEntries.length - 1))];
 
-            if(API.getWaitListPosition(getId(winner)) < 0) {
+            if(API.getWaitListPosition(winner) < 0) {
                 lotteryUpdated = false;
                 return;
             }
 
-            log("@" + winner + " has won the hourly lottery! The lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
-            API.moderateMoveDJ(getId(winner), 1);
+            log("@" + getUsername(winner )+ " has won the hourly lottery! The lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
+            API.moderateMoveDJ(winner, 1);
         } else {
             if (lotteryEnabled) {
                 log("Not enough contestants, lottery reset. The lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
