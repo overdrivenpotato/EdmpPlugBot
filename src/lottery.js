@@ -3,7 +3,7 @@ function lottery(author) {
         log("@" + author + ", the lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
         return;
     } else if(lotteryEntries.indexOf(author) > -1)  {
-        log("@" + author + " you are already in the lottery! The winner will be picked from " + lotteryEntries.length + " entries. Please type !addiction for any help.", log.visible);
+        log("You're already in the lottery @" + author + "! (" + lotteryEntries.length + " entries) See !addiction for help", log.visible);
         return;
     } else if(getPosition(author) == 0) {
         log("@" + author + ", you're already the next to DJ, type !addiction for help with your problem.", log.visible);
