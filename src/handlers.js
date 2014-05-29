@@ -100,15 +100,15 @@ function onLeave(user) {
         var realAdmins  = [];
 
         for(var i = 0; i < admins.length; i++) {
-            if(admins[i].permissions >= API.ROLE.BOUNCER) {
+            if(admins[i].permission >= API.ROLE.BOUNCER) {
                 realAdmins.push(admins[i]);
             }
         }
 
-        if(user.permissions >= API.ROLE.BOUNCER && (realAdmins.length < 1 || (realAdmins.length == 1 && realAdmins[0].id == botID))) {// only display msg when the LAST amdin leaves, not when anybody leaves
+        if(user.permission >= API.ROLE.BOUNCER && (realAdmins.length < 1 || (realAdmins.length == 1 && realAdmins[0].id == botID))) {// only display msg when the LAST admin leaves, not when anybody leaves
             log("***ATTENTION*** there are no admins left in the room. ERMERGHURD TIIIMMM TERRR PRRTTTEEEE!", log.visible);
         }
-        if (user.username == "Ptero") {
+        if(user.username == "Ptero") {
             log("OH look, Princess @Ptero has left the building.", log.visible);
         }
 
@@ -117,11 +117,12 @@ function onLeave(user) {
 }
 
 
-function onWaitListUpdate (users) {// Alert upcoming users that their set is about to start when total users > 7 if they're AFK
-    if (users.length >= 7 && ((Date.now() - lastDJAdvanceTime) > 2000)) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
-        log("@" + users[1].username + ", your set begins in ~" + getETA(users[1].username)+ " minutes", log.info);
-    }
+function onWaitListUpdate(users) {// Alert upcoming users that their set is about to start when total users > 7 if they're AFK
+log("onWaitListUpdate: " + users, log.info);
+    getLastChat(users[1].id)
+    if(users.length >= 7) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
+        var eta = getETA(users[1].username);
 
-    lastDJAdvanceTime = Date.now();
-    AFKCheckCleanup();
+        log("@" + users[1].username + ", your set begins in ~" + (eta / 60 < 1 ? "" : Math.floor(eta / 60) + "h " ) + eta % 60 + "m", log.info);
+    }
 }

@@ -34,7 +34,7 @@ var AFKSecondWarningMinutes = (typeof AFKSecondWarningMinutes === "undefined") ?
 var blackJackTimeLimit      = 5 * 60 * 1000;// 5 minute time limit per blackjack player
 
 var lastMeetupMessageTime   = (typeof lastMeetupMessageTime === "undefined")    ? 0     : lastMeetupMessageTime;
-var lastDJAdvanceTime       = (typeof lastDJAdvanceTime === "undefined")        ? 0     : lastDJAdvanceTime;
+//var lastDJAdvanceTime       = (typeof lastDJAdvanceTime === "undefined")        ? 0     : lastDJAdvanceTime;
 var lastCronHourly          = (typeof lastCronHourly === "undefined")           ? 0     : lastCronHourly;
 var lastCronFiveMinutes     = (typeof lastCronFiveMinutes === "undefined")      ? 0     : lastCronFiveMinutes;
 
