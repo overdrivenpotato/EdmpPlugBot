@@ -24,10 +24,7 @@ function cronHourly() {// called at the start of a new hour ie. 0 minutes & seco
 
 function cronFiveMinutes() {// called every 5 minutes
     log("cronFiveMinutes() has been called! The minutes are ripe, run additional 5-minute functions", log.info);
-    if(checkAFKEnabled) {// Check for AFK DJs
-        checkAFKs(MaxAFKMinutes);
-    }
-log("if (Date.now() - lastCronFiveMinutes) >= ((5 * 60 * 1000) - 1000)) = (" + Date.now() + " - " + lastCronFiveMinutes + ") >= (" + (5 * 60 * 1000) + " - 1000) + ) = (" + Date.now() + " - " + lastCronFiveMinutes + ") >= (" + (5 * 60 * 1000 - 1000) + ")", log.info);
+log("if (Date.now() - lastCronFiveMinutes) >= ((5 * 60 * 1000) - 1000)) = (" + Date.now() + " - " + lastCronFiveMinutes + ") >= (" + (5 * 60 * 1000) + " - 1000) + ) = (" + Date.now() - lastCronFiveMinutes + ") >= (" + (5 * 60 * 1000 - 1000) + ")", log.info);
     if(lastCronFiveMinutes == 0 || lastCronFiveMinutes == "" || (Date.now() - lastCronFiveMinutes) >= ((5 * 60 * 1000) - 1000)) {// spam & resource overload prevention
         var timestamp = new Date(Date.now() + (5 * 60 * 1000));
         log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now at " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(), log.info);
@@ -35,4 +32,8 @@ log("if (Date.now() - lastCronFiveMinutes) >= ((5 * 60 * 1000) - 1000)) = (" + D
     }
 
     lastCronFiveMinutes = Date.now();
+
+    if(checkAFKEnabled) {// Check for AFK DJs
+        checkAFKs(MaxAFKMinutes);
+    }
 }
