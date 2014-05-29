@@ -271,7 +271,7 @@ log("lost code in !blackjack", log.info);
                 deleteBlackJackGame(author, true);
                 return;
             } else if(checkBlackJackWager(author, args[1]) != args[1]) {// check if they bet excessively
-                args[1] = checkBlackJackWager(author, args[1]);
+                args[1] = parseInt(checkBlackJackWager(author, args[1]));
                 log("@" + author + ", your wager has been changed to " + args[1], log.visible);
             }
 
