@@ -62,7 +62,7 @@ log("found " + DJWaitList[i].username + " in trackAFKS[] and they've been AFK fo
 log("if(afkMinutes >= minutes) if(" + afkMinutes + " >= " + minutes + ")", log.info);
 log("!!!!!!!!!!!!!!!!!!! API.moderateRemoveDJ(DJWaitList[i].id); API.moderateRemoveDJ(DJWaitList[" + i + "].id);", log.info);
 log("remove DJ from AFK check: " + DJWaitList[i].id, log.info);
-                    if(trackAFKs[j][4]) {// they've been warned
+                    if(trackAFKs[j][4] == true) {// they've been warned
                         API.moderateRemoveDJ(DJWaitList[i].id);// remove from DJ wait list
                         checkAFKThirdStrike.push(DJWaitList[i].username);
                     } else {// Just trying to catch weird exceptions, probably not needed but we give them the benefit of the doubt
