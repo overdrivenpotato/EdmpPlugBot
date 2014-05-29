@@ -13,6 +13,8 @@ function getLastChat(userID) {
 
 
 function setWarnedFlag(key, bool) {
+    log("setting key=" + key + " warned flag to " + bool, log.info);
+    key = parseInt(key);
     trackAFKs[key][4] = bool;
 }
 
