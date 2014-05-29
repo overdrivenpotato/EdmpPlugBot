@@ -16,12 +16,12 @@ var lotteryEnabled          = false;
 var blackJackEnabled        = true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var ReminderEnabled         = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
-checkSPAMEnabled            = true;
+var checkSPAMEnabled        = true;
 
 var version                 = "0.9";
 var meetupUrl               = (typeof meetupUrl=== "undefined") ? "" : meetupUrl;
 
-var trackAFKs               = (typeof trackAFKs === "undefined")        ? [] : trackAFKs;// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
+var trackAFKs               = (typeof trackAFKs === "undefined")? [] : trackAFKs;// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
 var blackJackUsers          = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
 var upvotes                 = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
 var afkNames                = ["Discipliner", "Decimator", "Slayer", "Obliterator"];
@@ -36,18 +36,18 @@ var AFKFirstWarningMinutes  = 10;
 var AFKSecondWarningMinutes = 5;
 var blackJackTimeLimit      = 5 * 60 * 1000;// 5 minute time limit per blackjack player
 
-var lastMeetupMessageTime   = (typeof lastMeetupMessageTime === "undefined") ? 0 : lastMeetupMessageTime;
-var lastDJAdvanceTime       = (typeof lastDJAdvanceTime === "undefined")     ? 0 : lastDJAdvanceTime;
-var lastCronHourly          = (typeof lastCronHourly === "undefined")        ? 0 : lastCronHourly;
-var lastCronFiveMinutes     = (typeof lastCronFiveMinutes === "undefined")   ? 0 : lastCronFiveMinutes;
+var lastMeetupMessageTime   = (typeof lastMeetupMessageTime === "undefined")    ? 0     : lastMeetupMessageTime;
+var lastDJAdvanceTime       = (typeof lastDJAdvanceTime === "undefined")        ? 0     : lastDJAdvanceTime;
+var lastCronHourly          = (typeof lastCronHourly === "undefined")           ? 0     : lastCronHourly;
+var lastCronFiveMinutes     = (typeof lastCronFiveMinutes === "undefined")      ? 0     : lastCronFiveMinutes;
 
-var lotteryEntries          = (typeof lotteryEntries === "undefined") ? []   : lotteryEntries;
-var lotteryUpdated          = (typeof lotteryUpdated === "undefined") ? true : lotteryUpdated;
+var lotteryEntries          = (typeof lotteryEntries === "undefined")           ? []    : lotteryEntries;
+var lotteryUpdated          = (typeof lotteryUpdated === "undefined")           ? true  : lotteryUpdated;
 
-var checkAFKEnabled         = false;
-var checkAFKFirstStrike     = [];
-var checkAFKSecondStrike    = [];
-var checkAFKThirdStrike     = [];
+var checkAFKEnabled         = (typeof checkAFKEnabled === "undefined")          ? false : checkAFKEnabled;
+var checkAFKFirstStrike     = (typeof checkAFKFirstStrike === "undefined")      ? []    : checkAFKFirstStrike;
+var checkAFKSecondStrike    = (typeof checkAFKSecondStrike === "undefined")     ? []    : checkAFKSecondStrike;
+var checkAFKThirdStrike     = (typeof checkAFKThirdStrike === "undefined")      ? []    : checkAFKThirdStrike;
 
 var lastJoined              = "";// userID of last joined user
 var lastSkipped             = "";// userID of last private track auto-skipped user

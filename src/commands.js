@@ -308,7 +308,7 @@ var commands = [
     }, null, null, false),
 
     new Command("sympathy", function() {
-        log("Please direct your sympathy to @spyre", log.visible);
+        log("@spyre has no time for your sympathy", log.visible);
     }, null, null, false),
 
     new Command("hype", function() {
