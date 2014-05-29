@@ -118,12 +118,12 @@ function blackJackStand(author){// function for dealer to keep hitting if needed
 
     if(getSumOfHand(blackJackUsers[game][2]) < getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][3]) <= 21) {
         log(output + "@EDMPBot wins, you suck compared to it.", log.visible);
-        API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
+        API.moderateMoveDJ(getId(author), getPosition(author) + 1 + parseInt(blackJackUsers[game][1]));
 //log("deleteBlackJackGame author="+author, log.info);
         deleteBlackJackGame(author);
     } else if(getSumOfHand(blackJackUsers[game][3]) > 21) {
         log(output + "Dealer busts, you WIN & advance " + blackJackUsers[game][1] + " DJ slots.", log.visible);
-        API.moderateMoveDJ(getId(author), getPosition(author) + 1 - blackJackUsers[game][1]);
+        API.moderateMoveDJ(getId(author), getPosition(author) + 1 - parseInt(blackJackUsers[game][1]));
         deleteBlackJackGame(author);
     } else if(getSumOfHand(blackJackUsers[game][2]) == getSumOfHand(blackJackUsers[game][3]) && getSumOfHand(blackJackUsers[game][2]) == 21) {
         log(ouput + "You dodged a bullet, you both scored 21!", log.visible);
@@ -240,7 +240,7 @@ log("lost code in !blackjack", log.info);
                     return;
                 } else if(getSumOfHand(savedGame[2]) > 21) {
                     log(output + "which is a BUST, please see !addiction to deal with your loss", log.visible);
-                    API.moderateMoveDJ(getId(author), getPosition(author) + 1 + blackJackUsers[game][1]);
+                    API.moderateMoveDJ(getId(author), getPosition(author) + 1 + parseInt(blackJackUsers[game][1]));
                     deleteBlackJackGame(author);// game over, remove from blackJackUsers array
                     return;
                 }  else if (getSumOfHand(savedGame[2]) < getSumOfHand(savedGame[3])) {
