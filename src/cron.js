@@ -29,7 +29,7 @@ function cronFiveMinutes() {// called every 5 minutes
     }
 
     if(lastCronFiveMinutes == 0 || (Date.now() - lastCronFiveMinutes) >= (5 * 60 * 1000)) {// spam & resource overload prevention
-        var timestamp = (Date.now() + (5 * 60 * 1000));
+        var timestamp = new Date(Date.now() + (5 * 60 * 1000));
         log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now at " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(), log.info);
         setTimeout(cronFiveMinutes, (5 * 60 * 1000));// check back in 5 minutes
     }
