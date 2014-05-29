@@ -25,6 +25,7 @@ var trackAFKs               = (typeof trackAFKs === "undefined")? [] : trackAFKs
 var blackJackUsers          = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
 var upvotes                 = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
 var afkNames                = ["Discipliner", "Decimator", "Slayer", "Obliterator", "Enforcer"];
+var afkInsults              = ["wanker", "tool", "douche", "turtle", "knob", "toilet brush", "cheeky kunt", "hipster"];
 var blackJackPlayer         = [Date.now(), ""];// format: array[timestamp, userid];
 var blackJackPlayers        = [];
 

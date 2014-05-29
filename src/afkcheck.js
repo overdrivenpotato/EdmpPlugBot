@@ -12,13 +12,6 @@ function getLastChat(userID) {
 }
 
 
-function setWarnedFlag(key, bool) {
-    log("setting key=" + key + " warned flag to " + bool, log.info);
-    key = parseInt(key);
-    trackAFKs[key][4] = bool;
-}
-
-
 function updateAFKs(data) {
 //log("updateAFKs(data) called, trackAFKs.length=" + trackAFKs.length, log.info);
     var i = 0;
@@ -74,11 +67,9 @@ log("remove DJ from AFK check: " + DJWaitList[i].id, log.info);
                 } else if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) {// final warning, AFKSecondWarningMinutes minutes left to act!
 log("if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) if(" + afkMinutes + " >= " + (minutes - AFKSecondWarningMinutes) + ")", log.info);
                     checkAFKSecondStrike.push(DJWaitList[i].username);
-                    trackAFKs[j][4] = true;// set warned flag to true
                 } else if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) {// give them their first warning, AFKFirstWarningMinutes minutes to AFK deadline!
 log("if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) if(" + afkMinutes + " >= " + (minutes - AFKFirstWarningMinutes) + ")", log.info);
                     checkAFKFirstStrike.push(DJWaitList[i].username);
-                    trackAFKs[j][4] = true;// set warned flag to true
                 }
 
                 break;
@@ -110,10 +101,8 @@ log("if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) if(" + afkMinutes + " 
             AFKlist = (i != (checkAFKThirdStrike.length - 1)) ? AFKlist + "," : AFKlist + "";// only add trailing comma if there are more AFK DJs waiting
         }
 
-        log("AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))] + ": " + AFKlist + " you've been removed from the DJ wait list, fucking wanker", log.visible);
+        log("AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))] + ": " + AFKlist + " you've been removed from the DJ wait list, fucking " + afkInsults[Math.round(Math.random() * (afkInsults.length - 1))], log.visible);
     }
-
-    AFKCheckCleanup();
 }
 
 
@@ -123,20 +112,5 @@ function checkAFKResponse(username) {// send an ACK to ppl who respond to the AF
 
     if(getId(username) != botID && afkMinutes > MaxAFKMinutes && lastChat[1]) {// not bot, was afk, was already warned
         log("@" + username + " satisfied the AFK " + afkNames[Math.round(Math.random() * (afkNames.length - 1))], log.visible);
-    }
-}
-
-
-function AFKCheckCleanup() {// Remove people from AFK checker if they left the wait list
-    var DJWaitList = API.getWaitList();
-
-    for(i = 0; i < trackAFKs.length; i++) {
-        if(trackAFKs[i][4]) {// they've been warned, see if they're still on the wait list and if not, set flag to false
-            for(j = 0; j < DJWaitList.length; j++) {
-                if(trackAFKs[i][1] == DJWaitList[j].id) {// If they've been warned and they're still on the wait list, remove from temp list
-                    trackAFKs[i][4] = false;
-                }
-            }
-        }
     }
 }
