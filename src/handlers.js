@@ -118,7 +118,7 @@ function onLeave(user) {
 
 
 function onWaitListUpdate(users) {// Alert upcoming users that their set is about to start when total users > 7 if they're AFK
-log("onWaitListUpdate: " + users, log.info);
+log("onWaitListUpdate", log.info);log(users, log.info);
     getLastChat(users[1].id)
     if(users.length >= 7) {// anti-spam measure, only msg if this function hasn't been called within 2 seconds
         var eta = getETA(users[1].username);
