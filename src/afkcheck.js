@@ -68,12 +68,12 @@ log("remove DJ from AFK check: " + DJWaitList[i].id, log.info);
                         checkAFKSecondStrike.push(DJWaitList[i].username);
                         trackAFKs[j][4] = true;// set warned flag to true
                     }
-                } else if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) {// final warning, AFKFirstWarningMinutes minutes left to act!
-log("if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) if(" + afkMinutes + " >= " + (minutes - AFKFirstWarningMinutes) + ")", log.info);
+                } else if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) {// final warning, AFKSecondWarningMinutes minutes left to act!
+log("if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) if(" + afkMinutes + " >= " + (minutes - AFKSecondWarningMinutes) + ")", log.info);
                     checkAFKSecondStrike.push(DJWaitList[i].username);
                     trackAFKs[j][4] = true;// set warned flag to true
-                } else if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) {// give them their first warning, AFKSecondWarningMinutes minutes to AFK deadline!
-log("if(afkMinutes >= (minutes - AFKSecondWarningMinutes)) if(" + afkMinutes + " >= " + (minutes - AFKSecondWarningMinutes) + ")", log.info);
+                } else if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) {// give them their first warning, AFKFirstWarningMinutes minutes to AFK deadline!
+log("if(afkMinutes >= (minutes - AFKFirstWarningMinutes)) if(" + afkMinutes + " >= " + (minutes - AFKFirstWarningMinutes) + ")", log.info);
                     checkAFKFirstStrike.push(DJWaitList[i].username);
                     trackAFKs[j][4] = true;// set warned flag to true
                 }
