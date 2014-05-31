@@ -21,14 +21,6 @@ log("!!!!!!!!!!!!!!!!!!! deleting the !command text", log.info);
             checkBlackJackOutput(data.chatID, data.message);
         }
     }
-
-    var waitList = API.getWaitList();
-
-    if(waitList.length >= 7) {// more than 7 audience members &
-        var eta = getETA(waitList[0].username);
-
-        log("@" + waitList[0].username + ", your set begins in ~" + (eta / 60 < 1 ? "" : Math.floor(eta / 60) + "h " ) + eta % 60 + "m", log.info);
-    }
 }
 
 
