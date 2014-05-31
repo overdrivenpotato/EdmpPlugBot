@@ -22,7 +22,7 @@ log("!!!!!!!!!!!!!!!!!!! deleting the !command text", log.info);
         }
     }
 
-    var waitList = APT.getWaitList();
+    var waitList = API.getWaitList();
 
     if(waitList.length >= 7) {// more than 7 audience members &
         var eta = getETA(waitList[0].username);
