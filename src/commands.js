@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: Marko
- * Date: 3/9/14
- * Time: 10:34 PM
- */
-
-
 function getAvailable(author) {
     var avail = [];
 
@@ -43,9 +35,11 @@ function Command(cmd, callback, permission, customPerm, listed) {
     this.exec = function(author, args) {
         if(this.hasPermission(author)) {
             this.callback(author, args);
+
             return true;
         } else {
-            console.log("No permission");
+            log("No permission", log.info);
+
             return false;
         }
     };

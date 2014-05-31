@@ -1,12 +1,10 @@
 function onChat(data) {
-log("onChat called, data=", log.info);log(data, log.info);
     if(data.type == "message") {
         if(data.fromID != botID) {
             checkChatSpam(data);
         }
 
         if(dispatch(data.message, data.from) && data.message.substr(0, 6) != "!8ball") {
-log("!!!!!!!!!!!!!!!!!!! deleting the !command text", log.info);
             API.moderateDeleteChat(data.chatID);
         }
     }
@@ -25,7 +23,6 @@ log("!!!!!!!!!!!!!!!!!!! deleting the !command text", log.info);
 
 
 function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the same song
-    log(obj);
     lastPrivateSkip = Date.now();
     var songshistory = API.getHistory(); // get dj history
     var songs = [];// reset the array, don't need long-term history
@@ -94,7 +91,6 @@ function onJoin(user) {// greet new user after a short delay to ensure they rece
 
 
 function onLeave(user) {
-    log(user, log.info);
     if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms, although plug.dj now has their own spam prevention for this scenario
         var admins      = API.getStaff();
         var realAdmins  = [];
@@ -118,6 +114,5 @@ function onLeave(user) {
 
 
 function onWaitListUpdate(users) {// Check for lotto updates
-    log(users, log.info);
     lottoCleanup();
 }

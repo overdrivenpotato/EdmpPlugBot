@@ -92,18 +92,14 @@ function meetupReminder() {
 }
 
 function dispatch(message, author) {
-//log("Dispatching message: " + message);
     while(true) {
         if(message.indexOf("<a") == -1) {
             break;
         }
 
         var start = message.indexOf("<a");
-        console.log("start:" + start);
         var end = message.indexOf("a>");
-        console.log("end:" + end);
         var link = $(message.substr(start, end)).attr("href");
-        console.log("link:" + link);
 
         message = message.split(message.substr(start, end));
         message = message[0] + link + message[1];
@@ -115,10 +111,9 @@ function dispatch(message, author) {
 
         try {
             var args = message.split(" ");
-            console.log("args:" + args);
             return commandDispatch(args , author);
         } catch(exp) {
-            console.log("Error: " + exp.stack);
+            log("Error: " + exp.stack, log.info);
             return false;
         }
     } else {
@@ -129,7 +124,7 @@ function dispatch(message, author) {
 
 function commandDispatch(args, author) {
     args[0] = args[0].substring(1);
-    console.log(author + " has dispatched: \'" + args[0] + "\'" + " with args: " + args);
+    log(author + " has dispatched: \'" + args[0] + "\'" + " with args: " + args, log.info);
     return execCommand(author, args);
 }
 
@@ -251,10 +246,8 @@ function isSc(id) {
 function getSourceLength(id, callBack) {
     if(isSc(id)) {
         getScLengthSeconds(id.split(":")[1], callBack);
-        log("getScLengthSeconds, here's the id=" + id + ", id.split(':')[1]=" + id.split(":")[1], log.info);
     } else {
         getYtVidSeconds(id.split(":")[1], callBack);
-        log("getYtVidSeconds, here's the id=" + id + ", id.split(':')[1]=" + id.split(":")[1], log.info);
     }
 }
 
@@ -283,9 +276,7 @@ function analyzeSongHistory() {
                 var Sseconds = (isNaN(parseFloat(seconds))) ? (defaultSongLength * 60) : parseFloat(seconds);// failsafe
                 totalSongs++;
 
-//log("media.id=" + history[i].media.id + ", Sseconds=" + Sseconds, log.info);
                 totalSongTime += Sseconds;
-//log("Time changed to " + totalSongTime, log.info);
             });
         } catch(err) {
             console.error(err);
@@ -299,10 +290,6 @@ function checkChatSpam(data) {
     var lastChat = getLastChat(getId(data.from));
 
     if(data.message == trackAFKs[lastChat[3]] && ((Date.now() - lastChat[0]) <= 5000) && getPermLevel(data.from) < API.ROLE.BOUNCER || data.fromID == botID) {// repeated messages in 5 or less seconds from a pleb = spam!
-log("spam detection! twice in a row, delete the message", log.info);
-log("trackAFKs[lastChat[2]][3] = " + trackAFKs[lastChat[2]][3], log.info);
-log((Date.now() - lastChat[0]) + " less than euqal to 5000", log.info);
-log("getPermLevel(data.from) less than API.ROLE.BOUNCER || data.fromID == botID ......... " + getPermLevel(data.from) + " less than " + API.ROLE.BOUNCER + " || " + data.fromID + " == " + botID, log.info);
         API.moderateDeleteChat(data.chatID);
     }
 }
@@ -315,7 +302,7 @@ function rollTheDice(author) {
     } else if(getPosition(author) == 0) {
        log("@" + author + ", you're already the next DJ, get help with !addiction", log.visible);
         return;
-    } else if(getPosition(author) == -1) {//log("@" + author + ", you're already DJing, you can't move positions!", log.visible);
+    } else if(getPosition(author) == -1) {
         return;
     }
 
@@ -361,7 +348,7 @@ function eightball(author, args) {
         "Of all the questions you could've asked, you chose THAT one?!?!",
         "I could answer that but more importantly since your doctor is too much of a pussy to tell you this... you have AIDS."
     ];
-log(args, log.info);
+
     if(args.length < 2) {
         log("@" + author + ", you never asked a question!? Usage: !8ball Is Invincibear dope?", log.visible);
     } else {
@@ -370,11 +357,9 @@ log(args, log.info);
 }
 
 
-
 //
 // Hourly shit and general bot stuffs
 //
-
 function init() {
     window.edmpBot = window.setInterval(function(){
         meetupReminder();

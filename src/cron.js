@@ -14,7 +14,6 @@ function cronHourly() {// called at the start of a new hour ie. 0 minutes & seco
     }
 
     if (lastCronHourly == 0 || (Date.now() - lastCronHourly) >= (60 * 60 * 1000)) {// spam & resource overload prevention
-        log("setting cronHourly() check for " + (countdown / 60 / 1000) + " minutes from now", log.info);
         setTimeout(cronHourly, countdown);// check back in an hour
     }
 
@@ -23,8 +22,6 @@ function cronHourly() {// called at the start of a new hour ie. 0 minutes & seco
 
 
 function cronFiveMinutes() {// called every 5 minutes
-    log("cronFiveMinutes() has been called! The minutes are ripe, run additional 5-minute functions", log.info);
-
     if(checkAFKEnabled) {// Check for AFK DJs
         checkAFKs(MaxAFKMinutes);
     }

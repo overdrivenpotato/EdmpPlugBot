@@ -51,7 +51,6 @@ function checkLottoOutput(chatID, message) {
         return false;// Do this first cause there's a higher chance of the chatted msg being irrelevant to lotto
     } else {
         if(lastLotto != "") {
-log("!!!!!!!!!!!!!!!!!!! API.moderateDeleteChat(lastLotto); API.moderateDeleteChat(" + lastLotto + ");", log.info);
             API.moderateDeleteChat(lastLotto);
         }
 
@@ -100,7 +99,5 @@ function lotteryHourly() {// enable or disable the lottery
 
     if (lotteryEnabled) {
         log("The lottery is now open, type !lottery for a chance to be bumped to #1 in the DJ wait list!", log.visible);
-    } else {
-        log("lotteryEnabled = false at lotteryHourly()", log.info)
     }
 }
