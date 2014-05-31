@@ -1,8 +1,5 @@
 // add disconnect protection, 10 minute grace period?
 // add !War game to swap slots with the challenger
-// remove anti-spam stuffs when somebody leaves the room
-// remove from lotto list if you leave the wait list
-
 
 log("Loading bot...");
 
