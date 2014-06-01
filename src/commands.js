@@ -365,6 +365,10 @@ var commands = [
         log("Bitwig MASTER race", log.visible);
     }, null, null, false),
 
+    new Command("trap", function() {
+        log("http://imgur.com/O7vL7Sw", log.visible);
+    }, null, null, false),
+
     new Command("shrek", function(author) {
         log("But @" + author + ", Shrek is LOVE...", log.visible);
     }, null, null, false)
