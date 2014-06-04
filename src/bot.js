@@ -6,7 +6,7 @@ log("Loading bot...");
 
 var curdate                 = new Date();
 
-var lotteryEnabled          = false;
+var lotteryEnabled          = (typeof lotteryEnabled === "undefined") ? false : true;
 var blackJackEnabled        = true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var ReminderEnabled         = false;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days

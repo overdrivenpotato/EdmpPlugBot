@@ -1,4 +1,19 @@
 function lottery(author) {
+    if(args.length == 2) {
+        switch(args[1]) {
+            case "on":
+                lotteryEnabled = true;
+                log("@" + author + " has enabled the hourly lottery", log.visible);
+                return;
+            break;
+            case "off":
+                lotteryEnabled = false;
+                log("@" + author + " has disabled the hourly lottery", log.visible);
+                return;
+            break;
+        }
+    }
+
     if(new Date().getMinutes() >= 10) {
         log("@" + author + ", the lottery occurs at the start of each hour for a ten minute window. Type !lottery within 10 minutes after a new hour for a chance to win!", log.visible);
         return;
