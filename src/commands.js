@@ -247,8 +247,8 @@ var commands = [
     }),
 
 
-    new Command("lottery", function(author) {
-        lottery(author);
+    new Command("lottery", function(author, args) {
+        lottery(author, args);
     }),
 
     

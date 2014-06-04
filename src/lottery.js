@@ -1,4 +1,4 @@
-function lottery(author) {
+function lottery(author, args) {
     if(args.length == 2) {
         switch(args[1]) {
             case "on":
