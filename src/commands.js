@@ -365,6 +365,10 @@ var commands = [
         log("Bitwig MASTER race", log.visible);
     }, null, null, false),
 
+    new Command("harmor", function() {
+        log("Harmor MASTER race", log.visible);
+    }, null, null, false),
+
     new Command("trap", function() {
         log("http://imgur.com/O7vL7Sw", log.visible);
     }, null, null, false),
