@@ -1,6 +1,6 @@
 // add disconnect protection, 10 minute grace period?
 // add !War game to swap slots with the challenger
-// wtf error codes
+// auto-woot broken?
 
 log("Loading bot...");
 
