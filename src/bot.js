@@ -12,7 +12,7 @@ var ReminderEnabled         = (typeof ReminderEnabled === "undefined")      ? fa
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")     ? true  : false;
 
-var version                 = "1.0.0.0.yeaeah!";
+var version                 = "1.0.3.0.yeaeah!";
 var meetupUrl               = (typeof meetupUrl=== "undefined") ? "" : meetupUrl;
 
 var trackAFKs               = (typeof trackAFKs === "undefined")? [] : trackAFKs;// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]

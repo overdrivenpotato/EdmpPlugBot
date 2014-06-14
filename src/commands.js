@@ -350,19 +350,23 @@ var commands = [
     }, null, null, false),
 
     new Command("ableton", function() {
-        log("Ableton INFERIOR race", log.visible);
+        log("Ableton \"I'm a bro too\" race", log.visible);
     }, null, null, false),
 
     new Command("fl,fruity,fruityloops", function() {
-        log("FruityLoops INFERIOR race", log.visible);
+        log("FruityLoops \"I have a small penis\" race", log.visible);
     }, null, null, false),
 
     new Command("cubase", function() {
-        log("Cubase MASTER race", log.visible);
+        log("Cubase \"lonely Invincibear\" MASTER race", log.visible);
     }, null, null, false),
 
     new Command("logic", function() {
         log("Logic MASTER race", log.visible);
+    }, null, null, false),
+
+    new Command("protools", function() {
+        log("ProTools MASTER race", log.visible);
     }, null, null, false),
 
     new Command("bitwig", function() {
@@ -371,6 +375,18 @@ var commands = [
 
     new Command("harmor", function() {
         log("Harmor MASTER race", log.visible);
+    }, null, null, false),
+
+    new Command("sylenth", function() {
+        log("Sylenth1 MASTER race", log.visible);
+    }, null, null, false),
+
+    new Command("massive", function() {
+        log("Massive normal race", log.visible);
+    }, null, null, false),
+
+    new Command("fm8", function() {
+        log("FM8 MASTER race", log.visible);
     }, null, null, false),
 
     new Command("trap", function() {
