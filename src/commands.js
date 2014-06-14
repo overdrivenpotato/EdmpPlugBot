@@ -284,9 +284,13 @@ var commands = [
     new Command("real", function() {
         log("REAL TRAP SHIT!", log.visible);
     }, null, null, false),
-    
+
     new Command("turndown", function() {
         log("TURN DOWN FOR WHAT?", log.visible);
+    }, null, null, false),
+
+    new Command("turnup", function() {
+        log("TURN UP TO DEATH", log.visible);
     }, null, null, false),
 
     new Command("nothing", function() {
