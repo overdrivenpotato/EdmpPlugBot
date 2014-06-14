@@ -350,7 +350,7 @@ var commands = [
     }, null, null, false),
 
     new Command("ableton", function() {
-        log("Ableton \"I'm a bro too\" race", log.visible);
+        log("Ableton \"I'm a bro too, bro do you even lift, bro\" race", log.visible);
     }, null, null, false),
 
     new Command("fl,fruity,fruityloops", function() {
@@ -362,11 +362,11 @@ var commands = [
     }, null, null, false),
 
     new Command("logic", function() {
-        log("Logic MASTER race", log.visible);
+        log("Logic \"I pay Apple too much to get buttfucked\" race", log.visible);
     }, null, null, false),
 
     new Command("protools", function() {
-        log("ProTools MASTER race", log.visible);
+        log("ProTools \"dayum I'm a pro\" race", log.visible);
     }, null, null, false),
 
     new Command("bitwig", function() {
@@ -374,7 +374,7 @@ var commands = [
     }, null, null, false),
 
     new Command("garageband", function() {
-        log("Garage Band \"I hav eno clue what I'm doing\" race", log.visible);
+        log("Garage Band \"I have no clue what I'm doing\" race", log.visible);
     }, null, null, false),
 
     new Command("harmor", function() {
