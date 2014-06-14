@@ -373,11 +373,15 @@ var commands = [
         log("Bitwig MASTER race", log.visible);
     }, null, null, false),
 
+    new Command("garageband", function() {
+        log("Garage Band \"I hav eno clue what I'm doing\" race", log.visible);
+    }, null, null, false),
+
     new Command("harmor", function() {
         log("Harmor MASTER race", log.visible);
     }, null, null, false),
 
-    new Command("sylenth", function() {
+    new Command("sylenth,sylenth1", function() {
         log("Sylenth1 MASTER race", log.visible);
     }, null, null, false),
 
