@@ -48,7 +48,7 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
         }
     }
 
-    setTimeout(function(){document.getElementById("woot").click();}, 2000);// auto-woot the song
+    setTimeout(function(){document.getElementById("woot").click()}, 2000);// auto-woot the song
 
     if(obj.media.id.indexOf("2:") != -1) {
         getSourceLength(obj.media.id, function(time){
