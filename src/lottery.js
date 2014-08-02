@@ -103,8 +103,6 @@ function lottoCleanup() {
             lottoList = lottoList + "@" + removed[i];
             lottoList = (i != (removed.length - 1)) ? lottoList + "," : lottoList + "";// only add trailing comma if removing more than one contestant
         }
-
-        log("Removed " + getUsername(lottoList) + " from the the current !lottery", log.visible);
     }
 }
 
