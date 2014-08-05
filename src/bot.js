@@ -12,13 +12,13 @@ var lotteryEnabled          = (typeof lotteryEnabled === "undefined")        ? t
 var blackJackEnabled        = (typeof blackJackEnabled === "undefined")      ? false : true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var ReminderEnabled         = (typeof ReminderEnabled === "undefined")       ? false : true;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
-var SpecialGreetingEnabled  = (typeof SpecialGreetingEnabled === "undefined")? true : SpecialGreetingEnabled;
+var SpecialGreetingEnabled  = true;
 var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")      ? true  : checkSPAMEnabled;
 var SpecialEventLockdown    = (typeof SpecialEventLockdown === "undefined")  ? false : SpecialEventLockdown;
 
 var version                 = "1.1.0.yeaeah!";
 var meetupUrl               = (typeof meetupUrl=== "undefined")         ? ""    : meetupUrl;
-var SpecialGreeting         = (typeof SpecialGreeting === "undefined")  ? "The next meetup will be Saturday, Aug 9th at 3:03PM EST. See you then!" : "";
+var SpecialGreeting         = "The next meetup will be Saturday, Aug 9th at 3:03PM EST. See you then!";
 
 var trackAFKs               = (typeof trackAFKs === "undefined")? [] : trackAFKs;// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
 var blackJackUsers          = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
