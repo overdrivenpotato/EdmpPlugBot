@@ -95,6 +95,30 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
+    new Command("specialgreeting", function(author, args) {
+        if(args.length < 2) {
+            log("@" + author + " [!specialgreeting] please use in the form of '!reminder We are professional noize-ballerz", log.visible);
+            return;
+        }
+
+        switch(args[1]) {
+            case "on":
+                SpecialGreetingEnabled = true;
+                log("@" + author + " has enabled a special greeting", log.visible);
+                break;
+            case "off":
+                SpecialGreetingEnabled = false;
+                log("@" + author + " has disabled the special greeting", log.visible);
+                break;
+            default:
+                SpecialGreeting = args[1];
+                    log("@" + author + ", has set a new special greeting", log.visible);
+                }
+                break;
+        }
+    }, API.ROLE.HOST),
+
+
     new Command("update", function() {
 //log("Restarting the bot, Bye!...", log.visible);// really not needed, if you don't see it come up it's already fucked
         stop(true);
@@ -206,7 +230,7 @@ var commands = [
 
     new Command("checkafks", function(author, args) {
         if(args.length < 2) {
-            log("@" + author + " please use in the form of: !afkcheck on (or) !afkcheck off");
+            log("@" + author + " please use in the form of: !checkafks on (or) !checkafks off (or) !checkafks 45");
             return;
         }
 

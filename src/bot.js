@@ -16,7 +16,7 @@ var SpecialGreetingEnabled  = (typeof SpecialGreetingEnabled === "undefined")? f
 var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")      ? true  : checkSPAMEnabled;
 var SpecialEventLockdown    = (typeof SpecialEventLockdown === "undefined")  ? false : SpecialEventLockdown;
 
-var version                 = "1.0.5.0.yeaeah!";
+var version                 = "1.1.0.yeaeah!";
 var meetupUrl               = (typeof meetupUrl=== "undefined")         ? ""    : meetupUrl;
 var SpecialGreeting         = (typeof SpecialGreeting === "undefined")  ? false : "The next meetup will be Saturday, Aug 9th at 3:03PM EST. See you then!";
 
