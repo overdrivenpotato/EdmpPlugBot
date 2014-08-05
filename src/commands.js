@@ -219,6 +219,12 @@ var commands = [
                 checkAFKEnabled = false;
                 log("@" + author + " has disabled AFK checking", log.visible);
                 break;
+            default:
+                if (!isNaN(args[1])) {
+                    MaxAFKMinutes = (args[1] * 2) / 2;// positive minutes only
+                    log("@" + author + " has set the MAX AFK time to " + MaxAFKMinutes + " minutes", log.visible);
+                }
+                break;
         }
     }, API.ROLE.MANAGER),
 
@@ -366,7 +372,7 @@ var commands = [
     }, null, null, false),
 
     new Command("protools", function() {
-        log("ProTools \"dayum I'm a pro\" race", log.visible);
+        log("ProTools \"dayum I'm a pro tool\" race", log.visible);
     }, null, null, false),
 
     new Command("bitwig", function() {

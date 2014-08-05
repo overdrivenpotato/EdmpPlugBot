@@ -1,6 +1,8 @@
 // add disconnect protection, 10 minute grace period?
 // add !War game to swap slots with the challenger
 // auto-woot broken?
+// managers+ get 2x time max AFK detection
+// variable afk checker
 
 log("Loading bot...");
 
