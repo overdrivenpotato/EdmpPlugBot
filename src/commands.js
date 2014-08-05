@@ -222,7 +222,8 @@ var commands = [
             default:
                 if (!isNaN(args[1])) {
                     MaxAFKMinutes = (args[1] * 2) / 2;// positive minutes only
-                    log("@" + author + " has set the MAX AFK time to " + MaxAFKMinutes + " minutes", log.visible);
+                    msg = (checkAFKEnabled) ?? "@" + author + " has set the MAX AFK time to " + MaxAFKMinutes + " minutes" : " and enabled AFK checking.";
+                    log(msg, log.visible);
                 }
                 break;
         }
