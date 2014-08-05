@@ -71,7 +71,13 @@ function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the
 
 function onJoin(user) {// greet new user after a short delay to ensure they receive the message
     if (lastJoined != user.id && GreetingEnabled) {// prevent spam in case somebody has two tabs with different plug.dj rooms
-        setTimeout(function() {log("Welcome @" + user.username + "! Type !help for more information and a list of available commands.", log.visible);}, 2500);// Delay needed for new entrant to actually connect and see the msg
+        if (SpecialGreetingEnabled) {
+            msg = "Welcome @" + user.username + "! " + SpecialGreeting;
+        } else {
+            msg = "Welcome @" + user.username + "! Type !help for more information and a list of available commands";
+        }
+
+        setTimeout(function() {log(msg, log.visible);}, 2500);// Delay needed for new entrant to actually connect and see the msg
         lastJoined = user.id;
     }
 

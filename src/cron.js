@@ -25,6 +25,7 @@ function cronFiveMinutes() {// called every 5 minutes
     if(checkAFKEnabled) {// Check for AFK DJs
         checkAFKs(MaxAFKMinutes);
     }
+    checkSpecialEvent();
 
     var timestamp = new Date(Date.now() + (5 * 60 * 1000));
     log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now at " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(), log.info);
