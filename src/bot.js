@@ -12,9 +12,9 @@ var lotteryEnabled          = (typeof lotteryEnabled === "undefined")        ? t
 var blackJackEnabled        = (typeof blackJackEnabled === "undefined")      ? false : true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var ReminderEnabled         = (typeof ReminderEnabled === "undefined")       ? false : true;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
-var SpecialGreetingEnabled  = true;
 var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")      ? true  : checkSPAMEnabled;
-var SpecialEventLockdown    = (typeof SpecialEventLockdown === "undefined")  ? false : SpecialEventLockdown;
+var SpecialGreetingEnabled  = true;
+var SpecialEventLockdown    = true
 
 var version                 = "1.1.0.yeaeah!";
 var meetupUrl               = (typeof meetupUrl=== "undefined")         ? ""    : meetupUrl;
