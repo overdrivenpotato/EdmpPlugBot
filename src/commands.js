@@ -113,7 +113,6 @@ var commands = [
             default:
                 SpecialGreeting = args[1];
                     log("@" + author + ", has set a new special greeting", log.visible);
-                }
                 break;
         }
     }, API.ROLE.HOST),
@@ -246,7 +245,7 @@ var commands = [
             default:
                 if (!isNaN(args[1])) {
                     MaxAFKMinutes = (args[1] * 2) / 2;// positive minutes only
-                    msg = (checkAFKEnabled) ?? "@" + author + " has set the MAX AFK time to " + MaxAFKMinutes + " minutes" : " and enabled AFK checking.";
+                    msg = (checkAFKEnabled) ? "@" + author + " has set the MAX AFK time to " + MaxAFKMinutes + " minutes" : " and enabled AFK checking.";
                     log(msg, log.visible);
                 }
                 break;
