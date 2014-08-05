@@ -97,7 +97,7 @@ var commands = [
 
     new Command("specialgreeting", function(author, args) {
         if(args.length < 2) {
-            log("@" + author + " [!specialgreeting] please use in the form of '!reminder We are professional noize-ballerz", log.visible);
+            log("@" + author + " [!specialgreeting] please use in the form of '!specialgreeting We are professional noize-ballerz", log.visible);
             return;
         }
 
