@@ -5,13 +5,19 @@
  * Time: 10:34 PM
  */
 var scripts = [
-    "http://empireventures.ca/edmp.php?f=commands.js",
-    "http://empireventures.ca/edmp.php?f=cron.js",
-    "http://empireventures.ca/edmp.php?f=lottery.js",
-    "http://empireventures.ca/edmp.php?f=blackjack.js",
-    "http://empireventures.ca/edmp.php?f=afkcheck.js",
-    "http://empireventures.ca/edmp.php?f=handlers.js",
-    "http://empireventures.ca/edmp.php?f=bot.js"];
+    "http://empirestorage.ca/edmp?f=commands.js",
+    "http://empirestorage.ca/edmp?f=cron.js",
+    "http://empirestorage.ca/edmp?f=lottery.js",
+    "http://empirestorage.ca/edmp?f=blackjack.js",
+    "http://empirestorage.ca/edmp?f=afkcheck.js",
+    "http://empirestorage.ca/edmp?f=handlers.js",
+    "http://empirestorage.ca/edmp?f=bot.js"];
+
+
+function updateBot() {
+    setTimeout(function(){$.getScript("http://empirestorage.ca/edmp?f=loader.js");}, 2000);
+}
+
 
 function load(script)
 {
