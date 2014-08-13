@@ -366,7 +366,7 @@ function eightball(author, args) {
 function checkSpecialEvent() {
     if (SpecialEventLockdown) {
         var dj = API.getDJ();
-        API.moderateLockWaitList(true, (typeof dj !== "undefined"));
+//        API.moderateLockWaitList(true, (typeof dj !== "undefined"));
     }
 }
 
