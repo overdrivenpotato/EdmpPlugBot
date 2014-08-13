@@ -25,10 +25,22 @@ function cronFiveMinutes() {// called every 5 minutes
     if(checkAFKEnabled) {// Check for AFK DJs
         checkAFKs(MaxAFKMinutes);
     }
-    checkSpecialEvent();
 
     var timestamp = new Date(Date.now() + (5 * 60 * 1000));
     log("setting cronFiveMinutes() check for " + (5 * 60) + " seconds from now at " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(), log.info);
     setTimeout(cronFiveMinutes, (5 * 60 * 1000));// check back in 5 minutes
     lastCronFiveMinutes = Date.now();
 }
+
+
+function cronSpecialEvent() {// called every 5 minutes
+    if(checkAFKEnabled) {// Check for AFK DJs
+        checkSpecialEvent();
+    }
+
+    var timestamp = new Date(Date.now() + (1.5 * 60 * 1000));
+    log("setting cronSpecialEvent() check for " + (1.5 * 60) + " seconds from now at " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(), log.info);
+    setTimeout(cronFiveMinutes, (5 * 60 * 1000));// check back in 1.5 minutes
+    lastCronSpecialEventMinutes = Date.now();
+}
+

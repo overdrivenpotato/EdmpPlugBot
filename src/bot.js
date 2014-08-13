@@ -365,13 +365,8 @@ function eightball(author, args) {
 
 function checkSpecialEvent() {
     if (SpecialEventLockdown) {
-        API.moderateLockWaitList(true, true);
-
         var dj = API.getDJ();
-        if(typeof dj !== "undefined") {
-            log("Removed " + dj.username + " from the stage", log.info);
-            API.moderateRemoveDJ(dj.id);
-        }
+        API.moderateLockWaitList(true, (typeof dj !== "undefined"));
     }
 }
 
@@ -387,6 +382,7 @@ function init() {
     analyzeSongHistory();
     cronHourly(); // hourly checks, can't depend on chatter
     cronFiveMinutes(); // 5-minute checks
+    cronSpecialEvent(); // 1.5 minute checks
 
     log("Loaded EDMPbot v" + version, log.visible);
 }
