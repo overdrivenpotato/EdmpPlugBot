@@ -17,7 +17,7 @@ var SpecialEventLockdown    = true
 
 var version                 = "1.1.1.yeaeah!";
 var meetupUrl               = (typeof meetupUrl=== "undefined")         ? ""    : meetupUrl;
-var SpecialGreeting         = "The next meetup will be Saturday, Aug 16th at 3:03PM EST AFTER the new plug.dj update. See you then!";
+var SpecialGreeting         = "The next official meetup will be Saturday, Aug 16th at 3:03PM EST AFTER the new plug.dj update. We'll have something special in store for you!";
 
 var trackAFKs               = (typeof trackAFKs === "undefined")? [] : trackAFKs;// format: array[0=>username, 1=>userID, 2=>time of last msg, 3=>message data/txt, 4=bool warned or not]
 var blackJackUsers          = [];// format: array[0=>userID, 1=> wager, 2=>user's hand array[card1, card2, ...], 3=>dealer's hand array[card1, card2, ...], 4=> deck array[0-51], 5=> active game bool false|true if game over, 6=> bool false|true if cards faceup, 7=>stand bool false|true=!stand called/forced]
