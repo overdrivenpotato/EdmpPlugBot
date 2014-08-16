@@ -12,10 +12,10 @@ var blackJackEnabled        = (typeof blackJackEnabled === "undefined")      ? f
 var ReminderEnabled         = (typeof ReminderEnabled === "undefined")       ? false : true;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")      ? true  : checkSPAMEnabled;
-var SpecialGreetingEnabled  = true;
-var SpecialEventLockdown    = true
+var SpecialGreetingEnabled  = false;
+var SpecialEventLockdown    = false;
 
-var version                 = "1.1.1.yeaeah!";
+var version                 = "1.2.3.yeaeah!";
 var meetupUrl               = (typeof meetupUrl=== "undefined")         ? ""    : meetupUrl;
 var SpecialGreeting         = "The next official meetup will be Saturday, Aug 16th at 3:03PM EST AFTER the new plug.dj update. We'll have something special in store for you!";
 
@@ -382,7 +382,7 @@ function init() {
     analyzeSongHistory();
     cronHourly(); // hourly checks, can't depend on chatter
     cronFiveMinutes(); // 5-minute checks
-    cronSpecialEvent(); // 1.5 minute checks
+//    cronSpecialEvent(); // 1.5 minute checks
 
     log("Loaded EDMPbot v" + version, log.visible);
 }
