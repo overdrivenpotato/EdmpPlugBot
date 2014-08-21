@@ -224,7 +224,7 @@ var commands = [
         }
 
         API.moderateMoveDJ(getId(args[1].substr(1)), parseInt(args[2]));
-    }, API.ROLE.MANAGER),
+    }, API.ROLE.BOUNCER),
 
 
     new Command("checkafks", function(author, args) {
