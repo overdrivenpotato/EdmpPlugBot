@@ -218,7 +218,7 @@ var commands = [
 
 
     new Command("move", function(author, args) {
-        if(args.length < 3 || args[1].indexOf("@") == -1) {
+        if(args.length < 2 || args[1].indexOf("@") == -1) {
             log("@" + author + " please use in the form of: !move @" + author + " 14");
             return;
         }
