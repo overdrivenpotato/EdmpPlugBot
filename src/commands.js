@@ -383,7 +383,7 @@ var commands = [
         log("Ableton \"I'm a bro too, bro do you even lift, bro\" race", log.visible);
     }, null, null, false),
 
-    new Command("fl,fruity,fruityloops", function() {
+    new Command("fl,fruity,fruityloops,flstudio", function() {
         log("FruityLoops \"I have a small penis\" race", log.visible);
     }, null, null, false),
 
@@ -405,6 +405,14 @@ var commands = [
 
     new Command("garageband", function() {
         log("Garage Band \"I have no clue what I'm doing\" race", log.visible);
+    }, null, null, false),
+
+    new Command("reason", function() {
+        log("Reason \"can't untangle those fucking wires\" race", log.visible);
+    }, null, null, false),
+
+    new Command("studioone", function() {
+        log("Reason \"can't untangle those fucking wires\" race", log.visible);
     }, null, null, false),
 
     new Command("harmor", function() {
