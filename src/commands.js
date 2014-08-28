@@ -112,7 +112,7 @@ var commands = [
                     log("@" + author + ", has set a new special greeting", log.visible);
                 break;
         }
-    }, API.ROLE.HOST),
+    }, API.ROLE.COHOST),
 
 
     new Command("update", function() {
@@ -430,6 +430,10 @@ var commands = [
 
     new Command("trap", function() {
         log("http://imgur.com/O7vL7Sw", log.visible);
+    }, null, null, false),
+
+    new Command("goosesux", function() {
+        log("Yes he does", log.visible);
     }, null, null, false),
 
     new Command("shrek", function(author) {
