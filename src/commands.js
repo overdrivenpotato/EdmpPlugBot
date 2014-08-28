@@ -201,7 +201,7 @@ var commands = [
         for(var i = 0; i < admins.length; i++) {
             logtext = (admins[i].id != botID && admins[i].role >= API.ROLE.BOUNCER) ? logtext + (admins[i].username + ((i == (admins.length - 1)) ? "" : ", ")) : logtext + "";
 
-            if(admins[i].permission >= API.ROLE.BOUNCER) {
+            if(admins[i].role >= API.ROLE.BOUNCER) {
                 realAdmins.push(admins[i]);
             }
         }
