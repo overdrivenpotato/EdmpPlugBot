@@ -187,7 +187,7 @@ var commands = [
 
     new Command("url,link", function(author) {
         if (typeof API.getDJ() !== "undefined") {
-            getSourceUrl(API.getMedia().id, function(link) {
+            getSourceUrl(API.getMedia(), function(link) {
                 log("[!url] @" + author + " " + link.replace("&feature=youtube_gdata_player", ""), log.visible);// make youtube links prettier
             })
         } else {
