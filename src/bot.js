@@ -53,8 +53,7 @@ var lastSkipped             = "";// userID of last private track auto-skipped us
 var lastLotto               = "";// msgID of the last chatted lotto entry
 var lastBlackJack           = "";// msgID of the last chatted lotto entry
 var scClientId              = "ff550ffd042d54afc90a43b7151130a1";// API credentials
-var botID                   = "531bdea096fba5070c4cad51";
-var nvp                     = "53090acb63051f462837692e";
+var botID                   = "3941089";
 
 API.on(API.WAIT_LIST_UPDATE, onWaitListUpdate);
 API.on(API.DJ_ADVANCE, onDJAdvance);
