@@ -257,7 +257,7 @@ function getSourceLength(media, callBack) {
 
 
 function getScLengthSeconds(soundId, callBack) {
-    $.getJSON("http://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
+    $.getJSON("https://api.soundcloud.com/tracks/" + soundId + ".json?client_id=" + scClientId,
         function(e){
             callBack(e.duration / 1000);
         }).fail(function() {
@@ -267,7 +267,7 @@ function getScLengthSeconds(soundId, callBack) {
 
 
 function getYtVidSeconds(videoId, callBack) {
-    callBack($(loadXMLDoc("http://gdata.youtube.com/feeds/api/videos/" + videoId).getElementsByTagName("duration")).attr("seconds"));
+    callBack($(loadXMLDoc("https://gdata.youtube.com/feeds/api/videos/" + videoId).getElementsByTagName("duration")).attr("seconds"));
 }
 
 
