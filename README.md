@@ -5,12 +5,12 @@ Bot for the r/edmp plug.dj room.
 
 To start, simply login as the bot and copy + paste the following into your address bar
 ```javascript
-javascript:(function(){document.body.appendChild(document.createElement('script')).src='http://empirestorage.ca/edmp?f=loader.js';})();
+javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://empirestorage.ca/edmp?f=loader.js';})();
 ```
 
 **Note**: in chrome you will need to add ```javascript:``` back manually to the beginning as it will be removed upon paste.
 
-##Commands
+##Commands ******************no longer up to date
 * !goosesux
     * Self explanatory.
 * !turndown
