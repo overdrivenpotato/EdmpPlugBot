@@ -148,7 +148,7 @@ function chat(text) {
 
 
 function getPermLevel(username) {
-    return API.getUser(getId(username)).permission;
+    return API.getUser(getId(username)).role;
 }
 
 
