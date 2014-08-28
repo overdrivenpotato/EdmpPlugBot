@@ -1,4 +1,5 @@
 function onChat(data) {
+    log(data, log.info);
     if(data.type == "message") {
         if(data.fromID != botID) {
             checkChatSpam(data);
