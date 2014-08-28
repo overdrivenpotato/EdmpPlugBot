@@ -242,17 +242,16 @@ function getYtUrl(videoId, callBack) {
 }
 
 
-function isSc(id) {
-    id = id.split(":");
-    return (id[0] == 2 || id[0] == "2");
+function isSc(format) {
+    return (format == 2 || format == "2");
 }
 
 
-function getSourceLength(id, callBack) {
-    if(isSc(id)) {
-        getScLengthSeconds(id.split(":")[1], callBack);
+function getSourceLength(media, callBack) {
+    if(isSc(media.format)) {
+        getScLengthSeconds(media.cid, callBack);
     } else {
-        getYtVidSeconds(id.split(":")[1], callBack);
+        getYtVidSeconds(media.cid, callBack);
     }
 }
 
@@ -277,7 +276,7 @@ function analyzeSongHistory() {
 
     for (var i = 0; i < history.length; i++) {
         try {
-            getSourceLength(history[i].media.id, function(seconds){
+            getSourceLength(history[i].media, function(seconds){
                 var Sseconds = (isNaN(parseFloat(seconds))) ? (defaultSongLength * 60) : parseFloat(seconds);// failsafe
                 totalSongs++;
 
