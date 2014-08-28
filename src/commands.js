@@ -81,17 +81,14 @@ var commands = [
 
     new Command("reminder", function(author, args) {
         if(args.length < 2) {
-            log("@" + author + " [!reminder] please use in the form of '!reminder http://reddit.com/r/edmproduction/PutTheUrlHere", log.visible);
+            log("@" + author + " [!reminder] please use in the form of '!reminder http://reddit.com/BLAH or !reminder off", log.visible);
+        } else if (args[1] == "off") {
+            meetupUrl = "";
+            log("[!reminder] @" + author + " reminder stopped.", log.visible);
         } else {
             lastMeetupMessageTime = 0;
             meetupUrl = args[1];
         }
-    }, API.ROLE.MANAGER),
-
-
-    new Command("stopreminder", function(author) {
-        meetupUrl = "";
-        log("[!stopreminder] @" + author + " reminder stopped.", log.visible);
     }, API.ROLE.MANAGER),
 
 
