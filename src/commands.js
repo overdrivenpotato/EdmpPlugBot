@@ -408,8 +408,12 @@ var commands = [
         log("Reason \"can't untangle those fucking wires\" race", log.visible);
     }, null, null, false),
 
-    new Command("studioone", function() {
-        log("Reason \"can't untangle those fucking wires\" race", log.visible);
+    new Command("reaper", function() {
+        log("reaper what? reaper who?", log.visible);
+    }, null, null, false),
+
+    new Command("studioone,studione", function() {
+        log("dream on studio one", log.visible);
     }, null, null, false),
 
     new Command("harmor", function() {
