@@ -43,7 +43,7 @@ var lastCronFiveMinutes     = (typeof lastCronFiveMinutes === "undefined")      
 var lotteryEntries          = (typeof lotteryEntries === "undefined")           ? []    : lotteryEntries;
 var lotteryUpdated          = (typeof lotteryUpdated === "undefined")           ? true  : lotteryUpdated;
 
-var checkAFKEnabled         = (typeof checkAFKEnabled === "undefined")          ? !!(curdate.getDay() == 3 || curdate.getDay() == 6) : checkAFKEnabled;// enabled by default on meetup days
+var checkAFKEnabled         = false; //(typeof checkAFKEnabled === "undefined")          ? !!(curdate.getDay() == 3 || curdate.getDay() == 6) : checkAFKEnabled;// enabled by default on meetup days
 var checkAFKFirstStrike     = (typeof checkAFKFirstStrike === "undefined")      ? []    : checkAFKFirstStrike;
 var checkAFKSecondStrike    = (typeof checkAFKSecondStrike === "undefined")     ? []    : checkAFKSecondStrike;
 var checkAFKThirdStrike     = (typeof checkAFKThirdStrike === "undefined")      ? []    : checkAFKThirdStrike;
