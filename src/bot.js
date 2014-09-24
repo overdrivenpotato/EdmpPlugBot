@@ -220,7 +220,7 @@ function loadXMLDoc(filename) {//From http://www.w3schools.com/dom/dom_loadxmldo
 
 
 function getSourceUrl(media, callBack) {
-    if(isSc(media)) {
+    if(isSc(media.format)) {
         getScUrl(media.cid, callBack);
     } else {
         getYtUrl(media.cid, callBack);
