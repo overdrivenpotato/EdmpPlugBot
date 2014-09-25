@@ -440,6 +440,10 @@ var commands = [
         log("Yes he does", log.visible);
     }, null, null, false),
 
+    new Command("serum", function() {
+        log("The only synth you'll ever need", log.visible);
+    }, null, null, false),
+
     new Command("shrek", function(author) {
         log("But @" + author + ", Shrek is LOVE...", log.visible);
     }, null, null, false)
