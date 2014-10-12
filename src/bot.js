@@ -168,12 +168,12 @@ function getUsername(userID) {
     var users = API.getUsers();
 
     for(var i = 0; i < users.length; i++) {
-        if(users[i].id == userID.trim()) {
+        if(users[i].id == userID) {
             return users[i].username;
         }
     }
 
-    return null;
+    return false;
 }
 
 
