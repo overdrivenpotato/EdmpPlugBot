@@ -196,10 +196,18 @@ function blackJack(author, args) {// ever been to a casino? good, then I won't e
     }
 
     if(args[1] == "on") {
+        if (getPermLevel(author) < API.ROLE.MANAGER) {
+            return false;
+        }
+
         blackJackEnabled = true;
         log("Blackjack is now active! Type !blackjack insertnumberofslotstogamblehere to play!", log.visible);
         return;
     } else if(args[1] == "off") {
+        if (getPermLevel(author) < API.ROLE.MANAGER) {
+            return false;
+        }
+
         blackJackEnabled = false;
         log("Blackjack is now closed, try again later.", log.visible);
         deleteBlackJackGame(author, true);
