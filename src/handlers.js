@@ -9,6 +9,7 @@ function onChat(data) {
 
         if(dispatch(data.message, data.from) && data.message.substr(0, 6) != "!8ball") {
             API.moderateDeleteChat(data.chatID);
+            log('delete msgid:' + data.chatID + '; data:' + data, log.info);
         }
     }
     lotteryUpdate();

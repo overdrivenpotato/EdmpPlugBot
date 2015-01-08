@@ -2,6 +2,7 @@
 // add !War game to swap slots with the challenger
 // auto-woot broken?
 // managers+ get 2x time max AFK detection
+// !messages aren't deleted anymore?
 
 log("Loading bot...");
 
