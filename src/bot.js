@@ -277,6 +277,7 @@ function analyzeSongHistory() {
         try {
             getSourceLength(history[i].media, function(seconds){
                 var Sseconds = (isNaN(parseFloat(seconds))) ? (defaultSongLength * 60) : parseFloat(seconds);// failsafe
+                Sseconds = (Sseconds > (60 * 10)) ? (60 * 10) : Sseconds;// 10 minute max length to not throw off !eta
                 totalSongs++;
 
                 totalSongTime += Sseconds;
