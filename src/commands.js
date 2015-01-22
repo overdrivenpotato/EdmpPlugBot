@@ -440,6 +440,10 @@ var commands = [
         log("Massive normal race", log.visible);
     }, null, null, false),
 
+    new Command("mixcraft", function() {
+        log("Only radio stations use Mixcraft", log.visible);
+    }, null, null, false),
+
     new Command("fm8", function() {
         log("FM8 MASTER race", log.visible);
     }, null, null, false),
