@@ -412,6 +412,18 @@ var commands = [
         log("reaper what? reaper who?", log.visible);
     }, null, null, false),
 
+    new Command("dubturbo", function() {
+        log("I make \"dupstep\" too bro!", log.visible);
+    }, null, null, false),
+
+    new Command("acid", function() {
+        log("Sony, lol, yeah right", log.visible);
+    }, null, null, false),
+
+    new Command("sonar", function() {
+        log("Submarines have better sonar capabilities", log.visible);
+    }, null, null, false),
+
     new Command("studioone,studione", function() {
         log("dream on studio one", log.visible);
     }, null, null, false),
@@ -430,6 +442,10 @@ var commands = [
 
     new Command("fm8", function() {
         log("FM8 MASTER race", log.visible);
+    }, null, null, false),
+
+    new Command("serum", function() {
+        log("Serum MASTER race", log.visible);
     }, null, null, false),
 
     new Command("trap", function() {
