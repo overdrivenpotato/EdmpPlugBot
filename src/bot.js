@@ -297,8 +297,8 @@ function checkChatSpam(data) {
     var lastChat = getLastChat(getId(data.username));
 
     if(data.message == trackAFKs[lastChat[3]] && ((Date.now() - lastChat[0]) <= 5000) && getPermLevel(data.from) < API.ROLE.BOUNCER || data.fromID == botID) {// repeated messages in 5 or less seconds from a pleb = spam!
+        log("checkChatSpam.data:"+data,log.info);
         API.moderateDeleteChat(data.chatID);
-        log("checkChatSpam.data:"+date,log.info);
     }
 }
 
