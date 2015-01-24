@@ -303,7 +303,10 @@ function checkChatSpam(data) {
 
 
 function rollTheDice(author) {
-    if((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
+    if(!RollTheDiceEnabled) {
+        log("Roll the dice is disabled, contact someone in !admins to enable it", log.visible);
+        return;
+    } else if((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
         log("Wait a few songs @" + author + ", or get help with !addiction", log.visible);
         return;
     } else if(getPosition(author) == 0) {
