@@ -269,8 +269,16 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("rollthedice", function(author) {
-        rollTheDice(author);
+    new Command("rollthedice", function(author, args) {
+        if(args.length == 1) {
+            rollTheDice(author);
+        } else if(args[1] == "on") {
+            RollTheDiceEnabled = true;
+            log(author + " has enabled !rollthedice", log.visible);
+        }else if(args[1] == "off") {
+            RollTheDiceEnabled = false;
+            log(author + " has disabled !rollthedice", log.visible);
+        }
     }),
 
 

@@ -10,6 +10,7 @@ var curdate                 = new Date();
 
 var lotteryEnabled          = (typeof lotteryEnabled === "undefined")        ? true  : false;
 var blackJackEnabled        = (typeof blackJackEnabled === "undefined")      ? false : true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
+var RollTheDiceEnabled      = (typeof RollTheDiceEnabled === "undefined")    ? false : true;
 var ReminderEnabled         = (typeof ReminderEnabled === "undefined")       ? false : true;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")      ? true  : checkSPAMEnabled;
