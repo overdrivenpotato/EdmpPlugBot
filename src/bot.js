@@ -16,7 +16,7 @@ var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")      ? t
 var SpecialGreetingEnabled  = false;
 var SpecialEventLockdown    = false;
 
-var version                 = "1.2.3.yeaeah!";
+var version                 = "1.3ish!";
 var meetupUrl               = (typeof meetupUrl=== "undefined")         ? ""    : meetupUrl;
 var SpecialGreeting         = "The next official meetup will be Saturday, Aug 16th at 3:03PM EST AFTER the new plug.dj update. We'll have something special in store for you!";
 
@@ -52,7 +52,8 @@ var checkAFKThirdStrike     = (typeof checkAFKThirdStrike === "undefined")      
 var lastJoined              = "";// userID of last joined user
 var lastSkipped             = "";// userID of last private track auto-skipped user
 var lastLotto               = "";// msgID of the last chatted lotto entry
-var lastBlackJack           = "";// msgID of the last chatted lotto entry
+var lastBlackJack           = "";// msgID of the last blackjack player
+var lastDiceRoller          = "";// msgID of the last person to roll the dice
 var scClientId              = "ff550ffd042d54afc90a43b7151130a1";// API credentials
 var botID                   = "3941089";
 
@@ -305,7 +306,10 @@ function rollTheDice(author) {
         log("Wait a few songs @" + author + ", or get help with !addiction", log.visible);
         return;
     } else if(getPosition(author) == 0) {
-       log("@" + author + ", you're already the next DJ, get help with !addiction", log.visible);
+        log("@" + author + ", you're already the next DJ, get help with !addiction", log.visible);
+        return;
+    } else if(getId(author) == lastDiceRoller) {
+        log("@" + author + ", let somebody else roll the dice, get help with !addiction", log.visible);
         return;
     } else if(getPosition(author) == -1) {
         return;
