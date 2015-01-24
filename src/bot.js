@@ -52,7 +52,7 @@ var checkAFKThirdStrike     = (typeof checkAFKThirdStrike === "undefined")      
 
 var lastJoined              = "";// userID of last joined user
 var lastSkipped             = "";// userID of last private track auto-skipped user
-var lastLotto               = "";// msgID of the last chatted lotto entry
+var LastLotto               = "";// msgID of the last chatted lotto entry
 var lastBlackJack           = "";// msgID of the last blackjack player
 var lastDiceRoller          = "";// msgID of the last person to roll the dice
 var scClientId              = "ff550ffd042d54afc90a43b7151130a1";// API credentials
@@ -296,8 +296,8 @@ function analyzeSongHistory() {
 function checkChatSpam(data) {
     var lastChat = getLastChat(getId(data.username));
 
-    if(data.message == trackAFKs[lastChat[3]] && ((Date.now() - lastChat[0]) <= 5000) && getPermLevel(data.from) < API.ROLE.BOUNCER || data.fromID == botID) {// repeated messages in 5 or less seconds from a pleb = spam!
-        API.moderateDeleteChat(data.cid);
+    if(data.message == trackAFKs[lastChat[3]] && ((Date.now() - lastChat[0]) <= 5000) && getPermLevel(data.from) < API.ROLE.BOUNCER || data.fromID == botID) {
+        API.moderateDeleteChat(data.cid);// repeated messages in 5 or less seconds from a pleb = spam!
     }
 }
 
