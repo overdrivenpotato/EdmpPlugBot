@@ -313,13 +313,12 @@ function rollTheDice(author) {
         return;
     } else if(getPosition(author) == -1) {
         return;
-    } else {
-        lastDiceRoller = getId(author);
     }
 
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
+    lastDiceRoller = getId(author);
 
     if (dicetotal == 7 || x == y || getId(author) == 3717069) {
         if ((getPosition(author) + 1 - 3) > 1) {
