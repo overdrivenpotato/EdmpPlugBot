@@ -474,5 +474,9 @@ var commands = [
 
     new Command("shrek", function(author) {
         log("But @" + author + ", Shrek is LOVE...", log.visible);
+    }, null, null, false),
+
+    new Command("girls", function() {
+        log("Why can't girls produce? Because they don't use Reason or Logic", log.visible);
     }, null, null, false)
 ];

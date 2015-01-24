@@ -8,8 +8,8 @@ function onChat(data) {
         }
 
         if(dispatch(data.message, data.from) == true && data.message.substr(0, 6) != "!8ball") {
-            API.moderateDeleteChat(data.chatID);
-            log('delete msgid:' + data.chatID + '; data:' + data, log.info);
+            API.moderateDeleteChat(data.cid);
+            log('delete msgid:' + data.cid + '; data:' + data, log.info);
         }
     }
     lotteryUpdate();
@@ -19,8 +19,8 @@ function onChat(data) {
         updateAFKs(data);
 
         if(data.fromID == botID) {
-            checkLottoOutput(data.chatID, data.message);// far more like to find a lotto msg than a bj msg
-            checkBlackJackOutput(data.chatID, data.message);
+            checkLottoOutput(data.cid, data.message);// far more like to find a lotto msg than a bj msg
+            checkBlackJackOutput(data.cid, data.message);
         }
     }
 }
