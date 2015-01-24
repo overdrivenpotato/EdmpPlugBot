@@ -313,6 +313,8 @@ function rollTheDice(author) {
         return;
     } else if(getPosition(author) == -1) {
         return;
+    } else {
+        lastDiceRoller = getId(author);
     }
 
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
