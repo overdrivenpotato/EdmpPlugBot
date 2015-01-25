@@ -70,7 +70,7 @@ function checkLottoOutput(cid, message) {
         }
 
         LastLotto = cid;
-
+log("test cid:"+cid+";message:"+message, log.info);
         return true;
     }
 }

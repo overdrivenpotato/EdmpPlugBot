@@ -17,7 +17,7 @@ function onChat(data) {
     if(data.type == "message" || data.type == "emote") {
         checkAFKResponse(data.from);
         updateAFKs(data);
-
+log("TETET: "+data, log.info);
         if(data.fromID == botID) {
             checkLottoOutput(data.cid, data.message);// far more like to find a lotto msg than a bj msg
             checkBlackJackOutput(data.cid, data.message);
