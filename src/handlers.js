@@ -1,5 +1,5 @@
 function onChat(data) {
-log("TETET: " + data.cid, log.info);
+log("TETET: " + data.cid+"type:"+data.type, log.info);
     data['username']= data['un'];// plug update fix
     data['from']    = data['un'];// plug update fix
 
@@ -16,6 +16,7 @@ log("TETET: " + data.cid, log.info);
     lotteryUpdate();
 
     if(data.type == "message" || data.type == "emote") {
+log('doing it', log.info);
         checkAFKResponse(data.from);
         updateAFKs(data);
 
