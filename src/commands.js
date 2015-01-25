@@ -279,8 +279,16 @@ var commands = [
     }, API.ROLE.MANAGER),
 
 
-    new Command("rollthedice", function(author) {
-        rollTheDice(author);
+    new Command("rollthedice", function(author, args) {
+        if(args.length == 1) {
+            rollTheDice(author);
+        } else if(args[1] == "on") {
+            RollTheDiceEnabled = true;
+            log(author + " has enabled !rollthedice", log.visible);
+        }else if(args[1] == "off") {
+            RollTheDiceEnabled = false;
+            log(author + " has disabled !rollthedice", log.visible);
+        }
     }),
 
 
@@ -476,5 +484,9 @@ var commands = [
 
     new Command("shrek", function(author) {
         log("But @" + author + ", Shrek is LOVE...", log.visible);
+    }, null, null, false),
+
+    new Command("girls", function() {
+        log("Why can't girls produce? Because they don't use Reason or Logic", log.visible);
     }, null, null, false)
 ];

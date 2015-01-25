@@ -61,16 +61,16 @@ function lotteryUpdate() {
 }
 
 
-function checkLottoOutput(chatID, message) {
+function checkLottoOutput(cid, message) {
     if(message.search("has entered the lottery") == "-1") {
         return false;// Do this first cause there's a higher chance of the chatted msg being irrelevant to lotto
-    } else {
-        if(lastLotto != "") {
-            API.moderateDeleteChat(lastLotto);
+    } else {// lotto entry detected
+        if(LastLotto != "") {
+            API.moderateDeleteChat(LastLotto);
         }
 
-        lastLotto = chatID;
-
+        LastLotto = cid;
+log("test cid:"+cid+";message:"+message, log.info);
         return true;
     }
 }

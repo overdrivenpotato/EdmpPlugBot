@@ -10,13 +10,14 @@ var curdate                 = new Date();
 
 var lotteryEnabled          = (typeof lotteryEnabled === "undefined")        ? true  : false;
 var blackJackEnabled        = (typeof blackJackEnabled === "undefined")      ? false : true;//(curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
+var RollTheDiceEnabled      = (typeof RollTheDiceEnabled === "undefined")    ? false : true;
 var ReminderEnabled         = (typeof ReminderEnabled === "undefined")       ? false : true;//(curdate.getDay() == 3 || curdate.getDay() == 6);// disable reminder on non-meet days to prevent spam
 var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);// disable by default on meet-up days
 var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")      ? true  : checkSPAMEnabled;
 var SpecialGreetingEnabled  = false;
 var SpecialEventLockdown    = false;
 
-var version                 = "1.2.3.yeaeah!";
+var version                 = "1.3ish!";
 var meetupUrl               = (typeof meetupUrl=== "undefined")         ? ""    : meetupUrl;
 var SpecialGreeting         = "The next official meetup will be Saturday, Aug 16th at 3:03PM EST AFTER the new plug.dj update. We'll have something special in store for you!";
 
@@ -51,8 +52,9 @@ var checkAFKThirdStrike     = (typeof checkAFKThirdStrike === "undefined")      
 
 var lastJoined              = "";// userID of last joined user
 var lastSkipped             = "";// userID of last private track auto-skipped user
-var lastLotto               = "";// msgID of the last chatted lotto entry
-var lastBlackJack           = "";// msgID of the last chatted lotto entry
+var LastLotto               = "";// msgID of the last chatted lotto entry
+var lastBlackJack           = "";// msgID of the last blackjack player
+var lastDiceRoller          = "";// msgID of the last person to roll the dice
 var scClientId              = "ff550ffd042d54afc90a43b7151130a1";// API credentials
 var botID                   = "3941089";
 
@@ -294,18 +296,24 @@ function analyzeSongHistory() {
 function checkChatSpam(data) {
     var lastChat = getLastChat(getId(data.username));
 
-    if(data.message == trackAFKs[lastChat[3]] && ((Date.now() - lastChat[0]) <= 5000) && getPermLevel(data.from) < API.ROLE.BOUNCER || data.fromID == botID) {// repeated messages in 5 or less seconds from a pleb = spam!
-        API.moderateDeleteChat(data.chatID);
+    if(data.message == trackAFKs[lastChat[3]] && ((Date.now() - lastChat[0]) <= 5000) && getPermLevel(data.from) < API.ROLE.BOUNCER || data.fromID == botID) {
+        API.moderateDeleteChat(data.cid);// repeated messages in 5 or less seconds from a pleb = spam!
     }
 }
 
 
 function rollTheDice(author) {
-    if((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
+    if(!RollTheDiceEnabled) {
+        log("Roll the dice is disabled, contact someone in !admins to enable it", log.visible);
+        return;
+    } else if((API.getWaitList().length - (getPosition(author) + 1)) < 3 ) {// Must not be [3rd last - last]
         log("Wait a few songs @" + author + ", or get help with !addiction", log.visible);
         return;
     } else if(getPosition(author) == 0) {
-       log("@" + author + ", you're already the next DJ, get help with !addiction", log.visible);
+        log("@" + author + ", you're already the next DJ, get help with !addiction", log.visible);
+        return;
+    } else if(getId(author) == lastDiceRoller) {
+        log("@" + author + ", let somebody else roll the dice, get help with !addiction", log.visible);
         return;
     } else if(getPosition(author) == -1) {
         return;
@@ -314,6 +322,8 @@ function rollTheDice(author) {
     var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
     var dicetotal = x + y;
+    lastDiceRoller = getId(author);
+    log("author:"+author+";lastDiceRoller:"+lastDiceRoller+";getId(author):"+getId(author), log.info);
 
     if (dicetotal == 7 || x == y || getId(author) == 3717069) {
         if ((getPosition(author) + 1 - 3) > 1) {

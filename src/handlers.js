@@ -1,28 +1,30 @@
 function onChat(data) {
+//log("TETET: " + data.cid+"type:"+data.type, log.info);
     data['username']= data['un'];// plug update fix
     data['from']    = data['un'];// plug update fix
 
-    if(data.type == "message") {
+//    if(data.type == "message") {
         if(data.fromID != botID) {
             checkChatSpam(data);
         }
 
         if(dispatch(data.message, data.from) == true && data.message.substr(0, 6) != "!8ball") {
-            API.moderateDeleteChat(data.chatID);
-            log('delete msgid:' + data.chatID + '; data:' + data, log.info);
+            API.moderateDeleteChat(data.cid);
+            log('delete msgid:' + data.cid, log.info);
         }
-    }
+//    }
     lotteryUpdate();
 
-    if(data.type == "message" || data.type == "emote") {
+//    if(data.type == "message" || data.type == "emote") {
+//log('doing it', log.info);
         checkAFKResponse(data.from);
         updateAFKs(data);
 
         if(data.fromID == botID) {
-            checkLottoOutput(data.chatID, data.message);// far more like to find a lotto msg than a bj msg
-            checkBlackJackOutput(data.chatID, data.message);
+            checkLottoOutput(data.cid, data.message);// far more like to find a lotto msg than a bj msg
+            checkBlackJackOutput(data.cid, data.message);
         }
-    }
+//    }
 }
 
 
