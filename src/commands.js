@@ -230,7 +230,8 @@ var commands = [
             return;
         }
 log(";name: "+getId(args[1].substr(1))+"; id:"+getId(args[1].substr(1)) + "args: "+args, log.info);
-//        API.API.moderateRemoveDJ(getId(args[1].substr(1)));
+        uid = getId(args[1].substr(1);
+        API.API.moderateRemoveDJ(uid);
     }, API.ROLE.BOUNCER),
 
 
