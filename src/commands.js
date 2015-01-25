@@ -224,6 +224,16 @@ var commands = [
     }, API.ROLE.BOUNCER),
 
 
+    new Command("smite", function(author, args) {
+        if(args.length < 2 || args[1].indexOf("@") == -1) {
+            log("@" + author + " please use in the form of: !smite @" + author);
+            return;
+        }
+
+        API.API.moderateRemoveDJ(getId(args[1].substr(1)));
+    }, API.ROLE.BOUNCER),
+
+
     new Command("checkafks", function(author, args) {
         if(args.length < 2) {
             log("@" + author + " please use in the form of: !checkafks on (or) !checkafks off (or) !checkafks 45");
