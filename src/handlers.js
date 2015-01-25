@@ -1,5 +1,5 @@
 function onChat(data) {
-log("TETET: " + data.toString(), log.info);
+log("TETET: " + data.cid, log.info);
     data['username']= data['un'];// plug update fix
     data['from']    = data['un'];// plug update fix
 
