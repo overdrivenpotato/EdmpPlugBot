@@ -231,7 +231,7 @@ var commands = [
         }
 log(";name: "+getId(args[1].substr(1))+"; id:"+getId(args[1].substr(1)) + "args: "+args, log.info);
         uid = getId(args[1].substr(1));
-        API.API.moderateRemoveDJ(uid);
+        API.moderateRemoveDJ(uid);
     }, API.ROLE.BOUNCER),
 
 
