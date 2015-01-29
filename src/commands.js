@@ -229,7 +229,7 @@ var commands = [
             log("@" + author + " please use in the form of: !smite @" + author);
             return;
         }
-log(";name: "+getId(args[1].substr(1))+"; id:"+getId(args[1].substr(1)) + "args: "+args, log.info);
+log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args, log.info);
         uid = getId(args[1].substr(1));
         API.moderateRemoveDJ(uid);
     }, API.ROLE.BOUNCER),
