@@ -317,7 +317,7 @@ log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args,
         }
     }),
 
-    new Command("bump,dance,woot,w00t,bearstyle", function() {
+    new Command("dance", function(author) {
         $('#woot').click();
         log(woots[Math.round(Math.random() * (DJmsgs.length - 1))], log.visible);
     }),
