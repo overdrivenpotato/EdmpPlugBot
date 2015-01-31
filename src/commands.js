@@ -317,6 +317,11 @@ log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args,
         }
     }),
 
+    new Command("bump,dance,woot,w00t,bearstyle", function() {
+        $('#woot').click();
+        log(woots[Math.round(Math.random() * (DJmsgs.length - 1))], log.visible);
+    }),
+
 
     new Command("8ball", function(author, args) {
         eightball(author, args);

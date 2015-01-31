@@ -26,6 +26,7 @@ var blackJackUsers          = [];// format: array[0=>userID, 1=> wager, 2=>user'
 var upvotes                 = ["upchode", "upgrope", "upspoke", "uptoke", "upbloke", "upboat", "upgoat", "uphope", "uppope"];
 var afkNames                = ["Discipliner", "Decimator", "Slayer", "Obliterator", "Enforcer"];
 var afkInsults              = ["wanker", "turtle", "knob", "toilet brush", "cheeky kunt", "hipster", "limp noodle", "princess", "fuckmuppet", "turd burgler", "doggyknobber", "fuckbin"];
+var woots                   = ["Was just about to get on the dancefloor!", "Let's dance alllll night long", "fuck yeah this is the shit!", "I thought you'd never ask ;)"];
 var blackJackPlayer         = [Date.now(), ""];// format: array[timestamp, userid];
 var blackJackPlayers        = [];
 
