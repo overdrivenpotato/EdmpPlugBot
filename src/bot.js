@@ -17,7 +17,7 @@ var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")      ? t
 var SpecialGreetingEnabled  = false;
 var SpecialEventLockdown    = false;
 
-var version                 = "1.3ish!";
+var version                 = "1.4ish!";
 var meetupUrl               = (typeof meetupUrl=== "undefined")         ? ""    : meetupUrl;
 var SpecialGreeting         = "The next official meetup will be Saturday, Aug 16th at 3:03PM EST AFTER the new plug.dj update. We'll have something special in store for you!";
 
