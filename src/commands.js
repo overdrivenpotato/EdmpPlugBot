@@ -317,9 +317,9 @@ log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args,
         }
     }),
 
-    new Command("dance,woot,rawr", function(author) {
+    new Command("dance,woot,rawr", function(author) {// make the bot dance
         $('#woot').click();
-        log(woots[Math.round(Math.random() * (DJmsgs.length - 1))], log.visible);
+        log(woots[Math.round(Math.random() * (woots.length - 1))], log.visible);
     }),
 
 
