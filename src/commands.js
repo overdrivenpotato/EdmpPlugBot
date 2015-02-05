@@ -328,6 +328,10 @@ log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args,
     }),
 
 
+    new Command("coast", function() {
+        log("Check out Panda Coast's EP: http://bandcamp.sectionz.com/album/leisure", log.visible);
+    }, null, null, false),
+
     new Command("smoke", function() {
         log("SMOKE WEED ERRYDAY", log.visible);
     }, null, null, false),
