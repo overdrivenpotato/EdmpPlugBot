@@ -318,15 +318,19 @@ log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args,
     }),
 
     new Command("dance,woot,rawr", function(author, args) {// make the bot dance
-        if(args[0] == "rawr") {
+        if (wooted) {
+            log("[!" + args[0] + "] I can't dance any harder!", log.visible);
+            return false;
+        } else if(args[0] == "rawr") {
             if (author.getId(author) != 3717069) {
                 log("[!rawr] Careful @" + author + ", you might get mauled using that...", log.visible);
                 return false;
             }
         }
 
+        wooted = true;
         $('#woot').click();
-        log(woots[Math.round("[!" + args[0] + "] " + Math.random() * (woots.length - 1))], log.visible);
+        log("[!" + args[0] + "] " + woots[Math.round(Math.random() * (woots.length - 1))], log.visible);
     }),
 
 

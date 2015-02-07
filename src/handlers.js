@@ -30,6 +30,7 @@ function onChat(data) {
 
 function onDJAdvance(obj) {// Check to see if the user is repeatedly playing the same song
     lastPrivateSkip = Date.now();
+    wooted = false;
     var songshistory = API.getHistory(); // get dj history
     var songs = [];// reset the array, don't need long-term history
 

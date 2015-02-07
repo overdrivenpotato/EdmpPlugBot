@@ -16,6 +16,7 @@ var GreetingEnabled         = (curdate.getDay() != 3 && curdate.getDay() != 6);/
 var checkSPAMEnabled        = (typeof checkSPAMEnabled === "undefined")      ? true  : checkSPAMEnabled;
 var SpecialGreetingEnabled  = false;
 var SpecialEventLockdown    = false;
+var wooted                  = false;
 
 var version                 = "1.4ish!";
 var meetupUrl               = (typeof meetupUrl=== "undefined")         ? ""    : meetupUrl;
