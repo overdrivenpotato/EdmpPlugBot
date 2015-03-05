@@ -516,6 +516,6 @@ log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args,
     }, null, null, false),
 
     new Command("mocktail", function() {
-        log("Hey guys, check out http://mocktail.ink for a quality design firm for electronic musicians!", log.visible);
+        log("[!mocktail] Hey guys, check out http://mocktail.ink for a quality design firm for electronic musicians!", log.visible);
     }, null, null, false)
 ];
