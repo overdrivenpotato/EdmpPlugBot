@@ -513,5 +513,9 @@ log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args,
 
     new Command("girls", function() {
         log("Why can't girls produce? Because they don't use Reason or Logic", log.visible);
+    }, null, null, false),
+
+    new Command("mocktail", function() {
+        log("Hey guys, check out http://mocktail.ink for a quality design firm for electronic musicians!", log.visible);
     }, null, null, false)
 ];
