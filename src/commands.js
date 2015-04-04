@@ -520,6 +520,6 @@ log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args,
     }, null, null, false),
 
     new Command("hot107", function() {
-        log("[!mocktail] Hey guys, help Invincibear win a $10 000 grant! http://invincibear.com/hot107_hot_factor/", log.visible);
+        log("Hey guys, help Invincibear win a $10 000 grant! http://invincibear.com/hot107_hot_factor/", log.visible);
     }, null, null, false)
 ];
