@@ -517,5 +517,9 @@ log("name: "+args[1].substr(1)+"; id:"+getId(args[1].substr(1)) + "args: "+args,
 
     new Command("mocktail", function() {
         log("[!mocktail] Hey guys, check out http://mocktail.ink for a quality design firm for electronic musicians!", log.visible);
+    }, null, null, false),
+
+    new Command("hot107", function() {
+        log("[!mocktail] Hey guys, help Invincibear win a $10 000 grant! http://invincibear.com/hot107_hot_factor/", log.visible);
     }, null, null, false)
 ];
