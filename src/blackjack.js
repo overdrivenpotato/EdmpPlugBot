@@ -385,7 +385,7 @@ function checkBlackJackOutput(chatID, message) {
     } else {
         if(lastBlackJack != "") {
 log("!!!!!!!!!!!!!!!!!!! API.moderateDeleteChat(lastBlackJack); API.moderateDeleteChat(" + lastBlackJack + ");", log.info);
-            API.moderateDeleteChat(lastBlackJack);
+//            API.moderateDeleteChat(lastBlackJack);
         }
 
         lastBlackJack = chatID;
